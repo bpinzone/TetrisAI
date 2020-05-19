@@ -1,6 +1,7 @@
 .DS_STORE
 /**/*.vs
 /**/*.vscode
+ExternalBuildSystem.xcodeproj/
 
 
 # C++
