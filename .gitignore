@@ -1,7 +1,7 @@
 .DS_STORE
 /**/*.vs
 /**/*.vscode
-ExternalBuildSystem.xcodeproj/
+TetrisAI.xcodeproj/
 
 # C++
 # Prerequisites
