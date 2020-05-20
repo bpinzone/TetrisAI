@@ -29,11 +29,12 @@ void test();
 
 Block generate_block();
 optional<Decision> get_best_decision(
-        const State& state, Block presented,
-        deque<Block>::const_iterator next_block_it,
-        const deque<Block>::const_iterator end_block_it,
+        const State& state,
+        const Block& presented,
+        const deque<Block>::const_iterator& next_block_it,
+        const deque<Block>::const_iterator& end_block_it,
         bool just_swapped,
-        int num_holes);
+        int old_num_holes);
 
 int main() {
 
@@ -123,9 +124,9 @@ void pick_better_decision(
 // empty optional -> we will not recurse anymore. Compute utilty of the state argument you passed me yourself.
 optional<Decision> get_best_decision(
         const State& state,
-        Block presented,
-        deque<Block>::const_iterator next_block_it,
-        const deque<Block>::const_iterator end_block_it,
+        const Block& presented,
+        const deque<Block>::const_iterator& next_block_it,
+        const deque<Block>::const_iterator& end_block_it,
         bool just_swapped,
         int old_num_holes){
 

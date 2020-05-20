@@ -54,13 +54,13 @@ public:
 
     using Board_t = std::bitset<c_size>;
 
-    bool place_block(Block b, Placement p);
+    bool place_block(const Block& b, Placement p);
     int get_num_holes() const;
 
-    std::optional<Block> hold(Block b);
+    std::optional<Block> hold(const Block& b);
     std::optional<Block> get_hold() const;
 
-    Placements_t get_placements(Block b) const;
+    Placements_t get_placements(const Block& b) const;
 
     double get_utility() const;
 
@@ -75,11 +75,11 @@ private:
 
     void clear_row(int row);
     bool is_row_full(int row) const;
-    bool contour_matches(Block b, Placement p) const;
+    bool contour_matches(const Block& b, Placement p) const;
 
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.
-    int get_row_after_drop(Block b, Placement p) const;
+    int get_row_after_drop(const Block& b, Placement p) const;
 
     // Fundamental
     Board_t board;

@@ -128,7 +128,7 @@ const Block Block::Purple {"Purple", {
 
 // Requires: This is a valid placement (nothing will go out of bounds)
 // May or may not create holes.
-bool State::place_block(Block b, Placement p){
+bool State::place_block(const Block& b, Placement p){
 
     const CH_maps& ch_map = b.maps[p.rotation];
     const int contour_size = ch_map.contour.size();
@@ -173,7 +173,7 @@ int State::get_num_holes() const {
     return static_cast<int>(perfect_board_cell_count - board.count());
 }
 
-optional<Block> State::hold(Block b){
+optional<Block> State::hold(const Block& b){
     optional<Block> old_hold = current_hold;
     current_hold = b;
     return old_hold;
@@ -183,7 +183,7 @@ optional<Block> State::get_hold() const {
     return current_hold;
 }
 
-State::Placements_t State::get_placements(Block b) const {
+State::Placements_t State::get_placements(const Block& b) const {
 
     Placements_t placements;
     for(int rot_x = 0; rot_x < b.maps.size(); ++rot_x){
@@ -324,7 +324,7 @@ bool State::is_row_full(int row) const {
     return masked_board == row_mask;
 }
 
-bool State::contour_matches(Block b, Placement p) const {
+bool State::contour_matches(const Block& b, Placement p) const {
 
     const int leftmost_abs_col = p.column;
     const int height_of_first_col = height_map[leftmost_abs_col];
@@ -340,7 +340,7 @@ bool State::contour_matches(Block b, Placement p) const {
     return true;
 }
 
-int State::get_row_after_drop(Block b, Placement p) const {
+int State::get_row_after_drop(const Block& b, Placement p) const {
 
     int num_cols_to_inspect =
         b.maps[p.rotation].contour.size();
