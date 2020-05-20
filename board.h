@@ -84,7 +84,7 @@ private:
     std::optional<Block> current_hold;
 
     // Cache
-    int16_t height_map[c_cols];
+    std::vector<int16_t> height_map = std::vector<int16_t>(c_cols, 0);
 };
 
 #endif

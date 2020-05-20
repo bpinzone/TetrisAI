@@ -36,7 +36,7 @@ int main() {
     // while(true){
         Decision next_decision = *get_best_decision(
             state, next_to_present,
-            queue.begin(), queue.begin() + 3, false
+            queue.begin(), queue.begin() + 4, false
         );
 
         State new_state{state};
@@ -54,7 +54,7 @@ int main() {
         }
         // PLACE
         else{
-            state.place_block(next_to_present, *next_decision.placement);
+            new_state.place_block(next_to_present, *next_decision.placement);
             next_to_present = queue.front();
             queue.pop_front();
             queue.push_back(generate_block());

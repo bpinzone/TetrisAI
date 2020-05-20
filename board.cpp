@@ -197,6 +197,11 @@ void State::remove_row(int deleted_row) {
     board =
         (board & below_del_row_mask) |
         (board_shifted_down & above_including_del_row_mask);
+
+    transform(begin(height_map), end(height_map), begin(height_map),
+        [](auto height){
+            return height - 1;
+    });
 }
 
 bool State::is_row_full(int row) const {
