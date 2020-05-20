@@ -12,12 +12,6 @@ struct Placement {
     int column;
 };
 
-struct Placements {
-    // std::vector<Placement> non_hole;
-    std::vector<Placement> hole;
-};
-
-
 struct CH_maps {
     std::vector<int16_t> contour;
     std::vector<int16_t> height;
@@ -26,6 +20,7 @@ struct CH_maps {
 struct Block {
 
     // [rotation] = maps for that rotation
+    std::string name;
     std::vector<CH_maps> maps;
 
     static const Block Cyan;
@@ -34,6 +29,7 @@ struct Block {
     static const Block Green;
     static const Block Red;
     static const Block Yellow;
+    static const Block Purple;
 
 };
 
@@ -50,30 +46,35 @@ class State {
 
 public:
 
+    using Placements_t = std::vector<Placement>;
+
     constexpr static size_t c_cols = 10;
     constexpr static size_t c_rows = 20;
     constexpr static size_t c_size = c_cols * c_rows;
 
     using Board_t = std::bitset<c_size>;
 
-    void place_block(Block b, Placement p);
+    bool place_block(Block b, Placement p);
 
     std::optional<Block> hold(Block b);
     std::optional<Block> get_hold() const;
 
-    Placements get_placements(Block b) const;
+    Placements_t get_placements(Block b) const;
 
-    int get_utility() const;
+    double get_utility() const;
 
     Board_t::reference at(size_t row, size_t col);
     bool at(size_t row, size_t col) const;
 
     friend std::ostream& operator<<(std::ostream& os, const State& s);
 
+    void print_diff_against(const State& new_other) const;
+
 private:
 
-    void remove_row(int row);
+    void clear_row(int row);
     bool is_row_full(int row) const;
+    bool contour_matches(Block b, Placement p) const;
 
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.

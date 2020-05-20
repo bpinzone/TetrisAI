@@ -7,16 +7,25 @@
 #include <iterator>
 #include <algorithm>
 #include <utility>
+#include <limits>
 
 #include "board.h"
 
 using namespace std;
 
+using Placements_t = State::Placements_t;
+
 struct Decision {
     // Empty optional -> hold
     optional<Placement> placement;
-    int utility;
+    double utility;
 };
+
+static const int placement_lookahead_depth = 4;
+static const int turns = 100;
+
+void play();
+void test();
 
 Block generate_block();
 optional<Decision> get_best_decision(
@@ -27,16 +36,36 @@ optional<Decision> get_best_decision(
 
 int main() {
 
+    play();
+    // test();
+
+    return 0;
+}
+
+void test(){
+
+    State state;
+    state.place_block(Block::Cyan, {0, 0});
+    state.place_block(Block::Cyan, {0, 0});
+    state.place_block(Block::Cyan, {1, 9});
+    cout << state << endl;
+
+}
+
+void play(){
+
     State state;
     Block next_to_present = generate_block();
     deque<Block> queue;
     generate_n(back_inserter(queue), 6, &generate_block);
 
-    for(int i = 0; i < 15; ++i){
-    // while(true){
+    // for(int i = 0; i < turns; ++i){
+    while(true){
+
+        cout << "Presented with: " << next_to_present.name << endl;
         Decision next_decision = *get_best_decision(
             state, next_to_present,
-            queue.begin(), queue.begin() + 4, false
+            queue.begin(), queue.begin() + placement_lookahead_depth, false
         );
 
         State new_state{state};
@@ -54,23 +83,26 @@ int main() {
         }
         // PLACE
         else{
-            new_state.place_block(next_to_present, *next_decision.placement);
+            bool game_over = !new_state.place_block(next_to_present, *next_decision.placement);
+            if(game_over){
+                cout << "Game over :(" << endl;
+                return;
+            }
             next_to_present = queue.front();
             queue.pop_front();
             queue.push_back(generate_block());
         }
-        cout << state << endl;
-        cout << new_state << endl;
+        state.print_diff_against(new_state);
+        cout << endl;
         swap(state, new_state);
     }
 
-    return 0;
 }
 
 void pick_better_decision(
         optional<Decision>& best_decision, optional<Decision> decision,
         optional<Placement> placement,
-        int new_state_utility){
+        double new_state_utility){
 
     if(!decision){
         decision = {{}, new_state_utility};
@@ -99,19 +131,26 @@ optional<Decision> get_best_decision(
     // Try all the ways to place it.
     // Empty optional -> we haven't considered any decisions yet.
     optional<Decision> best_decision;
-    Placements placements = state.get_placements(presented);
-    for(const auto& placement : placements.hole){
+    Placements_t placements = state.get_placements(presented);
+    for(const auto& placement : placements){
 
         State new_state{state};
-        new_state.place_block(presented, placement);
-
-        optional<Decision> decision = get_best_decision(
-            new_state,
-            *next_block_it,
-            next_block_it + 1,
-            end_block_it,
-            false
-        );
+        bool success = new_state.place_block(presented, placement);
+        optional<Decision> decision;
+        if(success){
+            decision = get_best_decision(
+                new_state,
+                *next_block_it,
+                next_block_it + 1,
+                end_block_it,
+                false
+            );
+        }
+        else{
+            // We cant place this block in this orientation without going too high.
+            // We lose, utility lowest
+            decision = {placement, numeric_limits<double>::lowest()};
+        }
 
         pick_better_decision(best_decision, decision, placement, new_state.get_utility());
     }
@@ -140,14 +179,18 @@ optional<Decision> get_best_decision(
 
 Block generate_block(){
 
-    static const Block block_types[6] = {
+    static const Block block_types[] = {
         Block::Cyan, Block::Blue, Block::Orange,
-        Block::Green, Block::Red, Block::Yellow,
+        Block::Green, Block::Red, Block::Yellow, Block::Purple
     };
 
     // TODO: Give it a seed, or get the same game every time.
     static auto block_idx_generator = bind(
-        uniform_int_distribution<int>{0, 5}, default_random_engine{}
+        uniform_int_distribution<int>{
+            0,
+            (sizeof(block_types) / sizeof(block_types[0])) - 1
+        },
+        default_random_engine{}
     );
     return block_types[block_idx_generator()];
 
