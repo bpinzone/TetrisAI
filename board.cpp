@@ -173,13 +173,13 @@ int State::get_num_holes() const {
     return static_cast<int>(perfect_board_cell_count - board.count());
 }
 
-optional<Block> State::hold(const Block& b){
-    optional<Block> old_hold = current_hold;
-    current_hold = b;
+const Block* State::hold(const Block& b){
+    const Block* old_hold = current_hold;
+    current_hold = &b;
     return old_hold;
 }
 
-optional<Block> State::get_hold() const {
+const Block* State::get_hold() const {
     return current_hold;
 }
 
@@ -227,7 +227,7 @@ double State::get_utility() const {
 
 
     int current_cyan_reward = 0;
-    if(current_hold && current_hold->name == Block::Cyan.name){
+    if(current_hold == &Block::Cyan){
         current_cyan_reward = hold_cyan_reward;
     }
 

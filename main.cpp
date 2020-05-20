@@ -22,21 +22,26 @@ struct Decision {
 };
 
 static const int placement_lookahead_depth = 4;
-static const int placements_to_perform = 15;
+static const int placements_to_perform = 100;
 
 void play();
 void test();
 
-Block generate_block();
+const Block* generate_block();
 optional<Decision> get_best_decision(
         const State& state,
         const Block& presented,
-        const deque<Block>::const_iterator& next_block_it,
-        const deque<Block>::const_iterator& end_block_it,
+        const deque<const Block*>::const_iterator& next_block_it,
+        const deque<const Block*>::const_iterator& end_block_it,
         bool just_swapped,
         int old_num_holes);
 
 int main() {
+
+    // cout << sizeof(State) << endl;
+    // cout << sizeof(State::Board_t) << endl;
+    // cout << sizeof(vector<int16_t>) << endl;
+    // return 0;
 
     play();
     // test();
@@ -57,17 +62,17 @@ void test(){
 void play(){
 
     State state;
-    Block next_to_present = generate_block();
-    deque<Block> queue;
+    const Block* next_to_present = generate_block();
+    deque<const Block*> queue;
     generate_n(back_inserter(queue), 6, &generate_block);
 
     int turn = 0;
     while(turn < placements_to_perform){
     // while(true){
         cout << "Turn: " << turn << endl;
-        cout << "Presented with: " << next_to_present.name << endl;
+        cout << "Presented with: " << next_to_present->name << endl;
         Decision next_decision = *get_best_decision(
-            state, next_to_present,
+            state, *next_to_present,
             queue.begin(), queue.begin() + placement_lookahead_depth, false,
             state.get_num_holes()
         );
@@ -75,19 +80,19 @@ void play(){
         State new_state{state};
         // HOLD
         if(!next_decision.placement){
-            optional<Block> old_hold = new_state.hold(next_to_present);
+            const Block* old_hold = new_state.hold(*next_to_present);
             if(!old_hold){
                 next_to_present = queue.front();
                 queue.pop_front();
                 queue.push_back(generate_block());
             }
             else{
-                next_to_present = *old_hold;
+                next_to_present = old_hold;
             }
         }
         // PLACE
         else{
-            bool game_over = !new_state.place_block(next_to_present, *next_decision.placement);
+            bool game_over = !new_state.place_block(*next_to_present, *next_decision.placement);
             if(game_over){
                 cout << "Game over :(" << endl;
                 return;
@@ -125,8 +130,8 @@ void pick_better_decision(
 optional<Decision> get_best_decision(
         const State& state,
         const Block& presented,
-        const deque<Block>::const_iterator& next_block_it,
-        const deque<Block>::const_iterator& end_block_it,
+        const deque<const Block*>::const_iterator& next_block_it,
+        const deque<const Block*>::const_iterator& end_block_it,
         bool just_swapped,
         int old_num_holes){
 
@@ -146,7 +151,7 @@ optional<Decision> get_best_decision(
         if(success){
             decision = get_best_decision(
                 new_state,
-                *next_block_it,
+                **next_block_it,
                 next_block_it + 1,
                 end_block_it,
                 false,
@@ -168,12 +173,12 @@ optional<Decision> get_best_decision(
 
     // Try holding
     State hold_state{state};
-    optional<Block> was_held = hold_state.hold(presented);
+    const Block* was_held = hold_state.hold(presented);
 
     optional<Decision> decision;
     decision = get_best_decision(
         hold_state,
-        was_held ? *was_held : *next_block_it,
+        was_held ? *was_held : **next_block_it,
         was_held ? next_block_it: next_block_it + 1,
         end_block_it,
         true,
@@ -185,21 +190,21 @@ optional<Decision> get_best_decision(
     return best_decision;
 }
 
-Block generate_block(){
+const Block* generate_block(){
 
-    static const Block block_types[] = {
-        Block::Cyan, Block::Blue, Block::Orange,
-        Block::Green, Block::Red, Block::Yellow, Block::Purple
+    static const Block* block_ptrs[] = {
+        &Block::Cyan, &Block::Blue, &Block::Orange,
+        &Block::Green, &Block::Red, &Block::Yellow, &Block::Purple
     };
 
     // TODO: Give it a seed, or get the same game every time.
     static auto block_idx_generator = bind(
         uniform_int_distribution<int>{
             0,
-            (sizeof(block_types) / sizeof(block_types[0])) - 1
+            (sizeof(block_ptrs) / sizeof(block_ptrs[0])) - 1
         },
         default_random_engine{}
     );
-    return block_types[block_idx_generator()];
+    return block_ptrs[block_idx_generator()];
 
 }

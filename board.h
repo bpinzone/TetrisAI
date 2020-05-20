@@ -31,6 +31,16 @@ struct Block {
     static const Block Yellow;
     static const Block Purple;
 
+    Block& operator=(const Block& other) = delete;
+    Block& operator=(Block&& other) = delete;
+
+    Block(const Block& other) = delete;
+    Block(Block&& other) = delete;
+
+private:
+    Block(const std::string& _name, const std::vector<CH_maps>& _maps)
+        : name{_name}, maps{_maps} {
+    }
 };
 
 // Cyan is long boi.
@@ -57,8 +67,8 @@ public:
     bool place_block(const Block& b, Placement p);
     int get_num_holes() const;
 
-    std::optional<Block> hold(const Block& b);
-    std::optional<Block> get_hold() const;
+    const Block* hold(const Block& b);
+    const Block* get_hold() const;
 
     Placements_t get_placements(const Block& b) const;
 
@@ -83,7 +93,7 @@ private:
 
     // Fundamental
     Board_t board;
-    std::optional<Block> current_hold;
+    const Block* current_hold;
 
     // Cache
     std::vector<int16_t> height_map = std::vector<int16_t>(c_cols, 0);
