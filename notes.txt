@@ -1,0 +1,3 @@
+1093
+    3 Deep
+    return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;

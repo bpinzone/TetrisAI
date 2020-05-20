@@ -8,7 +8,8 @@
 
 using namespace std;
 
-static const int hold_cyan_reward = 3;
+static const double hold_cyan_reward = 3;
+static const double multi_trench_penalty = 9999;
 
 /*
 Example:
@@ -164,6 +165,14 @@ bool State::place_block(Block b, Placement p){
     return true;
 }
 
+int State::get_num_holes() const {
+
+    const int perfect_board_cell_count = accumulate(
+        cbegin(height_map), cend(height_map), 0);
+
+    return static_cast<int>(perfect_board_cell_count - board.count());
+}
+
 optional<Block> State::hold(Block b){
     optional<Block> old_hold = current_hold;
     current_hold = b;
@@ -176,40 +185,56 @@ optional<Block> State::get_hold() const {
 
 State::Placements_t State::get_placements(Block b) const {
 
-    Placements_t contour_match_placements;
-    Placements_t contour_mismatch_placements;
+    Placements_t placements;
     for(int rot_x = 0; rot_x < b.maps.size(); ++rot_x){
         const int max_valid_col = c_cols - b.maps[rot_x].contour.size();
         for(int col = 0; col <= max_valid_col; ++col){
-
-            Placement p{rot_x, col};
-            if(contour_matches(b, p)){
-                contour_match_placements.push_back(move(p));
-            }
-            else if(contour_match_placements.empty()){
-                contour_mismatch_placements.push_back(move(p));
-            }
+            placements.push_back({rot_x, col});
         }
     }
-    return contour_match_placements.empty() ? contour_mismatch_placements : contour_match_placements;
+    return placements;
 }
 
 double State::get_utility() const {
 
-    const int perfect_board_cell_count = accumulate(
-        cbegin(height_map), cend(height_map), 0
-    );
+    // Holes
+    const int num_holes = get_num_holes();
 
-    const int64_t num_holes = static_cast<int64_t>(
-        perfect_board_cell_count - board.count()
-    );
-    const int16_t board_max_height = *max_element(cbegin(height_map), cend(height_map));
+    // Heights
+    const auto& [min_height_it, max_height_it] =
+        minmax_element(cbegin(height_map), cend(height_map));
+    const int16_t board_max_height = *max_height_it;
+    const int16_t board_min_height = *min_height_it;
+    const int16_t height_difference = board_max_height - board_min_height;
+
+    // Trench count
+    int num_trenches = 0;
+    if(height_map[1] - height_map[0] >= 3){
+        ++num_trenches;
+    }
+    if(height_map[c_cols - 2] - height_map[c_cols - 1] >= 3){
+        ++num_trenches;
+    }
+    for(int col_x = 1; col_x < c_cols - 2; ++col_x){
+        const int middle_height = height_map[col_x];
+        const int left_height = height_map[col_x - 1];
+        const int right_height = height_map[col_x + 1];
+        if(left_height - middle_height >= 3 && right_height -middle_height >= 3){
+            ++num_trenches;
+        }
+    }
+    int current_trench_penalty = num_trenches <= 1 ? 0 : multi_trench_penalty;
+
 
     int current_cyan_reward = 0;
     if(current_hold && current_hold->name == Block::Cyan.name){
         current_cyan_reward = hold_cyan_reward;
     }
 
+    return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
+    return -(100 * num_holes) - (height_difference * height_difference * height_difference) + current_cyan_reward;
+
+    return -(100 * num_holes) - (board_max_height * board_max_height) + current_cyan_reward;
     return -(num_holes + board_max_height) + current_cyan_reward;
 }
 

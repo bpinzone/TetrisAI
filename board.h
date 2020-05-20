@@ -55,6 +55,7 @@ public:
     using Board_t = std::bitset<c_size>;
 
     bool place_block(Block b, Placement p);
+    int get_num_holes() const;
 
     std::optional<Block> hold(Block b);
     std::optional<Block> get_hold() const;

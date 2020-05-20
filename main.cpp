@@ -22,7 +22,7 @@ struct Decision {
 };
 
 static const int placement_lookahead_depth = 4;
-static const int turns = 100;
+static const int placements_to_perform = 15;
 
 void play();
 void test();
@@ -32,7 +32,8 @@ optional<Decision> get_best_decision(
         const State& state, Block presented,
         deque<Block>::const_iterator next_block_it,
         const deque<Block>::const_iterator end_block_it,
-        bool just_swapped);
+        bool just_swapped,
+        int num_holes);
 
 int main() {
 
@@ -59,13 +60,15 @@ void play(){
     deque<Block> queue;
     generate_n(back_inserter(queue), 6, &generate_block);
 
-    // for(int i = 0; i < turns; ++i){
-    while(true){
-
+    int turn = 0;
+    while(turn < placements_to_perform){
+    // while(true){
+        cout << "Turn: " << turn << endl;
         cout << "Presented with: " << next_to_present.name << endl;
         Decision next_decision = *get_best_decision(
             state, next_to_present,
-            queue.begin(), queue.begin() + placement_lookahead_depth, false
+            queue.begin(), queue.begin() + placement_lookahead_depth, false,
+            state.get_num_holes()
         );
 
         State new_state{state};
@@ -95,6 +98,7 @@ void play(){
         state.print_diff_against(new_state);
         cout << endl;
         swap(state, new_state);
+        ++turn;
     }
 
 }
@@ -122,9 +126,10 @@ optional<Decision> get_best_decision(
         Block presented,
         deque<Block>::const_iterator next_block_it,
         const deque<Block>::const_iterator end_block_it,
-        bool just_swapped){
+        bool just_swapped,
+        int old_num_holes){
 
-    if(next_block_it == end_block_it){
+    if(next_block_it == end_block_it || state.get_num_holes() - old_num_holes >= 2){
         return {};
     }
 
@@ -143,7 +148,8 @@ optional<Decision> get_best_decision(
                 *next_block_it,
                 next_block_it + 1,
                 end_block_it,
-                false
+                false,
+                state.get_num_holes()
             );
         }
         else{
@@ -169,7 +175,8 @@ optional<Decision> get_best_decision(
         was_held ? *was_held : *next_block_it,
         was_held ? next_block_it: next_block_it + 1,
         end_block_it,
-        true
+        true,
+        state.get_num_holes()
     );
 
     pick_better_decision(best_decision, decision, {}, hold_state.get_utility());
