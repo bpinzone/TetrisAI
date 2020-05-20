@@ -6,6 +6,7 @@
 #include <utility>
 #include <optional>
 #include <iostream>
+#include <array>
 
 struct Placement {
     int rotation;
@@ -93,10 +94,10 @@ private:
 
     // Fundamental
     Board_t board;
-    const Block* current_hold;
+    const Block* current_hold = nullptr;
 
     // Cache
-    std::vector<int16_t> height_map = std::vector<int16_t>(c_cols, 0);
+    std::array<int16_t, c_cols> height_map = {0};
 };
 
 #endif

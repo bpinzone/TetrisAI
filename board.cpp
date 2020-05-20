@@ -225,17 +225,17 @@ double State::get_utility() const {
     }
     int current_trench_penalty = num_trenches <= 1 ? 0 : multi_trench_penalty;
 
-
     int current_cyan_reward = 0;
     if(current_hold == &Block::Cyan){
         current_cyan_reward = hold_cyan_reward;
     }
 
+    // TODO: consider total height.
     return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
-    return -(100 * num_holes) - (height_difference * height_difference * height_difference) + current_cyan_reward;
+    // return -(100 * num_holes) - (height_difference * height_difference * height_difference) + current_cyan_reward;
 
-    return -(100 * num_holes) - (board_max_height * board_max_height) + current_cyan_reward;
-    return -(num_holes + board_max_height) + current_cyan_reward;
+    // return -(100 * num_holes) - (board_max_height * board_max_height) + current_cyan_reward;
+    // return -(num_holes + board_max_height) + current_cyan_reward;
 }
 
 State::Board_t::reference State::at(size_t row, size_t col){
@@ -314,14 +314,12 @@ void State::clear_row(int deleted_row) {
 
 bool State::is_row_full(int row) const {
 
-    Board_t row_mask;
-    row_mask.set();
-    row_mask <<= (c_rows - 1) * c_cols;
-    row_mask >>= row * c_cols;
-
-    Board_t masked_board = board & row_mask;
-
-    return masked_board == row_mask;
+    for(int col = 0; col < c_cols; ++col){
+        if(!at(row, col)){
+            return false;
+        }
+    }
+    return true;
 }
 
 bool State::contour_matches(const Block& b, Placement p) const {
