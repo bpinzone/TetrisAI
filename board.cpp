@@ -8,9 +8,6 @@
 
 using namespace std;
 
-static const double hold_cyan_reward = 3;
-static const double multi_trench_penalty = 9999;
-
 /*
 Example:
 
@@ -169,6 +166,10 @@ bool State::place_block(const Block& b, Placement p){
         }
     }
 
+    if(num_rows_cleared_on_last_place == 4){
+        ++tetris_count;
+    }
+
     return true;
 }
 
@@ -210,6 +211,20 @@ size_t State::populate_placements(
 
 double State::get_utility() const {
 
+    static const double tetris_mode_reward = 100000;
+    static const int concerning_height = 8;
+
+    // Agnostic: Holes, trenches.
+    static const double penalty_per_hole = 1000000000;
+    static const double multi_trench_penalty = 10000000000000;
+
+    // Survival: Then height.
+
+    // Tetris: Then Getting a tetris, having a single trench.
+    static const double reward_per_tetris = 1000;
+    static const double tetrisable_reward = 100;
+
+    // Computation.
     // Holes
     const int num_holes = get_num_holes();
 
@@ -236,19 +251,39 @@ double State::get_utility() const {
             ++num_trenches;
         }
     }
-    int current_trench_penalty = num_trenches <= 1 ? 0 : multi_trench_penalty;
 
-    int current_cyan_reward = 0;
-    if(current_hold == &Block::Cyan){
-        current_cyan_reward = hold_cyan_reward;
+    double mode_agnostic_utility = -(num_holes * penalty_per_hole);
+    if(num_trenches > 1){
+        mode_agnostic_utility -= multi_trench_penalty;
     }
 
-    // TODO: consider total height.
-    return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
-    // return -(100 * num_holes) - (height_difference * height_difference * height_difference) + current_cyan_reward;
+    if(board_max_height > concerning_height){
+        // Survival mode
+        // TODO: Could be improve at very end game.
+        return mode_agnostic_utility - board_max_height;
+    }
+    else{
+        // tetris mode
+        double reward = mode_agnostic_utility + tetris_mode_reward;
+        reward += tetris_count * reward_per_tetris;
+        // TODO: instead, compare to SECOND lowest height. (lowest is trench)
+        // then, check if the board is "solid" other than the trench.
+        if(num_trenches == 1 && board_max_height >= 7){
+            reward += tetrisable_reward;
+        }
+        reward -= height_difference;
+        return reward;
+    }
 
-    // return -(100 * num_holes) - (board_max_height * board_max_height) + current_cyan_reward;
-    // return -(num_holes + board_max_height) + current_cyan_reward;
+    // Survisal: holes, trenches, 
+    // return -(100 * num_holes) - board_max_height + garbage_sent;
+
+    // Experimental
+    // return -(100 * num_holes) + garbage_sent - current_trench_penalty - board_max_height;
+    // return -(100 * num_holes) - height_difference + num_rows_cleared_on_last_place;
+
+    // Performing well
+    // return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
 }
 
 State::Board_t::reference State::at(size_t row, size_t col){

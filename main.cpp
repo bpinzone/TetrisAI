@@ -22,8 +22,8 @@ struct Decision {
     double utility;
 };
 
-static const int placement_lookahead_depth = 4;
-static const int placements_to_perform = 99999999;
+static const int placement_lookahead_depth = 6;
+static const int placements_to_perform = 999999;
 
 void play();
 
@@ -56,6 +56,7 @@ void play(){
         cout << "Tetris count:" << tetris_count << "\n";
         cout << "Non-Tetris count:" << non_tetris_count << "\n";
         cout << "Presented with: " << next_to_present->name << endl;
+        state.tetris_count = 0;
         Decision next_decision = *get_best_decision(
             state, *next_to_present,
             queue.begin(), queue.begin() + placement_lookahead_depth, false,

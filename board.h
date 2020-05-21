@@ -91,6 +91,7 @@ public:
     void print_diff_against(const State& new_other) const;
 
     int num_rows_cleared_on_last_place = 0;
+    int tetris_count = 0;
 
 private:
 
