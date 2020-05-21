@@ -161,8 +161,10 @@ bool State::place_block(const Block& b, Placement p){
 
     num_filled += c_cells_per_block;
 
+    num_rows_cleared_on_last_place = 0;
     for(int row = max_row_x_affected; row >= min_row_x_affected; --row){
         if(is_row_full(row)){
+            ++num_rows_cleared_on_last_place;
             clear_row(row);
         }
     }
@@ -172,6 +174,7 @@ bool State::place_block(const Block& b, Placement p){
 
 int State::get_num_holes() const {
 
+    // TODO: Cache this accumulation.
     const int perfect_board_cell_count = accumulate(
         cbegin(height_map), cend(height_map), 0);
 
@@ -312,16 +315,31 @@ void State::clear_row(int deleted_row) {
 
     Board_t above_including_del_row_mask{~below_del_row_mask};
 
+    for(int col_x = 0; col_x < c_cols; ++col_x){
+        height_map[col_x] -= get_height_map_reduction(deleted_row, col_x);
+    }
+
     board =
         (board & below_del_row_mask) |
         (board_shifted_down & above_including_del_row_mask);
 
-    transform(begin(height_map), end(height_map), begin(height_map),
-        [](auto height){
-            return height - 1;
-    });
-
     num_filled -= c_cols;
+}
+
+// Given a row is being deleted, how many to subtract from the height map
+// of query col. (Maybe holes will become exposed.)
+int16_t State::get_height_map_reduction(int deleted_row, int query_col) const {
+
+    int reductions = 1;
+    // The deleted row IS NOT THE SURFACE at this column.
+    bool is_surface = deleted_row == height_map[query_col] - 1;
+    if(is_surface){
+        for(int row_x = deleted_row - 1;
+                row_x >= 0 && !at(row_x, query_col); --row_x){
+            ++reductions;
+        }
+    }
+    return reductions;
 }
 
 bool State::is_row_full(int row) const {

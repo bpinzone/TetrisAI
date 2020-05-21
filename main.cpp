@@ -23,10 +23,9 @@ struct Decision {
 };
 
 static const int placement_lookahead_depth = 4;
-static const int placements_to_perform = 30000;
+static const int placements_to_perform = 99999999;
 
 void play();
-void test();
 
 const Block* generate_block();
 optional<Decision> get_best_decision(
@@ -38,26 +37,8 @@ optional<Decision> get_best_decision(
         int old_num_holes);
 
 int main() {
-
-    // cout << sizeof(State) << endl;
-    // cout << sizeof(State::Board_t) << endl;
-    // cout << sizeof(vector<int16_t>) << endl;
-    // return 0;
-
     play();
-    // test();
-
     return 0;
-}
-
-void test(){
-
-    State state;
-    state.place_block(Block::Cyan, {0, 0});
-    state.place_block(Block::Cyan, {0, 0});
-    state.place_block(Block::Cyan, {1, 9});
-    cout << state << endl;
-
 }
 
 void play(){
@@ -68,9 +49,12 @@ void play(){
     generate_n(back_inserter(queue), 6, &generate_block);
 
     int turn = 0;
+    int64_t tetris_count = 0;
+    int64_t non_tetris_count = 0;
     while(turn < placements_to_perform){
-    // while(true){
-        cout << "Turn: " << turn << endl;
+        cout << "Turn: " << turn << "\n";
+        cout << "Tetris count:" << tetris_count << "\n";
+        cout << "Non-Tetris count:" << non_tetris_count << "\n";
         cout << "Presented with: " << next_to_present->name << endl;
         Decision next_decision = *get_best_decision(
             state, *next_to_present,
@@ -97,6 +81,12 @@ void play(){
             if(game_over){
                 cout << "Game over :(" << endl;
                 return;
+            }
+            if(new_state.num_rows_cleared_on_last_place == 4){
+                ++tetris_count;
+            }
+            else if (new_state.num_rows_cleared_on_last_place > 0){
+                ++non_tetris_count;
             }
             next_to_present = queue.front();
             queue.pop_front();

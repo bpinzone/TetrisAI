@@ -90,9 +90,12 @@ public:
 
     void print_diff_against(const State& new_other) const;
 
+    int num_rows_cleared_on_last_place = 0;
+
 private:
 
     void clear_row(int row);
+    int16_t get_height_map_reduction(int deleted_row, int query_col) const;
     bool is_row_full(int row) const;
     bool contour_matches(const Block& b, Placement p) const;
 
@@ -108,6 +111,7 @@ private:
     std::array<int16_t, c_cols> height_map = {0};
 
     int num_filled = 0;
+
 };
 
 #endif

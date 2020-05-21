@@ -5,3 +5,6 @@
 2155
     4 deep
     return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
+
+After bug fix, didn't die, stopped at 9846 with 4 deep.
+
