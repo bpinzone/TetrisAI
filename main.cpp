@@ -22,7 +22,7 @@ struct Decision {
 };
 
 static const int placement_lookahead_depth = 4;
-static const int placements_to_perform = 500;
+static const int placements_to_perform = 100;
 
 void play();
 void test();
