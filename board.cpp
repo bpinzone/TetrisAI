@@ -21,117 +21,148 @@ contour: 0, -1, -1
 height: 1, 2, 1
 */
 
-const Block Block::Cyan {"Cyan", {
-    // // XXXX
-    {
-        {0, 0, 0, 0}, // Contour
-        {1, 1, 1, 1} // Height
-    },
-    // X
-    // X
-    // X
-    // X
-    {
-        {0}, // Contour
-        {4} // Height
-    }
-}};
+const Block Block::Cyan {
+    "Cyan",
+    2,
+    Block::Maps_std_arr_t {{
+        // XXXX
+        {
+            {0, 0, 0, 0}, // Contour
+            {1, 1, 1, 1}, // Height
+            4
+        },
+        // X
+        // X
+        // X
+        // X
+        {
+            {0}, // Contour
+            {4}, // Height
+            1
+        }
+    }}
+};
 
-const Block Block::Blue {"Blue", {
-    // XX
-    // X
-    // X
-    { {0, 2}, {3, 1} },
+// ctor(list_initializer)
 
-    //  X
-    //  X
-    // XX
-    { {0, 0}, {1, 3} },
+const Block Block::Blue {
+    "Blue",
+    4,
+    Block::Maps_std_arr_t {{
+        // XX
+        // X
+        // X
+        { {0, 2}, {3, 1}, 2},
 
-    // X
-    // XXX
-    { {0, 0, 0}, {2, 1, 1}},
+        //  X
+        //  X
+        // XX
+        { {0, 0}, {1, 3}, 2 },
 
-    //   X
-    // XXX
-    { {0, 0, 0}, {1, 1, 2}},
-}};
+        // X
+        // XXX
+        { {0, 0, 0}, {2, 1, 1}, 3},
 
-const Block Block::Orange {"Orange", {
-    // XX
-    //  X
-    //  X
-    { {0, -2}, {1, 3} },
+        //   X
+        // XXX
+        { {0, 0, 0}, {1, 1, 2}, 3}
+    }}
+};
 
-    // X
-    // X
-    // XX
-    { {0, 0}, {3, 1} },
+const Block Block::Orange {
+    "Orange",
+    4,
+    Block::Maps_std_arr_t {{
+        // XX
+        //  X
+        //  X
+        { {0, -2}, {1, 3}, 2},
 
-    // XXX
-    // X
-    { {0, 1, 1}, {2, 1, 1}},
+        // X
+        // X
+        // XX
+        { {0, 0}, {3, 1}, 2},
 
-    // XXX
-    //   X
-    { {0, 0, -1}, {1, 1, 2}},
-}};
+        // XXX
+        // X
+        { {0, 1, 1}, {2, 1, 1}, 3},
 
-const Block Block::Green {"Green", {
+        // XXX
+        //   X
+        { {0, 0, -1}, {1, 1, 2}, 3}
+    }}
+};
 
-    //  XX
-    // XX
-    { {0, 0, 1}, {1, 2, 1} },
+const Block Block::Green {
+    "Green",
+    2,
+    Block::Maps_std_arr_t {{
+        //  XX
+        // XX
+        { {0, 0, 1}, {1, 2, 1}, 3 },
 
-    //  X
-    // XX
-    // X
-    { {0, 1}, {2, 2} }
-}};
+        //  X
+        // XX
+        // X
+        { {0, 1}, {2, 2}, 2}
+    }}
+};
 
-const Block Block::Red {"Red", {
-    // XX
-    //  XX
-    { {0, -1, -1}, {1, 2, 1} },
+const Block Block::Red {
+    "Red",
+    2,
+    Block::Maps_std_arr_t {{
+        // XX
+        //  XX
+        { {0, -1, -1}, {1, 2, 1}, 3},
 
-    //  X
-    // XX
-    // X
-    { {0, 1}, {2, 2} }
-}};
+        //  X
+        // XX
+        // X
+        { {0, 1}, {2, 2}, 2}
+    }}
+};
 
-const Block Block::Yellow {"Yellow", {
-    // XX
-    // XX
-    { {0, 0}, {2, 2} }
-}};
+const Block Block::Yellow {
+    "Yellow",
+    1,
+    Block::Maps_std_arr_t {{
+        // XX
+        // XX
+        { {0, 0}, {2, 2}, 2}
+    }}
+};
 
-const Block Block::Purple {"Purple", {
-    //  X
-    // XXX
-    { {0, 0, 0}, {1, 2, 1} },
+const Block Block::Purple {
+    "Purple",
+    4,
+    Block::Maps_std_arr_t {{
+        //  X
+        // XXX
+        { {0, 0, 0}, {1, 2, 1}, 3},
 
-    // X
-    // XX
-    // X
-    { {0, 1}, {3, 1} },
+        // X
+        // XX
+        // X
+        { {0, 1}, {3, 1}, 2},
 
-    // XXX
-    //  X
-    { {0, -1, 0}, {1, 2, 1}},
+        // XXX
+        //  X
+        { {0, -1, 0}, {1, 2, 1}, 3},
 
-    //  X
-    // XX
-    //  X
-    { {0, -1}, {1, 3}},
-}};
+        //  X
+        // XX
+        //  X
+        { {0, -1}, {1, 3}, 2},
+    }}
+};
 
 // Requires: This is a valid placement (nothing will go out of bounds)
 // May or may not create holes.
 bool State::place_block(const Block& b, Placement p){
 
     const CH_maps& ch_map = b.maps[p.rotation];
-    const int contour_size = ch_map.contour.size();
+    const int contour_size = ch_map.size;
 
     int min_row_x_affected = c_rows - 1;
     int max_row_x_affected = 0;
@@ -186,8 +217,8 @@ const Block* State::get_hold() const {
 State::Placements_t State::get_placements(const Block& b) const {
 
     Placements_t placements;
-    for(int rot_x = 0; rot_x < b.maps.size(); ++rot_x){
-        const int max_valid_col = c_cols - b.maps[rot_x].contour.size();
+    for(int rot_x = 0; rot_x < b.maps_size; ++rot_x){
+        const int max_valid_col = c_cols - b.maps[rot_x].size;
         for(int col = 0; col <= max_valid_col; ++col){
             placements.push_back({rot_x, col});
         }
@@ -326,12 +357,13 @@ bool State::contour_matches(const Block& b, Placement p) const {
 
     const int leftmost_abs_col = p.column;
     const int height_of_first_col = height_map[leftmost_abs_col];
-    const auto& contour_map = b.maps[p.rotation].contour;
+    const CH_maps& ch_map = b.maps[p.rotation];
+    // const auto& contour_map = b.maps[p.rotation].contour;
 
-    for(int cols_checked = 0; cols_checked < contour_map.size(); ++cols_checked){
+    for(int cols_checked = 0; cols_checked < ch_map.size; ++cols_checked){
         const int abs_board_height = height_map[leftmost_abs_col + cols_checked];
         const int rel_board_height = abs_board_height - height_of_first_col;
-        if(contour_map[cols_checked] != rel_board_height){
+        if(ch_map.contour[cols_checked] != rel_board_height){
             return false;
         }
     }
@@ -340,11 +372,9 @@ bool State::contour_matches(const Block& b, Placement p) const {
 
 int State::get_row_after_drop(const Block& b, Placement p) const {
 
-    int num_cols_to_inspect =
-        b.maps[p.rotation].contour.size();
+    int num_cols_to_inspect = b.maps[p.rotation].size;
 
     int max_row = height_map[p.column];
-    assert(b.maps[p.rotation].contour.front() == 0);
 
     for(int col_x = 1; col_x < num_cols_to_inspect; ++col_x){
 

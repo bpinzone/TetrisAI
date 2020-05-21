@@ -7,22 +7,41 @@
 #include <optional>
 #include <iostream>
 #include <array>
+#include <algorithm>
+#include <iterator>
 
 struct Placement {
     int rotation;
     int column;
 };
 
+
 struct CH_maps {
-    std::vector<int16_t> contour;
-    std::vector<int16_t> height;
+private:
+    inline static const size_t c_max_lateral_length = 4;
+public:
+    int16_t contour[c_max_lateral_length];
+    int16_t height[c_max_lateral_length];
+    // TODO: Initialize
+    int size;
 };
 
 struct Block {
 
+private:
+    inline static constexpr size_t c_max_num_rotations = 4;
+
+public:
+
+    using Maps_std_arr_t = std::array<CH_maps, c_max_num_rotations>;
+
     // [rotation] = maps for that rotation
     std::string name;
-    std::vector<CH_maps> maps;
+
+    // TODO: Initialize.
+    int maps_size;
+    CH_maps maps[c_max_num_rotations];
+    // std::vector<CH_maps> maps;
 
     static const Block Cyan;
     static const Block Blue;
@@ -39,8 +58,12 @@ struct Block {
     Block(Block&& other) = delete;
 
 private:
-    Block(const std::string& _name, const std::vector<CH_maps>& _maps)
-        : name{_name}, maps{_maps} {
+    Block(
+        const std::string& _name, int _maps_size,
+        Maps_std_arr_t _maps)
+        : name{_name}, maps_size{_maps_size} {
+
+        std::copy(std::begin(_maps), std::end(_maps), std::begin(maps));
     }
 };
 
