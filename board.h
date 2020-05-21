@@ -98,6 +98,8 @@ private:
 
     // Cache
     std::array<int16_t, c_cols> height_map = {0};
+
+    int num_filled = 0;
 };
 
 #endif

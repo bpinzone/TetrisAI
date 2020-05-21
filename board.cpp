@@ -130,6 +130,8 @@ const Block Block::Purple {"Purple", {
 // May or may not create holes.
 bool State::place_block(const Block& b, Placement p){
 
+    static const int c_cells_per_block = 4;
+
     const CH_maps& ch_map = b.maps[p.rotation];
     const int contour_size = ch_map.contour.size();
 
@@ -157,11 +159,14 @@ bool State::place_block(const Block& b, Placement p){
 
     }
 
+    num_filled += c_cells_per_block;
+
     for(int row = max_row_x_affected; row >= min_row_x_affected; --row){
         if(is_row_full(row)){
             clear_row(row);
         }
     }
+
     return true;
 }
 
@@ -170,7 +175,7 @@ int State::get_num_holes() const {
     const int perfect_board_cell_count = accumulate(
         cbegin(height_map), cend(height_map), 0);
 
-    return static_cast<int>(perfect_board_cell_count - board.count());
+    return static_cast<int>(perfect_board_cell_count - num_filled);
 }
 
 const Block* State::hold(const Block& b){
@@ -310,6 +315,8 @@ void State::clear_row(int deleted_row) {
         [](auto height){
             return height - 1;
     });
+
+    num_filled -= c_cols;
 }
 
 bool State::is_row_full(int row) const {
@@ -340,17 +347,16 @@ bool State::contour_matches(const Block& b, Placement p) const {
 
 int State::get_row_after_drop(const Block& b, Placement p) const {
 
-    int num_cols_to_inspect =
-        b.maps[p.rotation].contour.size();
+    const auto& contour = b.maps[p.rotation].contour;
+    int num_cols_to_inspect = contour.size();
 
     int max_row = height_map[p.column];
-    assert(b.maps[p.rotation].contour.front() == 0);
+    assert(contour.front() == 0);
 
     for(int col_x = 1; col_x < num_cols_to_inspect; ++col_x){
 
         int board_col = p.column + col_x;
-        int row = height_map[board_col] -
-            b.maps[p.rotation].contour[col_x];
+        int row = height_map[board_col] - contour[col_x];
         max_row = max(max_row, row);
     }
     return max_row;
