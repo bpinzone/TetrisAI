@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <utility>
 #include <limits>
+#include <array>
 
 #include "board.h"
 
@@ -22,7 +23,7 @@ struct Decision {
 };
 
 static const int placement_lookahead_depth = 4;
-static const int placements_to_perform = 300;
+static const int placements_to_perform = 30000;
 
 void play();
 void test();
@@ -140,11 +141,15 @@ optional<Decision> get_best_decision(
     }
 
     // Try all the ways to place it.
+
+    array<Placement, State::c_worst_case_num_placements> placements;
+
     // Empty optional -> we haven't considered any decisions yet.
     optional<Decision> best_decision;
-    Placements_t placements = state.get_placements(presented);
-    for(const auto& placement : placements){
+    size_t placements_size = state.populate_placements(presented, placements.begin());
+    for(size_t placement_x = 0; placement_x < placements_size; ++placement_x){
 
+        const auto& placement = placements[placement_x];
         State new_state{state};
         bool success = new_state.place_block(presented, placement);
         optional<Decision> decision;

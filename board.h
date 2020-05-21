@@ -57,11 +57,16 @@ class State {
 
 public:
 
+
     using Placements_t = std::vector<Placement>;
 
     constexpr static size_t c_cols = 10;
     constexpr static size_t c_rows = 20;
     constexpr static size_t c_size = c_cols * c_rows;
+
+    constexpr static int c_possible_rotation_configs = 4;
+    constexpr static int c_worst_case_num_placements =
+        c_possible_rotation_configs * State::c_cols;
 
     using Board_t = std::bitset<c_size>;
 
@@ -71,7 +76,10 @@ public:
     const Block* hold(const Block& b);
     const Block* get_hold() const;
 
-    Placements_t get_placements(const Block& b) const;
+    size_t populate_placements(
+        const Block& b,
+        std::array<Placement, c_worst_case_num_placements>::iterator dest
+    ) const;
 
     double get_utility() const;
 

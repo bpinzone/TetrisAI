@@ -188,16 +188,21 @@ const Block* State::get_hold() const {
     return current_hold;
 }
 
-State::Placements_t State::get_placements(const Block& b) const {
+size_t State::populate_placements(
+        const Block& b,
+        std::array<Placement, c_worst_case_num_placements>::iterator dest) const{
 
-    Placements_t placements;
+    size_t size = 0;
+
     for(int rot_x = 0; rot_x < b.maps.size(); ++rot_x){
         const int max_valid_col = c_cols - b.maps[rot_x].contour.size();
         for(int col = 0; col <= max_valid_col; ++col){
-            placements.push_back({rot_x, col});
+            *dest = {rot_x, col};
+            ++dest;
+            ++size;
         }
     }
-    return placements;
+    return size;
 }
 
 double State::get_utility() const {
