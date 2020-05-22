@@ -230,6 +230,7 @@ bool State::has_higher_utility_than(const State& other) const {
 
     // === Fundamental Priorities ===
     // Trench Punishment
+    // TODO: this is inlined
     const int this_trenches = get_num_trenches();
     const int other_trenches = other.get_num_trenches();
     const bool this_has_more_than_1_trench = this_trenches > 1;
@@ -273,6 +274,7 @@ bool State::has_higher_utility_than(const State& other) const {
         // Approximates tetris-ability in the sense that we assume there are no holes.
         // Recall: Getting rid of holes is the first priority.
         // If we have made it this far in comparison, we probably don't have many holes.
+        // TODO: probably inlined
         const bool is_this_tetrisable =
             this_trenches == 1 && is_rest_board_4_above_single_trench();
 
@@ -316,8 +318,6 @@ bool State::has_higher_utility_than(const State& other) const {
 
         return this_height_diff < other_height_diff;
     }
-
-
 }
 
 State::Board_t::reference State::at(size_t row, size_t col){
