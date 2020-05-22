@@ -8,3 +8,5 @@
 
 After bug fix, didn't die, stopped at 9846 with 4 deep.
 
+
+survived 88k, 3 deep

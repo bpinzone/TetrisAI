@@ -23,8 +23,8 @@ struct Decision {
     State best_foreseeable_state_from_placement;
 };
 
-static const int queue_consume_lookahead_depth = 5;
-static const int placements_to_perform = 15;
+static const int queue_consume_lookahead_depth = 4;
+static const int placements_to_perform = 9999999;
 
 void play();
 

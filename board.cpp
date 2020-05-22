@@ -300,8 +300,6 @@ bool State::has_higher_utility_than(const State& other) const {
         }
 
         return this_height_diff < other_height_diff;
-
-        // TODO: Maybe consider punishing clearing less than 3 rows at once.
     }
     else{
         assert(!this_in_tetris_mode);
