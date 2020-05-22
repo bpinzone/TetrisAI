@@ -19,10 +19,11 @@ using Placements_t = State::Placements_t;
 struct Decision {
     // Empty optional -> hold
     optional<Placement> placement;
-    double utility;
+    /* Extract utility from this */
+    State best_foreseeable_state_from_placement;
 };
 
-static const int placement_lookahead_depth = 6;
+static const int placement_lookahead_depth = 3;
 static const int placements_to_perform = 999999;
 
 void play();
@@ -37,6 +38,7 @@ optional<Decision> get_best_decision(
         int old_num_holes);
 
 int main() {
+    State::worst_state.is_worst_board = true;
     play();
     return 0;
 }
@@ -104,14 +106,17 @@ void play(){
 void pick_better_decision(
         optional<Decision>& best_decision, optional<Decision> decision,
         optional<Placement> placement,
-        double new_state_utility){
+        const State& new_state ){
 
     if(!decision){
-        decision = {{}, new_state_utility};
+        decision = {{}, new_state};
     }
     decision->placement = placement;
 
-    if(!best_decision || decision->utility > best_decision->utility){
+    if(
+            !best_decision ||
+            decision->best_foreseeable_state_from_placement.has_higher_utility_than(
+                best_decision->best_foreseeable_state_from_placement)){
         best_decision = decision;
     }
 }
@@ -157,10 +162,10 @@ optional<Decision> get_best_decision(
         else{
             // We cant place this block in this orientation without going too high.
             // We lose, utility lowest
-            decision = {placement, numeric_limits<double>::lowest()};
+            decision = {placement, State::worst_state};
         }
 
-        pick_better_decision(best_decision, decision, placement, new_state.get_utility());
+        pick_better_decision(best_decision, decision, placement, new_state);
     }
 
     if(just_swapped){
@@ -181,7 +186,7 @@ optional<Decision> get_best_decision(
         state.get_num_holes()
     );
 
-    pick_better_decision(best_decision, decision, {}, hold_state.get_utility());
+    pick_better_decision(best_decision, decision, {}, hold_state);
 
     return best_decision;
 }

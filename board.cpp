@@ -8,6 +8,8 @@
 
 using namespace std;
 
+State State::worst_state;
+
 /*
 Example:
 
@@ -209,81 +211,88 @@ size_t State::populate_placements(
     return size;
 }
 
-double State::get_utility() const {
+bool State::has_higher_utility_than(const State& other) const {
 
-    static const double tetris_mode_reward = 100000;
-    static const int concerning_height = 8;
+    if(is_worst_board != other.is_worst_board){
+        return !is_worst_board;
+    }
 
-    // Agnostic: Holes, trenches.
-    static const double penalty_per_hole = 1000000000;
-    static const double multi_trench_penalty = 10000000000000;
+    // You are in tetris mode if you are here or less in height.
+    static const int c_max_tetris_mode_height = 12;
 
-    // Survival: Then height.
-
-    // Tetris: Then Getting a tetris, having a single trench.
-    static const double reward_per_tetris = 1000;
-    static const double tetrisable_reward = 100;
-
-    // Computation.
+    // === Fundamental Priorities ===
     // Holes
-    const int num_holes = get_num_holes();
-
-    // Heights
-    const auto& [min_height_it, max_height_it] =
-        minmax_element(cbegin(height_map), cend(height_map));
-    const int16_t board_max_height = *max_height_it;
-    const int16_t board_min_height = *min_height_it;
-    const int16_t height_difference = board_max_height - board_min_height;
-
-    // Trench count
-    int num_trenches = 0;
-    if(height_map[1] - height_map[0] >= 3){
-        ++num_trenches;
-    }
-    if(height_map[c_cols - 2] - height_map[c_cols - 1] >= 3){
-        ++num_trenches;
-    }
-    for(int col_x = 1; col_x < c_cols - 2; ++col_x){
-        const int middle_height = height_map[col_x];
-        const int left_height = height_map[col_x - 1];
-        const int right_height = height_map[col_x + 1];
-        if(left_height - middle_height >= 3 && right_height -middle_height >= 3){
-            ++num_trenches;
+    {
+        const int this_holes = get_num_holes();
+        const int other_holes = other.get_num_holes();
+        if(this_holes != other_holes){
+            return this_holes < other_holes;
         }
     }
 
-    double mode_agnostic_utility = -(num_holes * penalty_per_hole);
-    if(num_trenches > 1){
-        mode_agnostic_utility -= multi_trench_penalty;
+    // Trench Punishment
+    const int this_trenches = get_num_trenches();
+    const int other_trenches = other.get_num_trenches();
+    if(this_trenches != other_trenches){
+        return this_trenches < other_trenches;
     }
 
-    if(board_max_height > concerning_height){
-        // Survival mode
-        // TODO: Could be improve at very end game.
-        return mode_agnostic_utility - board_max_height;
+    // Helper, compute heights
+    const auto [this_min_height, this_max_height] = get_min_max_height();
+    const int16_t this_height_diff = this_max_height - this_min_height;
+    const auto [other_min_height, other_max_height] = other.get_min_max_height();
+    const int16_t other_height_diff = other_max_height - other_min_height;
+
+    // Tetris mode.
+    const bool this_in_tetris_mode = this_max_height <= c_max_tetris_mode_height;
+    const bool other_in_tetris_mode = other_max_height <= c_max_tetris_mode_height;
+    if(this_in_tetris_mode != other_in_tetris_mode){
+        return this_in_tetris_mode;
+    }
+
+    if(this_in_tetris_mode){
+        assert(other_in_tetris_mode);
+        // Do tetris mode comparison.
+
+        // Get the tetrises
+        if(tetris_count != other.tetris_count){
+            return tetris_count > other.tetris_count;
+        }
+
+        // Become tetris-able.
+        // Approximates tetris-ability in the sense that we assume there are no holes.
+        // Recall: Getting rid of holes is the first priority.
+        // If we have made it this far in comparison, we probably don't have many holes.
+        const bool is_this_tetrisable =
+            this_trenches == 1 && is_rest_board_4_above_single_trench();
+
+        const bool is_other_tetrisable =
+            other_trenches == 1 && other.is_rest_board_4_above_single_trench();
+
+        if(is_this_tetrisable != is_other_tetrisable){
+            return is_this_tetrisable;
+        }
+
+        // Now, both boards are in the same one of these two scenarios:
+        // 1. We don't forsee a tetrisable future.
+        // 2. We can tetris.
+
+        // Make the 2nd shortest column as large as possible.
+        // Encourges alg to build a solid mass of blocks, but not clear rows,
+        // in order to get to the point where we can forsee being tetris-able.
+
+        return this_height_diff < other_height_diff;
+
+        // TODO: Maybe consider punishing clearing less than 3 rows at once.
     }
     else{
-        // tetris mode
-        double reward = mode_agnostic_utility + tetris_mode_reward;
-        reward += tetris_count * reward_per_tetris;
-        // TODO: instead, compare to SECOND lowest height. (lowest is trench)
-        // then, check if the board is "solid" other than the trench.
-        if(num_trenches == 1 && board_max_height >= 7){
-            reward += tetrisable_reward;
-        }
-        reward -= height_difference;
-        return reward;
+        assert(!this_in_tetris_mode);
+        assert(!other_in_tetris_mode);
+        // Do non-tetris mode comparison.
+        return this_max_height < other_max_height;
     }
 
-    // Survisal: holes, trenches, 
-    // return -(100 * num_holes) - board_max_height + garbage_sent;
 
-    // Experimental
-    // return -(100 * num_holes) + garbage_sent - current_trench_penalty - board_max_height;
-    // return -(100 * num_holes) - height_difference + num_rows_cleared_on_last_place;
-
-    // Performing well
-    // return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
 }
 
 State::Board_t::reference State::at(size_t row, size_t col){
@@ -418,4 +427,53 @@ int State::get_row_after_drop(const Block& b, Placement p) const {
         max_row = max(max_row, row);
     }
     return max_row;
+}
+
+int State::get_num_trenches() const {
+
+    // Trench count
+    int num_trenches = 0;
+    if(height_map[1] - height_map[0] >= 3){
+        ++num_trenches;
+        // TODO: differentiate between punishing 3+, and having a 4+ trench.
+        trench_col = 0;
+    }
+    if(height_map[c_cols - 2] - height_map[c_cols - 1] >= 3){
+        ++num_trenches;
+        // TODO: differentiate between punishing 3+, and having a 4+ trench.
+        trench_col = c_cols - 1;
+    }
+    for(int col_x = 1; col_x < c_cols - 2; ++col_x){
+        const int middle_height = height_map[col_x];
+        const int left_height = height_map[col_x - 1];
+        const int right_height = height_map[col_x + 1];
+        if(left_height - middle_height >= 3 && right_height -middle_height >= 3){
+            ++num_trenches;
+            // TODO: differentiate between punishing 3+, and having a 4+ trench.
+            trench_col = col_x;
+        }
+    }
+
+    return num_trenches;
+}
+
+pair<int16_t, int16_t> State::get_min_max_height() const {
+
+    const auto& [min_height_it, max_height_it] =
+        minmax_element(cbegin(height_map), cend(height_map));
+
+    return {*min_height_it, *max_height_it};
+}
+
+
+bool State::is_rest_board_4_above_single_trench() const {
+
+    const int min_passing_height = height_map[trench_col] + 4;
+    for(int col_x = 0; col_x < c_cols; ++col_x){
+        if(height_map[col_x] < min_passing_height
+                && col_x != trench_col){
+            return false;
+        }
+    }
+    return true;
 }

@@ -68,6 +68,8 @@ public:
     constexpr static int c_worst_case_num_placements =
         c_possible_rotation_configs * State::c_cols;
 
+    static State worst_state;
+
     using Board_t = std::bitset<c_size>;
 
     bool place_block(const Block& b, Placement p);
@@ -81,7 +83,8 @@ public:
         std::array<Placement, c_worst_case_num_placements>::iterator dest
     ) const;
 
-    double get_utility() const;
+    // Returns true iff this has strictly higher utility than other.
+    bool has_higher_utility_than(const State& other) const;
 
     Board_t::reference at(size_t row, size_t col);
     bool at(size_t row, size_t col) const;
@@ -92,6 +95,7 @@ public:
 
     int num_rows_cleared_on_last_place = 0;
     int tetris_count = 0;
+    bool is_worst_board = false;
 
 private:
 
@@ -104,6 +108,13 @@ private:
     // return the row idx of the left-bottom most cell of the block.
     int get_row_after_drop(const Block& b, Placement p) const;
 
+    int get_num_trenches() const;
+
+    std::pair<int16_t, int16_t> get_min_max_height() const;
+
+    // Requires: get_num_trenches() just returned 1, and the board has not been modified.
+    bool is_rest_board_4_above_single_trench() const;
+
     // Fundamental
     Board_t board;
     const Block* current_hold = nullptr;
@@ -112,6 +123,8 @@ private:
     std::array<int16_t, c_cols> height_map = {0};
 
     int num_filled = 0;
+
+    mutable int trench_col = 0;
 
 };
 
