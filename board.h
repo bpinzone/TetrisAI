@@ -55,8 +55,8 @@ private:
 // (0, 1) is 1st row, 2nd column.
 class State {
 
+// TODO: rearrange
 public:
-
 
     using Placements_t = std::vector<Placement>;
 
@@ -64,13 +64,21 @@ public:
     constexpr static size_t c_rows = 20;
     constexpr static size_t c_size = c_cols * c_rows;
 
+private:
+
+    using Board_t = std::bitset<c_size>;
+
+    Board_t board;
+    std::array<int16_t, c_cols> height_map = {0};
+
+public:
+
     constexpr static int c_possible_rotation_configs = 4;
     constexpr static int c_worst_case_num_placements =
         c_possible_rotation_configs * State::c_cols;
 
     static State worst_state;
 
-    using Board_t = std::bitset<c_size>;
 
     bool place_block(const Block& b, Placement p);
     int get_num_holes() const;
@@ -116,11 +124,9 @@ private:
     int16_t get_height_of_second_lowest() const;
 
     // Fundamental
-    Board_t board;
     const Block* current_hold = nullptr;
 
     // Cache
-    std::array<int16_t, c_cols> height_map = {0};
 
     bool can_hold = true;
 
