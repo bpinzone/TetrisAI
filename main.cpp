@@ -51,12 +51,14 @@ void play(){
     generate_n(back_inserter(queue), 6, &generate_block);
 
     int turn = 0;
-    int64_t tetris_count = 0;
-    int64_t non_tetris_count = 0;
+    int tetris_count = 0;
+    int non_tetris_count = 0;
     while(turn < placements_to_perform){
+        state.assert_cache_correct();
         cout << "Turn: " << turn << "\n";
-        cout << "Tetris count:" << tetris_count << "\n";
-        cout << "Non-Tetris count:" << non_tetris_count << "\n";
+        cout << "Tetris percent:"
+             << ((static_cast<double>(tetris_count))/(tetris_count + non_tetris_count)) * 100.0
+             << "  %\n";
         cout << "Presented with: " << next_to_present->name << endl;
         state.tetris_count = 0;
         Decision next_decision = *get_best_decision(

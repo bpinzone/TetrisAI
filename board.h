@@ -97,6 +97,8 @@ public:
     int tetris_count = 0;
     bool is_worst_board = false;
 
+    void assert_cache_correct() const;
+
 private:
 
     void clear_row(int row);
@@ -115,12 +117,15 @@ private:
     // Requires: get_num_trenches() just returned 1, and the board has not been modified.
     bool is_rest_board_4_above_single_trench() const;
 
+    int16_t get_height_of_second_lowest() const;
+
     // Fundamental
     Board_t board;
     const Block* current_hold = nullptr;
 
     // Cache
     std::array<int16_t, c_cols> height_map = {0};
+
 
     int num_filled = 0;
 

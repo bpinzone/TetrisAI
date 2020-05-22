@@ -221,6 +221,15 @@ bool State::has_higher_utility_than(const State& other) const {
     static const int c_max_tetris_mode_height = 12;
 
     // === Fundamental Priorities ===
+    // Trench Punishment
+    const int this_trenches = get_num_trenches();
+    const int other_trenches = other.get_num_trenches();
+    const bool this_has_more_than_1_trench = this_trenches > 1;
+    const bool other_has_more_than_1_trench = other_trenches > 1;
+    if(this_has_more_than_1_trench != other_has_more_than_1_trench){
+        return !this_has_more_than_1_trench;
+    }
+
     // Holes
     {
         const int this_holes = get_num_holes();
@@ -228,13 +237,6 @@ bool State::has_higher_utility_than(const State& other) const {
         if(this_holes != other_holes){
             return this_holes < other_holes;
         }
-    }
-
-    // Trench Punishment
-    const int this_trenches = get_num_trenches();
-    const int other_trenches = other.get_num_trenches();
-    if(this_trenches != other_trenches){
-        return this_trenches < other_trenches;
     }
 
     // Helper, compute heights
@@ -280,6 +282,12 @@ bool State::has_higher_utility_than(const State& other) const {
         // Make the 2nd shortest column as large as possible.
         // Encourges alg to build a solid mass of blocks, but not clear rows,
         // in order to get to the point where we can forsee being tetris-able.
+        const int16_t this_second_height = get_height_of_second_lowest();
+        const int16_t other_second_height = other.get_height_of_second_lowest();
+
+        if(this_second_height != other_second_height){
+            return this_second_height > other_second_height;
+        }
 
         return this_height_diff < other_height_diff;
 
@@ -289,7 +297,16 @@ bool State::has_higher_utility_than(const State& other) const {
         assert(!this_in_tetris_mode);
         assert(!other_in_tetris_mode);
         // Do non-tetris mode comparison.
-        return this_max_height < other_max_height;
+
+        if(this_trenches != other_trenches){
+            return this_trenches < other_trenches;
+        }
+
+        if(num_filled != other.num_filled){
+            return num_filled < other.num_filled;
+        }
+
+        return this_height_diff < other_height_diff;
     }
 
 
@@ -346,6 +363,23 @@ void State::print_diff_against(const State& new_other) const{
             }
         }
         cout << "\n";
+    }
+}
+
+void State::assert_cache_correct() const {
+
+    assert(num_filled == board.count());
+    for(int col_x = 0; col_x < c_cols; ++col_x){
+
+        // Make sure rows above are empty.
+        for(int row_x = height_map[col_x]; row_x < c_rows; ++row_x){
+            assert(!at(row_x, col_x));
+        }
+
+        // Make sure height map has a cell filled in.
+        if(height_map[col_x] > 0){
+            assert(at(height_map[col_x] - 1, col_x));
+        }
     }
 }
 
@@ -476,4 +510,22 @@ bool State::is_rest_board_4_above_single_trench() const {
         }
     }
     return true;
+}
+
+int16_t State::get_height_of_second_lowest() const {
+
+    int16_t lowest = c_rows;
+    int16_t second_lowest = c_rows;
+
+    for(const auto& height : height_map){
+
+        if(height <= lowest){
+            second_lowest = lowest;
+            lowest = height;
+        }
+        else{
+            second_lowest = min(height, second_lowest);
+        }
+    }
+    return second_lowest;
 }
