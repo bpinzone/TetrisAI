@@ -127,6 +127,7 @@ const Block Block::Purple {"Purple", {
 
 // Requires: This is a valid placement (nothing will go out of bounds)
 // May or may not create holes.
+// Returns true iff this move does NOT result in a game over.
 bool State::place_block(const Block& b, Placement p){
 
     static const int c_cells_per_block = 4;
@@ -218,7 +219,7 @@ bool State::has_higher_utility_than(const State& other) const {
     }
 
     // You are in tetris mode if you are here or less in height.
-    static const int c_max_tetris_mode_height = 12;
+    static const int c_max_tetris_mode_height = 15;
 
     // === Fundamental Priorities ===
     // Trench Punishment

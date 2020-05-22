@@ -23,19 +23,18 @@ struct Decision {
     State best_foreseeable_state_from_placement;
 };
 
-static const int placement_lookahead_depth = 3;
-static const int placements_to_perform = 999999;
+static const int placement_lookahead_depth = 6;
+static const int placements_to_perform = 20;
 
 void play();
 
 const Block* generate_block();
-optional<Decision> get_best_decision(
+Decision get_best_decision(
         const State& state,
         const Block& presented,
         const deque<const Block*>::const_iterator& next_block_it,
         const deque<const Block*>::const_iterator& end_block_it,
-        bool just_swapped,
-        int old_num_holes);
+        bool just_swapped);
 
 int main() {
     State::worst_state.is_worst_board = true;
@@ -61,10 +60,9 @@ void play(){
              << "  %\n";
         cout << "Presented with: " << next_to_present->name << endl;
         state.tetris_count = 0;
-        Decision next_decision = *get_best_decision(
+        Decision next_decision = get_best_decision(
             state, *next_to_present,
-            queue.begin(), queue.begin() + placement_lookahead_depth, false,
-            state.get_num_holes()
+            queue.begin(), queue.begin() + placement_lookahead_depth, false
         );
 
         State new_state{state};
@@ -126,20 +124,17 @@ void pick_better_decision(
 // Given the current state, returns, what is the best utility I could get?
 // Action represents the next action to take if you were in the state you passed in as an argument.
 // empty optional -> we will not recurse anymore. Compute utilty of the state argument you passed me yourself.
-optional<Decision> get_best_decision(
+
+// TODO: Update comment
+// Returns, given the state, "state", the state s' with the best utility which can be reached from "state"
+Decision get_best_decision(
         const State& state,
         const Block& presented,
         const deque<const Block*>::const_iterator& next_block_it,
         const deque<const Block*>::const_iterator& end_block_it,
-        bool just_swapped,
-        int old_num_holes){
-
-    if(next_block_it == end_block_it || state.get_num_holes() - old_num_holes >= 2){
-        return {};
-    }
+        bool just_swapped){
 
     // Try all the ways to place it.
-
     array<Placement, State::c_worst_case_num_placements> placements;
 
     // Empty optional -> we haven't considered any decisions yet.
@@ -149,48 +144,61 @@ optional<Decision> get_best_decision(
 
         const auto& placement = placements[placement_x];
         State new_state{state};
-        bool success = new_state.place_block(presented, placement);
-        optional<Decision> decision;
-        if(success){
-            decision = get_best_decision(
-                new_state,
-                **next_block_it,
-                next_block_it + 1,
-                end_block_it,
-                false,
-                state.get_num_holes()
-            );
+        bool game_over = !new_state.place_block(presented, placement);
+
+        State best_reachable_state_from_new_state;
+
+        if(game_over || new_state.get_num_holes() - state.get_num_holes() >= 2){
+            best_reachable_state_from_new_state = State::worst_state;
+        }
+        else if(next_block_it + 1 == end_block_it) {
+            best_reachable_state_from_new_state = new_state;
         }
         else{
-            // We cant place this block in this orientation without going too high.
-            // We lose, utility lowest
-            decision = {placement, State::worst_state};
+            best_reachable_state_from_new_state = get_best_decision(
+                    new_state,
+                    **next_block_it,
+                    next_block_it + 1,
+                    end_block_it,
+                    false
+            ).best_foreseeable_state_from_placement;
         }
 
-        pick_better_decision(best_decision, decision, placement, new_state);
+        if(!best_decision ||
+                best_reachable_state_from_new_state.has_higher_utility_than(best_decision->best_foreseeable_state_from_placement)){
+            best_decision = {placement, move(best_reachable_state_from_new_state)};
+        }
     }
 
+    assert(best_decision);
     if(just_swapped){
-        return best_decision;
+        return *best_decision;
     }
 
-    // Try holding
     State hold_state{state};
     const Block* was_held = hold_state.hold(presented);
 
-    optional<Decision> decision;
-    decision = get_best_decision(
-        hold_state,
-        was_held ? *was_held : **next_block_it,
-        was_held ? next_block_it: next_block_it + 1,
-        end_block_it,
-        true,
-        state.get_num_holes()
-    );
+    State best_reachable_state_from_hold_state;
+    if(next_block_it + 1 == end_block_it){
+        best_reachable_state_from_hold_state = hold_state;
+    }
+    else {
+        best_reachable_state_from_hold_state = get_best_decision(
+            hold_state,
+            was_held ? *was_held : **next_block_it,
+            was_held ? next_block_it: next_block_it + 1,
+            end_block_it,
+            true
+        ).best_foreseeable_state_from_placement;
+    }
 
-    pick_better_decision(best_decision, decision, {}, hold_state);
+    assert(best_decision);
+    if(best_reachable_state_from_hold_state.has_higher_utility_than(best_decision->best_foreseeable_state_from_placement)){
+        best_decision = {{}, move(best_reachable_state_from_hold_state)};
+    }
 
-    return best_decision;
+    assert(best_decision);
+    return *best_decision;
 }
 
 const Block* generate_block(){
