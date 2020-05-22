@@ -152,7 +152,9 @@ bool State::place_block(const Block& b, Placement p){
             return false;
         }
 
+        perfect_board_cell_count -= height_map[col];
         height_map[col] = end_fill_row;
+        perfect_board_cell_count += end_fill_row;
         for(int row = start_fill_row; row < end_fill_row; ++row){
             at(row, col) = true;
         }
@@ -178,11 +180,6 @@ bool State::place_block(const Block& b, Placement p){
 }
 
 int State::get_num_holes() const {
-
-    // TODO: Cache this accumulation.
-    const int perfect_board_cell_count = accumulate(
-        cbegin(height_map), cend(height_map), 0);
-
     return static_cast<int>(perfect_board_cell_count - num_filled);
 }
 
@@ -225,7 +222,7 @@ bool State::has_higher_utility_than(const State& other) const {
     }
 
     // You are in tetris mode if you are here or less in height.
-    static const int c_max_tetris_mode_height = 15;
+    static const int c_max_tetris_mode_height = 12;
 
     // === Fundamental Priorities ===
     // Trench Punishment
@@ -388,6 +385,9 @@ void State::assert_cache_correct() const {
             assert(at(height_map[col_x] - 1, col_x));
         }
     }
+    const int correct_perfect_board_cell_count = accumulate(
+        cbegin(height_map), cend(height_map), 0);
+    assert(perfect_board_cell_count == correct_perfect_board_cell_count);
 }
 
 void State::clear_row(int deleted_row) {
@@ -401,7 +401,10 @@ void State::clear_row(int deleted_row) {
     Board_t above_including_del_row_mask{~below_del_row_mask};
 
     for(int col_x = 0; col_x < c_cols; ++col_x){
-        height_map[col_x] -= get_height_map_reduction(deleted_row, col_x);
+        int16_t reduction = get_height_map_reduction(deleted_row, col_x);
+        height_map[col_x] -= reduction;
+        perfect_board_cell_count -= reduction;
+
     }
 
     board =

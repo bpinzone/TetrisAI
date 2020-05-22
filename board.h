@@ -133,6 +133,8 @@ private:
 
     mutable int trench_col = 0;
 
+    int perfect_board_cell_count = 0;
+
 };
 
 #endif

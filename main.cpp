@@ -24,7 +24,7 @@ struct Decision {
 };
 
 static const int queue_consume_lookahead_depth = 5;
-static const int placements_to_perform = 999999999;
+static const int placements_to_perform = 15;
 
 void play();
 
