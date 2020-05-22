@@ -79,11 +79,6 @@ public:
     const Block* hold(const Block& b);
     const Block* get_hold() const;
 
-    size_t populate_placements(
-        const Block& b,
-        std::array<Placement, c_worst_case_num_placements>::iterator dest
-    ) const;
-
     // Returns true iff this has strictly higher utility than other.
     bool has_higher_utility_than(const State& other) const;
 

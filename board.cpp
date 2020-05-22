@@ -141,22 +141,21 @@ bool State::place_block(const Block& b, Placement p){
     const int left_bottom_row = get_row_after_drop(b, p);
     for(int contour_x = 0; contour_x < contour_size; ++contour_x){
         const int col = p.column + contour_x;
-        // absolute rows
-        const int start_fill_row = left_bottom_row + ch_map.contour[contour_x];
-        const int end_fill_row = start_fill_row + ch_map.height[contour_x];
+        const int abs_start_fill_row = left_bottom_row + ch_map.contour[contour_x];
+        const int abs_end_fill_row = abs_start_fill_row + ch_map.height[contour_x];
 
-        min_row_x_affected = min(min_row_x_affected, start_fill_row);
-        max_row_x_affected = max(max_row_x_affected, end_fill_row - 1);
+        min_row_x_affected = min(min_row_x_affected, abs_start_fill_row);
+        max_row_x_affected = max(max_row_x_affected, abs_end_fill_row - 1);
 
         if(max_row_x_affected >= c_rows){
             return false;
         }
 
         perfect_board_cell_count -= height_map[col];
-        height_map[col] = end_fill_row;
-        perfect_board_cell_count += end_fill_row;
+        height_map[col] = abs_end_fill_row;
+        perfect_board_cell_count += abs_end_fill_row;
 
-        for(int row = start_fill_row; row < end_fill_row; ++row){
+        for(int row = abs_start_fill_row; row < abs_end_fill_row; ++row){
             at(row, col) = true;
         }
     }
@@ -200,23 +199,6 @@ const Block* State::hold(const Block& b){
 
 const Block* State::get_hold() const {
     return current_hold;
-}
-
-size_t State::populate_placements(
-        const Block& b,
-        std::array<Placement, c_worst_case_num_placements>::iterator dest) const{
-
-    size_t size = 0;
-
-    for(int rot_x = 0; rot_x < b.maps.size(); ++rot_x){
-        const int max_valid_col = c_cols - b.maps[rot_x].contour.size();
-        for(int col = 0; col <= max_valid_col; ++col){
-            *dest = {rot_x, col};
-            ++dest;
-            ++size;
-        }
-    }
-    return size;
 }
 
 bool State::has_higher_utility_than(const State& other) const {
