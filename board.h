@@ -75,6 +75,7 @@ public:
     bool place_block(const Block& b, Placement p);
     int get_num_holes() const;
 
+    bool get_can_hold() const;
     const Block* hold(const Block& b);
     const Block* get_hold() const;
 
@@ -126,6 +127,7 @@ private:
     // Cache
     std::array<int16_t, c_cols> height_map = {0};
 
+    bool can_hold = true;
 
     int num_filled = 0;
 

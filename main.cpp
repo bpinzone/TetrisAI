@@ -23,8 +23,8 @@ struct Decision {
     State best_foreseeable_state_from_placement;
 };
 
-static const int placement_lookahead_depth = 6;
-static const int placements_to_perform = 20;
+static const int queue_consume_lookahead_depth = 5;
+static const int placements_to_perform = 999999999;
 
 void play();
 
@@ -33,8 +33,7 @@ Decision get_best_decision(
         const State& state,
         const Block& presented,
         const deque<const Block*>::const_iterator& next_block_it,
-        const deque<const Block*>::const_iterator& end_block_it,
-        bool just_swapped);
+        const deque<const Block*>::const_iterator& end_block_it);
 
 int main() {
     State::worst_state.is_worst_board = true;
@@ -57,12 +56,12 @@ void play(){
         cout << "Turn: " << turn << "\n";
         cout << "Tetris percent:"
              << ((static_cast<double>(tetris_count))/(tetris_count + non_tetris_count)) * 100.0
-             << "  %\n";
+             << " %\n";
         cout << "Presented with: " << next_to_present->name << endl;
         state.tetris_count = 0;
         Decision next_decision = get_best_decision(
             state, *next_to_present,
-            queue.begin(), queue.begin() + placement_lookahead_depth, false
+            queue.begin(), queue.begin() + queue_consume_lookahead_depth
         );
 
         State new_state{state};
@@ -131,8 +130,7 @@ Decision get_best_decision(
         const State& state,
         const Block& presented,
         const deque<const Block*>::const_iterator& next_block_it,
-        const deque<const Block*>::const_iterator& end_block_it,
-        bool just_swapped){
+        const deque<const Block*>::const_iterator& end_block_it){
 
     // Try all the ways to place it.
     array<Placement, State::c_worst_case_num_placements> placements;
@@ -151,7 +149,7 @@ Decision get_best_decision(
         if(game_over || new_state.get_num_holes() - state.get_num_holes() >= 2){
             best_reachable_state_from_new_state = State::worst_state;
         }
-        else if(next_block_it + 1 == end_block_it) {
+        else if(next_block_it == end_block_it) {
             best_reachable_state_from_new_state = new_state;
         }
         else{
@@ -159,8 +157,7 @@ Decision get_best_decision(
                     new_state,
                     **next_block_it,
                     next_block_it + 1,
-                    end_block_it,
-                    false
+                    end_block_it
             ).best_foreseeable_state_from_placement;
         }
 
@@ -171,7 +168,7 @@ Decision get_best_decision(
     }
 
     assert(best_decision);
-    if(just_swapped){
+    if(!state.get_can_hold()){
         return *best_decision;
     }
 
@@ -179,7 +176,7 @@ Decision get_best_decision(
     const Block* was_held = hold_state.hold(presented);
 
     State best_reachable_state_from_hold_state;
-    if(next_block_it + 1 == end_block_it){
+    if(next_block_it == end_block_it){
         best_reachable_state_from_hold_state = hold_state;
     }
     else {
@@ -187,8 +184,7 @@ Decision get_best_decision(
             hold_state,
             was_held ? *was_held : **next_block_it,
             was_held ? next_block_it: next_block_it + 1,
-            end_block_it,
-            true
+            end_block_it
         ).best_foreseeable_state_from_placement;
     }
 

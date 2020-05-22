@@ -173,6 +173,7 @@ bool State::place_block(const Block& b, Placement p){
         ++tetris_count;
     }
 
+    can_hold = true;
     return true;
 }
 
@@ -185,9 +186,14 @@ int State::get_num_holes() const {
     return static_cast<int>(perfect_board_cell_count - num_filled);
 }
 
+bool State::get_can_hold() const {
+    return can_hold;
+}
+
 const Block* State::hold(const Block& b){
     const Block* old_hold = current_hold;
     current_hold = &b;
+    can_hold = false;
     return old_hold;
 }
 
