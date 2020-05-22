@@ -155,10 +155,10 @@ bool State::place_block(const Block& b, Placement p){
         perfect_board_cell_count -= height_map[col];
         height_map[col] = end_fill_row;
         perfect_board_cell_count += end_fill_row;
+
         for(int row = start_fill_row; row < end_fill_row; ++row){
             at(row, col) = true;
         }
-
     }
 
     num_filled += c_cells_per_block;
@@ -183,7 +183,11 @@ int State::get_num_holes() const {
     return static_cast<int>(perfect_board_cell_count - num_filled);
 }
 
-bool State::get_can_hold() const {
+bool State::get_can_hold(const Block& b) const {
+    // TODO: Check
+    if(&b == current_hold){
+        return false;
+    }
     return can_hold;
 }
 

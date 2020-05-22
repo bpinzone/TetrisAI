@@ -168,7 +168,7 @@ Decision get_best_decision(
     }
 
     assert(best_decision);
-    if(!state.get_can_hold()){
+    if(!state.get_can_hold(presented)){
         return *best_decision;
     }
 

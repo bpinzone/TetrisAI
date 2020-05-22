@@ -75,7 +75,7 @@ public:
     bool place_block(const Block& b, Placement p);
     int get_num_holes() const;
 
-    bool get_can_hold() const;
+    bool get_can_hold(const Block& b) const;
     const Block* hold(const Block& b);
     const Block* get_hold() const;
 
