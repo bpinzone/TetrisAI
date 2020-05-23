@@ -60,7 +60,6 @@ public:
     // Given a placement decision and block, completely modify the state.
     bool place_block(const Block& b, Placement p);
     const Block* swap_block(const Block& b);
-    void become_worst_board();
 
     // Non-modifying
 
@@ -69,10 +68,6 @@ public:
     int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
     void print_diff_against(const State& new_other) const;
-
-    // todo: remove
-    // int get_num_tetrises() const;
-    // int get_num_non_tetrises() const;
 
     double get_tetris_percent() const;
 
@@ -101,15 +96,9 @@ private:
     int get_row_after_drop(const Block& b, Placement p) const;
     bool contour_matches(const Block& b, Placement p) const;
 
-    std::pair<int16_t, int16_t> get_min_max_height() const;
-    int16_t get_height_of_second_lowest() const;
     int16_t get_height_map_reduction(int deleted_row, int query_col) const;
 
-    // modifying??? Seriously consider refactoring
-    int get_num_trenches() const;
-    // Requires: get_num_trenches() just returned 1, and the board has not been modified.
-    bool is_rest_board_4_above_single_trench() const;
-
+    void update_cache();
     void assert_cache_correct() const;
 
     // MEMBERS
@@ -122,19 +111,29 @@ private:
     bool just_swapped = true;
 
     // Cache
+    // === These cached values are updated during place_block() and clear_row() ===
     std::array<int16_t, c_cols> height_map = {0};
     int num_cells_filled = 0;
+
+    // === These cached values are updated just before place_block() returns ===
+    /* NOTE:
+        None of these are ever read by place_block() or clear_row()
+        update_cache() is responsible for updating all of the following,
+        up to and NOT including num_tetrises.
+        Recomputed at end of place_block. (With single pass)
+    */
+    int num_trenches = 0;
     // If there are 0 holes, num_cells_filled will be equal to this.
     int perfect_num_cells_filled = 0;
+    int lowest_height = 0;
+    int second_lowest_height = 0;
+    int highest_height = 0;
+    // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
+    bool is_tetrisable = false;
 
-    // ?????
-    // todo: mutable?
-    mutable int some_trench_col = 0;
-
-    // Stats
-    // From first empty board, to this state, how many total tetrises occurred.
+    // Stats: Relative to when game began.
     int num_tetrises = 0;
-    int num_non_tetrises = 0;
+    int num_placements_that_cleared_rows = 0;
     bool is_worst_board = false;
 
 };

@@ -8,6 +8,9 @@
 
 using namespace std;
 
+// todo: comment
+static void update_extrema(int& lowest, int& second_lowest, int& highest, int candidate);
+
 State State::worst_state;
 
 /*
@@ -163,13 +166,12 @@ bool State::place_block(const Block& b, Placement p){
         max_row_x_affected = max(max_row_x_affected, abs_end_fill_row - 1);
 
         if(max_row_x_affected >= c_rows){
-            assert_cache_correct();
+            // NOTE: If we're here, this state is never touched again.
+            // Because its game over.
             return false;
         }
 
-        perfect_num_cells_filled -= height_map[col];
         height_map[col] = abs_end_fill_row;
-        perfect_num_cells_filled += abs_end_fill_row;
 
         for(int row = abs_start_fill_row; row < abs_end_fill_row; ++row){
             at(row, col) = true;
@@ -186,14 +188,16 @@ bool State::place_block(const Block& b, Placement p){
         }
     }
 
-    if(num_rows_cleared_just_now == 4){
-        ++num_tetrises;
-    }
-    else if(num_rows_cleared_just_now > 0){
-        ++num_non_tetrises;
+    if(num_rows_cleared_just_now > 0){
+        ++num_placements_that_cleared_rows;
+        if(num_rows_cleared_just_now == 4){
+            ++num_tetrises;
+        }
     }
 
+
     just_swapped = false;
+    update_cache();
     assert_cache_correct();
     return true;
 }
@@ -203,10 +207,6 @@ const Block* State::swap_block(const Block& b){
     current_hold = &b;
     just_swapped = true;
     return old_hold;
-}
-
-void State::become_worst_board() {
-    is_worst_board = true;
 }
 
 bool State::has_higher_utility_than(const State& other) const {
@@ -221,12 +221,8 @@ bool State::has_higher_utility_than(const State& other) const {
     // === Fundamental Priorities ===
     // Trench Punishment
     // TODO: this is inlined
-    const int this_trenches = get_num_trenches();
-    const int other_trenches = other.get_num_trenches();
-    const bool this_has_more_than_1_trench = this_trenches > 1;
-    const bool other_has_more_than_1_trench = other_trenches > 1;
-    if(this_has_more_than_1_trench != other_has_more_than_1_trench){
-        return !this_has_more_than_1_trench;
+    if((num_trenches > 1) != (other.num_trenches > 1)){
+        return num_trenches <= 1;
     }
 
     // Holes
@@ -238,15 +234,12 @@ bool State::has_higher_utility_than(const State& other) const {
         }
     }
 
-    // Helper, compute heights
-    const auto [this_min_height, this_max_height] = get_min_max_height();
-    const int16_t this_height_diff = this_max_height - this_min_height;
-    const auto [other_min_height, other_max_height] = other.get_min_max_height();
-    const int16_t other_height_diff = other_max_height - other_min_height;
+    const int16_t this_height_diff = highest_height - lowest_height;
+    const int16_t other_height_diff = other.highest_height - other.lowest_height;
 
     // Tetris mode.
-    const bool this_in_tetris_mode = this_max_height <= c_max_tetris_mode_height;
-    const bool other_in_tetris_mode = other_max_height <= c_max_tetris_mode_height;
+    const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
+    const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
     if(this_in_tetris_mode != other_in_tetris_mode){
         return this_in_tetris_mode;
     }
@@ -260,33 +253,15 @@ bool State::has_higher_utility_than(const State& other) const {
             return num_tetrises > other.num_tetrises;
         }
 
-        // Become tetris-able.
-        // Approximates tetris-ability in the sense that we assume there are no holes.
-        // Recall: Getting rid of holes is the first priority.
-        // If we have made it this far in comparison, we probably don't have many holes.
-        // TODO: probably inlined
-        const bool is_this_tetrisable =
-            this_trenches == 1 && is_rest_board_4_above_single_trench();
-
-        const bool is_other_tetrisable =
-            other_trenches == 1 && other.is_rest_board_4_above_single_trench();
-
-        if(is_this_tetrisable != is_other_tetrisable){
-            return is_this_tetrisable;
+        if(is_tetrisable != other.is_tetrisable){
+            return is_tetrisable;
         }
-
-        // Now, both boards are in the same one of these two scenarios:
-        // 1. We don't forsee a tetrisable future.
-        // 2. We can tetris.
 
         // Make the 2nd shortest column as large as possible.
         // Encourges alg to build a solid mass of blocks, but not clear rows,
         // in order to get to the point where we can forsee being tetris-able.
-        const int16_t this_second_height = get_height_of_second_lowest();
-        const int16_t other_second_height = other.get_height_of_second_lowest();
-
-        if(this_second_height != other_second_height){
-            return this_second_height > other_second_height;
+        if(second_lowest_height != other.second_lowest_height){
+            return second_lowest_height > other.second_lowest_height;
         }
 
         return this_height_diff < other_height_diff;
@@ -296,8 +271,8 @@ bool State::has_higher_utility_than(const State& other) const {
         assert(!other_in_tetris_mode);
         // Do non-tetris mode comparison.
 
-        if(this_trenches != other_trenches){
-            return this_trenches < other_trenches;
+        if(num_trenches != other.num_trenches){
+            return num_trenches < other.num_trenches;
         }
 
         if(num_cells_filled != other.num_cells_filled){
@@ -347,18 +322,8 @@ void State::print_diff_against(const State& new_other) const{
     }
 }
 
-// int State::get_num_tetrises() const {
-//     return num_tetrises;
-// }
-
-// int State::get_num_non_tetrises() const {
-//     return num_non_tetrises;
-// }
-
 double State::get_tetris_percent() const {
-    return (static_cast<double>(num_tetrises))
-        / (num_tetrises + num_non_tetrises)
-        * 100;
+    return static_cast<double>(num_tetrises) / num_placements_that_cleared_rows * 100;
 }
 
 const State& State::get_worst_state() {
@@ -379,7 +344,6 @@ void State::clear_row(int deleted_row) {
     for(int col_x = 0; col_x < c_cols; ++col_x){
         int16_t reduction = get_height_map_reduction(deleted_row, col_x);
         height_map[col_x] -= reduction;
-        perfect_num_cells_filled -= reduction;
     }
 
     board =
@@ -443,32 +407,6 @@ bool State::contour_matches(const Block& b, Placement p) const {
     return true;
 }
 
-pair<int16_t, int16_t> State::get_min_max_height() const {
-
-    const auto& [min_height_it, max_height_it] =
-        minmax_element(cbegin(height_map), cend(height_map));
-
-    return {*min_height_it, *max_height_it};
-}
-
-int16_t State::get_height_of_second_lowest() const {
-
-    int16_t lowest = c_rows;
-    int16_t second_lowest = c_rows;
-
-    for(const auto& height : height_map){
-
-        if(height <= lowest){
-            second_lowest = lowest;
-            lowest = height;
-        }
-        else{
-            second_lowest = min(height, second_lowest);
-        }
-    }
-    return second_lowest;
-}
-
 // Given a row is being deleted, how many to subtract from the height map
 // of query col. (Maybe holes will become exposed.)
 int16_t State::get_height_map_reduction(int deleted_row, int query_col) const {
@@ -485,44 +423,46 @@ int16_t State::get_height_map_reduction(int deleted_row, int query_col) const {
     return reductions;
 }
 
-int State::get_num_trenches() const {
+void State::update_cache() {
 
-    // Trench count
-    int num_trenches = 0;
-    if(height_map[1] - height_map[0] >= 3){
-        ++num_trenches;
-        // TODO: differentiate between punishing 3+, and having a 4+ trench.
-        some_trench_col = 0;
-    }
-    if(height_map[c_cols - 2] - height_map[c_cols - 1] >= 3){
-        ++num_trenches;
-        // TODO: differentiate between punishing 3+, and having a 4+ trench.
-        some_trench_col = c_cols - 1;
-    }
-    for(int col_x = 1; col_x < c_cols - 2; ++col_x){
-        const int middle_height = height_map[col_x];
-        const int left_height = height_map[col_x - 1];
-        const int right_height = height_map[col_x + 1];
-        if(left_height - middle_height >= 3 && right_height -middle_height >= 3){
-            ++num_trenches;
-            // TODO: differentiate between punishing 3+, and having a 4+ trench.
-            some_trench_col = col_x;
-        }
-    }
+    static const int impossibly_high_wall = c_rows + 5;
+    static const int min_depth_considered_trench = 3;
 
-    return num_trenches;
-}
+    perfect_num_cells_filled = 0;
+    num_trenches = 0;
 
-bool State::is_rest_board_4_above_single_trench() const {
+    lowest_height = c_cols;
+    second_lowest_height = c_cols;
+    highest_height = 0;
 
-    const int min_passing_height = height_map[some_trench_col] + 4;
+    int left_height = impossibly_high_wall;
+    int middle_height = height_map[0];
+    int right_height = height_map[1];
+
+    int some_trench_height = 0;
+
     for(int col_x = 0; col_x < c_cols; ++col_x){
-        if(height_map[col_x] < min_passing_height
-                && col_x != some_trench_col){
-            return false;
+
+        perfect_num_cells_filled += middle_height;
+
+        update_extrema(lowest_height, second_lowest_height, highest_height, middle_height);
+
+        // count and keep track of a trench.
+        if(left_height - middle_height >= min_depth_considered_trench
+                && right_height - middle_height >= min_depth_considered_trench){
+            ++num_trenches;
+            some_trench_height = middle_height;
         }
+
+        left_height = middle_height;
+        middle_height = right_height;
+        right_height = (col_x == c_cols - 2) ? impossibly_high_wall : height_map[col_x + 2];
     }
-    return true;
+
+    is_tetrisable =
+        num_trenches == 1
+        && lowest_height == some_trench_height
+        && second_lowest_height >= some_trench_height + 4;
 }
 
 void State::assert_cache_correct() const {
@@ -543,4 +483,10 @@ void State::assert_cache_correct() const {
     const int correct_perfect_board_cell_count = accumulate(
         cbegin(height_map), cend(height_map), 0);
     assert(perfect_num_cells_filled == correct_perfect_board_cell_count);
+}
+
+void update_extrema(int& lowest, int& second_lowest, int& highest, int candidate){
+    second_lowest = candidate <= lowest ? lowest : min(second_lowest, candidate);
+    lowest = min(lowest, candidate);
+    highest = max(highest, candidate);
 }
