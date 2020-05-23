@@ -114,6 +114,8 @@ private:
     // === These cached values are updated during place_block() and clear_row() ===
     std::array<int16_t, c_cols> height_map = {0};
     int num_cells_filled = 0;
+    // If there are 0 holes, num_cells_filled will be equal to this.
+    int perfect_num_cells_filled = 0;
 
     // === These cached values are updated just before place_block() returns ===
     /* NOTE:
@@ -123,8 +125,6 @@ private:
         Recomputed at end of place_block. (With single pass)
     */
     int num_trenches = 0;
-    // If there are 0 holes, num_cells_filled will be equal to this.
-    int perfect_num_cells_filled = 0;
     int lowest_height = 0;
     int second_lowest_height = 0;
     int highest_height = 0;

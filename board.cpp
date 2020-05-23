@@ -8,9 +8,6 @@
 
 using namespace std;
 
-// todo: comment
-static void update_extrema(int& lowest, int& second_lowest, int& highest, int candidate);
-
 State State::worst_state;
 
 /*
@@ -143,11 +140,13 @@ ostream& operator<<(ostream& os, const State& s) {
     return os;
 }
 
-// May or may not create holes.
-// Returns true iff this move does NOT result in a game over.
+// Return true iff this board is still promising.
 bool State::place_block(const Block& b, Placement p){
 
     static const int c_cells_per_block = 4;
+    static const int max_holes_allowed_generated_at_once = 1;
+
+    const int old_num_holes = get_num_holes();
 
     const int left_bottom_row = get_row_after_drop(b, p);
 
@@ -171,7 +170,9 @@ bool State::place_block(const Block& b, Placement p){
             return false;
         }
 
+        perfect_num_cells_filled -= height_map[col];
         height_map[col] = abs_end_fill_row;
+        perfect_num_cells_filled += abs_end_fill_row;
 
         for(int row = abs_start_fill_row; row < abs_end_fill_row; ++row){
             at(row, col) = true;
@@ -195,10 +196,16 @@ bool State::place_block(const Block& b, Placement p){
         }
     }
 
+    if(get_num_holes() - old_num_holes > max_holes_allowed_generated_at_once){
+        // Moves that create more than 2 holes immediatley pruned.
+        // Save time by not updating cache.
+        return false;
+    }
 
-    just_swapped = false;
     update_cache();
     assert_cache_correct();
+
+    just_swapped = false;
     return true;
 }
 
@@ -344,6 +351,7 @@ void State::clear_row(int deleted_row) {
     for(int col_x = 0; col_x < c_cols; ++col_x){
         int16_t reduction = get_height_map_reduction(deleted_row, col_x);
         height_map[col_x] -= reduction;
+        perfect_num_cells_filled -= reduction;
     }
 
     board =
@@ -428,7 +436,6 @@ void State::update_cache() {
     static const int impossibly_high_wall = c_rows + 5;
     static const int min_depth_considered_trench = 3;
 
-    perfect_num_cells_filled = 0;
     num_trenches = 0;
 
     lowest_height = c_cols;
@@ -443,9 +450,9 @@ void State::update_cache() {
 
     for(int col_x = 0; col_x < c_cols; ++col_x){
 
-        perfect_num_cells_filled += middle_height;
-
-        update_extrema(lowest_height, second_lowest_height, highest_height, middle_height);
+        second_lowest_height = middle_height <= lowest_height ? lowest_height : min(second_lowest_height, middle_height);
+        lowest_height = min(lowest_height, middle_height);
+        highest_height = max(highest_height, middle_height);
 
         // count and keep track of a trench.
         if(left_height - middle_height >= min_depth_considered_trench
@@ -483,10 +490,4 @@ void State::assert_cache_correct() const {
     const int correct_perfect_board_cell_count = accumulate(
         cbegin(height_map), cend(height_map), 0);
     assert(perfect_num_cells_filled == correct_perfect_board_cell_count);
-}
-
-void update_extrema(int& lowest, int& second_lowest, int& highest, int candidate){
-    second_lowest = candidate <= lowest ? lowest : min(second_lowest, candidate);
-    lowest = min(lowest, candidate);
-    highest = max(highest, candidate);
 }

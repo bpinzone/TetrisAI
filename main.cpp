@@ -17,8 +17,6 @@ using namespace std;
 
 using Seed_t = unsigned int;
 
-const int max_holes_allowed_generated_at_once = 1;
-
 struct Decision {
     // Empty optional -> hold
     optional<Placement> placement;
@@ -107,8 +105,8 @@ void play(Seed_t seed, int queue_consume_lookahead_depth, int placements_to_perf
         }
         // PLACE
         else{
-            bool game_over = !new_state.place_block(*next_to_present, *next_decision.placement);
-            if(game_over){
+            bool is_promising = new_state.place_block(*next_to_present, *next_decision.placement);
+            if(!is_promising){
                 cout << "Game over :(" << endl;
                 return;
             }
@@ -142,11 +140,11 @@ Decision get_best_decision(
 
             const Placement& placement = {rot_x, col};
             State new_state{state};
-            bool game_over = !new_state.place_block(presented, placement);
+            bool is_promising = new_state.place_block(presented, placement);
 
             State best_reachable_state_from_new_state;
 
-            if(game_over || new_state.get_num_holes() - state.get_num_holes() > max_holes_allowed_generated_at_once){
+            if(!is_promising){
                 best_reachable_state_from_new_state = State::get_worst_state();
             }
             else if(next_block_it == end_block_it) {
