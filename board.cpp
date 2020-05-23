@@ -223,6 +223,7 @@ bool State::has_higher_utility_than(const State& other) const {
     }
 
     // You are in tetris mode if you are here or less in height.
+    // todo: experiment with this later.
     static const int c_max_tetris_mode_height = 12;
 
     // === Fundamental Priorities ===

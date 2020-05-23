@@ -139,20 +139,15 @@ Decision get_best_decision(
         for(int col = 0; col <= max_valid_col; ++col){
 
             const Placement& placement = {rot_x, col};
-            State new_state{state};
-            bool is_promising = new_state.place_block(presented, placement);
-
-            State best_reachable_state_from_new_state;
+            State best_reachable_state_with_placement{state};
+            bool is_promising = best_reachable_state_with_placement.place_block(presented, placement);
 
             if(!is_promising){
-                best_reachable_state_from_new_state = State::get_worst_state();
+                best_reachable_state_with_placement = State::get_worst_state();
             }
-            else if(next_block_it == end_block_it) {
-                best_reachable_state_from_new_state = new_state;
-            }
-            else{
-                best_reachable_state_from_new_state = get_best_decision(
-                        new_state,
+            else if(next_block_it != end_block_it) {
+                best_reachable_state_with_placement = get_best_decision(
+                        best_reachable_state_with_placement,
                         **next_block_it,
                         next_block_it + 1,
                         end_block_it
@@ -160,8 +155,8 @@ Decision get_best_decision(
             }
 
             if(!best_decision ||
-                    best_reachable_state_from_new_state.has_higher_utility_than(best_decision->best_foreseeable_state_from_placement)){
-                best_decision = {placement, move(best_reachable_state_from_new_state)};
+                    best_reachable_state_with_placement.has_higher_utility_than(best_decision->best_foreseeable_state_from_placement)){
+                best_decision = {placement, move(best_reachable_state_with_placement)};
             }
         }
     }
@@ -171,16 +166,12 @@ Decision get_best_decision(
         return *best_decision;
     }
 
-    State hold_state{state};
-    const Block* was_held = hold_state.swap_block(presented);
+    State best_state_reachable_with_hold{state};
+    const Block* was_held = best_state_reachable_with_hold.swap_block(presented);
 
-    State best_reachable_state_from_hold_state;
-    if(next_block_it == end_block_it){
-        best_reachable_state_from_hold_state = hold_state;
-    }
-    else {
-        best_reachable_state_from_hold_state = get_best_decision(
-            hold_state,
+    if(next_block_it != end_block_it){
+        best_state_reachable_with_hold = get_best_decision(
+            best_state_reachable_with_hold,
             was_held ? *was_held : **next_block_it,
             was_held ? next_block_it: next_block_it + 1,
             end_block_it
@@ -188,8 +179,8 @@ Decision get_best_decision(
     }
 
     assert(best_decision);
-    if(best_reachable_state_from_hold_state.has_higher_utility_than(best_decision->best_foreseeable_state_from_placement)){
-        best_decision = {{}, move(best_reachable_state_from_hold_state)};
+    if(best_state_reachable_with_hold.has_higher_utility_than(best_decision->best_foreseeable_state_from_placement)){
+        best_decision = {{}, move(best_state_reachable_with_hold)};
     }
 
     assert(best_decision);
