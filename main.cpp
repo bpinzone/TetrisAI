@@ -9,11 +9,15 @@
 #include <utility>
 #include <limits>
 #include <array>
+#include <cstdlib>
 
 #include "board.h"
 
 using namespace std;
 
+using Seed_t = unsigned int;
+
+const int max_holes_allowed_generated_at_once = 1;
 
 struct Decision {
     // Empty optional -> hold
@@ -22,29 +26,58 @@ struct Decision {
     State best_foreseeable_state_from_placement;
 };
 
-static const int queue_consume_lookahead_depth = 4;
-static const int placements_to_perform = 40;
+void play(Seed_t seed, int queue_consume_lookahead_depth, int placements_to_perform);
 
-void play();
+class Block_generator {
 
-const Block* generate_block();
+public:
+
+    Block_generator(Seed_t seed)
+        : generator{seed} {
+    }
+
+    const Block* operator()() {
+        return block_ptrs[distribution(generator)];
+    }
+
+private:
+
+    inline static const Block* block_ptrs[] = {
+        &Block::Cyan, &Block::Blue, &Block::Orange,
+        &Block::Green, &Block::Red, &Block::Yellow, &Block::Purple
+    };
+
+    inline static uniform_int_distribution<int> distribution{
+        0, (sizeof(block_ptrs) / sizeof(block_ptrs[0])) - 1
+    };
+
+    default_random_engine generator;
+};
+
 Decision get_best_decision(
         const State& state,
         const Block& presented,
         const deque<const Block*>::const_iterator& next_block_it,
         const deque<const Block*>::const_iterator& end_block_it);
 
-int main() {
-    play();
+// <prog> <seed> <lookahead_depth> <placements_to_perform>
+int main(int argc, char* argv[]) {
+    if(argc != 4){
+        cout << "Incorrect usage: Requires: <seed> <depth> <placement count>" << endl;
+        return 0;
+    }
+    play(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
     return 0;
 }
 
-void play(){
+void play(Seed_t seed, int queue_consume_lookahead_depth, int placements_to_perform){
+
+    Block_generator block_generator(seed);
 
     State state;
-    const Block* next_to_present = generate_block();
+    const Block* next_to_present = block_generator();
     deque<const Block*> queue;
-    generate_n(back_inserter(queue), 6, &generate_block);
+    generate_n(back_inserter(queue), 6, block_generator);
 
     int turn = 0;
     while(turn < placements_to_perform){
@@ -66,7 +99,7 @@ void play(){
             if(!old_hold){
                 next_to_present = queue.front();
                 queue.pop_front();
-                queue.push_back(generate_block());
+                queue.push_back(block_generator());
             }
             else{
                 next_to_present = old_hold;
@@ -81,7 +114,7 @@ void play(){
             }
             next_to_present = queue.front();
             queue.pop_front();
-            queue.push_back(generate_block());
+            queue.push_back(block_generator());
         }
         state.print_diff_against(new_state);
         cout << endl;
@@ -113,7 +146,7 @@ Decision get_best_decision(
 
             State best_reachable_state_from_new_state;
 
-            if(game_over || new_state.get_num_holes() - state.get_num_holes() >= 2){
+            if(game_over || new_state.get_num_holes() - state.get_num_holes() > max_holes_allowed_generated_at_once){
                 best_reachable_state_from_new_state = State::get_worst_state();
             }
             else if(next_block_it == end_block_it) {
@@ -165,21 +198,3 @@ Decision get_best_decision(
     return *best_decision;
 }
 
-const Block* generate_block(){
-
-    static const Block* block_ptrs[] = {
-        &Block::Cyan, &Block::Blue, &Block::Orange,
-        &Block::Green, &Block::Red, &Block::Yellow, &Block::Purple
-    };
-
-    // TODO: Give it a seed, or get the same game every time.
-    static auto block_idx_generator = bind(
-        uniform_int_distribution<int>{
-            0,
-            (sizeof(block_ptrs) / sizeof(block_ptrs[0])) - 1
-        },
-        default_random_engine{}
-    );
-    return block_ptrs[block_idx_generator()];
-
-}
