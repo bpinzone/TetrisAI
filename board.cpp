@@ -143,8 +143,6 @@ ostream& operator<<(ostream& os, const State& s) {
 // Return true iff this board is still promising.
 bool State::place_block(const Block& b, Placement p){
 
-    static const int c_cells_per_block = 4;
-    static const int max_holes_allowed_generated_at_once = 1;
 
     const int old_num_holes = get_num_holes();
 
@@ -179,8 +177,10 @@ bool State::place_block(const Block& b, Placement p){
         }
     }
 
+    static const int c_cells_per_block = 4;
     num_cells_filled += c_cells_per_block;
 
+    // Check for cleared rows
     int num_rows_cleared_just_now = 0;
     for(int row = max_row_x_affected; row >= min_row_x_affected; --row){
         if(is_row_full(row)){
@@ -189,6 +189,7 @@ bool State::place_block(const Block& b, Placement p){
         }
     }
 
+    // Statistics
     if(num_rows_cleared_just_now > 0){
         ++num_placements_that_cleared_rows;
         if(num_rows_cleared_just_now == 4){
@@ -196,6 +197,8 @@ bool State::place_block(const Block& b, Placement p){
         }
     }
 
+    // Don't update cache if we're not promising
+    static const int max_holes_allowed_generated_at_once = 1;
     if(get_num_holes() - old_num_holes > max_holes_allowed_generated_at_once){
         // Moves that create more than 2 holes immediatley pruned.
         // Save time by not updating cache.
@@ -206,6 +209,7 @@ bool State::place_block(const Block& b, Placement p){
     assert_cache_correct();
 
     just_swapped = false;
+    ++num_blocks_placed;
     return true;
 }
 
@@ -292,7 +296,7 @@ bool State::has_higher_utility_than(const State& other) const {
 }
 
 int State::get_num_holes() const {
-    return static_cast<int>(perfect_num_cells_filled - num_cells_filled);
+    return perfect_num_cells_filled - num_cells_filled;
 }
 
 bool State::can_swap_block(const Block& b) const {
@@ -300,6 +304,10 @@ bool State::can_swap_block(const Block& b) const {
         return false;
     }
     return !just_swapped;
+}
+
+bool State::is_holding_some_block() const {
+    return current_hold;
 }
 
 void State::print_diff_against(const State& new_other) const{
@@ -328,6 +336,10 @@ void State::print_diff_against(const State& new_other) const{
         }
         cout << "\n";
     }
+}
+
+int State::get_num_blocks_placed() const {
+    return num_blocks_placed;
 }
 
 double State::get_tetris_percent() const {

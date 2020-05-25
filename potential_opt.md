@@ -1,5 +1,15 @@
+give state a ctor so it shows up on profiler.
+give state a ctor so it shows up on profiler.
+give state a ctor so it shows up on profiler.
+give state a ctor so it shows up on profiler.
+give state a ctor so it shows up on profiler.
+give state a ctor so it shows up on profiler.
+give state a ctor so it shows up on profiler.
+give state a ctor so it shows up on profiler.
+
 Cache EVERYTHING the utility function needs.
 Inline all board member functions.
+restrict holding?
 
 inline EVERYTHING
 things that are probably inlined and can use optimizations:

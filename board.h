@@ -18,31 +18,7 @@ struct CH_maps {
     std::vector<int16_t> height;
 };
 
-struct Block {
-
-    // [rotation] = maps for that rotation
-    std::string name;
-    std::vector<CH_maps> maps;
-
-    static const Block Cyan;
-    static const Block Blue;
-    static const Block Orange;
-    static const Block Green;
-    static const Block Red;
-    static const Block Yellow;
-    static const Block Purple;
-
-    Block& operator=(const Block& other) = delete;
-    Block& operator=(Block&& other) = delete;
-
-    Block(const Block& other) = delete;
-    Block(Block&& other) = delete;
-
-private:
-    Block(const std::string& _name, const std::vector<CH_maps>& _maps)
-        : name{_name}, maps{_maps} {
-    }
-};
+struct Block;
 
 class State {
 
@@ -67,8 +43,10 @@ public:
     bool has_higher_utility_than(const State& other) const;
     int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
+    bool is_holding_some_block() const;
     void print_diff_against(const State& new_other) const;
 
+    int get_num_blocks_placed() const;
     double get_tetris_percent() const;
 
     static const State& get_worst_state();
@@ -132,10 +110,41 @@ private:
     bool is_tetrisable = false;
 
     // Stats: Relative to when game began.
-    int num_tetrises = 0;
+    int num_blocks_placed = 0;
     int num_placements_that_cleared_rows = 0;
+    int num_tetrises = 0;
     bool is_worst_board = false;
 
+};
+
+struct Block {
+
+    // [rotation] = maps for that rotation
+    std::string name;
+    std::vector<CH_maps> maps;
+
+    static const Block Cyan;
+    static const Block Blue;
+    static const Block Orange;
+    static const Block Green;
+    static const Block Red;
+    static const Block Yellow;
+    static const Block Purple;
+
+    int get_max_valid_placement_col(int rot_x) const {
+        return State::c_cols - maps[rot_x].contour.size();
+    }
+
+    Block& operator=(const Block& other) = delete;
+    Block& operator=(Block&& other) = delete;
+
+    Block(const Block& other) = delete;
+    Block(Block&& other) = delete;
+
+private:
+    Block(const std::string& _name, const std::vector<CH_maps>& _maps)
+        : name{_name}, maps{_maps} {
+    }
 };
 
 #endif
