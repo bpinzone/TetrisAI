@@ -40,7 +40,7 @@ public:
     // Non-modifying
 
     // Returns true iff this has strictly higher utility than other.
-    bool has_higher_utility_than(const State& other) const;
+    bool has_greater_utility_than(const State& other) const;
     int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
     bool is_holding_some_block() const;

@@ -220,7 +220,7 @@ const Block* State::swap_block(const Block& b){
     return old_hold;
 }
 
-bool State::has_higher_utility_than(const State& other) const {
+bool State::has_greater_utility_than(const State& other) const {
 
     if(is_worst_board != other.is_worst_board){
         return !is_worst_board;
@@ -228,14 +228,24 @@ bool State::has_higher_utility_than(const State& other) const {
 
     // You are in tetris mode if you are here or less in height.
     // todo: experiment with this later.
+    // TODO: put back to 8.
     static const int c_max_tetris_mode_height = 12;
+    static const int c_height_diff_punishment_thresh = 3;
 
     // === Fundamental Priorities ===
-    // Trench Punishment
-    // TODO: this is inlined
-    if((num_trenches > 1) != (other.num_trenches > 1)){
-        return num_trenches <= 1;
+
+    // TODO: if we keep this, remove trench count logic.
+    const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
+    const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
+    if(this_receives_height_punishment  != other_receives_height_punishment){
+        return !this_receives_height_punishment;
     }
+
+    // // Trench Punishment
+    // // TODO: this is inlined
+    // if((num_trenches > 1) != (other.num_trenches > 1)){
+    //     return num_trenches <= 1;
+    // }
 
     // Holes
     {

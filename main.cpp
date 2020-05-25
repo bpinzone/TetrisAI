@@ -253,7 +253,7 @@ State get_best_reachable_state(
         state_stack.pop_back();
 
         if(considered_state.is_leaf){
-            if(considered_state.state.has_higher_utility_than(best_foreseeable_state)){
+            if(considered_state.state.has_greater_utility_than(best_foreseeable_state)){
                 best_foreseeable_state = considered_state.state;
             }
         }
@@ -330,7 +330,7 @@ optional<Placement> get_best_move(
             State best_reachable_state_from_here = get_best_reachable_state(
                 move(*second_decision_point), queue.cend(), placement_limit
             );
-            if(best_reachable_state_from_here.has_higher_utility_than(best_foreseeable_state)){
+            if(best_reachable_state_from_here.has_greater_utility_than(best_foreseeable_state)){
                 best_foreseeable_state = best_reachable_state_from_here;
                 best_move = placement;
             }
