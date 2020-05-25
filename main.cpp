@@ -73,6 +73,10 @@ void play(Seed_t seed, int num_placements_to_look_ahead, int placements_to_perfo
         cout << "Jeff cannot see that far into the future. Enter 7 or less.\n";
         return;
     }
+    if(num_placements_to_look_ahead < 1){
+        cout << "Jeff must be able to place a block!\n";
+        return;
+    }
 
     Block_generator block_generator(seed);
 
@@ -278,7 +282,6 @@ State get_best_reachable_state(
                 if(!placement){
                     break;
                 }
-
             }
 
         } // non-terminal else
@@ -301,7 +304,8 @@ optional<Placement> get_best_move(
 
     State best_foreseeable_state = State::get_worst_state();
     // Empty optional -> hold
-    optional<Placement> best_move;
+    // Init to some move, so that we don't return empty optional when nothing is good.
+    optional<Placement> best_move = {{0, 0}};
 
     Decision_point first_decision_point {
         state, presented, queue.cbegin(), false
