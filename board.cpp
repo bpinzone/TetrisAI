@@ -233,8 +233,16 @@ bool State::has_greater_utility_than(const State& other) const {
     static const int c_height_diff_punishment_thresh = 3;
 
     // === Fundamental Priorities ===
+    // Holes
+    {
+        const int this_holes = get_num_holes();
+        const int other_holes = other.get_num_holes();
+        if(this_holes != other_holes){
+            return this_holes < other_holes;
+        }
+    }
 
-    // TODO: if we keep this, remove trench count logic.
+    // TODO: if we keep this, remove trench count logic. (from cache)
     const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
     const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
     if(this_receives_height_punishment  != other_receives_height_punishment){
@@ -247,14 +255,6 @@ bool State::has_greater_utility_than(const State& other) const {
     //     return num_trenches <= 1;
     // }
 
-    // Holes
-    {
-        const int this_holes = get_num_holes();
-        const int other_holes = other.get_num_holes();
-        if(this_holes != other_holes){
-            return this_holes < other_holes;
-        }
-    }
 
     const int16_t this_height_diff = highest_height - lowest_height;
     const int16_t other_height_diff = other.highest_height - other.lowest_height;
@@ -287,6 +287,8 @@ bool State::has_greater_utility_than(const State& other) const {
         }
 
         return this_height_diff < other_height_diff;
+
+        // TODO: compare tetris percent?
     }
     else{
         assert(!this_in_tetris_mode);
