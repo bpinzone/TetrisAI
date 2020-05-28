@@ -14,8 +14,8 @@ struct Placement {
 };
 
 struct CH_maps {
-    std::vector<int16_t> contour;
-    std::vector<int16_t> height;
+    std::vector<int> contour;
+    std::vector<int> height;
 };
 
 struct Block;
@@ -74,7 +74,7 @@ private:
     int get_row_after_drop(const Block& b, Placement p) const;
     bool contour_matches(const Block& b, Placement p) const;
 
-    int16_t get_height_map_reduction(int deleted_row, int query_col) const;
+    int get_height_map_reduction(int deleted_row, int query_col) const;
 
     void update_cache();
     void assert_cache_correct() const;
@@ -90,7 +90,7 @@ private:
 
     // Cache
     // === These cached values are updated during place_block() and clear_row() ===
-    std::array<int16_t, c_cols> height_map = {0};
+    std::array<int, c_cols> height_map = {0};
     int num_cells_filled = 0;
     // If there are 0 holes, num_cells_filled will be equal to this.
     int perfect_num_cells_filled = 0;
@@ -106,6 +106,7 @@ private:
     int lowest_height = 0;
     int second_lowest_height = 0;
     int highest_height = 0;
+    int sum_of_squared_heights = 0;
     // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
     bool is_tetrisable = false;
 

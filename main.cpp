@@ -20,10 +20,6 @@ using Tetris_queue_t = deque<const Block*>;
 
 void play(Seed_t seed, int queue_consume_lookahead_depth, int placements_to_perform);
 
-// TODO: game over is broken.
-// TODO: game over is broken.
-// TODO: game over is broken.
-// TODO: game over is broken.
 optional<Placement> get_best_move(
         const State& state,
         const Block& presented,
@@ -219,7 +215,6 @@ optional<Decision_point> generate_child_decision_point(
                 parent_decision.next_queue_it + 1,
                 is_leaf
             }}
-            // TODO: this needs to be a terminal and a worst state.??
             : optional<Decision_point>{};
     }
     else {
@@ -291,11 +286,6 @@ State get_best_reachable_state(
 
 }
 
-// TODO:
-/*
-for lookahead, consider placement count vs queue consumption count.
-the other duplciation
-*/
 optional<Placement> get_best_move(
         const State& state,
         const Block& presented,

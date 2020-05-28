@@ -21,7 +21,7 @@ height: 1, 2, 1
 */
 
 const Block Block::Cyan {"Cyan", {
-    // // XXXX
+    // XXXX
     {
         {0, 0, 0, 0}, // Contour
         {1, 1, 1, 1} // Height
@@ -228,11 +228,13 @@ bool State::has_greater_utility_than(const State& other) const {
 
     // You are in tetris mode if you are here or less in height.
     // todo: experiment with this later.
-    // TODO: put back to 8.
-    static const int c_max_tetris_mode_height = 12;
+    static const int c_max_tetris_mode_height = 10;
     static const int c_height_diff_punishment_thresh = 3;
 
     // === Fundamental Priorities ===
+    if((num_trenches > 1) != (other.num_trenches > 1)){
+        return num_trenches <= 1;
+    }
     // Holes
     {
         const int this_holes = get_num_holes();
@@ -242,24 +244,7 @@ bool State::has_greater_utility_than(const State& other) const {
         }
     }
 
-    // TODO: if we keep this, remove trench count logic. (from cache)
-    const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
-    const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
-    if(this_receives_height_punishment  != other_receives_height_punishment){
-        return !this_receives_height_punishment;
-    }
-
-    // // Trench Punishment
-    // // TODO: this is inlined
-    // if((num_trenches > 1) != (other.num_trenches > 1)){
-    //     return num_trenches <= 1;
-    // }
-
-
-    const int16_t this_height_diff = highest_height - lowest_height;
-    const int16_t other_height_diff = other.highest_height - other.lowest_height;
-
-    // Tetris mode.
+    // Prefer to be in Tetris mode.
     const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
     const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
     if(this_in_tetris_mode != other_in_tetris_mode){
@@ -267,18 +252,25 @@ bool State::has_greater_utility_than(const State& other) const {
     }
 
     if(this_in_tetris_mode){
-        assert(other_in_tetris_mode);
-        // Do tetris mode comparison.
+
+        // Keep relatively even except for the one trench.
+        const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
+        const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
+        if(this_receives_height_punishment != other_receives_height_punishment){
+            return !this_receives_height_punishment;
+        }
 
         // Get the tetrises
         if(num_tetrises != other.num_tetrises){
             return num_tetrises > other.num_tetrises;
         }
 
+        // Become tetrisable
         if(is_tetrisable != other.is_tetrisable){
             return is_tetrisable;
         }
 
+        // Build up
         // Make the 2nd shortest column as large as possible.
         // Encourges alg to build a solid mass of blocks, but not clear rows,
         // in order to get to the point where we can forsee being tetris-able.
@@ -286,14 +278,10 @@ bool State::has_greater_utility_than(const State& other) const {
             return second_lowest_height > other.second_lowest_height;
         }
 
-        return this_height_diff < other_height_diff;
+        return sum_of_squared_heights < other.sum_of_squared_heights;
 
-        // TODO: compare tetris percent?
     }
     else{
-        assert(!this_in_tetris_mode);
-        assert(!other_in_tetris_mode);
-        // Do non-tetris mode comparison.
 
         if(num_trenches != other.num_trenches){
             return num_trenches < other.num_trenches;
@@ -303,8 +291,9 @@ bool State::has_greater_utility_than(const State& other) const {
             return num_cells_filled < other.num_cells_filled;
         }
 
-        return this_height_diff < other_height_diff;
+        return sum_of_squared_heights < other.sum_of_squared_heights;
     }
+
 }
 
 int State::get_num_holes() const {
@@ -355,7 +344,7 @@ int State::get_num_blocks_placed() const {
 }
 
 double State::get_tetris_percent() const {
-    return static_cast<double>(num_tetrises) / num_placements_that_cleared_rows * 100;
+    return static_cast<double>(num_tetrises) / num_blocks_placed * 100;
 }
 
 const State& State::get_worst_state() {
@@ -374,7 +363,7 @@ void State::clear_row(int deleted_row) {
     Board_t above_including_del_row_mask{~below_del_row_mask};
 
     for(int col_x = 0; col_x < c_cols; ++col_x){
-        int16_t reduction = get_height_map_reduction(deleted_row, col_x);
+        int reduction = get_height_map_reduction(deleted_row, col_x);
         height_map[col_x] -= reduction;
         perfect_num_cells_filled -= reduction;
     }
@@ -416,7 +405,6 @@ int State::get_row_after_drop(const Block& b, Placement p) const {
     assert(contour.front() == 0);
 
     for(int col_x = 1; col_x < num_cols_to_inspect; ++col_x){
-
         int board_col = p.column + col_x;
         int row = height_map[board_col] - contour[col_x];
         max_row = max(max_row, row);
@@ -442,7 +430,7 @@ bool State::contour_matches(const Block& b, Placement p) const {
 
 // Given a row is being deleted, how many to subtract from the height map
 // of query col. (Maybe holes will become exposed.)
-int16_t State::get_height_map_reduction(int deleted_row, int query_col) const {
+int State::get_height_map_reduction(int deleted_row, int query_col) const {
 
     int reductions = 1;
     // The deleted row IS NOT THE SURFACE at this column.
@@ -462,10 +450,10 @@ void State::update_cache() {
     static const int min_depth_considered_trench = 3;
 
     num_trenches = 0;
-
     lowest_height = c_cols;
     second_lowest_height = c_cols;
     highest_height = 0;
+    sum_of_squared_heights = 0;
 
     int left_height = impossibly_high_wall;
     int middle_height = height_map[0];
@@ -475,6 +463,7 @@ void State::update_cache() {
 
     for(int col_x = 0; col_x < c_cols; ++col_x){
 
+        sum_of_squared_heights += middle_height * middle_height;
         second_lowest_height = middle_height <= lowest_height ? lowest_height : min(second_lowest_height, middle_height);
         lowest_height = min(lowest_height, middle_height);
         highest_height = max(highest_height, middle_height);

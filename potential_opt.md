@@ -1,11 +1,4 @@
 give state a ctor so it shows up on profiler.
-give state a ctor so it shows up on profiler.
-give state a ctor so it shows up on profiler.
-give state a ctor so it shows up on profiler.
-give state a ctor so it shows up on profiler.
-give state a ctor so it shows up on profiler.
-give state a ctor so it shows up on profiler.
-give state a ctor so it shows up on profiler.
 
 Cache EVERYTHING the utility function needs.
 Inline all board member functions.
