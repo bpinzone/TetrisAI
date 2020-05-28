@@ -244,6 +244,13 @@ bool State::has_greater_utility_than(const State& other) const {
         }
     }
 
+    // Keep relatively even except for the one trench.
+    const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
+    const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
+    if(this_receives_height_punishment != other_receives_height_punishment){
+        return !this_receives_height_punishment;
+    }
+
     // Prefer to be in Tetris mode.
     const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
     const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
@@ -253,12 +260,6 @@ bool State::has_greater_utility_than(const State& other) const {
 
     if(this_in_tetris_mode){
 
-        // Keep relatively even except for the one trench.
-        const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
-        const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
-        if(this_receives_height_punishment != other_receives_height_punishment){
-            return !this_receives_height_punishment;
-        }
 
         // Get the tetrises
         if(num_tetrises != other.num_tetrises){

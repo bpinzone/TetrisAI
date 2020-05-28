@@ -182,9 +182,6 @@ struct Decision_point {
             bool _is_leaf)
         : state{_state}, presented_block{_presented_block}, next_queue_it{_next_queue_it}, is_leaf{_is_leaf} {
     }
-
-
-
 };
 
 
