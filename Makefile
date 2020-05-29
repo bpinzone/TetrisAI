@@ -48,7 +48,7 @@ PROJECTFILE = main.cpp
 # Strict
 # CXXFLAGS = -std=c++1z -Wconversion -Wall -Werror -Wextra -pedantic
 # I do what I want.
-CXXFLAGS = -std=c++1z
+CXXFLAGS = -std=c++17
 
 # make release - will compile "all" with $(CXXFLAGS) and the -O3 flag
 #				 also defines NDEBUG so that asserts will not check

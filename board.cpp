@@ -1,137 +1,25 @@
 #include "board.h"
 
+#include "block.h"
+
 #include <algorithm>
 #include <cassert>
 #include <iterator>
 #include <utility>
 #include <numeric>
+#include <iostream>
 
 using namespace std;
 
-State State::worst_state;
+Board Board::worst_board;
 
-/*
-Example:
-
-XX
- XX
-
-contour: 0, -1, -1
-height: 1, 2, 1
-*/
-
-const Block Block::Cyan {"Cyan", {
-    // XXXX
-    {
-        {0, 0, 0, 0}, // Contour
-        {1, 1, 1, 1} // Height
-    },
-    // X
-    // X
-    // X
-    // X
-    {
-        {0}, // Contour
-        {4} // Height
-    }
-}};
-
-const Block Block::Blue {"Blue", {
-    // XX
-    // X
-    // X
-    { {0, 2}, {3, 1} },
-
-    //  X
-    //  X
-    // XX
-    { {0, 0}, {1, 3} },
-
-    // X
-    // XXX
-    { {0, 0, 0}, {2, 1, 1}},
-
-    //   X
-    // XXX
-    { {0, 0, 0}, {1, 1, 2}},
-}};
-
-const Block Block::Orange {"Orange", {
-    // XX
-    //  X
-    //  X
-    { {0, -2}, {1, 3} },
-
-    // X
-    // X
-    // XX
-    { {0, 0}, {3, 1} },
-
-    // XXX
-    // X
-    { {0, 1, 1}, {2, 1, 1}},
-
-    // XXX
-    //   X
-    { {0, 0, -1}, {1, 1, 2}},
-}};
-
-const Block Block::Green {"Green", {
-
-    //  XX
-    // XX
-    { {0, 0, 1}, {1, 2, 1} },
-
-    //  X
-    // XX
-    // X
-    { {0, 1}, {2, 2} }
-}};
-
-const Block Block::Red {"Red", {
-    // XX
-    //  XX
-    { {0, -1, -1}, {1, 2, 1} },
-
-    //  X
-    // XX
-    // X
-    { {0, 1}, {2, 2} }
-}};
-
-const Block Block::Yellow {"Yellow", {
-    // XX
-    // XX
-    { {0, 0}, {2, 2} }
-}};
-
-const Block Block::Purple {"Purple", {
-    //  X
-    // XXX
-    { {0, 0, 0}, {1, 2, 1} },
-
-    // X
-    // XX
-    // X
-    { {0, 1}, {3, 1} },
-
-    // XXX
-    //  X
-    { {0, -1, 0}, {1, 2, 1}},
-
-    //  X
-    // XX
-    //  X
-    { {0, -1}, {1, 3}},
-}};
-
-ostream& operator<<(ostream& os, const State& s) {
+ostream& operator<<(ostream& os, const Board& s) {
 
     cout << "Holding: ";
     cout << (s.current_hold ? s.current_hold->name : "none") << endl;
 
-    for(long row = State::c_rows - 1; row >= 0; --row){
-        for(long col = 0; col < State::c_cols; ++col){
+    for(long row = Board::c_rows - 1; row >= 0; --row){
+        for(long col = 0; col < Board::c_cols; ++col){
             os << (s.at(row, col) ? "X" : ".");
         }
         os << "\n";
@@ -141,21 +29,21 @@ ostream& operator<<(ostream& os, const State& s) {
 }
 
 // Return true iff this board is still promising.
-bool State::place_block(const Block& b, Placement p){
+bool Board::place_block(const Block& b, Placement p){
 
-
+    assert(!p.get_is_hold());
     const int old_num_holes = get_num_holes();
 
     const int left_bottom_row = get_row_after_drop(b, p);
 
-    const CH_maps& ch_map = b.maps[p.rotation];
+    const CH_maps& ch_map = b.maps[p.get_rotation()];
     const int contour_size = ch_map.contour.size();
 
     int min_row_x_affected = c_rows - 1;
     int max_row_x_affected = 0;
 
     for(int contour_x = 0; contour_x < contour_size; ++contour_x){
-        const int col = p.column + contour_x;
+        const int col = p.get_column() + contour_x;
         const int abs_start_fill_row = left_bottom_row + ch_map.contour[contour_x];
         const int abs_end_fill_row = abs_start_fill_row + ch_map.height[contour_x];
 
@@ -213,14 +101,14 @@ bool State::place_block(const Block& b, Placement p){
     return true;
 }
 
-const Block* State::swap_block(const Block& b){
+const Block* Board::swap_block(const Block& b){
     const Block* old_hold = current_hold;
     current_hold = &b;
     just_swapped = true;
     return old_hold;
 }
 
-bool State::has_greater_utility_than(const State& other) const {
+bool Board::has_greater_utility_than(const Board& other) const {
 
     if(is_worst_board != other.is_worst_board){
         return !is_worst_board;
@@ -297,34 +185,34 @@ bool State::has_greater_utility_than(const State& other) const {
 
 }
 
-int State::get_num_holes() const {
+int Board::get_num_holes() const {
     return perfect_num_cells_filled - num_cells_filled;
 }
 
-bool State::can_swap_block(const Block& b) const {
+bool Board::can_swap_block(const Block& b) const {
     if(&b == current_hold){
         return false;
     }
     return !just_swapped;
 }
 
-bool State::is_holding_some_block() const {
+bool Board::is_holding_some_block() const {
     return current_hold;
 }
 
-void State::print_diff_against(const State& new_other) const{
+void Board::print_diff_against(const Board& new_other) const{
 
-    State new_items_state;
+    Board new_items_state;
     new_items_state.board = ~board & new_other.board;
 
-    State old_items_state;
+    Board old_items_state;
     old_items_state.board = board & new_other.board;
 
     cout << "Holding: ";
     cout << (new_other.current_hold ? new_other.current_hold->name : "none") << endl;
 
-    for(long row = State::c_rows - 1; row >= 0; --row){
-        for(long col = 0; col < State::c_cols; ++col){
+    for(long row = Board::c_rows - 1; row >= 0; --row){
+        for(long col = 0; col < Board::c_cols; ++col){
 
             if(new_items_state.at(row, col)){
                 cout << "@";
@@ -340,28 +228,28 @@ void State::print_diff_against(const State& new_other) const{
     }
 }
 
-int State::get_num_blocks_placed() const {
+int Board::get_num_blocks_placed() const {
     return num_blocks_placed;
 }
 
-double State::get_tetris_percent() const {
+double Board::get_tetris_percent() const {
     return static_cast<double>(num_tetrises) / num_blocks_placed * 100;
 }
 
-const State& State::get_worst_state() {
-    worst_state.is_worst_board = true;
-    return worst_state;
+const Board& Board::get_worst_board() {
+    worst_board.is_worst_board = true;
+    return worst_board;
 }
 
-void State::clear_row(int deleted_row) {
+void Board::clear_row(int deleted_row) {
 
-    Board_t board_shifted_down = board << c_cols;
+    Grid_t board_shifted_down = board << c_cols;
 
-    Board_t below_del_row_mask;
+    Grid_t below_del_row_mask;
     below_del_row_mask.set();
     below_del_row_mask <<= (c_cols * (c_rows - deleted_row));
 
-    Board_t above_including_del_row_mask{~below_del_row_mask};
+    Grid_t above_including_del_row_mask{~below_del_row_mask};
 
     for(int col_x = 0; col_x < c_cols; ++col_x){
         int reduction = get_height_map_reduction(deleted_row, col_x);
@@ -376,18 +264,18 @@ void State::clear_row(int deleted_row) {
     num_cells_filled -= c_cols;
 }
 
-State::Board_t::reference State::at(size_t row, size_t col){
+Board::Grid_t::reference Board::at(size_t row, size_t col){
 
     size_t idx = c_size - 1 - ((row * c_cols) + col);
     return board[idx];
 }
 
-bool State::at(size_t row, size_t col) const {
+bool Board::at(size_t row, size_t col) const {
     size_t idx = c_size - 1 - ((row * c_cols) + col);
     return board[idx];
 }
 
-bool State::is_row_full(int row) const {
+bool Board::is_row_full(int row) const {
 
     for(int col = 0; col < c_cols; ++col){
         if(!at(row, col)){
@@ -397,27 +285,27 @@ bool State::is_row_full(int row) const {
     return true;
 }
 
-int State::get_row_after_drop(const Block& b, Placement p) const {
+int Board::get_row_after_drop(const Block& b, Placement p) const {
 
-    const auto& contour = b.maps[p.rotation].contour;
+    const auto& contour = b.maps[p.get_rotation()].contour;
     int num_cols_to_inspect = contour.size();
 
-    int max_row = height_map[p.column];
+    int max_row = height_map[p.get_column()];
     assert(contour.front() == 0);
 
     for(int col_x = 1; col_x < num_cols_to_inspect; ++col_x){
-        int board_col = p.column + col_x;
+        int board_col = p.get_column() + col_x;
         int row = height_map[board_col] - contour[col_x];
         max_row = max(max_row, row);
     }
     return max_row;
 }
 
-bool State::contour_matches(const Block& b, Placement p) const {
+bool Board::contour_matches(const Block& b, Placement p) const {
 
-    const int leftmost_abs_col = p.column;
+    const int leftmost_abs_col = p.get_column();
     const int height_of_first_col = height_map[leftmost_abs_col];
-    const auto& contour_map = b.maps[p.rotation].contour;
+    const auto& contour_map = b.maps[p.get_rotation()].contour;
 
     for(int cols_checked = 0; cols_checked < contour_map.size(); ++cols_checked){
         const int abs_board_height = height_map[leftmost_abs_col + cols_checked];
@@ -431,7 +319,7 @@ bool State::contour_matches(const Block& b, Placement p) const {
 
 // Given a row is being deleted, how many to subtract from the height map
 // of query col. (Maybe holes will become exposed.)
-int State::get_height_map_reduction(int deleted_row, int query_col) const {
+int Board::get_height_map_reduction(int deleted_row, int query_col) const {
 
     int reductions = 1;
     // The deleted row IS NOT THE SURFACE at this column.
@@ -445,7 +333,7 @@ int State::get_height_map_reduction(int deleted_row, int query_col) const {
     return reductions;
 }
 
-void State::update_cache() {
+void Board::update_cache() {
 
     static const int impossibly_high_wall = c_rows + 5;
     static const int min_depth_considered_trench = 3;
@@ -487,7 +375,7 @@ void State::update_cache() {
         && second_lowest_height >= some_trench_height + 4;
 }
 
-void State::assert_cache_correct() const {
+void Board::assert_cache_correct() const {
 
     assert(num_cells_filled == board.count());
     for(int col_x = 0; col_x < c_cols; ++col_x){

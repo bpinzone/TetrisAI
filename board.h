@@ -2,25 +2,16 @@
 #define BOARD_H
 
 #include <bitset>
-#include <vector>
 #include <utility>
 #include <optional>
-#include <iostream>
 #include <array>
 
-struct Placement {
-    int rotation;
-    int column;
-};
-
-struct CH_maps {
-    std::vector<int> contour;
-    std::vector<int> height;
-};
+#include <iosfwd>
 
 struct Block;
+struct Placement;
 
-class State {
+class Board {
 
 public:
 
@@ -29,7 +20,7 @@ public:
     static constexpr size_t c_rows = 20;
     static constexpr size_t c_size = c_cols * c_rows;
 
-    friend std::ostream& operator<<(std::ostream& os, const State& s);
+    friend std::ostream& operator<<(std::ostream& os, const Board& s);
 
     // FUNCTIONS
     // Modifying
@@ -40,29 +31,28 @@ public:
     // Non-modifying
 
     // Returns true iff this has strictly higher utility than other.
-    bool has_greater_utility_than(const State& other) const;
+    bool has_greater_utility_than(const Board& other) const;
     int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
     bool is_holding_some_block() const;
-    void print_diff_against(const State& new_other) const;
+    void print_diff_against(const Board& new_other) const;
 
     int get_num_blocks_placed() const;
     double get_tetris_percent() const;
 
-    static const State& get_worst_state();
+    static const Board& get_worst_board();
 
 private:
 
-    using Board_t = std::bitset<c_size>;
+    using Grid_t = std::bitset<c_size>;
 
     // FUNCTIONS
     // Modifying
 
-    // TODO: decide on this things job.
     void clear_row(int row);
 
     // (0, 0) is bottom left;  (1, 0) is 2nd row, 1st column;  (0, 1) is 1st row, 2nd column.
-    Board_t::reference at(size_t row, size_t col);
+    Grid_t::reference at(size_t row, size_t col);
 
     // Non-modifying
     // (0, 0) is bottom left;  (1, 0) is 2nd row, 1st column;  (0, 1) is 1st row, 2nd column.
@@ -80,11 +70,10 @@ private:
     void assert_cache_correct() const;
 
     // MEMBERS
-
-    static State worst_state;
+    static Board worst_board;
 
     // Fundamental
-    Board_t board;
+    Grid_t board;
     const Block* current_hold = nullptr;
     bool just_swapped = true;
 
@@ -118,34 +107,5 @@ private:
 
 };
 
-struct Block {
-
-    // [rotation] = maps for that rotation
-    std::string name;
-    std::vector<CH_maps> maps;
-
-    static const Block Cyan;
-    static const Block Blue;
-    static const Block Orange;
-    static const Block Green;
-    static const Block Red;
-    static const Block Yellow;
-    static const Block Purple;
-
-    int get_max_valid_placement_col(int rot_x) const {
-        return State::c_cols - maps[rot_x].contour.size();
-    }
-
-    Block& operator=(const Block& other) = delete;
-    Block& operator=(Block&& other) = delete;
-
-    Block(const Block& other) = delete;
-    Block(Block&& other) = delete;
-
-private:
-    Block(const std::string& _name, const std::vector<CH_maps>& _maps)
-        : name{_name}, maps{_maps} {
-    }
-};
 
 #endif

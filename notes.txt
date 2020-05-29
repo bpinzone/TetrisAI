@@ -1,3 +1,5 @@
+profile again.
+
 1093
     3 Deep
     return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
@@ -9,4 +11,12 @@
 After bug fix, didn't die, stopped at 9846 with 4 deep.
 
 
-survived 88k, 3 deep
+todo: make sure we can still do this.
+survived 88k, 3 deep (really, 4 deep)
+
+
+Remember
+non-static reference members ruin copy/move semantics
+Compiler implicitly deleting copy/move semantics
+List initializer interpretation
+min() vs lowest()
