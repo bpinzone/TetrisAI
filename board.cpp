@@ -108,6 +108,7 @@ const Block* Board::swap_block(const Block& b){
     return old_hold;
 }
 
+// NOTE: Values for granularity? Hybrid?
 bool Board::has_greater_utility_than(const Board& other) const {
 
     if(is_worst_board != other.is_worst_board){

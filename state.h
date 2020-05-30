@@ -23,6 +23,8 @@ public:
         std::optional<Placement> _placement_taken_from_root
     );
 
+    static State generate_worst_state_from(const State& other);
+
     bool get_is_leaf() const {
         return is_leaf;
     }

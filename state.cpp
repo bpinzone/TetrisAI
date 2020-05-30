@@ -19,6 +19,18 @@ State::State(
     placement_taken_from_root{_placement_taken_from_root}, pg{_presented_block} {
 }
 
+State State::generate_worst_state_from(const State& other) {
+    return {
+        Board::get_worst_board(),
+        other.presented_block,
+        other.next_queue_it,
+        false,
+        other.end_queue_it,
+        other.placement_limit,
+        optional<Placement>{{0, 0, false}}
+    };
+}
+
 optional<State> State::generate_next_child() {
 
     for(optional<Placement> placement = pg(); placement; placement = pg()){

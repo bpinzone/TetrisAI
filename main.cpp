@@ -11,13 +11,22 @@
 #include <utility>
 #include <cstdlib>
 #include <optional>
+#include <mutex>
+#include <thread>
+
+using std::mutex;
+using std::unique_lock;
+using std::thread;
+
+using std::swap;
+using std::move;
+using std::ref;
 
 using std::cout;
 using std::endl;
-using std::swap;
-using std::move;
 using std::generate_n;
 using std::back_inserter;
+using std::max_element;
 using std::optional;
 using std::vector;
 
@@ -31,6 +40,9 @@ Placement get_best_move(
         const Block& presented,
         const Tetris_queue_t& queue,
         const int num_placements_to_look_ahead);
+
+void get_best_foreseeable_state_from_subtree(
+    State&& seed_state, vector<State>& results, mutex& results_mutex);
 
 // <prog> <seed> <lookahead_depth> <placements_to_perform>
 int main(int argc, char* argv[]) {
@@ -112,20 +124,7 @@ Placement get_best_move(
 
     const int placement_limit = board.get_num_blocks_placed() + num_placements_to_look_ahead;
 
-    State best_foreseeable_state{
-        Board::get_worst_board(),
-        &presented,
-        queue.cbegin(),
-        false,
-        queue.cend(),
-        placement_limit,
-        optional<Placement>{{0, 0, false}}
-    };
-
-    // vector<int> v{{{}}};
-
-    // Put the root state into the stack.
-    vector<State> state_stack {{
+    State root_state{
         board,
         &presented,
         queue.cbegin(),
@@ -133,7 +132,45 @@ Placement get_best_move(
         queue.cend(),
         placement_limit,
         optional<Placement>{}
-    }};
+    };
+
+    // Results destination
+    vector<State> results;
+    mutex results_mutex;
+
+    vector<thread> workers;
+
+    // Populate seeds for threads
+    for(auto op_child = root_state.generate_next_child();
+            op_child; op_child = root_state.generate_next_child()){
+
+        workers.push_back(thread{
+            &get_best_foreseeable_state_from_subtree,
+            move(*op_child),
+            ref(results),
+            ref(results_mutex)
+        });
+    }
+
+    for(auto& worker : workers){
+        worker.join();
+    }
+
+    // Find the best
+    return max_element(
+        results.cbegin(), results.cend(),
+        [](const auto& s1, const auto& s2){
+            return s2.get_board().has_greater_utility_than(s1.get_board());
+        }
+    )->get_placement_taken_from_root();
+}
+
+void get_best_foreseeable_state_from_subtree(
+        State&& seed_state, vector<State>& results, mutex& results_mutex){
+
+    State best_foreseeable_state = State::generate_worst_state_from(seed_state);
+
+    vector<State> state_stack {move(seed_state)};
 
     while(!state_stack.empty()){
 
@@ -153,5 +190,6 @@ Placement get_best_move(
         }
     }
 
-    return best_foreseeable_state.get_placement_taken_from_root();
+    unique_lock<mutex> results_ulock{results_mutex};
+    results.push_back(move(best_foreseeable_state));
 }

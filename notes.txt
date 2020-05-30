@@ -1,4 +1,7 @@
-profile again.
+Profile
+Multi-thread
+UI for playing
+Surviving long without survival mode only
 
 1093
     3 Deep
@@ -20,3 +23,40 @@ non-static reference members ruin copy/move semantics
 Compiler implicitly deleting copy/move semantics
 List initializer interpretation
 min() vs lowest()
+
+====
+
+monitor for R/W seeds
+vector<State> seeds;
+
+monitor for R/W results
+vector<State> results;
+
+Tetris Worker:
+    Thread
+    while(seeds not empty){
+
+        make the new stack with a seed
+            process that seed
+
+        public result;
+
+
+    }
+
+Why not ref(move()) ?
+    workers.push_back(thread{
+        &get_best_foreseeable_state_from_subtree,
+        move(*op_child),
+        ref(results),
+        ref(results_mutex)
+    });
+
+
+/*
+mutex: Exclusive access. Assuming everyone CAN be a writer.
+shared_mutex: Non-exclusive access. Differentiates between readers and writers
+
+unique_lock: Lock as a writer. Usable on mutex and shared_mutex.
+shared_lock: Lock as a reader only. Usable on shared_mutex.
+*/
