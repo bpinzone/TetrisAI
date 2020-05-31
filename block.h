@@ -9,6 +9,7 @@
 struct CH_maps {
     std::vector<int> contour;
     std::vector<int> height;
+    int leftmost_block_pos;
 };
 
 class Placement {
@@ -45,13 +46,13 @@ struct Block {
     std::string name;
     std::vector<CH_maps> maps;
 
-    static const Block Cyan;
     static const Block Blue;
+    static const Block Purple;
+    static const Block Red;
+    static const Block Cyan;
+    static const Block Yellow;
     static const Block Orange;
     static const Block Green;
-    static const Block Red;
-    static const Block Yellow;
-    static const Block Purple;
 
     int get_max_valid_placement_col(int rot_x) const;
 

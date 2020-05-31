@@ -1,6 +1,7 @@
 #include "board.h"
 #include "state.h"
 #include "block.h"
+#include "human_action.h"
 
 #include <vector>
 #include <deque>
@@ -8,6 +9,7 @@
 #include <cassert>
 #include <iterator>
 #include <algorithm>
+#include <string>
 #include <utility>
 #include <cstdlib>
 #include <optional>
@@ -23,7 +25,9 @@ using std::move;
 using std::ref;
 
 using std::cout;
+using std::cin;
 using std::endl;
+using std::string;
 using std::generate_n;
 using std::back_inserter;
 using std::max_element;
@@ -85,6 +89,8 @@ void play(Seed_t seed, int num_placements_to_look_ahead, int placements_to_perfo
             queue, num_placements_to_look_ahead
         );
 
+        HumanAction{next_to_present, next_placement}.print_to_stdout();
+
         Board new_board{board};
         // HOLD
         if(next_placement.get_is_hold()){
@@ -109,10 +115,13 @@ void play(Seed_t seed, int num_placements_to_look_ahead, int placements_to_perfo
             queue.pop_front();
             queue.push_back(block_generator());
         }
-        board.print_diff_against(new_board);
         cout << endl;
         swap(board, new_board);
         ++turn;
+        cout << board << endl;
+
+        // string junk;
+        // cin >> junk;
     }
 }
 
