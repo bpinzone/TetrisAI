@@ -1,7 +1,8 @@
 #include "board.h"
 #include "state.h"
 #include "block.h"
-#include "human_action.h"
+#include "action.h"
+#include "utility.h"
 
 #include <vector>
 #include <deque>
@@ -15,6 +16,7 @@
 #include <optional>
 #include <mutex>
 #include <thread>
+#include <stdexcept>
 
 using std::mutex;
 using std::unique_lock;
@@ -33,11 +35,12 @@ using std::back_inserter;
 using std::max_element;
 using std::optional;
 using std::vector;
+using std::runtime_error;
 
 using Tetris_queue_t = State::Tetris_queue_t;
-using Seed_t = Block_generator::Seed_t;
+using Seed_t = Random_block_generator::Seed_t;
 
-void play(Seed_t seed, int queue_consume_lookahead_depth, int placements_to_perform);
+void play(Block_generator& block_generator, int queue_consume_lookahead_depth, int placements_to_perform, int max_queue_size);
 
 Placement get_best_move(
         const Board& state,
@@ -48,48 +51,67 @@ Placement get_best_move(
 void get_best_foreseeable_state_from_subtree(
     State&& seed_state, vector<State>& results, mutex& results_mutex);
 
-// <prog> <seed> <lookahead_depth> <placements_to_perform>
+// <prog> <seed> <lookahead_depth> <placements_to_perform> <max queue size>
 int main(int argc, char* argv[]) {
-    if(argc != 4){
-        cout << "Incorrect usage: Requires: <seed> <depth> <placement count>" << endl;
+
+    log_file.open(c_log_file_name);
+    if(!log_file.is_open()){
+        throw runtime_error{"Could not open log file for writing: " + string(c_log_file_name)};
+    }
+    if(argc != 5){
+        log_file << "Incorrect usage: Requires: <seed or \"i\"> <lookahead depth> <placements to perform> <max queue size>" << endl;
         return 0;
     }
-    play(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
+
+    Block_generator* block_generator;
+    if(argv[1][0] == 'i'){
+        block_generator = new Stdin_block_generator();
+    }
+    else{
+        block_generator = new Random_block_generator(atoi(argv[1]));
+    }
+
+    play(*block_generator, atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+
+    delete block_generator;
+    log_file.close();
     return 0;
 }
 
-void play(Seed_t seed, int num_placements_to_look_ahead, int placements_to_perform){
+void play(Block_generator& block_generator, int num_placements_to_look_ahead, int placements_to_perform, int max_queue_size){
 
     if(num_placements_to_look_ahead > 7){
-        cout << "Jeff cannot see that far into the future. Enter 7 or less.\n";
+        log_file << "Jeff cannot see that far into the future. Enter 7 or less.\n";
         return;
     }
     if(num_placements_to_look_ahead < 1){
-        cout << "Jeff must be able to place a block!\n";
+        log_file << "Jeff must be able to place a block!\n";
         return;
     }
-
-    Block_generator block_generator(seed);
 
     Board board;
     const Block* next_to_present = block_generator();
     Tetris_queue_t queue;
-    generate_n(back_inserter(queue), 6, block_generator);
+    for(int i = 0; i < max_queue_size; ++i){
+        // Not going to write a wrapper just for this.
+        // generate_n takes functor by value. Can't use inheritance.
+        queue.push_back(block_generator());
+    }
 
     int turn = 0;
     while(turn < placements_to_perform){
 
         // Status
-        cout << "Turn: " << turn << "\n";
-        cout << "Tetris percent:" << board.get_tetris_percent() << " %" << endl;
-        cout << "Presented with: " << next_to_present->name << endl;
+        log_file << "Turn: " << turn << "\n";
+        log_file << "Tetris percent:" << board.get_tetris_percent() << " %" << endl;
+        log_file << "Presented with: " << next_to_present->name << endl;
 
         Placement next_placement = get_best_move(
             board, *next_to_present,
             queue, num_placements_to_look_ahead
         );
 
-        HumanAction{next_to_present, next_placement}.print_to_stdout();
+        cout << Action{next_to_present, next_placement};
 
         Board new_board{board};
         // HOLD
@@ -108,20 +130,16 @@ void play(Seed_t seed, int num_placements_to_look_ahead, int placements_to_perfo
         else{
             bool is_promising = new_board.place_block(*next_to_present, next_placement);
             if(!is_promising){
-                cout << "Game over :(" << endl;
+                log_file << "Game over :(" << endl;
                 return;
             }
             next_to_present = queue.front();
             queue.pop_front();
             queue.push_back(block_generator());
         }
-        cout << endl;
+        log_file << endl;
         swap(board, new_board);
         ++turn;
-        cout << board << endl;
-
-        // string junk;
-        // cin >> junk;
     }
 }
 

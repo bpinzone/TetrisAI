@@ -2,11 +2,15 @@
 
 #include "board.h"  // access in get_max_valid_placement_col
 
+#include <iostream>
+#include <stdexcept>
+
 using std::uniform_int_distribution;
 using std::default_random_engine;
-
 using std::string;
 using std::vector;
+using std::cin;
+using std::runtime_error;
 
 int Block::get_max_valid_placement_col(int rot_x) const {
     return Board::c_cols - maps[rot_x].contour.size();
@@ -16,22 +20,37 @@ Block::Block(const string& _name, const vector<CH_maps>& _maps)
     : name{_name}, maps{_maps} {
 }
 
-// === Block Generator ===
+// === Block Generators ===
 
-Block_generator::Block_generator(Seed_t seed)
+const Block* Stdin_block_generator::operator()() {
+    char block;
+    cin >> block;
+    switch(block){
+        case 'b' : return &Block::Blue;
+        case 'p' : return &Block::Purple;
+        case 'r' : return &Block::Red;
+        case 'c' : return &Block::Cyan;
+        case 'y' : return &Block::Yellow;
+        case 'o' : return &Block::Orange;
+        case 'g' : return &Block::Green;
+        default : throw std::runtime_error{"Invalid Block! Enter one of: b, p, r, c, y, o, g."};
+    }
+}
+
+Random_block_generator::Random_block_generator(Seed_t seed)
     : generator{seed} {
 }
 
-const Block* Block_generator::operator()() {
+const Block* Random_block_generator::operator()() {
     return block_ptrs[distribution(generator)];
 }
 
-const Block* Block_generator::block_ptrs[] = {
+const Block* Random_block_generator::block_ptrs[] = {
     &Block::Cyan, &Block::Blue, &Block::Orange,
     &Block::Green, &Block::Red, &Block::Yellow, &Block::Purple
 };
 
-uniform_int_distribution<int> Block_generator::distribution{
+uniform_int_distribution<int> Random_block_generator::distribution{
     0, (sizeof(block_ptrs) / sizeof(block_ptrs[0])) - 1
 };
 

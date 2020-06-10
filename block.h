@@ -9,6 +9,7 @@
 struct CH_maps {
     std::vector<int> contour;
     std::vector<int> height;
+    // todo: does this really belong here? Perhaps struct name should change.
     int leftmost_block_pos;
 };
 
@@ -66,16 +67,30 @@ private:
     Block(const std::string& _name, const std::vector<CH_maps>& _maps);
 };
 
+class Block_generator{
 
-class Block_generator {
+public:
+
+    virtual const Block* operator()() = 0;
+    virtual ~Block_generator() = default;
+};
+
+
+class Stdin_block_generator : public Block_generator {
+
+public:
+
+    const Block* operator()() override;
+};
+
+class Random_block_generator : public Block_generator {
 
 public:
 
     using Seed_t = unsigned int;
 
-    Block_generator(Seed_t seed);
-
-    const Block* operator()();
+    Random_block_generator(Seed_t seed);
+    const Block* operator()() override;
 
 private:
 

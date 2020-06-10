@@ -1,6 +1,7 @@
 #include "board.h"
 
 #include "block.h"
+#include "utility.h"
 
 #include <algorithm>
 #include <cassert>
@@ -15,8 +16,8 @@ Board Board::worst_board;
 
 ostream& operator<<(ostream& os, const Board& s) {
 
-    cout << "Holding: ";
-    cout << (s.current_hold ? s.current_hold->name : "none") << endl;
+    os << "Holding: ";
+    os << (s.current_hold ? s.current_hold->name : "none") << endl;
 
     for(long row = Board::c_rows - 1; row >= 0; --row){
         for(long col = 0; col < Board::c_cols; ++col){
@@ -117,7 +118,7 @@ bool Board::has_greater_utility_than(const Board& other) const {
 
     // You are in tetris mode if you are here or less in height.
     // todo: experiment with this later. How it relates to tetris percent.
-    static const int c_max_tetris_mode_height = 10;
+    static const int c_max_tetris_mode_height = 8;
     static const int c_height_diff_punishment_thresh = 3;
 
     // === Fundamental Priorities ===
@@ -209,23 +210,22 @@ void Board::print_diff_against(const Board& new_other) const{
     Board old_items_state;
     old_items_state.board = board & new_other.board;
 
-    cout << "Holding: ";
-    cout << (new_other.current_hold ? new_other.current_hold->name : "none") << endl;
+    log_file << "Holding: ";
+    log_file << (new_other.current_hold ? new_other.current_hold->name : "none") << endl;
 
     for(long row = Board::c_rows - 1; row >= 0; --row){
         for(long col = 0; col < Board::c_cols; ++col){
-
             if(new_items_state.at(row, col)){
-                cout << "@";
+                log_file << "@";
             }
             else if(old_items_state.at(row, col)){
-                cout << "X";
+                log_file << "X";
             }
             else{
-                cout << ".";
+                log_file << ".";
             }
         }
-        cout << "\n";
+        log_file << "\n";
     }
 }
 
