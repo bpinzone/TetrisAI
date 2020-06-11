@@ -197,7 +197,8 @@ void get_best_foreseeable_state_from_subtree(
 
     State best_foreseeable_state = State::generate_worst_state_from(seed_state);
 
-    vector<State> state_stack {move(seed_state)};
+    vector<State> state_stack;
+    state_stack.push_back(move(seed_state));
 
     while(!state_stack.empty()){
 
