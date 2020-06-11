@@ -8,6 +8,7 @@
 #include <deque>
 #include <iostream>
 #include <cassert>
+#include <chrono>
 #include <iterator>
 #include <algorithm>
 #include <string>
@@ -51,16 +52,33 @@ Placement get_best_move(
 void get_best_foreseeable_state_from_subtree(
     State&& seed_state, vector<State>& results, mutex& results_mutex);
 
-// <prog> <seed> <lookahead_depth> <placements_to_perform> <max queue size>
+// <prog> <seed> <lookahead_depth> <placements_to_perform> <max queue size> <menu (m) or restart (r) or skip (s)>
 int main(int argc, char* argv[]) {
 
     log_file.open(c_log_file_name);
     if(!log_file.is_open()){
         throw runtime_error{"Could not open log file for writing: " + string(c_log_file_name)};
     }
-    if(argc != 5){
+    if(argc != 6){
         log_file << "Incorrect usage: Requires: <seed or \"i\"> <lookahead depth> <placements to perform> <max queue size>" << endl;
         return 0;
+    }
+
+    if (argv[5][0] != 's') {
+        std::this_thread::sleep_for(std::chrono::seconds(20));
+        cout << "l && r" << endl;
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        cout << "a" << endl;
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        if (argv[5][0] == 'm'){
+            cout << "a" << endl;
+        }
+        else if (argv[5][0] == 'r'){
+            cout << "hold_a" << endl;
+        }
+        else {
+            throw runtime_error("'m' or 'r' or 's' is required.");
+        }
     }
 
     Block_generator* block_generator;
@@ -139,6 +157,7 @@ void play(Block_generator& block_generator, int num_placements_to_look_ahead, in
         }
         log_file << endl;
         swap(board, new_board);
+        log_file << board << endl;
         ++turn;
     }
 }

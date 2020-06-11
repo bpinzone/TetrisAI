@@ -21,7 +21,8 @@ Action::Action(const Block* block, Placement placement)
 
 ostream& operator<<(ostream& os, const Action& action) {
 
-    static const int c_action_delay_ms = 250;
+    static const int c_action_delay_ms = 300;
+    static const int c_wait_after_completion_ms = 500;
     vector<string> actions_strs;
     if(action.hold){
         actions_strs.push_back("r");
@@ -44,9 +45,11 @@ ostream& operator<<(ostream& os, const Action& action) {
 
     for(const auto& action : actions_strs){
         os << action;
-        os << "\n";
+        os << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(c_action_delay_ms));
     }
+    std::this_thread::sleep_for(std::chrono::milliseconds(c_wait_after_completion_ms));
+    
 
     return os;
 }

@@ -25,6 +25,7 @@ Block::Block(const string& _name, const vector<CH_maps>& _maps)
 const Block* Stdin_block_generator::operator()() {
     char block;
     cin >> block;
+    assert(cin);
     switch(block){
         case 'b' : return &Block::Blue;
         case 'p' : return &Block::Purple;
@@ -33,7 +34,7 @@ const Block* Stdin_block_generator::operator()() {
         case 'y' : return &Block::Yellow;
         case 'o' : return &Block::Orange;
         case 'g' : return &Block::Green;
-        default : throw std::runtime_error{"Invalid Block! Enter one of: b, p, r, c, y, o, g."};
+        default : throw std::runtime_error{"Invalid Block! " + std::to_string(static_cast<unsigned short>(block)) + " Enter one of: b, p, r, c, y, o, g."};
     }
 }
 
@@ -167,8 +168,8 @@ const Block Block::Green {"Green", {
     // XX
     { {0, 0, 1}, {1, 2, 1}, 3 },
 
-    //  X
-    // XX
     // X
-    { {0, 1}, {2, 2}, 4},
+    // XX
+    //  X
+    { {0, -1}, {2, 2}, 4},
 }};
