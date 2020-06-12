@@ -22,7 +22,16 @@ Action::Action(const Block* block, Placement placement, optional<string> _wait_c
 
 ostream& operator<<(ostream& os, const Action& action) {
 
+    static bool is_first_action = true;
+
     vector<string> actions_strs;
+    if(is_first_action){
+        is_first_action = false;
+        actions_strs.push_back("stick r down");
+        actions_strs.push_back("wait");
+        actions_strs.push_back("stick r center");
+    }
+
     if(action.hold){
         actions_strs.push_back("r");
     }

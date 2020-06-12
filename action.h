@@ -21,6 +21,7 @@ private:
     int offset;
     int rotation_count;
     bool hold;
+    // TODO: this doesn't need to be optional.
     std::optional<std::string> wait_command_to_follow;
 
 };
