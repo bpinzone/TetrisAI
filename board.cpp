@@ -237,6 +237,10 @@ double Board::get_tetris_percent() const {
     return static_cast<double>(num_tetrises) / num_blocks_placed * 100;
 }
 
+bool Board::has_more_cleared_rows_than(const Board& other) const {
+    return num_placements_that_cleared_rows > other.num_placements_that_cleared_rows;
+}
+
 const Board& Board::get_worst_board() {
     worst_board.is_worst_board = true;
     return worst_board;

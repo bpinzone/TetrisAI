@@ -5,12 +5,14 @@ struct Block;
 struct Placement;
 
 #include <iosfwd>
+#include <string>
+#include <optional>
 
 class Action {
 
 public:
 
-    Action(const Block* block, Placement placement);
+    Action(const Block* block, Placement placement, std::optional<std::string> _wait_command_to_follow);
 
     friend std::ostream& operator<<(std::ostream& os, const Action& action);
 
@@ -19,6 +21,8 @@ private:
     int offset;
     int rotation_count;
     bool hold;
+    std::optional<std::string> wait_command_to_follow;
+
 };
 
 

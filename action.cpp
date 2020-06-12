@@ -2,7 +2,6 @@
 
 #include "block.h"
 
-#include <string>
 #include <iostream>
 #include <vector>
 
@@ -12,17 +11,17 @@
 using std::ostream;
 using std::string;
 using std::vector;
+using std::optional;
 
-Action::Action(const Block* block, Placement placement)
+Action::Action(const Block* block, Placement placement, optional<string> _wait_command_to_follow)
     : offset{placement.get_column() - block->maps[placement.get_rotation()].leftmost_block_pos},
     rotation_count{placement.get_rotation()},
-    hold{placement.get_is_hold()} {
+    hold{placement.get_is_hold()},
+    wait_command_to_follow{_wait_command_to_follow} {
 }
 
 ostream& operator<<(ostream& os, const Action& action) {
 
-    static const int c_action_delay_ms = 300;
-    static const int c_wait_after_completion_ms = 500;
     vector<string> actions_strs;
     if(action.hold){
         actions_strs.push_back("r");
@@ -43,13 +42,13 @@ ostream& operator<<(ostream& os, const Action& action) {
         actions_strs.push_back("up");
     }
 
+    if(action.wait_command_to_follow){
+        actions_strs.push_back(*action.wait_command_to_follow);
+    }
+
     for(const auto& action : actions_strs){
         os << action;
         os << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(c_action_delay_ms));
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(c_wait_after_completion_ms));
-    
-
     return os;
 }

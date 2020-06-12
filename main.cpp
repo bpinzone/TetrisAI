@@ -129,13 +129,14 @@ void play(Block_generator& block_generator, int num_placements_to_look_ahead, in
             queue, num_placements_to_look_ahead
         );
 
-        const Action a{next_to_present, next_placement};
-        cout << a;
-        log_file << a;
-
         Board new_board{board};
         // HOLD
         if(next_placement.get_is_hold()){
+
+            Action action{next_to_present, next_placement, "wait"};
+            cout << action;
+            log_file << action;
+
             const Block* old_hold = new_board.swap_block(*next_to_present);
             if(!old_hold){
                 next_to_present = queue.front();
@@ -149,6 +150,16 @@ void play(Block_generator& block_generator, int num_placements_to_look_ahead, in
         // PLACE
         else{
             bool is_promising = new_board.place_block(*next_to_present, next_placement);
+
+            Action action{
+                next_to_present,
+                next_placement,
+                new_board.has_more_cleared_rows_than(board) ? "wait_long" : "wait"
+            };
+
+            cout << action;
+            log_file << action;
+
             if(!is_promising){
                 log_file << "Game over :(" << endl;
                 return;
@@ -157,6 +168,8 @@ void play(Block_generator& block_generator, int num_placements_to_look_ahead, in
             queue.pop_front();
             queue.push_back(block_generator());
         }
+
+
         log_file << endl;
         swap(board, new_board);
         log_file << board << endl;
