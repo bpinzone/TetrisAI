@@ -129,7 +129,9 @@ void play(Block_generator& block_generator, int num_placements_to_look_ahead, in
             queue, num_placements_to_look_ahead
         );
 
-        cout << Action{next_to_present, next_placement};
+        const Action a{next_to_present, next_placement};
+        cout << a;
+        log_file << a;
 
         Board new_board{board};
         // HOLD
