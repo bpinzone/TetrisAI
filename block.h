@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <queue>
 #include <cassert>
 #include <random>
 
@@ -94,10 +95,9 @@ public:
 
 private:
 
-    static const Block* block_ptrs[];
+    static std::vector<const Block*> full_bag;
 
-    static std::uniform_int_distribution<int> distribution;
-
+    std::queue<const Block*> bag_instance;
     std::default_random_engine generator;
 };
 

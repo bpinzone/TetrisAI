@@ -4,11 +4,14 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 
 using std::uniform_int_distribution;
 using std::default_random_engine;
+using std::shuffle;
 using std::string;
 using std::vector;
+using std::queue;
 using std::cin;
 using std::runtime_error;
 
@@ -43,16 +46,21 @@ Random_block_generator::Random_block_generator(Seed_t seed)
 }
 
 const Block* Random_block_generator::generate() {
-    return block_ptrs[distribution(generator)];
+
+    if(bag_instance.empty()){
+        shuffle(full_bag.begin(), full_bag.end(), generator);
+        for(const auto& b : full_bag){
+            bag_instance.push(b);
+        }
+    }
+    const auto block = bag_instance.front();
+    bag_instance.pop();
+    return block;
 }
 
-const Block* Random_block_generator::block_ptrs[] = {
+vector<const Block*> Random_block_generator::full_bag {
     &Block::Cyan, &Block::Blue, &Block::Orange,
     &Block::Green, &Block::Red, &Block::Yellow, &Block::Purple
-};
-
-uniform_int_distribution<int> Random_block_generator::distribution{
-    0, (sizeof(block_ptrs) / sizeof(block_ptrs[0])) - 1
 };
 
 /*
