@@ -118,7 +118,7 @@ bool Board::has_greater_utility_than(const Board& other) const {
 
     // You are in tetris mode if you are here or less in height.
     // todo: experiment with this later. How it relates to tetris percent.
-    static const int c_max_tetris_mode_height = 8;
+    static const int c_max_tetris_mode_height = 10;
     static const int c_height_diff_punishment_thresh = 3;
 
     // === Fundamental Priorities ===
