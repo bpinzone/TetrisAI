@@ -210,22 +210,22 @@ void Board::print_diff_against(const Board& new_other) const{
     Board old_items_state;
     old_items_state.board = board & new_other.board;
 
-    log_file << "Holding: ";
-    log_file << (new_other.current_hold ? new_other.current_hold->name : "none") << endl;
+    Output_manager::get_instance().get_board_os() << "Holding: ";
+    Output_manager::get_instance().get_board_os() << (new_other.current_hold ? new_other.current_hold->name : "none") << endl;
 
     for(long row = Board::c_rows - 1; row >= 0; --row){
         for(long col = 0; col < Board::c_cols; ++col){
             if(new_items_state.at(row, col)){
-                log_file << "@";
+                Output_manager::get_instance().get_board_os() << "@";
             }
             else if(old_items_state.at(row, col)){
-                log_file << "X";
+                Output_manager::get_instance().get_board_os() << "X";
             }
             else{
-                log_file << ".";
+                Output_manager::get_instance().get_board_os() << ".";
             }
         }
-        log_file << "\n";
+        Output_manager::get_instance().get_board_os() << "\n";
     }
 }
 

@@ -22,7 +22,7 @@ Block::Block(const string& _name, const vector<CH_maps>& _maps)
 
 // === Block Generators ===
 
-const Block* Stdin_block_generator::operator()() {
+const Block* Stdin_block_generator::generate() {
     char block;
     cin >> block;
     assert(cin);
@@ -34,7 +34,7 @@ const Block* Stdin_block_generator::operator()() {
         case 'y' : return &Block::Yellow;
         case 'o' : return &Block::Orange;
         case 'g' : return &Block::Green;
-        default : throw std::runtime_error{"Invalid Block! " + std::to_string(static_cast<unsigned short>(block)) + " Enter one of: b, p, r, c, y, o, g."};
+        default : throw std::runtime_error{"Invalid Block! " + string{block} + " Enter one of: b, p, r, c, y, o, g."};
     }
 }
 
@@ -42,7 +42,7 @@ Random_block_generator::Random_block_generator(Seed_t seed)
     : generator{seed} {
 }
 
-const Block* Random_block_generator::operator()() {
+const Block* Random_block_generator::generate() {
     return block_ptrs[distribution(generator)];
 }
 

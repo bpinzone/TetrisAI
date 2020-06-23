@@ -71,7 +71,7 @@ class Block_generator{
 
 public:
 
-    virtual const Block* operator()() = 0;
+    virtual const Block* generate() = 0;
     virtual ~Block_generator() = default;
 };
 
@@ -80,7 +80,7 @@ class Stdin_block_generator : public Block_generator {
 
 public:
 
-    const Block* operator()() override;
+    const Block* generate() override;
 };
 
 class Random_block_generator : public Block_generator {
@@ -90,7 +90,7 @@ public:
     using Seed_t = unsigned int;
 
     Random_block_generator(Seed_t seed);
-    const Block* operator()() override;
+    const Block* generate() override;
 
 private:
 

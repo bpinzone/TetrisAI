@@ -5,15 +5,11 @@
 #include <iostream>
 #include <vector>
 
-#include <thread>  // std::this_thread::sleep_for
-#include <chrono>  // std::chrono::milliseconds
-
 using std::ostream;
 using std::string;
 using std::vector;
-using std::optional;
 
-Action::Action(const Block* block, Placement placement, optional<string> _wait_command_to_follow)
+Action::Action(const Block* block, Placement placement, const string& _wait_command_to_follow)
     : offset{placement.get_column() - block->maps[placement.get_rotation()].leftmost_block_pos},
     rotation_count{placement.get_rotation()},
     hold{placement.get_is_hold()},
@@ -47,17 +43,14 @@ ostream& operator<<(ostream& os, const Action& action) {
         for(int i = 0; i < left_presses; ++i){
             actions_strs.push_back("left");
         }
-        // potential problem: this could be wrong.
         actions_strs.push_back("up");
     }
 
-    if(action.wait_command_to_follow){
-        actions_strs.push_back(*action.wait_command_to_follow);
-    }
+    actions_strs.push_back(action.wait_command_to_follow);
 
     for(const auto& action : actions_strs){
         os << action;
-        os << std::endl;
+        os << std::endl; // flush immediately.
     }
     return os;
 }

@@ -27,8 +27,6 @@ using std::swap;
 using std::move;
 using std::ref;
 
-using std::cout;
-using std::cin;
 using std::endl;
 using std::string;
 using std::generate_n;
@@ -41,7 +39,82 @@ using std::runtime_error;
 using Tetris_queue_t = State::Tetris_queue_t;
 using Seed_t = Random_block_generator::Seed_t;
 
-void play(Block_generator& block_generator, int queue_consume_lookahead_depth, int placements_to_perform, int max_queue_size);
+// ALL gathered from command line.
+struct Play_settings {
+
+    /*
+    w: watch jeff play in terminal
+    s: 99 skip
+    m: 99 from menu
+    r: 99 from restart
+    */
+    char mode;
+
+    /*
+    <seed int> OR i (stands for input)
+    */
+    Block_generator* block_generator;
+
+    // [1, 7]
+    int lookahead_placements;
+
+    // [0, 6] (check this)
+    int queue_size;
+
+    int game_length;
+
+    // <mode: wsmr> <generation: seed OR i> <lookahead> <queue size> <game length>
+    Play_settings(int argc, char* argv[]){
+
+        static int num_settings = 5;
+
+        if(argc != num_settings + 1){
+            throw runtime_error("Usage: <mode: wsmr> <block generation: seed# or i> <lookahead> <queue size> <game length>");
+        }
+
+        mode = *argv[1];
+        if(*argv[2] == 'i'){
+            block_generator = new Stdin_block_generator();
+        }
+        else{
+            block_generator = new Random_block_generator(atoi(argv[2]));
+        }
+
+        lookahead_placements = atoi(argv[3]);
+        queue_size = atoi(argv[4]);
+        game_length = atoi(argv[5]);
+
+        if(lookahead_placements > queue_size + 1 ){
+            throw runtime_error{"With this queue size, Jeff cannot see that far into the future"};
+        }
+        if(lookahead_placements < 1){
+            throw runtime_error{"Jeff needs something to work with here!"};
+        }
+
+    }
+
+    void wait_as_necessary(){
+        if(mode == 'w' || mode == 's'){
+            return;
+        }
+        if(mode != 'm' && mode != 'r'){
+            throw runtime_error{"Invalid mode"};
+        }
+
+        std::this_thread::sleep_for(std::chrono::seconds(20));
+        Output_manager::get_instance().get_command_os() << "l && r" << endl;
+
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        Output_manager::get_instance().get_command_os() << "a" << endl;
+
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        string wait_command = mode == 'm' ? "a" : "hold_a";
+        Output_manager::get_instance().get_command_os() << wait_command;
+        Output_manager::get_instance().get_command_os() << endl;
+    }
+};
+
+void play(const Play_settings& settings);
 
 Placement get_best_move(
         const Board& state,
@@ -55,78 +128,38 @@ void get_best_foreseeable_state_from_subtree(
 // <prog> <seed> <lookahead_depth> <placements_to_perform> <max queue size> <menu (m) or restart (r) or skip (s)>
 int main(int argc, char* argv[]) {
 
-    log_file.open(c_log_file_name);
-    if(!log_file.is_open()){
-        throw runtime_error{"Could not open log file for writing: " + string(c_log_file_name)};
-    }
-    if(argc != 6){
-        log_file << "Incorrect usage: Requires: <seed or \"i\"> <lookahead depth> <placements to perform> <max queue size>" << endl;
-        return 0;
-    }
+    Play_settings ps(argc, argv);
+    Output_manager::get_instance().set_streams(ps.mode);
+    ps.wait_as_necessary();
 
-    if (argv[5][0] != 's') {
-        std::this_thread::sleep_for(std::chrono::seconds(20));
-        cout << "l && r" << endl;
-        std::this_thread::sleep_for(std::chrono::seconds(10));
-        cout << "a" << endl;
-        std::this_thread::sleep_for(std::chrono::seconds(10));
-        if (argv[5][0] == 'm'){
-            cout << "a" << endl;
-        }
-        else if (argv[5][0] == 'r'){
-            cout << "hold_a" << endl;
-        }
-        else {
-            throw runtime_error("'m' or 'r' or 's' is required.");
-        }
-    }
+    play(ps);
 
-    Block_generator* block_generator;
-    if(argv[1][0] == 'i'){
-        block_generator = new Stdin_block_generator();
-    }
-    else{
-        block_generator = new Random_block_generator(atoi(argv[1]));
-    }
-
-    play(*block_generator, atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
-
-    delete block_generator;
-    log_file.close();
+    delete ps.block_generator;
     return 0;
 }
 
-void play(Block_generator& block_generator, int num_placements_to_look_ahead, int placements_to_perform, int max_queue_size){
-
-    if(num_placements_to_look_ahead > 7){
-        log_file << "Jeff cannot see that far into the future. Enter 7 or less.\n";
-        return;
-    }
-    if(num_placements_to_look_ahead < 1){
-        log_file << "Jeff must be able to place a block!\n";
-        return;
-    }
+void play(const Play_settings& settings){
 
     Board board;
-    const Block* next_to_present = block_generator();
+    const Block* next_to_present = settings.block_generator->generate();
     Tetris_queue_t queue;
-    for(int i = 0; i < max_queue_size; ++i){
+    for(int i = 0; i < settings.queue_size; ++i){
         // Not going to write a wrapper just for this.
         // generate_n takes functor by value. Can't use inheritance.
-        queue.push_back(block_generator());
+        queue.push_back(settings.block_generator->generate());
     }
 
     int turn = 0;
-    while(turn < placements_to_perform){
+    while(turn < settings.game_length){
 
         // Status
-        log_file << "Turn: " << turn << "\n";
-        log_file << "Tetris percent:" << board.get_tetris_percent() << " %" << endl;
-        log_file << "Presented with: " << next_to_present->name << endl;
+        Output_manager::get_instance().get_board_os() << "Turn: " << turn << "\n";
+        Output_manager::get_instance().get_board_os() << "Tetris percent:" << board.get_tetris_percent() << " %" << endl;
+        Output_manager::get_instance().get_board_os() << "Presented with: " << next_to_present->name << endl;
 
         Placement next_placement = get_best_move(
             board, *next_to_present,
-            queue, num_placements_to_look_ahead
+            queue, settings.lookahead_placements
         );
 
         Board new_board{board};
@@ -134,14 +167,13 @@ void play(Block_generator& block_generator, int num_placements_to_look_ahead, in
         if(next_placement.get_is_hold()){
 
             Action action{next_to_present, next_placement, "wait"};
-            cout << action;
-            log_file << action;
+            Output_manager::get_instance().get_command_os() << action;
 
             const Block* old_hold = new_board.swap_block(*next_to_present);
             if(!old_hold){
                 next_to_present = queue.front();
                 queue.pop_front();
-                queue.push_back(block_generator());
+                queue.push_back(settings.block_generator->generate());
             }
             else{
                 next_to_present = old_hold;
@@ -152,27 +184,21 @@ void play(Block_generator& block_generator, int num_placements_to_look_ahead, in
             bool is_promising = new_board.place_block(*next_to_present, next_placement);
 
             Action action{
-                next_to_present,
-                next_placement,
-                new_board.has_more_cleared_rows_than(board) ? "wait_long" : "wait"
-            };
-
-            cout << action;
-            log_file << action;
+                next_to_present, next_placement,
+                new_board.has_more_cleared_rows_than(board) ? "wait_long" : "wait" };
+            Output_manager::get_instance().get_command_os() << action;
 
             if(!is_promising){
-                log_file << "Game over :(" << endl;
+                Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
                 return;
             }
             next_to_present = queue.front();
             queue.pop_front();
-            queue.push_back(block_generator());
+            queue.push_back(settings.block_generator->generate());
         }
 
-
-        log_file << endl;
         swap(board, new_board);
-        log_file << board << endl;
+        Output_manager::get_instance().get_board_os() << endl << board << endl;
         ++turn;
     }
 }
