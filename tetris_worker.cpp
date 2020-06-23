@@ -16,8 +16,8 @@ using std::bind;
 using std::ceil;
 using std::max_element;
 
-static const int c_num_to_consider_with_head_down = 5000;
-static const int c_offload_threshold = 1000000;
+static const int c_num_to_consider_with_head_down = 100;
+static const int c_offload_threshold = 2;
 
 Tetris_worker::Tetris_worker(){
     t = thread{bind(&Tetris_worker::run, this)};
