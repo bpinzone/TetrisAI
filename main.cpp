@@ -3,6 +3,7 @@
 #include "block.h"
 #include "action.h"
 #include "utility.h"
+#include "tetris_worker.h"
 
 #include <vector>
 #include <deque>
@@ -21,7 +22,6 @@
 
 using std::mutex;
 using std::unique_lock;
-using std::thread;
 
 using std::swap;
 using std::move;
@@ -63,13 +63,15 @@ struct Play_settings {
 
     int game_length;
 
-    // <mode: wsmr> <generation: seed OR i> <lookahead> <queue size> <game length>
+    int num_threads;
+
     Play_settings(int argc, char* argv[]){
 
-        static int num_settings = 5;
+        // NOTE: IMPORTANT
+        static int num_settings = 6;
 
         if(argc != num_settings + 1){
-            throw runtime_error("Usage: <mode: wsmr> <block generation: seed# or i> <lookahead> <queue size> <game length>");
+            throw runtime_error("Usage: <mode: wsmr> <block generation: seed# or i> <lookahead> <queue size> <game length> <num threads>");
         }
 
         mode = *argv[1];
@@ -83,6 +85,7 @@ struct Play_settings {
         lookahead_placements = atoi(argv[3]);
         queue_size = atoi(argv[4]);
         game_length = atoi(argv[5]);
+        num_threads = atoi(argv[6]);
 
         if(lookahead_placements > queue_size + 1 ){
             throw runtime_error{"With this queue size, Jeff cannot see that far into the future"};
@@ -93,7 +96,7 @@ struct Play_settings {
 
     }
 
-    void wait_as_necessary(){
+    void wait_for_controller_connection_if_necessary(){
         if(mode == 'w' || mode == 's'){
             return;
         }
@@ -125,12 +128,15 @@ Placement get_best_move(
 void get_best_foreseeable_state_from_subtree(
     State&& seed_state, vector<State>& results, mutex& results_mutex);
 
-// <prog> <seed> <lookahead_depth> <placements_to_perform> <max queue size> <menu (m) or restart (r) or skip (s)>
 int main(int argc, char* argv[]) {
 
     Play_settings ps(argc, argv);
     Output_manager::get_instance().set_streams(ps.mode);
-    ps.wait_as_necessary();
+    ps.wait_for_controller_connection_if_necessary();
+
+    Tetris_worker::create_workers(ps.num_threads);
+    // Wait for them to spin up and mark themselves free for work.
+    Tetris_worker::wait_until_all_free();
 
     play(ps);
 
@@ -203,11 +209,14 @@ void play(const Play_settings& settings){
     }
 }
 
+
 Placement get_best_move(
         const Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
         const int num_placements_to_look_ahead){
+
+    Tetris_worker::assert_all_free();
 
     const int placement_limit = board.get_num_blocks_placed() + num_placements_to_look_ahead;
 
@@ -221,63 +230,8 @@ Placement get_best_move(
         optional<Placement>{}
     };
 
-    // Results destination
-    vector<State> results;
-    mutex results_mutex;
+    Tetris_worker::distribute_new_work_and_wait_till_all_free(move(root_state));
 
-    vector<thread> workers;
-
-    // Populate seeds for threads
-    for(auto op_child = root_state.generate_next_child();
-            op_child; op_child = root_state.generate_next_child()){
-
-        workers.push_back(thread{
-            &get_best_foreseeable_state_from_subtree,
-            move(*op_child),
-            ref(results),
-            ref(results_mutex)
-        });
-    }
-
-    for(auto& worker : workers){
-        worker.join();
-    }
-
-    // Find the best
-    return max_element(
-        results.cbegin(), results.cend(),
-        [](const auto& s1, const auto& s2){
-            return s2.get_board().has_greater_utility_than(s1.get_board());
-        }
-    )->get_placement_taken_from_root();
-}
-
-void get_best_foreseeable_state_from_subtree(
-        State&& seed_state, vector<State>& results, mutex& results_mutex){
-
-    State best_foreseeable_state = State::generate_worst_state_from(seed_state);
-
-    vector<State> state_stack;
-    state_stack.push_back(move(seed_state));
-
-    while(!state_stack.empty()){
-
-        State considered_state = move(state_stack.back());
-        state_stack.pop_back();
-
-        if(considered_state.get_is_leaf()){
-            if(considered_state.get_board().has_greater_utility_than(best_foreseeable_state.get_board())){
-                best_foreseeable_state = move(considered_state);
-            }
-        }
-        else{
-            for(auto op_child = considered_state.generate_next_child();
-                    op_child; op_child = considered_state.generate_next_child()){
-                state_stack.push_back(move(*op_child));
-            }
-        }
-    }
-
-    unique_lock<mutex> results_ulock{results_mutex};
-    results.push_back(move(best_foreseeable_state));
+    State& best_state = Tetris_worker::get_best_reachable_state();
+    return best_state.get_placement_taken_from_root();
 }

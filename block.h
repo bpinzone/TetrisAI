@@ -23,12 +23,10 @@ public:
     }
 
     int get_rotation() const {
-        assert(!is_hold);
         return rotation;
     }
 
     int get_column() const {
-        assert(!is_hold);
         return column;
     }
 
