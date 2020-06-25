@@ -1,3 +1,5 @@
+DO NOT generate log file in watch mode.
+
 Profile
 Multi-thread. Thread pooling or dynamic work sharing.
 UI for playing
