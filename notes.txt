@@ -1,9 +1,6 @@
-TODO: Teach Jeff to put trench on far side? Might be really good...
-
 Profile
 Multi-thread. Thread pooling or dynamic work sharing.
 UI for playing
-Surviving long without survival mode only
 
 1093
     3 Deep

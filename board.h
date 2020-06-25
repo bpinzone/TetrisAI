@@ -93,6 +93,7 @@ private:
         Recomputed at end of place_block. (With single pass)
     */
     int num_trenches = 0;
+    bool at_least_one_side_clear = true;
     int lowest_height = 0;
     int second_lowest_height = 0;
     int highest_height = 0;
@@ -104,6 +105,7 @@ private:
     int num_blocks_placed = 0;
     int num_placements_that_cleared_rows = 0;
     int num_tetrises = 0;
+    int num_non_tetrises = 0;
     bool is_worst_board = false;
 
 };

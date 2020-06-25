@@ -188,6 +188,7 @@ void play(const Play_settings& settings){
         // PLACE
         else{
             bool is_promising = new_board.place_block(*next_to_present, next_placement);
+            Output_manager::get_instance().get_board_os() << "Placing: " << next_to_present->name << "\n";
 
             Action action{
                 next_to_present, next_placement,

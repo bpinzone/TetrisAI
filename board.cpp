@@ -84,6 +84,9 @@ bool Board::place_block(const Block& b, Placement p){
         if(num_rows_cleared_just_now == 4){
             ++num_tetrises;
         }
+        else{
+            ++num_non_tetrises;
+        }
     }
 
     // Don't update cache if we're not promising
@@ -121,6 +124,9 @@ bool Board::has_greater_utility_than(const Board& other) const {
     static const int c_max_tetris_mode_height = 10;
     static const int c_height_diff_punishment_thresh = 3;
 
+    const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
+    const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
+
     // === Fundamental Priorities ===
     if((num_trenches > 1) != (other.num_trenches > 1)){
         return num_trenches <= 1;
@@ -134,6 +140,20 @@ bool Board::has_greater_utility_than(const Board& other) const {
         }
     }
 
+    // Prefer to be in Tetris mode.
+    if(this_in_tetris_mode != other_in_tetris_mode){
+        return this_in_tetris_mode;
+    }
+
+    if(this_in_tetris_mode && other_in_tetris_mode){
+        if(at_least_one_side_clear != other.at_least_one_side_clear){
+            return at_least_one_side_clear;
+        }
+        if(num_non_tetrises != other.num_non_tetrises){
+            return num_non_tetrises < other.num_non_tetrises;
+        }
+    }
+
     // Keep relatively even except for the one trench.
     const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
     const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
@@ -141,15 +161,7 @@ bool Board::has_greater_utility_than(const Board& other) const {
         return !this_receives_height_punishment;
     }
 
-    // Prefer to be in Tetris mode.
-    const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
-    const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
-    if(this_in_tetris_mode != other_in_tetris_mode){
-        return this_in_tetris_mode;
-    }
-
     if(this_in_tetris_mode){
-
 
         // Get the tetrises
         if(num_tetrises != other.num_tetrises){
@@ -348,6 +360,7 @@ void Board::update_cache() {
     second_lowest_height = c_cols;
     highest_height = 0;
     sum_of_squared_heights = 0;
+    at_least_one_side_clear = (height_map[0] == 0) || (height_map[c_cols - 1] == 0);
 
     int left_height = impossibly_high_wall;
     int middle_height = height_map[0];
