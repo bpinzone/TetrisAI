@@ -348,10 +348,10 @@ int Board::compute_height(size_t col_x) const {
     int height = 0;
     for(size_t row_x = 0; row_x < c_rows; ++row_x){
         if(at(row_x, col_x)){
-            height = row_x;
+            height = row_x + 1;
         }
     }
-    return height + 1;
+    return height;
 }
 
 int Board::get_row_after_drop(const Block& b, Placement p) const {
