@@ -40,6 +40,7 @@ public:
     int get_num_blocks_placed() const;
     double get_tetris_percent() const;
     bool has_more_cleared_rows_than(const Board& other) const;
+    bool is_clear() const;
 
     static const Board& get_worst_board();
 
@@ -106,6 +107,7 @@ private:
     int num_placements_that_cleared_rows = 0;
     int num_tetrises = 0;
     int num_non_tetrises = 0;
+    int num_all_clears = 0;
     bool is_worst_board = false;
 
 };

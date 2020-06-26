@@ -26,6 +26,9 @@ ostream& operator<<(ostream& os, const Board& s) {
         os << "\n";
     }
 
+    os << "All clears: " << s.num_all_clears << endl;
+    os << "Tetrises: " << s.num_tetrises << endl;
+
     return os;
 }
 
@@ -78,6 +81,10 @@ bool Board::place_block(const Block& b, Placement p){
         }
     }
 
+    if(is_clear()){
+        ++num_all_clears;
+    }
+
     // Statistics
     if(num_rows_cleared_just_now > 0){
         ++num_placements_that_cleared_rows;
@@ -117,6 +124,10 @@ bool Board::has_greater_utility_than(const Board& other) const {
 
     if(is_worst_board != other.is_worst_board){
         return !is_worst_board;
+    }
+
+    if(num_all_clears != other.num_all_clears){
+        return num_all_clears > other.num_all_clears;
     }
 
     // You are in tetris mode if you are here or less in height.
@@ -251,6 +262,10 @@ double Board::get_tetris_percent() const {
 
 bool Board::has_more_cleared_rows_than(const Board& other) const {
     return num_placements_that_cleared_rows > other.num_placements_that_cleared_rows;
+}
+
+bool Board::is_clear() const {
+    return num_cells_filled == 0;
 }
 
 const Board& Board::get_worst_board() {
