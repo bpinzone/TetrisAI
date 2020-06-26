@@ -74,6 +74,8 @@ ostream& operator<<(ostream& os, const Board& s) {
 // Return true iff this board is still promising.
 bool Board::place_block(const Block& b, Placement p){
 
+    assert_cache_correct();
+
     assert(!p.get_is_hold());
     const int old_num_holes = get_num_holes();
 

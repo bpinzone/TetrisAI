@@ -137,6 +137,16 @@ void get_best_foreseeable_state_from_subtree(
 
 int main(int argc, char* argv[]) {
 
+    // For Xcode file redirection.
+#ifdef __APPLE__
+   if (getenv("STDIN"))
+      freopen(getenv("STDIN"), "r", stdin);
+   if (getenv("STDOUT"))
+      freopen(getenv("STDOUT"), "w", stdout);
+   if (getenv("STDERR"))
+      freopen(getenv("STDERR"), "w", stderr);
+#endif
+
     Play_settings ps(argc, argv);
     Output_manager::get_instance().set_streams(ps.mode);
     ps.wait_for_controller_connection_if_necessary();
