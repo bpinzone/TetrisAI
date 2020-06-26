@@ -351,7 +351,7 @@ int Board::compute_height(size_t col_x) const {
             height = row_x;
         }
     }
-    return height;
+    return height + 1;
 }
 
 int Board::get_row_after_drop(const Block& b, Placement p) const {
