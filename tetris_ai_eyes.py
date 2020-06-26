@@ -175,12 +175,9 @@ def main():
                 unchecked_corners = get_corner_clicks(hold_and_queue)
                 assert len(unchecked_corners) == 2
                 click_min_xy, click_max_xy = get_bounding_coords_from_corners(unchecked_corners[0], unchecked_corners[1])
-                print(click_min_xy)
-                print(click_max_xy)
                 clicked_part = hold_and_queue[click_min_xy[1]:click_max_xy[1], click_min_xy[0]:click_max_xy[0]]
                 cv2.imshow('clicked', clicked_part)
                 cv2.waitKey(0)
-                print('template_images/' + param + '.png')
                 cv2.imwrite('template_images/' + param + '.png', clicked_part)
                 params.add(param)
             elif command[0] == 'j':
@@ -208,34 +205,15 @@ def main():
     color_names = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple']
     piece_images_big = [cv2.imread('template_images/' + name + '_b.png') for name in color_names]
     piece_images_little = [cv2.imread('template_images/' + name + '_l.png') for name in color_names]
+    # This next one is for grayed-out hold pictures:
+    piece_images_big_with_gray = piece_images_big.copy()
+    for image in piece_images_big:
+        piece_images_big_with_gray.append(cv2.cvtColor(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR))
     assert not any((p is None for p in piece_images_big))
     assert not any((p is None for p in piece_images_little))
     # for point in clicked_points:
     #     frame_annotated = cv2.circle(first_frame_annotated, tuple(point), 5, (0, 0, 255), 2)
 
-    # Based on webcam of the game
-    # colors = [
-    #         ((0, 0, 0), 'black'), #Black
-    #         ((255, 255, 255), 'white'), #White
-    #         ((106, 60, 166), 'red'), # Red
-    #         ((171, 212, 187), 'yellow'), # Yellow
-    #         ((255, 245, 49), 'cyan'), # Cyan
-    #         ((255, 86, 172), 'purple'), # Purple TODO measurement noisy
-    #         ((243, 255, 97), 'green'), # Green
-    #         ((255, 70, 31), 'blue'), # Blue TODO measurement noisy
-    #         ((146, 146, 215), 'orange') # Orange
-    #         ]
-    # Theoretical
-    # colors = [
-    #         ((0, 0, 0), 'black'), #Black
-    #         ((0, 0, 255), 'red'), # Red
-    #         ((0, 255, 255), 'yellow'), # Yellow
-    #         ((255, 255, 0), 'cyan'), # Cyan
-    #         ((255, 0, 255), 'purple'), # Purple
-    #         ((0, 255, 0), 'green'), # Green
-    #         ((255, 0, 0), 'blue'), # Blue
-    #         ((0, 165, 255), 'orange') # Orange
-    #     ]
     # Based on direct measurement of the game pixels
     colors = [
             ((0, 0, 0), 'black'), #Black
@@ -262,7 +240,6 @@ def main():
     while True:
         ret, frame = capture.read()
         frame_count += 1
-        # print(f'frame count: {frame_count}')
 
         if not ret:
             return
@@ -270,7 +247,6 @@ def main():
         hold_pic = cv2.warpPerspective(frame, M_hold, im_dims['hold_pic'])
         board_pic = cv2.warpPerspective(frame, M_board, im_dims['board_pic'])
         queue_pic = cv2.warpPerspective(frame, M_queue, im_dims['queue_pic'])
-
 
         def get_color_mask(im, colors, erode=False):
             color_ind_image = get_color_idx_image(im, color_array)
@@ -319,17 +295,61 @@ def main():
             queue.append(color_names[check_for_block(individual_queue_pics[0], piece_images_big)])
             for single_queue_pic in individual_queue_pics[1:]:
                 queue.append(color_names[check_for_block(single_queue_pic, piece_images_little)])
+            # Unlike the queue, the block can be empty
+            hold_mask = get_color_mask(hold_pic, colors, erode=True)
+            
+            # If after the erosion, over 95% of the image is black, the hold is probably empty
+            if np.sum(hold_mask == 0) / hold_mask.size > .95:
+                # Indicates empty hold
+                hold_block_ind = None
+                can_hold = True
+            else:
+                hold_block_ind = check_for_block(hold_pic, piece_images_big_with_gray)
+                can_hold = hold_block_ind < len(piece_images_big_with_gray) // 2
+                # Get the right block, even though we can't use it
+                if not can_hold:
+                    hold_block_ind -= len(piece_images_big_with_gray) // 2
+
             assert len(queue) == len(last_queue)
             if any([a != b for a, b in zip(queue, last_queue)]):
-                # If this is the first change, print nothing.
-                # We are seeing the board for the first time.
-                if num_queue_changes != 0:
-                    # If we are about to change the board a second time
-                    if num_queue_changes == 1:
-                        print(''.join([q[0] for q in last_queue]))
-                    print(queue[-1][0])
+                # The queue has changed!
                 cv2.imshow('queue pic', queue_pic)
                 cv2.waitKey(1)
+
+                # First, let's get the board state
+                board_color = get_color_mask(board_pic, colors, True)
+                num_cols = 10
+                num_rows = 20
+                color_medians = np.array([
+                    [np.median(board_pic_cell, axis=(0, 1)) for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
+                        for board_pic_row in np.array_split(board_pic, num_rows, axis=0)
+                    ])
+                board_colors = get_color_mask(color_medians, colors)
+
+                # Last thing: Find the first row with all empty spaces, and set all spaces above that to 0
+                # This is just to getting confused about the piece coming down on top.
+                found_empty_row = False
+                for row_idx in reversed(range(num_rows)):
+                    if found_empty_row:
+                        board_colors[row_idx, :] = 0
+                    elif np.all(board_colors[row_idx, :] == 0):
+                        found_empty_row = True
+
+                if num_queue_changes >= 1:
+                    print('presented')
+                    print(last_queue[0][0])
+                    print('can_hold')
+                    print(can_hold)
+                    print('in_hold')
+                    print(color_names[hold_block_ind][0] if hold_block_ind != None else '.')
+                    print('queue')
+                    print(''.join((q[0] for q in queue)))
+                    print('board')
+                    for row_idx in range(board_colors.shape[0]):
+                        for col_idx in range(board_colors.shape[1]):
+                            print('x' if board_colors[row_idx, col_idx] != 0 else '.', end='')
+                        print()
+
             num_queue_changes += 1
 
         last_queue = queue
