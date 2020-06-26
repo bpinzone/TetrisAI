@@ -14,6 +14,45 @@ using namespace std;
 
 Board Board::worst_board;
 
+Board::Board(istream& is){
+
+    string label;
+    is >> label;
+    assert(label == "board");
+    for(int row_x = static_cast<int>(c_rows - 1); row_x >= 0; --row_x){
+        for(size_t col_x = 0; col_x < c_cols; ++col_x){
+            char cell;
+            is >> cell;
+            at(static_cast<size_t>(row_x), col_x) = (cell == 'x');
+        }
+    }
+
+    is >> label;
+    assert(label == "in_hold");
+    char hold;
+    is >> hold;
+    if(hold != '.'){
+        current_hold = Block::char_to_block_ptr(hold);
+    }
+
+    is >> label;
+    assert(label == "just_swapped");
+    string just_swapped_str;
+    is >> just_swapped_str;
+    just_swapped = (just_swapped_str == "true");
+
+    // Update things that cache does not do.
+    for(size_t col_x = 0; col_x < c_cols; ++col_x){
+        int height = compute_height(col_x);
+        height_map[col_x] = height;
+        perfect_num_cells_filled += height;
+    }
+    num_cells_filled = board.count();
+
+    update_secondary_cache();
+
+}
+
 ostream& operator<<(ostream& os, const Board& s) {
 
     os << "Holding: ";
@@ -81,21 +120,6 @@ bool Board::place_block(const Block& b, Placement p){
         }
     }
 
-    if(is_clear()){
-        ++num_all_clears;
-    }
-
-    // Statistics
-    if(num_rows_cleared_just_now > 0){
-        ++num_placements_that_cleared_rows;
-        if(num_rows_cleared_just_now == 4){
-            ++num_tetrises;
-        }
-        else{
-            ++num_non_tetrises;
-        }
-    }
-
     // Don't update cache if we're not promising
     static const int max_holes_allowed_generated_at_once = 1;
     if(get_num_holes() - old_num_holes > max_holes_allowed_generated_at_once){
@@ -104,11 +128,11 @@ bool Board::place_block(const Block& b, Placement p){
         return false;
     }
 
-    update_cache();
+    update_secondary_cache();
+    update_lifetime_cache(num_rows_cleared_just_now);
     assert_cache_correct();
 
     just_swapped = false;
-    ++num_blocks_placed;
     return true;
 }
 
@@ -317,6 +341,17 @@ bool Board::is_row_full(int row) const {
     return true;
 }
 
+// Compute height based on "board" only.
+int Board::compute_height(size_t col_x) const {
+    int height = 0;
+    for(size_t row_x = 0; row_x < c_rows; ++row_x){
+        if(at(row_x, col_x)){
+            height = row_x;
+        }
+    }
+    return height;
+}
+
 int Board::get_row_after_drop(const Block& b, Placement p) const {
 
     const auto& contour = b.maps[p.get_rotation()].contour;
@@ -365,17 +400,17 @@ int Board::get_height_map_reduction(int deleted_row, int query_col) const {
     return reductions;
 }
 
-void Board::update_cache() {
+void Board::update_secondary_cache() {
 
     static const int impossibly_high_wall = c_rows + 5;
     static const int min_depth_considered_trench = 3;
 
     num_trenches = 0;
+    at_least_one_side_clear = (height_map[0] == 0) || (height_map[c_cols - 1] == 0);
     lowest_height = c_cols;
     second_lowest_height = c_cols;
     highest_height = 0;
     sum_of_squared_heights = 0;
-    at_least_one_side_clear = (height_map[0] == 0) || (height_map[c_cols - 1] == 0);
 
     int left_height = impossibly_high_wall;
     int middle_height = height_map[0];
@@ -406,6 +441,23 @@ void Board::update_cache() {
         num_trenches == 1
         && lowest_height == some_trench_height
         && second_lowest_height >= some_trench_height + 4;
+}
+
+void Board::update_lifetime_cache(int num_rows_cleared_just_now){
+    ++num_blocks_placed;
+    if(num_rows_cleared_just_now > 0){
+        ++num_placements_that_cleared_rows;
+        if(num_rows_cleared_just_now == 4){
+            ++num_tetrises;
+        }
+        else{
+            ++num_non_tetrises;
+        }
+    }
+    if(is_clear()){
+        ++num_all_clears;
+    }
+
 }
 
 void Board::assert_cache_correct() const {

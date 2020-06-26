@@ -23,6 +23,13 @@ public:
         std::optional<Placement> _placement_taken_from_root
     );
 
+    static State generate_root_state(
+        const Board& board,
+        const Block& presented,
+        const Tetris_queue_t& queue,
+        const int num_placements_to_look_ahead
+    );
+
     static State generate_worst_state_from(const State& other);
 
     bool get_is_leaf() const {

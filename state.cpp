@@ -19,6 +19,26 @@ State::State(
     placement_taken_from_root{_placement_taken_from_root}, pg{_presented_block} {
 }
 
+State State::generate_root_state(
+        const Board& board,
+        const Block& presented,
+        const Tetris_queue_t& queue,
+        const int num_placements_to_look_ahead){
+
+    const int placement_limit = board.get_num_blocks_placed() + num_placements_to_look_ahead;
+
+    return {
+        board,
+        &presented,
+        queue.cbegin(),
+        false,
+        queue.cend(),
+        placement_limit,
+        optional<Placement>{}
+    };
+
+}
+
 State State::generate_worst_state_from(const State& other) {
     return {
         Board::get_worst_board(),

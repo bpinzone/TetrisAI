@@ -28,9 +28,11 @@ using std::move;
 using std::ref;
 
 using std::endl;
+using std::cin;
 using std::string;
 using std::generate_n;
 using std::back_inserter;
+using std::transform;
 using std::max_element;
 using std::optional;
 using std::vector;
@@ -96,8 +98,12 @@ struct Play_settings {
 
     }
 
+    bool is_watching() const {
+        return mode == 'w';
+    }
+
     void wait_for_controller_connection_if_necessary(){
-        if(mode == 'w' || mode == 's'){
+        if(is_watching() || mode == 's'){
             return;
         }
         if(mode != 'm' && mode != 'r'){
@@ -118,9 +124,10 @@ struct Play_settings {
 };
 
 void play(const Play_settings& settings);
+void play_99(const Play_settings& settings);
 
 Placement get_best_move(
-        const Board& state,
+        const Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
         const int num_placements_to_look_ahead);
@@ -138,7 +145,12 @@ int main(int argc, char* argv[]) {
     // Wait for them to spin up and mark themselves free for work.
     Tetris_worker::wait_until_all_free();
 
-    play(ps);
+    if(ps.is_watching()){
+        play(ps);
+    }
+    else{
+        play_99(ps);
+    }
 
     delete ps.block_generator;
     return 0;
@@ -169,11 +181,14 @@ void play(const Play_settings& settings){
         );
 
         Board new_board{board};
+
+        if(!settings.is_watching()){
+            Action action{next_to_present, next_placement};
+            Output_manager::get_instance().get_command_os() << action;
+        }
+
         // HOLD
         if(next_placement.get_is_hold()){
-
-            Action action{next_to_present, next_placement, "wait"};
-            Output_manager::get_instance().get_command_os() << action;
 
             const Block* old_hold = new_board.swap_block(*next_to_present);
             if(!old_hold){
@@ -188,12 +203,6 @@ void play(const Play_settings& settings){
         // PLACE
         else{
             bool is_promising = new_board.place_block(*next_to_present, next_placement);
-            Output_manager::get_instance().get_board_os() << "Placing: " << next_to_present->name << "\n";
-
-            Action action{
-                next_to_present, next_placement,
-                new_board.has_more_cleared_rows_than(board) ? "wait_long" : "wait" };
-            Output_manager::get_instance().get_command_os() << action;
 
             if(!is_promising){
                 Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
@@ -210,6 +219,51 @@ void play(const Play_settings& settings){
     }
 }
 
+void play_99(const Play_settings& settings) {
+
+    while(true){
+
+        // Read in effective state.
+        string label;
+        cin >> label;
+        assert(label == "presented");
+        char presented_ch;
+        cin >> presented_ch;
+        const Block* presented = Block::char_to_block_ptr(presented_ch);
+
+        cin >> label;
+        assert(label == "queue");
+        string queue_chars;
+        cin >> queue_chars;
+        Tetris_queue_t queue;
+        transform(queue_chars.begin(), queue_chars.end(), back_inserter(queue),
+            [](const auto& c){ return Block::char_to_block_ptr(c); });
+        Board board(cin);
+        Output_manager::get_instance().get_board_os()
+            << " ====================== " << endl
+            << "C++ thinks the board is: " << endl << board << endl;
+
+        // Compute placement
+        Placement next_placement = get_best_move(
+            board, *presented, queue, settings.lookahead_placements);
+
+        // Predict Future
+        Board new_board{board};
+        if(next_placement.get_is_hold()){
+            new_board.swap_block(*presented);
+        }
+        else{
+            new_board.place_block(*presented, next_placement);
+        }
+        Output_manager::get_instance().get_board_os()
+            << endl << "C++ thinks after the move, the board will be: " << endl << new_board << endl
+            << " ====================== " << endl;
+
+        // Send Command
+        Action action{presented, next_placement};
+        Output_manager::get_instance().get_command_os() << action;
+    }
+}
 
 Placement get_best_move(
         const Board& board,
@@ -219,17 +273,8 @@ Placement get_best_move(
 
     Tetris_worker::assert_all_free();
 
-    const int placement_limit = board.get_num_blocks_placed() + num_placements_to_look_ahead;
-
-    State root_state{
-        board,
-        &presented,
-        queue.cbegin(),
-        false,
-        queue.cend(),
-        placement_limit,
-        optional<Placement>{}
-    };
+    State root_state = State::generate_root_state(
+        board, presented, queue, num_placements_to_look_ahead);
 
     Tetris_worker::distribute_new_work_and_wait_till_all_free(move(root_state));
 

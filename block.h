@@ -54,6 +54,8 @@ struct Block {
     static const Block Orange;
     static const Block Green;
 
+    static const Block* char_to_block_ptr(char c);
+
     int get_max_valid_placement_col(int rot_x) const;
 
     Block& operator=(const Block& other) = delete;
