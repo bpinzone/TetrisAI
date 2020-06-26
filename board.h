@@ -15,6 +15,11 @@ class Board {
 
 public:
 
+    Board(){
+    }
+
+    Board(std::istream& is);
+
     // STATIC MEMBERS
     static constexpr size_t c_cols = 10;
     static constexpr size_t c_rows = 20;
@@ -60,6 +65,7 @@ private:
     // (0, 0) is bottom left;  (1, 0) is 2nd row, 1st column;  (0, 1) is 1st row, 2nd column.
     bool at(size_t row, size_t col) const;
     bool is_row_full(int row) const;
+    int compute_height(size_t col_x) const;
 
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.
@@ -68,30 +74,32 @@ private:
 
     int get_height_map_reduction(int deleted_row, int query_col) const;
 
-    void update_cache();
+    // Fundamental and Primary cache data must be up to date before calling update second/life cache.
+    void update_secondary_cache();
+    void update_lifetime_cache(int num_rows_cleared_just_now);
+
     void assert_cache_correct() const;
 
     // MEMBERS
     static Board worst_board;
 
-    // Fundamental
+    // === Fundamental ===
     Grid_t board;
+
     const Block* current_hold = nullptr;
     bool just_swapped = true;
 
-    // Cache
-    // === These cached values are updated during place_block() and clear_row() ===
+    // === Primary Cache. Should be updated in place_block() and clear_row() ===
     std::array<int, c_cols> height_map = {0};
     int num_cells_filled = 0;
     // If there are 0 holes, num_cells_filled will be equal to this.
     int perfect_num_cells_filled = 0;
 
-    // === These cached values are updated just before place_block() returns ===
-    /* NOTE:
-        None of these are ever read by place_block() or clear_row()
-        update_cache() is responsible for updating all of the following,
-        up to and NOT including num_tetrises.
-        Recomputed at end of place_block. (With single pass)
+    // === Secondary Cache. Relies on info in Primary Cache being up to date to compute these.
+    /*
+    // Cached second. Should be updated in update_secondary_cache().
+    Update cache is responsible for the following.
+    None of these are ever read by place_block() or clear_row()
     */
     int num_trenches = 0;
     bool at_least_one_side_clear = true;
@@ -102,12 +110,14 @@ private:
     // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
     bool is_tetrisable = false;
 
-    // Stats: Relative to when game began.
+    // === Lifetime Cache ===
     int num_blocks_placed = 0;
     int num_placements_that_cleared_rows = 0;
     int num_tetrises = 0;
     int num_non_tetrises = 0;
     int num_all_clears = 0;
+
+    // === Misc ===
     bool is_worst_board = false;
 
 };

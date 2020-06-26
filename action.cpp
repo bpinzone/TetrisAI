@@ -6,14 +6,14 @@
 #include <vector>
 
 using std::ostream;
+using std::endl;
 using std::string;
 using std::vector;
 
-Action::Action(const Block* block, Placement placement, const string& _wait_command_to_follow)
+Action::Action(const Block* block, Placement placement)
     : offset{placement.get_column() - block->maps[placement.get_rotation()].leftmost_block_pos},
     rotation_count{placement.get_rotation()},
-    hold{placement.get_is_hold()},
-    wait_command_to_follow{_wait_command_to_follow} {
+    hold{placement.get_is_hold()}{
 }
 
 ostream& operator<<(ostream& os, const Action& action) {
@@ -46,11 +46,8 @@ ostream& operator<<(ostream& os, const Action& action) {
         actions_strs.push_back("up");
     }
 
-    actions_strs.push_back(action.wait_command_to_follow);
-
     for(const auto& action : actions_strs){
-        os << action;
-        os << std::endl; // flush immediately.
+        os << action << endl; // must flush immediately.
     }
     return os;
 }

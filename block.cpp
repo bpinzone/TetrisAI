@@ -15,6 +15,25 @@ using std::queue;
 using std::cin;
 using std::runtime_error;
 
+const Block* Block::char_to_block_ptr(char c){
+
+    switch(c){
+        case 'b' : return &Blue;
+        case 'p' : return &Purple;
+        case 'r' : return &Red;
+        case 'c' : return &Cyan;
+        case 'y' : return &Yellow;
+        case 'o' : return &Orange;
+        case 'g' : return &Green;
+        default : throw std::runtime_error{
+            "Invalid Block! "
+            + string{c}
+            + " Must be one of: b, p, r, c, y, o, g."
+        };
+    }
+
+}
+
 int Block::get_max_valid_placement_col(int rot_x) const {
     return Board::c_cols - maps[rot_x].contour.size();
 }
@@ -29,16 +48,7 @@ const Block* Stdin_block_generator::generate() {
     char block;
     cin >> block;
     assert(cin);
-    switch(block){
-        case 'b' : return &Block::Blue;
-        case 'p' : return &Block::Purple;
-        case 'r' : return &Block::Red;
-        case 'c' : return &Block::Cyan;
-        case 'y' : return &Block::Yellow;
-        case 'o' : return &Block::Orange;
-        case 'g' : return &Block::Green;
-        default : throw std::runtime_error{"Invalid Block! " + string{block} + " Enter one of: b, p, r, c, y, o, g."};
-    }
+    return Block::char_to_block_ptr(block);
 }
 
 Random_block_generator::Random_block_generator(Seed_t seed)
