@@ -114,6 +114,8 @@ def main():
     if args.video == 0:
         ret = capture.set(cv2.CAP_PROP_FRAME_WIDTH,640)
         ret = capture.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
+        # ret = capture.set(cv2.CAP_PROP_FRAME_WIDTH,1280)
+        # ret = capture.set(cv2.CAP_PROP_FRAME_HEIGHT,960)
 
     # Get the corner points of hold, board, and queue
     if args.config == None:
@@ -233,6 +235,7 @@ def main():
     # last_just_swapped = False
     last_queue_pic = np.zeros((im_dims['queue_pic'][1], im_dims['queue_pic'][0], 3), dtype=np.uint8)
     last_queue_mask = np.zeros(im_dims['queue_pic']) == 0
+    last_hold_mask = np.zeros(im_dims['hold_pic']) == 0
     presented = None
 
     # Press something once the "get ready" screen is shown and you can see the queue
@@ -254,17 +257,19 @@ def main():
             mask = (color_ind_image != 0).astype(np.uint8) * 255
 
             if erode:
-                mask = cv2.erode(mask, np.ones((10, 10), np.uint8), borderValue=0)
+                mask = cv2.erode(mask, np.ones((12, 12), np.uint8), borderValue=0)
             return mask
 
         queue_mask = get_color_mask(queue_pic, colors, erode=True)
         queue_pic = cv2.copyTo(queue_pic, mask=queue_mask)
+        hold_mask = get_color_mask(hold_pic, colors, erode=True)
         individual_queue_pics = np.array_split(queue_pic, 6, axis=0)
         individual_queue_masks = np.array_split(queue_mask, 6, axis=0)
 
-        mask_diffs = np.sum(last_queue_mask != queue_mask)
+        mask_diffs_queue = np.sum(last_queue_mask != queue_mask)
+        mask_diffs_hold = np.sum(last_hold_mask != hold_mask)
         # TODO this is a hardcoded threshold, but there should be a better way
-        if mask_diffs < 1000:
+        if mask_diffs_queue < 1000 and mask_diffs_hold < 400:
             # Only check for changes if the picture is stable
 
             def check_for_block(image, mask_image, block_pics):
@@ -272,6 +277,9 @@ def main():
                 # TODO crashes if none are true
                 min_c, max_c = np.where(np.any(mask_image, axis=0))[0][[0, -1]]
                 min_r, max_r = np.where(np.any(mask_image, axis=1))[0][[0, -1]]
+
+                # cv2.imshow('mask_image', mask_image)
+                # cv2.waitKey(0)
 
                 for block_pic in block_pics:
                     template_has_color = np.array(np.sum(block_pic, axis=2) >= 70, dtype=np.uint8) * 255
@@ -285,7 +293,8 @@ def main():
                     col_start = max(min_c - cols_needed, 0)
                     col_end = min(max_c + cols_needed, image.shape[1])
 
-                    match_im = cv2.matchTemplate(image[row_start:row_end, col_start:col_end, :], block_pic, cv2.TM_SQDIFF, mask=np.repeat(template_has_color[:, :, np.newaxis], 3, axis=2)) / np.sum(template_has_color != 0)
+                    match_im = cv2.matchTemplate(mask_image[row_start:row_end, col_start:col_end], template_has_color, cv2.TM_SQDIFF) / np.sum(template_has_color != 0)
+                    # match_im = cv2.matchTemplate(image[row_start:row_end, col_start:col_end, :], block_pic, cv2.TM_SQDIFF, mask=np.repeat(template_has_color[:, :, np.newaxis], 3, axis=2)) / np.sum(template_has_color != 0)
                     matched_images.append(match_im)
                 minimums = [np.min(m) for m in matched_images]
                 min_diff_image_ind = np.argmin(minimums)
@@ -313,7 +322,7 @@ def main():
             else:
                 hold_pic_gray = cv2.cvtColor(cv2.cvtColor(hold_pic, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR)
                 hold_block = color_names[check_for_block(hold_pic, hold_mask, piece_images_big_gray)]
-                just_swapped = last_hold is not None and hold_block != last_hold
+                just_swapped = hold_block != last_hold
                 # Get the right block, even though we can't use it
 
             assert len(queue) == len(last_queue)
@@ -360,13 +369,14 @@ def main():
                     print('in_hold')
                     print(hold_block[0] if hold_block != None else '.')
                     print('just_swapped')
-                    print('true' if just_swapped else 'false')
+                    print('true' if just_swapped else 'false', flush=True)
 
             num_queue_changes += 1
 
         last_queue = queue
         last_queue_pic = queue_pic
         last_queue_mask = queue_mask
+        last_hold_mask = hold_mask
         last_hold = hold_block
         # last_just_swapped = just_swapped
 
