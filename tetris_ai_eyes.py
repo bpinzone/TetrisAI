@@ -237,6 +237,9 @@ def main():
     # Press something once the "get ready" screen is shown and you can see the queue
     _ = input()
 
+    queue_means_history = []
+    queue_stddevs_history = []
+
     while True:
         ret, frame = capture.read()
 
@@ -262,6 +265,15 @@ def main():
                 np.std(grayscale_data[label == empty_pixel_group]),
                 np.std(grayscale_data[label == full_pixel_group])
                 ])
+        assert len(queue_means_history) == len(queue_stddevs_history)
+        if len(queue_means_history) == 0 or frame_count % 10 == 0:
+            queue_means_history.append(queue_means.copy())
+            queue_stddevs_history.append(queue_stddevs.copy())
+
+        queue_means = np.median(np.array(queue_means_history), axis=0)
+        print(queue_means)
+        queue_stddevs = np.median(np.array(queue_stddevs_history), axis=0)
+        print(queue_stddevs)
 
         def get_bw_mask(image, means, stddevs):
             distances = np.abs((image[:, :, np.newaxis] - means[np.newaxis, np.newaxis, :]) / stddevs[np.newaxis, np.newaxis, :])
