@@ -229,7 +229,9 @@ def main():
             history.pop(0)
             median = np.median(history)
             # If the reading is over 2x the median, assume it's changing
-            return reading < 2 * median
+            # < is a bug here beause median of 0, need <=
+            # Tricky bug!
+            return reading <= 2 * median
         return False
 
     presented = None
@@ -271,9 +273,7 @@ def main():
             queue_stddevs_history.append(queue_stddevs.copy())
 
         queue_means = np.median(np.array(queue_means_history), axis=0)
-        print(queue_means)
         queue_stddevs = np.median(np.array(queue_stddevs_history), axis=0)
-        print(queue_stddevs)
 
         def get_bw_mask(image, means, stddevs):
             distances = np.abs((image[:, :, np.newaxis] - means[np.newaxis, np.newaxis, :]) / stddevs[np.newaxis, np.newaxis, :])
@@ -291,9 +291,12 @@ def main():
         hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask))
         board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask))
         queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask))
+        # print(hold_stable, board_stable, queue_stable)
+        # print(hold_change_history)
 
         pictures_stable = hold_stable and board_stable and queue_stable
         if pictures_stable:
+            # print('stable')
             individual_queue_mask = np.array_split(queue_mask, 6, axis=0)
 
             def get_block_match_idx(mask, templates):
@@ -337,12 +340,12 @@ def main():
             queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
 
             # Check if the queue is valid
-            if all((q != None for q in queue_idxs)):
+            if all((q != None for q in queue)):
                 assert len(queue) == len(last_queue)
                 # Sanity check: queue should all be populated.
                 # If it's all populated, then the queue changed if anything in the queue changed.
                 assert(all((q != None for q in queue_idxs)))
-                queue_changed = all((q != None for q in queue_idxs)) and any([a != b for a, b in zip(queue, last_queue)])
+                queue_changed = all((q != None for q in queue)) and any([a != b for a, b in zip(queue, last_queue)])
                 if queue_changed:
                     presented = last_queue[0]
                 elif just_swapped:
