@@ -205,37 +205,33 @@ def main():
 
     # Now, let's load in all of the images of pieces
     color_names = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple']
-    piece_images_big = [cv2.imread('template_images/' + name + '_b.png') for name in color_names]
-    piece_images_little = [cv2.imread('template_images/' + name + '_l.png') for name in color_names]
+    piece_images_big = [cv2.imread('template_images/' + name + '_b.png', cv2.IMREAD_GRAYSCALE) for name in color_names]
+    piece_images_little = [cv2.imread('template_images/' + name + '_l.png', cv2.IMREAD_GRAYSCALE) for name in color_names]
     # This next one is for grayed-out hold pictures:
-    piece_images_big_gray = [cv2.cvtColor(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR) for image in piece_images_big]
     assert not any((p is None for p in piece_images_big))
     assert not any((p is None for p in piece_images_little))
-    # for point in clicked_points:
-    #     frame_annotated = cv2.circle(first_frame_annotated, tuple(point), 5, (0, 0, 255), 2)
-
-    # Based on direct measurement of the game pixels
-    colors = [
-            ((0, 0, 0), 'black'), #Black
-            ((60, 40, 240), 'red'), # Red
-            ((60, 200, 240), 'yellow'), # Yellow
-            ((230, 200, 0), 'cyan'), # Cyan
-            ((240, 0, 140), 'purple'), # Purple
-            ((70, 240, 60), 'green'), # Green
-            ((245, 0, 0), 'blue'), # Blue
-            ((30, 110, 240), 'orange') # Orange
-        ]
-    color_array = np.array([c[0] for c in colors]).T
 
     frame_count = 0
-
-    num_queue_changes = 0
+    num_state_changes = 0
     last_queue = [None, None, None, None, None, None]
     last_hold = None
-    # last_just_swapped = False
-    last_queue_pic = np.zeros((im_dims['queue_pic'][1], im_dims['queue_pic'][0], 3), dtype=np.uint8)
-    last_queue_mask = np.zeros(im_dims['queue_pic']) == 0
-    last_hold_mask = np.zeros(im_dims['hold_pic']) == 0
+    last_queue_mask = np.zeros(tuple(reversed(im_dims['queue_pic']))) == 0
+    last_hold_mask = np.zeros(tuple(reversed(im_dims['hold_pic']))) == 0
+    last_board_mask = np.zeros(tuple(reversed(im_dims['board_pic']))) == 0
+
+    queue_change_history = []
+    hold_change_history = []
+    board_change_history = []
+
+    def is_stable(history, reading, hist_len=15):
+        history.append(reading)
+        if len(history) > hist_len:
+            history.pop(0)
+            median = np.median(history)
+            # If the reading is over 2x the median, assume it's changing
+            return reading < 2 * median
+        return False
+
     presented = None
 
     # Press something once the "get ready" screen is shown and you can see the queue
@@ -243,242 +239,152 @@ def main():
 
     while True:
         ret, frame = capture.read()
-        frame_count += 1
 
         if not ret:
             return
 
-        hold_pic = cv2.warpPerspective(frame, M_hold, im_dims['hold_pic'])
-        board_pic = cv2.warpPerspective(frame, M_board, im_dims['board_pic'])
-        queue_pic = cv2.warpPerspective(frame, M_queue, im_dims['queue_pic'])
+        frame_count += 1
+        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        def get_color_mask(im, colors, erode=False):
-            color_ind_image = get_color_idx_image(im, color_array)
-            mask = (color_ind_image != 0).astype(np.uint8) * 255
+        hold_pic = cv2.warpPerspective(gray_frame, M_hold, im_dims['hold_pic'])
+        board_pic = cv2.warpPerspective(gray_frame, M_board, im_dims['board_pic'])
+        queue_pic = cv2.warpPerspective(gray_frame, M_queue, im_dims['queue_pic'])
 
-            if erode:
-                mask = cv2.erode(mask, np.ones((12, 12), np.uint8), borderValue=0)
-            return mask
+        # We determine how to detect empty/full again each time, by looking at the queue
+        queue_float = queue_pic.astype(np.float32)
+        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+        grayscale_data = queue_float.flatten()[:, np.newaxis]
+        kmeans_ret, label, center = cv2.kmeans(grayscale_data, 2, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
+        empty_pixel_group = np.argmin(center)
+        full_pixel_group = np.argmax(center)
+        queue_means = center[[empty_pixel_group, full_pixel_group], 0]
+        queue_stddevs = np.array([
+                np.std(grayscale_data[label == empty_pixel_group]),
+                np.std(grayscale_data[label == full_pixel_group])
+                ])
 
-        queue_mask = get_color_mask(queue_pic, colors, erode=True)
-        queue_pic = cv2.copyTo(queue_pic, mask=queue_mask)
-        hold_mask = get_color_mask(hold_pic, colors, erode=True)
-        individual_queue_pics = np.array_split(queue_pic, 6, axis=0)
-        individual_queue_masks = np.array_split(queue_mask, 6, axis=0)
+        def get_bw_mask(image, means, stddevs):
+            distances = np.abs((image[:, :, np.newaxis] - means[np.newaxis, np.newaxis, :]) / stddevs[np.newaxis, np.newaxis, :])
+            return np.argmin(distances, axis=2) != 0
 
-        mask_diffs_queue = np.sum(last_queue_mask != queue_mask)
-        mask_diffs_hold = np.sum(last_hold_mask != hold_mask)
-        # TODO this is a hardcoded threshold, but there should be a better way
-        if mask_diffs_queue < 1000 and mask_diffs_hold < 400:
-            # Only check for changes if the picture is stable
+        hold_mask = get_bw_mask(hold_pic, queue_means, queue_stddevs)
+        board_mask = get_bw_mask(board_pic, queue_means, queue_stddevs)
+        queue_mask = get_bw_mask(queue_pic, queue_means, queue_stddevs)
 
-            def check_for_block(image, mask_image, block_pics):
-                matched_images = []
-                # TODO crashes if none are true
-                min_c, max_c = np.where(np.any(mask_image, axis=0))[0][[0, -1]]
-                min_r, max_r = np.where(np.any(mask_image, axis=1))[0][[0, -1]]
+        cv2.imshow('hold_mask', hold_mask.astype(np.uint8) * 255)
+        cv2.imshow('board_mask', board_mask.astype(np.uint8) * 255)
+        cv2.imshow('queue_mask', queue_mask.astype(np.uint8) * 255)
 
-                # cv2.imshow('mask_image', mask_image)
-                # cv2.waitKey(0)
+        # TODO detect changes
+        hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask))
+        board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask))
+        queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask))
 
-                for block_pic in block_pics:
-                    template_has_color = np.array(np.sum(block_pic, axis=2) >= 70, dtype=np.uint8) * 255
-                    # find the new section to look at based on roi
-                    # rows_needed is the number of rows we'd need to be able to template match properly.
-                    # We'll add that much on either side to be safe
-                    rows_needed = max(block_pic.shape[0] - (max_r - min_r), 0)
-                    row_start = max(min_r - rows_needed, 0)
-                    row_end = min(max_r + rows_needed, image.shape[0])
-                    cols_needed = max(block_pic.shape[1] - (max_c - min_c), 0)
-                    col_start = max(min_c - cols_needed, 0)
-                    col_end = min(max_c + cols_needed, image.shape[1])
+        pictures_stable = hold_stable and board_stable and queue_stable
+        if pictures_stable:
+            individual_queue_mask = np.array_split(queue_mask, 6, axis=0)
 
-                    match_im = cv2.matchTemplate(mask_image[row_start:row_end, col_start:col_end], template_has_color, cv2.TM_SQDIFF) / np.sum(template_has_color != 0)
-                    # match_im = cv2.matchTemplate(image[row_start:row_end, col_start:col_end, :], block_pic, cv2.TM_SQDIFF, mask=np.repeat(template_has_color[:, :, np.newaxis], 3, axis=2)) / np.sum(template_has_color != 0)
-                    matched_images.append(match_im)
-                minimums = [np.min(m) for m in matched_images]
-                min_diff_image_ind = np.argmin(minimums)
+            def get_block_match_idx(mask, templates):
+                # If less than 5% is black, assume it's empty
+                if np.sum(mask) / mask.size < .05:
+                    return None
+                mismatch_counts = []
+                for template in templates:
+                    # Compute where to align the two
+                    mask_center = np.mean(np.nonzero(mask), axis=1)
+                    template_center = np.mean(np.nonzero(template), axis=1)
+                    template_shift = (mask_center - template_center).astype(np.int)
+                    starting_corner = (
+                            max(min(template_shift[0], mask.shape[0] - template.shape[0]), 0),
+                            max(min(template_shift[1], mask.shape[1] - template.shape[1]), 0)
+                            )
+                    # Assumes that the image provided is at least as large as the template
+                    mismatch = mask.copy()
+                    mismatch[
+                        starting_corner[0]:starting_corner[0] + template.shape[0],
+                        starting_corner[1]:starting_corner[1] + template.shape[1]
+                            ] ^= template
+                    mismatch_counts.append(np.sum(mismatch))
+                    # cv2.imshow('temp', template.astype(np.uint8) * 255)
+                    # cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
+                    # cv2.waitKey(0)
 
-                # TODO might want to consider a way to make this also be able to check for empty.
-                # Right now it assumes a block will be present.
+                return np.argmin(mismatch_counts)
 
-                # TODO judging by the minimums, this method may not be very robust
+            template_masks_big = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_big]
+            template_masks_little = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_little]
 
-                return min_diff_image_ind
+            hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
+            hold = color_names[hold_block_idx] if hold_block_idx != None else None
+            just_swapped = hold != last_hold
 
-            queue = []
-            # The first image in the queue is bigger
-            queue.append(color_names[check_for_block(individual_queue_pics[0], individual_queue_masks[0], piece_images_big)])
-            for single_queue_pic, single_queue_mask in zip(individual_queue_pics[1:], individual_queue_masks[1:]):
-                queue.append(color_names[check_for_block(single_queue_pic, single_queue_mask, piece_images_little)])
-            # Unlike the queue, the block can be empty
-            hold_mask = get_color_mask(hold_pic, colors, erode=True)
-            
-            # If after the erosion, over 95% of the image is black, the hold is probably empty
-            if np.sum(hold_mask == 0) / hold_mask.size > .95:
-                # Indicates empty hold
-                hold_block = None
-                just_swapped = False
-            else:
-                hold_pic_gray = cv2.cvtColor(cv2.cvtColor(hold_pic, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR)
-                hold_block = color_names[check_for_block(hold_pic, hold_mask, piece_images_big_gray)]
-                just_swapped = hold_block != last_hold
-                # Get the right block, even though we can't use it
+            queue_idxs = [get_block_match_idx(individual_queue_mask[0], template_masks_big)]
+            for im in individual_queue_mask[1:]:
+                queue_idxs.append(get_block_match_idx(im, template_masks_little))
 
-            assert len(queue) == len(last_queue)
-            queue_changed = any([a != b for a, b in zip(queue, last_queue)])
-            if queue_changed:
-                presented = last_queue[0]
-            elif just_swapped:
-                presented = last_hold
-            if queue_changed or just_swapped:
-                # The queue or hold has changed!
-                cv2.imshow('queue pic', queue_pic)
-                cv2.imshow('hold pic', hold_pic)
-                cv2.waitKey(1)
+            queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
 
-                # First, let's get the board state
-                board_color = get_color_mask(board_pic, colors, True)
-                num_cols = 10
-                num_rows = 20
-                color_medians = np.array([
-                    [np.median(board_pic_cell, axis=(0, 1)) for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
-                        for board_pic_row in np.array_split(board_pic, num_rows, axis=0)
-                    ])
-                board_colors = get_color_mask(color_medians, colors)
+            # Check if the queue is valid
+            if all((q != None for q in queue_idxs)):
+                assert len(queue) == len(last_queue)
+                # Sanity check: queue should all be populated.
+                # If it's all populated, then the queue changed if anything in the queue changed.
+                assert(all((q != None for q in queue_idxs)))
+                queue_changed = all((q != None for q in queue_idxs)) and any([a != b for a, b in zip(queue, last_queue)])
+                if queue_changed:
+                    presented = last_queue[0]
+                elif just_swapped:
+                    presented = last_hold
 
-                # Last thing: Find the first row with all empty spaces, and set all spaces above that to 0
-                # This is just to getting confused about the piece coming down on top.
-                found_empty_row = False
-                for row_idx in reversed(range(num_rows)):
-                    if found_empty_row:
-                        board_colors[row_idx, :] = 0
-                    elif np.all(board_colors[row_idx, :] == 0):
-                        found_empty_row = True
+                if queue_changed or just_swapped:
+                    # Something changed, so it's time to update
+                    # First, let's get the board state
+                    num_cols = 10
+                    num_rows = 20
+                    full_threshold = .8 # To be considered filled, a piece must have 80% of its pixels be full
+                    board = np.array([
+                        [np.sum(board_pic_cell) / board_pic_cell.size > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
+                            for board_pic_row in np.array_split(board_mask, num_rows, axis=0)
+                        ])
 
-                if num_queue_changes >= 1:
-                    print('presented')
-                    print(presented[0])
-                    print('queue')
-                    print(''.join((q[0] for q in queue)))
-                    print('board')
-                    for row_idx in range(board_colors.shape[0]):
-                        for col_idx in range(board_colors.shape[1]):
-                            print('x' if board_colors[row_idx, col_idx] != 0 else '.', end='')
-                        print()
-                    print('in_hold')
-                    print(hold_block[0] if hold_block != None else '.')
-                    print('just_swapped')
-                    print('true' if just_swapped else 'false', flush=True)
+                    # Last thing: Find the first row with all empty spaces, and set all spaces above that to 0
+                    # This is just to getting confused about the piece coming down on top.
+                    found_empty_row = False
+                    for row_idx in reversed(range(num_rows)):
+                        if found_empty_row:
+                            board[row_idx, :] = 0
+                        elif np.all(board[row_idx, :] == 0):
+                            found_empty_row = True
 
-            num_queue_changes += 1
+                    if num_state_changes >= 1:
+                        print('presented')
+                        print(presented[0])
+                        print('queue')
+                        print(''.join((q[0] for q in queue)))
+                        print('board')
+                        cv2.imshow('board', board.astype(np.uint8) * 255)
+                        cv2.waitKey(1)
+                        for row_idx in range(board.shape[0]):
+                            for col_idx in range(board.shape[1]):
+                                print('x' if board[row_idx, col_idx] else '.', end='')
+                            print()
+                        print('in_hold')
+                        print(hold[0] if hold != None else '.')
+                        print('just_swapped')
+                        print('true' if just_swapped else 'false', flush=True)
 
-        last_queue = queue
-        last_queue_pic = queue_pic
+                    num_state_changes += 1
+                    # END 
+
+                last_queue = queue
+                last_hold = hold
+                # END queue valid
+            # END picture stable
+
         last_queue_mask = queue_mask
+        last_board_mask = board_mask
         last_hold_mask = hold_mask
-        last_hold = hold_block
-        # last_just_swapped = just_swapped
-
-        # check_for_block(hold_pic, piece_images_big)
-        # check_for_block(individual_queue_pics[0], piece_images_big)
-
-        # # Extract the Board from the Image
-        # color_medians = np.array([
-        #     [np.median(board_pic_cell, axis=(0, 1)) for board_pic_cell in np.array_split(board_pic_row, im_dims['board_pic'][0], axis=1)]
-        #         for board_pic_row in np.array_split(board_pic, im_dims['board_pic'][1], axis=0)
-        #     ])
-
-        # best_color_indices = get_color_idx_image(color_medians, color_array)
-
-        # # Debugging image
-        # debug_image = np.zeros((1000, 1000, 3), dtype=np.uint8)
-
-        # queue_image_color_inds = get_color_idx_image(queue_pic, color_array)
-        # hold_image_color_inds = get_color_idx_image(hold_pic, color_array)
-
-        # # Show the hold
-        # hold_anchor = 20, 20
-        # observed_hold_colors = color_array.T[hold_image_color_inds]
-        # debug_image[
-        #         hold_anchor[0]:hold_anchor[0] + hold_pic.shape[0],
-        #         hold_anchor[1]:hold_anchor[1] + hold_pic.shape[1]
-        #         ] = hold_pic
-        # debug_image[
-        #         hold_anchor[0] + hold_pic.shape[0]:hold_anchor[0] + hold_pic.shape[0] + observed_hold_colors.shape[0],
-        #         hold_anchor[1]:hold_anchor[1] + hold_pic.shape[1]] = observed_hold_colors
-
-
-        # # observed_queue_colors = color_array.T[queue_image_color_inds]
-        # # cv2.imshow('seen_in_queue', observed_queue_colors.astype(np.uint8))
-        # # cv2.waitKey(1)
-
-        # # Split the queue into 6 parts and find what's in there
-        # # debug_image_coords = 
-        # individual_queue_pics = np.array_split(queue_pic, 6, axis=0)
-        # # sneak the hold in there
-        # individual_queue_pics.append(hold_pic)
-        # best_guesses_color = []
-        # best_guesses_cov = []
-        # for im in individual_queue_pics:
-        #     color_ind_image = get_color_idx_image(im, color_array)
-        #     color_inds, color_counts = np.unique(color_ind_image, return_counts=True)
-        #     # there should always be some black pixels
-        #     assert color_inds[0] == 0
-        #     black_pixel_count = color_counts[0]
-        #     color_counts[0] = 0
-        #     best_ind = np.argmax(color_counts)
-        #     max_block_color_ind = color_inds[best_ind]
-        #     max_block_color_count = color_counts[best_ind]
-
-        #     mask = (color_ind_image != 0).astype(np.uint8)
-        #     eroded_mask = cv2.erode(mask, np.ones((10, 10), np.uint8), borderValue=0)
-        #     median_color = np.median(im[eroded_mask.astype(np.bool)], axis=0)
-        #     # print(median_color)
-        #     median_color_array = np.array(median_color)
-        #     color_after_erosion = get_color_idx_image(median_color_array[np.newaxis, np.newaxis, :], color_array)[0][0]
-
-        #     if np.sum(color_counts) / black_pixel_count >= .2:
-        #         best_guesses_color.append(color_after_erosion)
-        #     else:
-        #         best_guesses_color.append(0)
-        #     # cv2.imshow('queue', im)
-        #     # cv2.waitKey()
-        #     # cv2.imshow('queue mask', eroded_mask * 255)
-        #     # cv2.waitKey()
-        #     mask_cov = get_mask_normalized_covariance_matrix(eroded_mask)
-        #     # block_idx = get_closest_block_from_mask(mask_cov, ideal_covariances)
-        #     # best_guesses_cov.append(block_idx)
-
-        # queue_anchor = 20, 200
-        # observed_queue_colors = color_array.T[queue_image_color_inds]
-        # debug_image[
-        #         queue_anchor[0]:queue_anchor[0] + queue_pic.shape[0],
-        #         queue_anchor[1]:queue_anchor[1] + queue_pic.shape[1]
-        #         ] = queue_pic
-        # debug_image[
-        #         queue_anchor[0]:queue_anchor[0] + queue_pic.shape[0],
-        #         queue_anchor[1] + queue_pic.shape[1]:queue_anchor[1] + queue_pic.shape[1] + observed_queue_colors.shape[1]
-        #         ] = observed_queue_colors
-
-
-        # cv2.imshow('debug_view', debug_image)
-        # cv2.waitKey(0)
-
-        # if last_guesses != best_guesses_color:
-        #     print('queue')
-        #     print([colors[i][1] for i in best_guesses_color[:6]])
-        #     print('hold')
-        #     print(colors[best_guesses_color[-1]][1])
-        #     print('board')
-        #     print(best_color_indices)
-        #     last_guesses = best_guesses_color
-        # # print('best_guesses_cov')
-        # # print([block_ideals[i][1] for i in best_guesses_cov])
-
-    # END MAIN WHILE
-
-    # hold_cov = get_mask_normalized_covariance_matrix(hold_mask)
+        # END main loop
 
 if __name__ == '__main__':
     main()
