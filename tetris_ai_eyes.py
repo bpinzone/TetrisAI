@@ -111,11 +111,14 @@ def main():
 
     # Figure out where we are getting our images from: 
     capture = cv2.VideoCapture(args.video)
+    writer = None
     if args.video == 0:
-        ret = capture.set(cv2.CAP_PROP_FRAME_WIDTH,640)
-        ret = capture.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
-        # ret = capture.set(cv2.CAP_PROP_FRAME_WIDTH,1280)
-        # ret = capture.set(cv2.CAP_PROP_FRAME_HEIGHT,960)
+        res = (640, 480)
+        fps = 30
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        ret = capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
+        ret = capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
+        writer = cv2.VideoWriter('last_run_video.mp4', fourcc, fps, res)
 
     # Get the corner points of hold, board, and queue
     if args.config == None:
@@ -213,7 +216,8 @@ def main():
 
     frame_count = 0
     num_state_changes = 0
-    last_queue = [None, None, None, None, None, None]
+    # Queue will never actually be all red
+    last_queue = ['red', 'red', 'red', 'red', 'red', 'red']
     last_hold = None
     last_queue_mask = np.zeros(tuple(reversed(im_dims['queue_pic']))) == 0
     last_hold_mask = np.zeros(tuple(reversed(im_dims['hold_pic']))) == 0
@@ -223,7 +227,7 @@ def main():
     hold_change_history = []
     board_change_history = []
 
-    def is_stable(history, reading, hist_len=15):
+    def is_stable(history, reading, hist_len=30):
         history.append(reading)
         if len(history) > hist_len:
             history.pop(0)
@@ -242,164 +246,175 @@ def main():
     queue_means_history = []
     queue_stddevs_history = []
 
-    while True:
-        ret, frame = capture.read()
+    try:
+        while True:
+            ret, frame = capture.read()
+            if writer:
+                writer.write(frame)
 
-        if not ret:
-            return
+            if not ret:
+                return
 
-        frame_count += 1
-        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            frame_count += 1
+            gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        hold_pic = cv2.warpPerspective(gray_frame, M_hold, im_dims['hold_pic'])
-        board_pic = cv2.warpPerspective(gray_frame, M_board, im_dims['board_pic'])
-        queue_pic = cv2.warpPerspective(gray_frame, M_queue, im_dims['queue_pic'])
+            hold_pic = cv2.warpPerspective(gray_frame, M_hold, im_dims['hold_pic'])
+            board_pic = cv2.warpPerspective(gray_frame, M_board, im_dims['board_pic'])
+            queue_pic = cv2.warpPerspective(gray_frame, M_queue, im_dims['queue_pic'])
 
-        # We determine how to detect empty/full again each time, by looking at the queue
-        queue_float = queue_pic.astype(np.float32)
-        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-        grayscale_data = queue_float.flatten()[:, np.newaxis]
-        kmeans_ret, label, center = cv2.kmeans(grayscale_data, 2, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
-        empty_pixel_group = np.argmin(center)
-        full_pixel_group = np.argmax(center)
-        queue_means = center[[empty_pixel_group, full_pixel_group], 0]
-        queue_stddevs = np.array([
-                np.std(grayscale_data[label == empty_pixel_group]),
-                np.std(grayscale_data[label == full_pixel_group])
-                ])
-        assert len(queue_means_history) == len(queue_stddevs_history)
-        if len(queue_means_history) == 0 or frame_count % 10 == 0:
-            queue_means_history.append(queue_means.copy())
-            queue_stddevs_history.append(queue_stddevs.copy())
+            # We determine how to detect empty/full again each time, by looking at the queue
+            queue_float = queue_pic.astype(np.float32)
+            criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+            grayscale_data = queue_float.flatten()[:, np.newaxis]
+            kmeans_ret, label, center = cv2.kmeans(grayscale_data, 2, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
+            empty_pixel_group = np.argmin(center)
+            full_pixel_group = np.argmax(center)
+            queue_means = center[[empty_pixel_group, full_pixel_group], 0]
+            queue_stddevs = np.array([
+                    np.std(grayscale_data[label == empty_pixel_group]),
+                    np.std(grayscale_data[label == full_pixel_group])
+                    ])
+            assert len(queue_means_history) == len(queue_stddevs_history)
+            if len(queue_means_history) == 0 or frame_count % 10 == 0:
+                queue_means_history.append(queue_means.copy())
+                queue_stddevs_history.append(queue_stddevs.copy())
 
-        queue_means = np.median(np.array(queue_means_history), axis=0)
-        queue_stddevs = np.median(np.array(queue_stddevs_history), axis=0)
+            queue_means = np.median(np.array(queue_means_history), axis=0)
+            queue_stddevs = np.median(np.array(queue_stddevs_history), axis=0)
 
-        def get_bw_mask(image, means, stddevs):
-            distances = np.abs((image[:, :, np.newaxis] - means[np.newaxis, np.newaxis, :]) / stddevs[np.newaxis, np.newaxis, :])
-            return np.argmin(distances, axis=2) != 0
+            def get_bw_mask(image, means, stddevs):
+                distances = np.abs((image[:, :, np.newaxis] - means[np.newaxis, np.newaxis, :]) / stddevs[np.newaxis, np.newaxis, :])
+                return np.argmin(distances, axis=2) != 0
 
-        hold_mask = get_bw_mask(hold_pic, queue_means, queue_stddevs)
-        board_mask = get_bw_mask(board_pic, queue_means, queue_stddevs)
-        queue_mask = get_bw_mask(queue_pic, queue_means, queue_stddevs)
+            hold_mask = get_bw_mask(hold_pic, queue_means, queue_stddevs)
+            board_mask = get_bw_mask(board_pic, queue_means, queue_stddevs)
+            queue_mask = get_bw_mask(queue_pic, queue_means, queue_stddevs)
 
-        cv2.imshow('hold_mask', hold_mask.astype(np.uint8) * 255)
-        cv2.imshow('board_mask', board_mask.astype(np.uint8) * 255)
-        cv2.imshow('queue_mask', queue_mask.astype(np.uint8) * 255)
+            cv2.imshow('hold_mask', hold_mask.astype(np.uint8) * 255)
+            cv2.imshow('board_mask', board_mask.astype(np.uint8) * 255)
+            cv2.imshow('queue_mask', queue_mask.astype(np.uint8) * 255)
 
-        # TODO detect changes
-        hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask))
-        board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask))
-        queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask))
-        # print(hold_stable, board_stable, queue_stable)
-        # print(hold_change_history)
+            # TODO detect changes
+            hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask))
+            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask))
+            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask))
+            # print(hold_stable, board_stable, queue_stable)
+            # print(hold_change_history)
 
-        pictures_stable = hold_stable and board_stable and queue_stable
-        if pictures_stable:
-            # print('stable')
-            individual_queue_mask = np.array_split(queue_mask, 6, axis=0)
+            pictures_stable = hold_stable and board_stable and queue_stable
+            if pictures_stable:
+                # print('stable')
+                individual_queue_mask = np.array_split(queue_mask, 6, axis=0)
 
-            def get_block_match_idx(mask, templates):
-                # If less than 5% is black, assume it's empty
-                if np.sum(mask) / mask.size < .05:
-                    return None
-                mismatch_counts = []
-                for template in templates:
-                    # Compute where to align the two
-                    mask_center = np.mean(np.nonzero(mask), axis=1)
-                    template_center = np.mean(np.nonzero(template), axis=1)
-                    template_shift = (mask_center - template_center).astype(np.int)
-                    starting_corner = (
-                            max(min(template_shift[0], mask.shape[0] - template.shape[0]), 0),
-                            max(min(template_shift[1], mask.shape[1] - template.shape[1]), 0)
-                            )
-                    # Assumes that the image provided is at least as large as the template
-                    mismatch = mask.copy()
-                    mismatch[
-                        starting_corner[0]:starting_corner[0] + template.shape[0],
-                        starting_corner[1]:starting_corner[1] + template.shape[1]
-                            ] ^= template
-                    mismatch_counts.append(np.sum(mismatch))
-                    # cv2.imshow('temp', template.astype(np.uint8) * 255)
-                    # cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
-                    # cv2.waitKey(0)
+                def get_block_match_idx(mask, templates):
+                    # If less than 5% is black, assume it's empty
+                    if np.sum(mask) / mask.size < .05:
+                        return None
+                    mismatch_counts = []
+                    for template in templates:
+                        # Compute where to align the two
+                        mask_center = np.mean(np.nonzero(mask), axis=1)
+                        template_center = np.mean(np.nonzero(template), axis=1)
+                        template_shift = (mask_center - template_center).astype(np.int)
+                        starting_corner = (
+                                max(min(template_shift[0], mask.shape[0] - template.shape[0]), 0),
+                                max(min(template_shift[1], mask.shape[1] - template.shape[1]), 0)
+                                )
+                        # Assumes that the image provided is at least as large as the template
+                        mismatch = mask.copy()
+                        mismatch[
+                            starting_corner[0]:starting_corner[0] + template.shape[0],
+                            starting_corner[1]:starting_corner[1] + template.shape[1]
+                                ] ^= template
 
-                return np.argmin(mismatch_counts)
+                        mismatch = cv2.erode(mismatch.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
+                        mismatch_counts.append(np.sum(mismatch))
+                        # cv2.imshow('temp', template.astype(np.uint8) * 255)
+                        # cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
+                        # cv2.waitKey(0)
 
-            template_masks_big = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_big]
-            template_masks_little = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_little]
+                    return np.argmin(mismatch_counts)
 
-            hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
-            hold = color_names[hold_block_idx] if hold_block_idx != None else None
-            just_swapped = hold != last_hold
+                template_masks_big = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_big]
+                template_masks_little = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_little]
 
-            queue_idxs = [get_block_match_idx(individual_queue_mask[0], template_masks_big)]
-            for im in individual_queue_mask[1:]:
-                queue_idxs.append(get_block_match_idx(im, template_masks_little))
+                hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
+                hold = color_names[hold_block_idx] if hold_block_idx != None else None
+                just_swapped = hold != last_hold
 
-            queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
+                queue_idxs = [get_block_match_idx(individual_queue_mask[0], template_masks_big)]
+                for im in individual_queue_mask[1:]:
+                    queue_idxs.append(get_block_match_idx(im, template_masks_little))
 
-            # Check if the queue is valid
-            if all((q != None for q in queue)):
-                assert len(queue) == len(last_queue)
-                # Sanity check: queue should all be populated.
-                # If it's all populated, then the queue changed if anything in the queue changed.
-                assert(all((q != None for q in queue_idxs)))
-                queue_changed = all((q != None for q in queue)) and any([a != b for a, b in zip(queue, last_queue)])
-                if queue_changed:
-                    presented = last_queue[0]
-                elif just_swapped:
-                    presented = last_hold
+                queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
 
-                if queue_changed or just_swapped:
-                    # Something changed, so it's time to update
-                    # First, let's get the board state
-                    num_cols = 10
-                    num_rows = 20
-                    full_threshold = .8 # To be considered filled, a piece must have 80% of its pixels be full
-                    board = np.array([
-                        [np.sum(board_pic_cell) / board_pic_cell.size > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
-                            for board_pic_row in np.array_split(board_mask, num_rows, axis=0)
-                        ])
+                # Check if the queue is valid
+                if all((q != None for q in queue)) and all((q != None for q in last_queue)):
+                    assert len(queue) == len(last_queue)
+                    # Sanity check: queue should all be populated.
+                    # If it's all populated, then the queue changed if anything in the queue changed.
+                    assert(all((q != None for q in queue)))
+                    assert(all((q != None for q in last_queue)))
+                    queue_changed = any([a != b for a, b in zip(queue, last_queue)])
+                    if queue_changed:
+                        presented = last_queue[0]
+                    elif just_swapped:
+                        presented = last_hold
 
-                    # Last thing: Find the first row with all empty spaces, and set all spaces above that to 0
-                    # This is just to getting confused about the piece coming down on top.
-                    found_empty_row = False
-                    for row_idx in reversed(range(num_rows)):
-                        if found_empty_row:
-                            board[row_idx, :] = 0
-                        elif np.all(board[row_idx, :] == 0):
-                            found_empty_row = True
+                    if queue_changed or just_swapped:
+                        # Something changed, so it's time to update
+                        # First, let's get the board state
+                        num_cols = 10
+                        num_rows = 20
+                        full_threshold = .8 # To be considered filled, a piece must have 80% of its pixels be full
+                        board = np.array([
+                            [np.sum(board_pic_cell) / board_pic_cell.size > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
+                                for board_pic_row in np.array_split(board_mask, num_rows, axis=0)
+                            ])
 
-                    if num_state_changes >= 1:
-                        print('presented')
-                        print(presented[0])
-                        print('queue')
-                        print(''.join((q[0] for q in queue)))
-                        print('board')
-                        cv2.imshow('board', board.astype(np.uint8) * 255)
-                        cv2.waitKey(1)
-                        for row_idx in range(board.shape[0]):
-                            for col_idx in range(board.shape[1]):
-                                print('x' if board[row_idx, col_idx] else '.', end='')
-                            print()
-                        print('in_hold')
-                        print(hold[0] if hold != None else '.')
-                        print('just_swapped')
-                        print('true' if just_swapped else 'false', flush=True)
+                        # Last thing: Find the first row with all empty spaces, and set all spaces above that to 0
+                        # This is just to getting confused about the piece coming down on top.
+                        found_empty_row = False
+                        for row_idx in reversed(range(num_rows)):
+                            if found_empty_row:
+                                board[row_idx, :] = 0
+                            elif np.all(board[row_idx, :] == 0):
+                                found_empty_row = True
 
-                    num_state_changes += 1
-                    # END 
+                        if num_state_changes >= 1:
+                            print('presented')
+                            print(presented[0])
+                            print('queue')
+                            print(''.join((q[0] for q in queue)))
+                            print('board')
+                            cv2.imshow('board', board.astype(np.uint8) * 255)
+                            cv2.waitKey(1)
+                            for row_idx in range(board.shape[0]):
+                                for col_idx in range(board.shape[1]):
+                                    print('x' if board[row_idx, col_idx] else '.', end='')
+                                print()
+                            print('in_hold')
+                            print(hold[0] if hold != None else '.')
+                            print('just_swapped')
+                            print('true' if just_swapped else 'false', flush=True)
 
-                last_queue = queue
-                last_hold = hold
-                # END queue valid
-            # END picture stable
+                        num_state_changes += 1
+                        # END queue changed or just swapped
 
-        last_queue_mask = queue_mask
-        last_board_mask = board_mask
-        last_hold_mask = hold_mask
-        # END main loop
+                    last_queue = queue
+                    last_hold = hold
+                    # END queue valid
+                # END picture stable
+
+            last_queue_mask = queue_mask
+            last_board_mask = board_mask
+            last_hold_mask = hold_mask
+            # END main loop
+
+    except KeyboardInterrupt:
+        capture.release()
+        if writer:
+            writer.release()
 
 if __name__ == '__main__':
     main()
