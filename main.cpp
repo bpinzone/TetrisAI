@@ -248,6 +248,9 @@ void play_99(const Play_settings& settings) {
         Tetris_queue_t queue;
         transform(queue_chars.begin(), queue_chars.end(), back_inserter(queue),
             [](const auto& c){ return Block::char_to_block_ptr(c); });
+        Output_manager::get_instance().get_board_os() 
+            << "C++ thinks the queue is: "
+            << queue_chars << endl;
         Board board(cin);
         Output_manager::get_instance().get_board_os()
             << " ====================== " << endl
