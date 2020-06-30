@@ -116,7 +116,7 @@ struct Play_settings {
         std::this_thread::sleep_for(std::chrono::seconds(10));
         Output_manager::get_instance().get_command_os() << "a" << endl;
 
-        std::this_thread::sleep_for(std::chrono::seconds(10));
+        std::this_thread::sleep_for(std::chrono::seconds(15));
         string wait_command = mode == 'm' ? "a" : "hold_a";
         Output_manager::get_instance().get_command_os() << wait_command;
         Output_manager::get_instance().get_command_os() << endl;

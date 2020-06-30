@@ -5,70 +5,9 @@ import numpy as np
 from scipy import stats
 import sys
 
-def get_color_distance_image(image, color):
-    diff_image = image - color
-    color_distances = np.sum(diff_image * diff_image, axis=2)
-    return color_distances
-
-def get_sections_of_subimage(img, closest_color_idx_img, colors, vertical_cells, horizontal_cells, has_black_background):
-    annotated_image = img.copy()
-    color_indices_by_subsection = np.zeros((vertical_cells, horizontal_cells), dtype=np.int)
-
-    for vertical_idx, vertical_slices in enumerate(zip(
-            np.array_split(img, vertical_cells, axis=0),
-            np.array_split(closest_color_idx_img, vertical_cells, axis=0)
-            )):
-        vertical_slice_img, vertical_slice_closest_color = vertical_slices
-        for horiz_idx, horiz_slices in enumerate(zip(
-                np.array_split(vertical_slice_img, horizontal_cells, axis=1),
-                np.array_split(vertical_slice_closest_color, horizontal_cells, axis=1)
-                )):
-            slice_img, slice_closest_color = horiz_slices
-            # cv2.imshow('slice', slice_img)
-            # cv2.waitKey(0)
-            color_of_frame_subsection = get_color_idx_of_image_subsection(slice_closest_color, colors, has_black_background)
-            # annotated_image = cv2.rectangle(slice_img, , (img.shape[1], upper_y), colors[color_of_frame_subsection][0], 5)
-            color_indices_by_subsection[vertical_idx, horiz_idx] = color_of_frame_subsection
-    # TODO annotate image
-    return color_indices_by_subsection# , annotated_image
-
-def get_color_idx_of_image_subsection(closest_color_idx_img, colors, has_black_background, color_thres=0.15):
-    color_counts = [np.sum(closest_color_idx_img == i) for i in range(len(colors))]
-    # Don't detect empty black pixels
-    total_pixels = sum(color_counts)
-    if has_black_background:
-        color_counts[0] = 0
-        color_counts[1] = 0
-    most_likely_color_index = np.argmax(color_counts)
-    if color_counts[most_likely_color_index] > color_thres:
-        return most_likely_color_index
-    else:
-        return 0
-
-# TODO write a function to clear blocks on the top
-def clear_impossible_blocks():
-    return
-
-def print_state(board, hold, presented, queue, colors):
-    # print(f'hold: {colors[hold][1]}')
-    # print(f'presented: {colors[presented][1]}')
-    print(f'queue: {[colors[idx][1] for idx in queue.flatten()]}')
-    # print('board:')
-    # for row_idx in range(board.shape[0]):
-    #     for col_idx in range(board.shape[1]):
-    #         color_of_space = colors[board[row_idx, col_idx]][1]
-    #         print('x' if color_of_space != 'black' else '.', end='')
-    #     print()
-
 def add_click(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         param.append((x, y))
-
-def get_color_idx_image(image, colors_array):
-    color_comparison = image[:, :, :, np.newaxis] - colors_array[np.newaxis, np.newaxis, :, :]
-    color_distances = np.sum(np.square(color_comparison), axis=2)
-    best_color_indices = np.argmin(color_distances, axis=2)
-    return best_color_indices
 
 def get_bounding_coords_from_corners(xy1, xy2):
     x1, y1 = xy1
@@ -115,7 +54,7 @@ def main():
     if args.video == 0:
         res = (640, 480)
         fps = 30
-        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         ret = capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
         ret = capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
         writer = cv2.VideoWriter('last_run_video.mp4', fourcc, fps, res)
@@ -155,7 +94,7 @@ def main():
                         'red_b', 'orange_b', 'yellow_b', 'green_b', 'cyan_b','blue_b', 'purple_b']
         while ret:
             cv2.imshow('frame', frame)
-            cv2.waitKey(1)
+            cv2.waitKey(0)
             print(f'Requirements remaining: {[r for r in requirements if r not in params]}')
             print('Type "help" for help.')
             command = input()
@@ -227,7 +166,7 @@ def main():
     hold_change_history = []
     board_change_history = []
 
-    def is_stable(history, reading, hist_len=30):
+    def is_stable(history, reading, allowable_ratio, hist_len=30):
         history.append(reading)
         if len(history) > hist_len:
             history.pop(0)
@@ -235,7 +174,8 @@ def main():
             # If the reading is over 2x the median, assume it's changing
             # < is a bug here beause median of 0, need <=
             # Tricky bug!
-            return reading <= 2 * median
+            # TODO think about this
+            return reading <= median * allowable_ratio
         return False
 
     presented = None
@@ -256,10 +196,12 @@ def main():
                 return
 
             frame_count += 1
+            # print(f'frame count: {frame_count}')
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             hold_pic = cv2.warpPerspective(gray_frame, M_hold, im_dims['hold_pic'])
             board_pic = cv2.warpPerspective(gray_frame, M_board, im_dims['board_pic'])
+            cv2.imshow('board_image', board_pic)
             queue_pic = cv2.warpPerspective(gray_frame, M_queue, im_dims['queue_pic'])
 
             # We determine how to detect empty/full again each time, by looking at the queue
@@ -295,14 +237,23 @@ def main():
             cv2.imshow('queue_mask', queue_mask.astype(np.uint8) * 255)
 
             # TODO detect changes
-            hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask))
-            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask))
-            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask))
+            hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask), 2.0)
+            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask), 1.0)
+            # print('board hist')
+            # print(board_change_history)
+            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask), 1.5)
             # print(hold_stable, board_stable, queue_stable)
             # print(hold_change_history)
 
             pictures_stable = hold_stable and board_stable and queue_stable
             if pictures_stable:
+                # print('histories')
+                # print(hold_change_history)
+                # print(board_change_history)
+                # print(queue_change_history)
+                cv2.imshow('hold_stable', hold_mask.astype(np.uint8) * 255)
+                cv2.imshow('board_stable', board_mask.astype(np.uint8) * 255)
+                cv2.imshow('queue_stable', queue_mask.astype(np.uint8) * 255)
                 # print('stable')
                 individual_queue_mask = np.array_split(queue_mask, 6, axis=0)
 
@@ -311,10 +262,11 @@ def main():
                     if np.sum(mask) / mask.size < .05:
                         return None
                     mismatch_counts = []
+                    mask = cv2.erode(mask.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
                     for template in templates:
                         # Compute where to align the two
-                        mask_center = np.mean(np.nonzero(mask), axis=1)
-                        template_center = np.mean(np.nonzero(template), axis=1)
+                        mask_center = np.median(np.nonzero(mask), axis=1)
+                        template_center = np.median(np.nonzero(template), axis=1)
                         template_shift = (mask_center - template_center).astype(np.int)
                         starting_corner = (
                                 max(min(template_shift[0], mask.shape[0] - template.shape[0]), 0),
@@ -327,7 +279,8 @@ def main():
                             starting_corner[1]:starting_corner[1] + template.shape[1]
                                 ] ^= template
 
-                        mismatch = cv2.erode(mismatch.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
+                        # TODO too much erosion?
+                        # mismatch = cv2.erode(mismatch.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
                         mismatch_counts.append(np.sum(mismatch))
                         # cv2.imshow('temp', template.astype(np.uint8) * 255)
                         # cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
@@ -357,6 +310,11 @@ def main():
                     assert(all((q != None for q in last_queue)))
                     queue_changed = any([a != b for a, b in zip(queue, last_queue)])
                     if queue_changed:
+                        # TODO this should be logged somehow
+                        # if any(a != b for a, b in zip(last_queue[1:], queue[:5])):
+                        #     print('whack')
+                        #     print(last_queue)
+                        #     print(queue)
                         presented = last_queue[0]
                     elif just_swapped:
                         presented = last_hold
