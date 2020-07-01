@@ -155,7 +155,7 @@ def main():
 
     frame_count = 0
     num_state_changes = 0
-    # Queue will never actually be all red
+    # Queue will never actually be all red, but not set to None because None is for a failed read
     last_queue = ['red', 'red', 'red', 'red', 'red', 'red']
     last_hold = None
     last_queue_mask = np.zeros(tuple(reversed(im_dims['queue_pic']))) == 0
@@ -166,17 +166,17 @@ def main():
     hold_change_history = []
     board_change_history = []
 
-    def is_stable(history, reading, allowable_ratio, hist_len=30):
-        history.append(reading)
-        if len(history) > hist_len:
-            history.pop(0)
-            median = np.median(history)
-            # If the reading is over 2x the median, assume it's changing
-            # < is a bug here beause median of 0, need <=
-            # Tricky bug!
-            # TODO think about this
-            return reading <= median * allowable_ratio
-        return False
+    def is_stable(stable_history, reading, allowable_ratio, frames_until_stable=3, hist_len=30):
+        stable_history.append(reading)
+        if len(stable_history) <= hist_len:
+            # Assume the initial data stage is unstable
+            return False
+
+        stable_history.pop(0)
+
+        best_window_change = min((np.max(stable_history[range_i:range_i +frames_until_stable]) for range_i in range(len(stable_history) - frames_until_stable + 1)))
+        window_change = np.max(stable_history[-frames_until_stable:])
+        return window_change <= allowable_ratio * best_window_change
 
     presented = None
 
@@ -201,8 +201,9 @@ def main():
 
             hold_pic = cv2.warpPerspective(gray_frame, M_hold, im_dims['hold_pic'])
             board_pic = cv2.warpPerspective(gray_frame, M_board, im_dims['board_pic'])
-            cv2.imshow('board_image', board_pic)
             queue_pic = cv2.warpPerspective(gray_frame, M_queue, im_dims['queue_pic'])
+            # cv2.imshow('board_image', board_pic)
+            # cv2.imshow('queue_image', queue_pic)
 
             # We determine how to detect empty/full again each time, by looking at the queue
             queue_float = queue_pic.astype(np.float32)
@@ -236,14 +237,10 @@ def main():
             cv2.imshow('board_mask', board_mask.astype(np.uint8) * 255)
             cv2.imshow('queue_mask', queue_mask.astype(np.uint8) * 255)
 
-            # TODO detect changes
             hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask), 2.0)
-            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask), 1.0)
-            # print('board hist')
-            # print(board_change_history)
-            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask), 1.5)
+            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask), 2.0)
+            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask), 2.0)
             # print(hold_stable, board_stable, queue_stable)
-            # print(hold_change_history)
 
             pictures_stable = hold_stable and board_stable and queue_stable
             if pictures_stable:
@@ -308,13 +305,18 @@ def main():
                     # If it's all populated, then the queue changed if anything in the queue changed.
                     assert(all((q != None for q in queue)))
                     assert(all((q != None for q in last_queue)))
-                    queue_changed = any([a != b for a, b in zip(queue, last_queue)])
+                    # The queue changed if it shifted. But we might have gotten
+                    # something wrong, so exact equality isn't required.
+                    majority_count = 3
+                    queue_changed = sum([a != b for a, b in zip(last_queue, queue)]) >= majority_count
+                    # queue_changed = any([a != b for a, b in zip(queue, last_queue)])
                     if queue_changed:
                         # TODO this should be logged somehow
                         # if any(a != b for a, b in zip(last_queue[1:], queue[:5])):
                         #     print('whack')
                         #     print(last_queue)
                         #     print(queue)
+                        #     cv2.waitKey(0)
                         presented = last_queue[0]
                     elif just_swapped:
                         presented = last_hold
