@@ -149,6 +149,9 @@ def main():
     color_names = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple']
     piece_images_big = [cv2.imread('template_images/' + name + '_b.png', cv2.IMREAD_GRAYSCALE) for name in color_names]
     piece_images_little = [cv2.imread('template_images/' + name + '_l.png', cv2.IMREAD_GRAYSCALE) for name in color_names]
+    template_masks_big = [im > 80 for im in piece_images_big]
+    template_masks_little = [im > 80 for im in piece_images_little]
+
     # This next one is for grayed-out hold pictures:
     assert not any((p is None for p in piece_images_big))
     assert not any((p is None for p in piece_images_little))
@@ -279,14 +282,11 @@ def main():
                         # TODO too much erosion?
                         # mismatch = cv2.erode(mismatch.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
                         mismatch_counts.append(np.sum(mismatch))
-                        # cv2.imshow('temp', template.astype(np.uint8) * 255)
-                        # cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
+                        cv2.imshow('temp', template.astype(np.uint8) * 255)
+                        cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
                         # cv2.waitKey(0)
 
                     return np.argmin(mismatch_counts)
-
-                template_masks_big = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_big]
-                template_masks_little = [get_bw_mask(im, queue_means, queue_stddevs) for im in piece_images_little]
 
                 hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
                 hold = color_names[hold_block_idx] if hold_block_idx != None else None
