@@ -248,10 +248,12 @@ void play_99(const Play_settings& settings) {
         Tetris_queue_t queue;
         transform(queue_chars.begin(), queue_chars.end(), back_inserter(queue),
             [](const auto& c){ return Block::char_to_block_ptr(c); });
-        Output_manager::get_instance().get_board_os() 
+        Board board(cin);
+
+        // Output info.
+        Output_manager::get_instance().get_board_os()
             << "C++ thinks the queue is: "
             << queue_chars << endl;
-        Board board(cin);
         Output_manager::get_instance().get_board_os()
             << " ====================== " << endl
             << "C++ thinks the board is: " << endl << board << endl;
@@ -260,10 +262,16 @@ void play_99(const Play_settings& settings) {
         Placement next_placement = get_best_move(
             board, *presented, queue, settings.lookahead_placements);
 
+        bool just_held_non_first = false;
         // Predict Future
         Board new_board{board};
         if(next_placement.get_is_hold()){
-            new_board.swap_block(*presented);
+            const Block* old_hold = new_board.swap_block(*presented);
+            if(old_hold){
+                just_held_non_first = true;
+                board = new_board;
+                presented = old_hold;
+            }
         }
         else{
             new_board.place_block(*presented, next_placement);
@@ -274,6 +282,32 @@ void play_99(const Play_settings& settings) {
 
         // Send Command
         Action action{presented, next_placement};
+        Output_manager::get_instance().get_command_os() << action;
+
+
+        // If we ever hold, just take the next move right away, not waiting for another state to come through the pipeline.
+        if(!just_held_non_first){
+            continue;
+        }
+
+        // === BONUS TIME ===
+
+        Output_manager::get_instance().get_board_os()
+            << endl << "C++ just held!: " << endl;
+
+        next_placement = get_best_move(
+            board, *presented, queue, settings.lookahead_placements);
+
+        // Predict Future
+        // You could assert new_board == board
+        assert(!next_placement.get_is_hold());
+        new_board.place_block(*presented, next_placement);
+        Output_manager::get_instance().get_board_os()
+            << endl << "C++ thinks after the BONUS BONUS BONUS move, the board will be: " << endl << new_board << endl
+            << " ====================== " << endl;
+
+        // Send Command
+        action = Action{presented, next_placement};
         Output_manager::get_instance().get_command_os() << action;
     }
 }
