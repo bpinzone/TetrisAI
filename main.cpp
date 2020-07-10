@@ -262,6 +262,10 @@ void play_99(const Play_settings& settings) {
         Placement next_placement = get_best_move(
             board, *presented, queue, settings.lookahead_placements);
 
+        // Send Command
+        Action action{presented, next_placement};
+        Output_manager::get_instance().get_command_os() << action;
+
         bool just_held_non_first = false;
         // Predict Future
         Board new_board{board};
@@ -279,10 +283,6 @@ void play_99(const Play_settings& settings) {
         Output_manager::get_instance().get_board_os()
             << endl << "C++ thinks after the move, the board will be: " << endl << new_board << endl
             << " ====================== " << endl;
-
-        // Send Command
-        Action action{presented, next_placement};
-        Output_manager::get_instance().get_command_os() << action;
 
 
         // If we ever hold, just take the next move right away, not waiting for another state to come through the pipeline.
