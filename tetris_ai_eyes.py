@@ -329,7 +329,8 @@ def main():
                 queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
                 hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
                 hold = color_names[hold_block_idx] if hold_block_idx != None else None
-                just_swapped = hold != last_hold
+                # Only just swapped on the first hold, because otherwise the other action will be performed
+                just_swapped = hold is not None and last_hold is None
 
                 # Check if the queue is valid
                 if all((q != None for q in queue)) and all((q != None for q in last_queue)):
@@ -352,10 +353,8 @@ def main():
                         #     print(queue)
                         #     cv2.waitKey(0)
                         presented = last_queue[0]
-                    elif just_swapped:
-                        presented = last_hold
 
-                    if queue_changed or just_swapped:
+                    if queue_changed:
                         # Something changed, so it's time to update
                         # First, let's get the board state
                         full_threshold = .6 # To be considered filled, a piece must have 60% of its pixels be full
