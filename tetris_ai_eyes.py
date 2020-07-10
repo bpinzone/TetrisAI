@@ -8,6 +8,9 @@ import sys
 def add_click(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         param.append((x, y))
+    # if event == cv2.EVENT_RBUTTONDOWN:
+    #     closest_ind = min(range(len(param)), key=lambda coord: abs(coord[0] - x) + abs(coord[1] - y))
+    #     param[closest_ind] = (x, y)
 
 def get_bounding_coords_from_corners(xy1, xy2):
     x1, y1 = xy1
@@ -26,6 +29,19 @@ def get_corner_clicks(image):
     cv2.setMouseCallback(window_name, add_click, clicked_points)
     cv2.waitKey(0)
     return clicked_points
+
+def get_bw_mask(image, bw_stats):
+    means, stddevs = bw_stats
+    distances = np.abs((image[:, :, np.newaxis] - means[np.newaxis, np.newaxis, :]) / stddevs[np.newaxis, np.newaxis, :])
+    return distances[:, :, 1] < distances[:, :, 0]
+
+def show_sections(image_mask, rows, cols):
+    return np.vstack(
+            [np.hstack(
+                [cv2.copyMakeBorder(pic_cell.astype(np.uint8) * 255, 2, 2, 2, 2, cv2.BORDER_CONSTANT, None, 128) for pic_cell in np.array_split(pic_row, cols, axis=1)]
+                ) for pic_row in np.array_split(image_mask, rows, axis=0)]
+            )
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -64,12 +80,44 @@ def main():
         ret, first_frame = capture.read()
         assert ret
         clicked_points = get_corner_clicks(first_frame)
+
+        def get_means_stddevs(image):
+            float_image = image.astype(np.float32)
+            criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+            grayscale_data = float_image.flatten()[:, np.newaxis]
+            kmeans_ret, label, center = cv2.kmeans(grayscale_data, 2, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
+            empty_pixel_group = np.argmin(center)
+            full_pixel_group = np.argmax(center)
+            image_means = center[[empty_pixel_group, full_pixel_group], 0]
+            image_stddevs = np.array([
+                    np.std(grayscale_data[label == empty_pixel_group]),
+                    np.std(grayscale_data[label == full_pixel_group])
+                    ])
+            return image_means, image_stddevs
+
+        board_observed_corners = np.array(clicked_points[4:8], dtype=np.float32)
+        M_board = cv2.getPerspectiveTransform(board_observed_corners, board_ideal_corners)
+        board_pic = cv2.warpPerspective(first_frame, M_board, im_dims['board_pic'])
+        gray_board = cv2.cvtColor(board_pic, cv2.COLOR_BGR2GRAY)
+        piece_stats = get_means_stddevs(gray_board)
+        classified_board = get_bw_mask(gray_board, piece_stats)
+
+        cv2.imshow('gray_board', gray_board)
+        cv2.imshow('classified_board', classified_board.astype(np.uint8) * 255)
+        cv2.waitKey(0)
+
         save_file_name = 'last_click_coords.config' if not args.make_template else 'last_template_click_coords.config'
+        assert(len(clicked_points) == 12)
         with open(save_file_name, 'w') as f:
-            json.dump(clicked_points, f)
-    else:
-        with open(args.config) as f:
-            clicked_points = json.load(f)
+            json.dump({ 'clicked_points': clicked_points, 'piece_means': piece_stats[0].tolist(), 'piece_stddevs': piece_stats[1].tolist()}, f)
+
+        print(f'Configuration file written to {save_file_name}')
+        return
+
+    with open(args.config) as f:
+        config_dict = json.load(f)
+    clicked_points = config_dict['clicked_points']
+    piece_stats = np.array(config_dict['piece_means']), np.array(config_dict['piece_stddevs'])
     assert(len(clicked_points) == 12)
 
     hold_observed_corners = np.array(clicked_points[:4], dtype=np.float32)
@@ -143,8 +191,9 @@ def main():
                 return
             ret, frame = template_cap.read()
         print('Exiting.')
-        exit(1)
+        return
 
+    # Main logic
     # Now, let's load in all of the images of pieces
     color_names = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple']
     piece_images_big = [cv2.imread('template_images/' + name + '_b.png', cv2.IMREAD_GRAYSCALE) for name in color_names]
@@ -186,8 +235,6 @@ def main():
     # Press something once the "get ready" screen is shown and you can see the queue
     _ = input()
 
-    piece_pics_stats = {} 
-
     try:
         while True:
             ret, frame = capture.read()
@@ -195,6 +242,7 @@ def main():
                 writer.write(frame)
 
             if not ret:
+                print('Out of video. Exiting.')
                 return
 
             frame_count += 1
@@ -205,32 +253,12 @@ def main():
             board_pic = cv2.warpPerspective(gray_frame, M_board, im_dims['board_pic'])
             queue_pic = cv2.warpPerspective(gray_frame, M_queue, im_dims['queue_pic'])
 
-            # For each piece in the queue, we'll use k means to find a good distribution.
-            def get_means_stddevs(image):
-                float_image = image.astype(np.float32)
-                criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-                grayscale_data = float_image.flatten()[:, np.newaxis]
-                kmeans_ret, label, center = cv2.kmeans(grayscale_data, 2, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
-                empty_pixel_group = np.argmin(center)
-                full_pixel_group = np.argmax(center)
-                image_means = center[[empty_pixel_group, full_pixel_group], 0]
-                image_stddevs = np.array([
-                        np.std(grayscale_data[label == empty_pixel_group]),
-                        np.std(grayscale_data[label == full_pixel_group])
-                        ])
-                return image_means, image_stddevs
-
-            def get_bw_mask(image, bw_stats):
-                means, stddevs = bw_stats
-                distances = np.abs((image[:, :, np.newaxis] - means[np.newaxis, np.newaxis, :]) / stddevs[np.newaxis, np.newaxis, :])
-                return np.argmin(distances, axis=2) != 0
-
             def get_block_match_idx(mask, templates):
                 # If less than 5% is black, assume it's empty
+                mask = cv2.erode(mask.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
                 if np.sum(mask) / mask.size < .05:
                     return None
                 mismatch_counts = []
-                mask = cv2.erode(mask.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
                 for template in templates:
                     # Compute where to align the two
                     mask_center = np.median(np.nonzero(mask), axis=1)
@@ -250,42 +278,37 @@ def main():
                     # TODO too much erosion?
                     # mismatch = cv2.erode(mismatch.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
                     mismatch_counts.append(np.sum(mismatch))
-                    cv2.imshow('temp', template.astype(np.uint8) * 255)
-                    cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
+                    # cv2.imshow('temp', template.astype(np.uint8) * 255)
+                    # cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
                     # cv2.waitKey(0)
 
                 return np.argmin(mismatch_counts)
 
-            individual_piece_pics = np.array_split(queue_pic, 6, axis=0)
-            individual_piece_stats = [get_means_stddevs(i) for i in individual_piece_pics]
-            individual_piece_masks = [get_bw_mask(im, stat) for im, stat in zip(individual_piece_pics, individual_piece_stats)]
-            for ind, mask in enumerate(individual_piece_masks):
-                cv2.imshow('mask' + str(ind), mask.astype(np.uint8) * 255)
+            # for ind, mask in enumerate(individual_piece_masks):
+                # cv2.imshow('mask' + str(ind), mask.astype(np.uint8) * 255)
                 # cv2.waitKey(0)
 
-            # Now, what about computing the hold/board masks?
-            # We'd like to use our images of blocks to determine those. But we might not have such images yet.
-
-
-            if piece_pics_stats:
-                # If we have data for colors, use them.
-                means = np.vstack([i[0] for i in piece_pics_stats.values()])
-                stddevs = np.vstack([i[1] for i in piece_pics_stats.values()])
-                means = np.min(means, axis=0)
-                stddevs = np.max(stddevs, axis=0)
-                # TODO not sure how well this is working
-                board_and_hold_stats = means, stddevs
-            else:
-                # Otherwise, just use whatever.
-                board_and_hold_stats = individual_piece_stats[0]
-
-            queue_mask = np.vstack(individual_piece_masks)
-            hold_mask = get_bw_mask(hold_pic, board_and_hold_stats)
-            board_mask = get_bw_mask(board_pic, board_and_hold_stats)
+            num_cols = 10
+            num_rows = 20
             
-            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask), 2.0)
-            hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask), 2.0)
-            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask), 2.0)
+            individual_piece_pics = np.array_split(queue_pic, 6, axis=0)
+            individual_piece_masks = [get_bw_mask(im, piece_stats) for im in individual_piece_pics]
+
+            queue_mask = get_bw_mask(queue_pic, piece_stats)
+            hold_mask = get_bw_mask(hold_pic, piece_stats)
+            board_mask = get_bw_mask(board_pic, piece_stats)
+            cv2.imshow('hold_mask', hold_mask.astype(np.uint8) * 255)
+
+            board_annotated = show_sections(board_mask, num_rows, num_cols)
+            cv2.imshow('board_mask', board_annotated)
+            # TODO rm
+            queue_annotated = np.vstack([cv2.copyMakeBorder(piece.astype(np.uint8) * 255, 2, 2, 2, 2, cv2.BORDER_CONSTANT, None, 128) for piece in individual_piece_masks])
+            queue_annotated = show_sections(queue_mask, 6, 1)
+            cv2.imshow('queue_mask', queue_annotated)
+            
+            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask), 3.0)
+            hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask), 3.0)
+            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask), 3.0)
 
             pictures_stable = hold_stable and board_stable and queue_stable
 
@@ -295,8 +318,8 @@ def main():
                 # print(board_change_history)
                 # print(queue_change_history)
                 cv2.imshow('hold_stable', hold_mask.astype(np.uint8) * 255)
-                cv2.imshow('board_stable', board_mask.astype(np.uint8) * 255)
-                cv2.imshow('queue_stable', queue_mask.astype(np.uint8) * 255)
+                cv2.imshow('board_stable', board_annotated)
+                cv2.imshow('queue_stable', queue_annotated)
                 # print('stable')
 
                 queue_idxs = [get_block_match_idx(individual_piece_masks[0], template_masks_big)]
@@ -304,19 +327,12 @@ def main():
                     queue_idxs.append(get_block_match_idx(im, template_masks_little))
 
                 queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
-
                 hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
                 hold = color_names[hold_block_idx] if hold_block_idx != None else None
                 just_swapped = hold != last_hold
 
                 # Check if the queue is valid
                 if all((q != None for q in queue)) and all((q != None for q in last_queue)):
-
-                    # Store any new images
-                    for color, stat in zip(queue, individual_piece_stats):
-                        # TODO maybe store newest picture? Or average?
-                        if color is not None and color not in individual_piece_stats:
-                            piece_pics_stats[color] = stat
 
                     assert len(queue) == len(last_queue)
                     # Sanity check: queue should all be populated.
@@ -342,9 +358,7 @@ def main():
                     if queue_changed or just_swapped:
                         # Something changed, so it's time to update
                         # First, let's get the board state
-                        num_cols = 10
-                        num_rows = 20
-                        full_threshold = .8 # To be considered filled, a piece must have 80% of its pixels be full
+                        full_threshold = .6 # To be considered filled, a piece must have 60% of its pixels be full
                         board = np.array([
                             [np.sum(board_pic_cell) / board_pic_cell.size > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
                                 for board_pic_row in np.array_split(board_mask, num_rows, axis=0)
@@ -387,12 +401,14 @@ def main():
             last_board_mask = board_mask
             last_hold_mask = hold_mask
             last_queue_mask = queue_mask
+            # cv2.waitKey(0)
             # END main loop
 
     except KeyboardInterrupt:
         capture.release()
         if writer:
             writer.release()
+    
 
 if __name__ == '__main__':
     main()
