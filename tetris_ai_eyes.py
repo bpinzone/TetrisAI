@@ -216,7 +216,7 @@ def main():
 
     queue_change_history = []
     hold_change_history = []
-    board_change_history = []
+    board_history = []
 
     def is_stable(stable_history, reading, allowable_ratio, frames_until_stable=3, hist_len=30):
         stable_history.append(reading)
@@ -306,10 +306,34 @@ def main():
             queue_annotated = show_sections(queue_mask, 6, 1)
             cv2.imshow('queue_mask', queue_annotated)
             
+            # First, let's get the board state
+            full_threshold = .6 # To be considered filled, a piece must have 60% of its pixels be full
+
+            # Find the first row with all empty spaces, and set all spaces above that to 0
+            # This is just to getting confused about the piece coming down on top.
+            board = np.array([
+                [np.sum(board_pic_cell) / board_pic_cell.size > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
+                    for board_pic_row in np.array_split(board_mask, num_rows, axis=0)
+                ])
+
+            found_empty_row = False
+            for row_idx in reversed(range(num_rows)):
+                if found_empty_row:
+                    board[row_idx, :] = 0
+                elif np.all(board[row_idx, :] == 0):
+                    found_empty_row = True
+
             queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask), 3.0)
             hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask), 3.0)
-            board_stable = is_stable(board_change_history, np.sum(board_mask != last_board_mask), 3.0)
-
+            
+            if len(board_history) >= 3:
+                board_stable = all((np.all(board == past_board) for past_board in board_history))
+                board_history.append(board)
+                board_history.pop(0)
+            else:
+                board_history.append(board)
+                board_stable = False
+            
             pictures_stable = hold_stable and board_stable and queue_stable
 
             if pictures_stable:
@@ -356,21 +380,6 @@ def main():
 
                     if queue_changed:
                         # Something changed, so it's time to update
-                        # First, let's get the board state
-                        full_threshold = .6 # To be considered filled, a piece must have 60% of its pixels be full
-                        board = np.array([
-                            [np.sum(board_pic_cell) / board_pic_cell.size > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
-                                for board_pic_row in np.array_split(board_mask, num_rows, axis=0)
-                            ])
-
-                        # Last thing: Find the first row with all empty spaces, and set all spaces above that to 0
-                        # This is just to getting confused about the piece coming down on top.
-                        found_empty_row = False
-                        for row_idx in reversed(range(num_rows)):
-                            if found_empty_row:
-                                board[row_idx, :] = 0
-                            elif np.all(board[row_idx, :] == 0):
-                                found_empty_row = True
 
                         if num_state_changes >= 1:
                             print('presented')
