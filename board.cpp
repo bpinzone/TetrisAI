@@ -139,6 +139,7 @@ bool Board::place_block(const Block& b, Placement p){
 }
 
 const Block* Board::swap_block(const Block& b){
+    ++lifetime_stats.num_holds;
     const Block* old_hold = current_hold;
     current_hold = &b;
     just_swapped = true;
@@ -222,7 +223,10 @@ bool Board::has_greater_utility_than(const Board& other) const {
             return second_lowest_height > other.second_lowest_height;
         }
 
-        return sum_of_squared_heights < other.sum_of_squared_heights;
+        if(sum_of_squared_heights != other.sum_of_squared_heights){
+            return sum_of_squared_heights < other.sum_of_squared_heights;
+        }
+        return lifetime_stats.num_holds < other.lifetime_stats.num_holds;
 
     }
     else{
@@ -235,7 +239,10 @@ bool Board::has_greater_utility_than(const Board& other) const {
             return num_cells_filled < other.num_cells_filled;
         }
 
-        return sum_of_squared_heights < other.sum_of_squared_heights;
+        if(sum_of_squared_heights != other.sum_of_squared_heights){
+            return sum_of_squared_heights < other.sum_of_squared_heights;
+        }
+        return lifetime_stats.num_holds < other.lifetime_stats.num_holds;
     }
 
 }
