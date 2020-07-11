@@ -231,6 +231,7 @@ void play(const Play_settings& settings){
 
 void play_99(const Play_settings& settings) {
 
+    Board_lifetime_stats lifetime_stats;
     while(true){
 
         // Read in effective state.
@@ -249,6 +250,7 @@ void play_99(const Play_settings& settings) {
         transform(queue_chars.begin(), queue_chars.end(), back_inserter(queue),
             [](const auto& c){ return Block::char_to_block_ptr(c); });
         Board board(cin);
+        board.set_lifetime_stats(lifetime_stats);
 
         // Output info.
         Output_manager::get_instance().get_board_os()
@@ -280,6 +282,7 @@ void play_99(const Play_settings& settings) {
         else{
             new_board.place_block(*presented, next_placement);
         }
+        lifetime_stats = new_board.get_lifetime_stats();
         Output_manager::get_instance().get_board_os()
             << endl << "C++ thinks after the move, the board will be: " << endl << new_board << endl
             << " ====================== " << endl;
@@ -302,6 +305,7 @@ void play_99(const Play_settings& settings) {
         // You could assert new_board == board
         assert(!next_placement.get_is_hold());
         new_board.place_block(*presented, next_placement);
+        lifetime_stats = new_board.get_lifetime_stats();
         Output_manager::get_instance().get_board_os()
             << endl << "C++ thinks after the BONUS BONUS BONUS move, the board will be: " << endl << new_board << endl
             << " ====================== " << endl;

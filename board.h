@@ -11,6 +11,14 @@
 struct Block;
 struct Placement;
 
+struct Board_lifetime_stats {
+    int num_blocks_placed = 0;
+    int num_placements_that_cleared_rows = 0;
+    int num_tetrises = 0;
+    int num_non_tetrises = 0;
+    int num_all_clears = 0;
+};
+
 class Board {
 
 public:
@@ -32,6 +40,7 @@ public:
     // Given a placement decision and block, completely modify the state.
     bool place_block(const Block& b, Placement p);
     const Block* swap_block(const Block& b);
+    void set_lifetime_stats(const Board_lifetime_stats& new_board_lifetime_stats);
 
     // Non-modifying
 
@@ -46,6 +55,8 @@ public:
     double get_tetris_percent() const;
     bool has_more_cleared_rows_than(const Board& other) const;
     bool is_clear() const;
+
+    Board_lifetime_stats get_lifetime_stats() const;
 
     static const Board& get_worst_board();
 
@@ -111,11 +122,8 @@ private:
     bool is_tetrisable = false;
 
     // === Lifetime Cache ===
-    int num_blocks_placed = 0;
-    int num_placements_that_cleared_rows = 0;
-    int num_tetrises = 0;
-    int num_non_tetrises = 0;
-    int num_all_clears = 0;
+    // Stats that you could not infer just from viewing the board.
+    Board_lifetime_stats lifetime_stats;
 
     // === Misc ===
     bool is_worst_board = false;

@@ -65,8 +65,8 @@ ostream& operator<<(ostream& os, const Board& s) {
         os << "\n";
     }
 
-    os << "All clears: " << s.num_all_clears << endl;
-    os << "Tetrises: " << s.num_tetrises << endl;
+    os << "All clears: " << s.lifetime_stats.num_all_clears << endl;
+    os << "Tetrises: " << s.lifetime_stats.num_tetrises << endl;
 
     return os;
 }
@@ -145,6 +145,10 @@ const Block* Board::swap_block(const Block& b){
     return old_hold;
 }
 
+void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
+    lifetime_stats = new_lifetime_stats;
+}
+
 // NOTE: Values for granularity? Hybrid?
 bool Board::has_greater_utility_than(const Board& other) const {
 
@@ -152,8 +156,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
         return !is_worst_board;
     }
 
-    if(num_all_clears != other.num_all_clears){
-        return num_all_clears > other.num_all_clears;
+    if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
+        return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;
     }
 
     // You are in tetris mode if you are here or less in height.
@@ -186,8 +190,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
         if(at_least_one_side_clear != other.at_least_one_side_clear){
             return at_least_one_side_clear;
         }
-        if(num_non_tetrises != other.num_non_tetrises){
-            return num_non_tetrises < other.num_non_tetrises;
+        if(lifetime_stats.num_non_tetrises != other.lifetime_stats.num_non_tetrises){
+            return lifetime_stats.num_non_tetrises < other.lifetime_stats.num_non_tetrises;
         }
     }
 
@@ -201,8 +205,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     if(this_in_tetris_mode){
 
         // Get the tetrises
-        if(num_tetrises != other.num_tetrises){
-            return num_tetrises > other.num_tetrises;
+        if(lifetime_stats.num_tetrises != other.lifetime_stats.num_tetrises){
+            return lifetime_stats.num_tetrises > other.lifetime_stats.num_tetrises;
         }
 
         // Become tetrisable
@@ -279,19 +283,23 @@ void Board::print_diff_against(const Board& new_other) const{
 }
 
 int Board::get_num_blocks_placed() const {
-    return num_blocks_placed;
+    return lifetime_stats.num_blocks_placed;
 }
 
 double Board::get_tetris_percent() const {
-    return static_cast<double>(num_tetrises) / num_blocks_placed * 100;
+    return static_cast<double>(lifetime_stats.num_tetrises) / lifetime_stats.num_blocks_placed * 100;
 }
 
 bool Board::has_more_cleared_rows_than(const Board& other) const {
-    return num_placements_that_cleared_rows > other.num_placements_that_cleared_rows;
+    return lifetime_stats.num_placements_that_cleared_rows > other.lifetime_stats.num_placements_that_cleared_rows;
 }
 
 bool Board::is_clear() const {
     return num_cells_filled == 0;
+}
+
+Board_lifetime_stats Board::get_lifetime_stats() const {
+    return lifetime_stats;
 }
 
 const Board& Board::get_worst_board() {
@@ -446,18 +454,19 @@ void Board::update_secondary_cache() {
 }
 
 void Board::update_lifetime_cache(int num_rows_cleared_just_now){
-    ++num_blocks_placed;
+
+    ++lifetime_stats.num_blocks_placed;
     if(num_rows_cleared_just_now > 0){
-        ++num_placements_that_cleared_rows;
+        ++lifetime_stats.num_placements_that_cleared_rows;
         if(num_rows_cleared_just_now == 4){
-            ++num_tetrises;
+            ++lifetime_stats.num_tetrises;
         }
         else{
-            ++num_non_tetrises;
+            ++lifetime_stats.num_non_tetrises;
         }
     }
     if(is_clear()){
-        ++num_all_clears;
+        ++lifetime_stats.num_all_clears;
     }
 
 }
