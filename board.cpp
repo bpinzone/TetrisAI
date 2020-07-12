@@ -139,7 +139,6 @@ bool Board::place_block(const Block& b, Placement p){
 }
 
 const Block* Board::swap_block(const Block& b){
-    ++lifetime_stats.num_holds;
     const Block* old_hold = current_hold;
     current_hold = &b;
     just_swapped = true;
@@ -226,7 +225,7 @@ bool Board::has_greater_utility_than(const Board& other) const {
         if(sum_of_squared_heights != other.sum_of_squared_heights){
             return sum_of_squared_heights < other.sum_of_squared_heights;
         }
-        return lifetime_stats.num_holds < other.lifetime_stats.num_holds;
+        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
 
     }
     else{
@@ -242,7 +241,7 @@ bool Board::has_greater_utility_than(const Board& other) const {
         if(sum_of_squared_heights != other.sum_of_squared_heights){
             return sum_of_squared_heights < other.sum_of_squared_heights;
         }
-        return lifetime_stats.num_holds < other.lifetime_stats.num_holds;
+        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
     }
 
 }
@@ -475,6 +474,9 @@ void Board::update_lifetime_cache(int num_rows_cleared_just_now){
     if(is_clear()){
         ++lifetime_stats.num_all_clears;
     }
+    lifetime_stats.max_height_exp_moving_average =
+        (0.5 * highest_height) +
+        (0.5 * lifetime_stats.max_height_exp_moving_average);
 
 }
 

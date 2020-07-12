@@ -17,7 +17,7 @@ struct Board_lifetime_stats {
     int num_tetrises = 0;
     int num_non_tetrises = 0;
     int num_all_clears = 0;
-    int num_holds = 0;
+    double max_height_exp_moving_average = 0;
 };
 
 class Board {
