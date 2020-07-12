@@ -63,7 +63,12 @@ ostream& operator<<(ostream& os, const Action& action) {
         copy(rot_strs.begin(), rot_strs.end(), back_inserter(actions_strs));
         copy(trans_strs.begin(), trans_strs.end(), back_inserter(actions_strs));
 
-        actions_strs.back() = actions_strs.back() + " && up";
+        if(!actions_strs.empty()){
+            actions_strs.back() = actions_strs.back() + " && up";
+        }
+        else{
+            actions_strs.push_back("up");
+        }
     }
 
     for(const auto& action : actions_strs){
