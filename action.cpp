@@ -65,6 +65,12 @@ ostream& operator<<(ostream& os, const Action& action) {
             trans_strs.pop_back();
         }
 
+        // Assert: action_strs consists only of translation strings.
+        for(int dance_idx = 0; dance_idx < actions_strs.size() / 2; ++dance_idx){
+            actions_strs[2 * dance_idx] += " && a";
+            actions_strs[(2 * dance_idx) + 1] += " && b";
+        }
+
         // Combine rot and trans into same command while you can.
         while(!rot_strs.empty() && !trans_strs.empty()){
             actions_strs.push_back(rot_strs.back() + " && " + trans_strs.back());
