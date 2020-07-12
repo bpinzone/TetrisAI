@@ -40,6 +40,9 @@ int Block::get_max_valid_placement_col(int rot_x) const {
 
 Block::Block(const string& _name, const vector<CH_maps>& _maps)
     : name{_name}, maps{_maps} {
+
+    safe_left_trans = maps[0].leftmost_block_pos;
+    safe_right_trans = Board::c_cols - (maps[0].leftmost_block_pos + maps[0].contour.size());
 }
 
 // === Block Generators ===

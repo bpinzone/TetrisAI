@@ -16,8 +16,8 @@ using std::back_inserter;
 using std::copy;
 using std::abs;
 
-Action::Action(const Block* block, Placement placement)
-    : offset{placement.get_column() - block->maps[placement.get_rotation()].leftmost_block_pos},
+Action::Action(const Block* _block, Placement placement)
+    : block{_block}, offset{placement.get_column() - block->maps[placement.get_rotation()].leftmost_block_pos},
     rotation_count{placement.get_rotation()},
     hold{placement.get_is_hold()}{
 }
@@ -52,6 +52,17 @@ ostream& operator<<(ostream& os, const Action& action) {
         }
         for(int i = 0; i < left_presses; ++i){
             trans_strs.push_back("left");
+        }
+
+        // while rot count < trans count OR its safe to translate: single translate command
+        const int trans_limit = action.offset > 0 ?
+            action.block->safe_right_trans : action.block->safe_left_trans;
+
+        for(int translations_done = 0;
+                trans_strs.size() > rot_strs.size() && translations_done < trans_limit;
+                ++translations_done){
+            actions_strs.push_back(trans_strs.back());
+            trans_strs.pop_back();
         }
 
         // Combine rot and trans into same command while you can.

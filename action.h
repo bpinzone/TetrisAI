@@ -9,10 +9,11 @@ struct Placement;
 class Action {
 
 public:
-    Action(const Block* block, Placement placement);
+    Action(const Block* _block, Placement placement);
     friend std::ostream& operator<<(std::ostream& os, const Action& action);
 
 private:
+    const Block* block;
     int offset;
     int rotation_count;
     bool hold;

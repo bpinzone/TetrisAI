@@ -46,6 +46,10 @@ struct Block {
     std::string name;
     std::vector<CH_maps> maps;
 
+    // After this many rotations, the piece will be against the wall, in rotation 0.
+    int safe_left_trans;
+    int safe_right_trans;
+
     static const Block Blue;
     static const Block Purple;
     static const Block Red;
