@@ -231,6 +231,7 @@ void play(const Play_settings& settings){
 
 void play_99(const Play_settings& settings) {
 
+    optional<Board> override_board;
     Board_lifetime_stats lifetime_stats;
     while(true){
 
@@ -250,6 +251,10 @@ void play_99(const Play_settings& settings) {
         transform(queue_chars.begin(), queue_chars.end(), back_inserter(queue),
             [](const auto& c){ return Block::char_to_block_ptr(c); });
         Board board(cin);
+        if(override_board){
+            board = *override_board;
+            override_board = {};
+        }
         board.set_lifetime_stats(lifetime_stats);
 
         // Output info.
@@ -281,6 +286,10 @@ void play_99(const Play_settings& settings) {
         }
         else{
             new_board.place_block(*presented, next_placement);
+            if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
+                    > board.get_lifetime_stats().num_placements_that_cleared_rows){
+                override_board = new_board;
+            }
         }
         lifetime_stats = new_board.get_lifetime_stats();
         Output_manager::get_instance().get_board_os()
@@ -305,6 +314,12 @@ void play_99(const Play_settings& settings) {
         // You could assert new_board == board
         assert(!next_placement.get_is_hold());
         new_board.place_block(*presented, next_placement);
+
+        if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
+                > board.get_lifetime_stats().num_placements_that_cleared_rows){
+            override_board = new_board;
+        }
+
         lifetime_stats = new_board.get_lifetime_stats();
         Output_manager::get_instance().get_board_os()
             << endl << "C++ thinks after the BONUS BONUS BONUS move, the board will be: " << endl << new_board << endl
