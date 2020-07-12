@@ -333,6 +333,14 @@ def main():
             else:
                 board_history.append(board)
                 board_stable = False
+
+            if len(board_history) >= 3:
+                board_stable = all((np.all(board == past_board) for past_board in board_history))
+                board_history.append(board)
+                board_history.pop(0)
+            else:
+                board_history.append(board)
+                board_stable = False
             
             pictures_stable = hold_stable and board_stable and queue_stable
 
