@@ -10,11 +10,13 @@
 struct CH_maps {
     std::vector<int> contour;
     std::vector<int> height;
-    // todo: does this really belong here? Perhaps struct name should change.
+    // TODO: Should rename struct now that this was added.
     int leftmost_block_pos;
 };
 
 class Placement {
+
+    // NOTE: Getters represent immutability without implicitly deleting ruining move/copy operators.
 
 public:
 
@@ -42,11 +44,12 @@ private:
 
 struct Block {
 
-    // [rotation] = maps for that rotation
     std::string name;
+
+    // maps[rotation] = maps for that rotation
     std::vector<CH_maps> maps;
 
-    // After this many rotations, the piece will be against the wall, in rotation 0.
+    // After this many translations, the piece will be against the wall (while in rotation 0)
     int safe_left_trans;
     int safe_right_trans;
 

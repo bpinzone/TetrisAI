@@ -162,6 +162,7 @@ int main(int argc, char* argv[]) {
         play_99(ps);
     }
 
+    // Not bothering with unique_ptr
     delete ps.block_generator;
     return 0;
 }
@@ -173,7 +174,7 @@ void play(const Play_settings& settings){
     Tetris_queue_t queue;
     for(int i = 0; i < settings.queue_size; ++i){
         // Not going to write a wrapper just for this.
-        // generate_n takes functor by value. Can't use inheritance.
+        // generate_n takes functor by value. Can't use bc we use inheritance.
         queue.push_back(settings.block_generator->generate());
     }
 
@@ -229,6 +230,7 @@ void play(const Play_settings& settings){
     }
 }
 
+// TODO: Poor design. Got messy after adding double plays because of holds, and board overrides.
 void play_99(const Play_settings& settings) {
 
     optional<Board> override_board;

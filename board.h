@@ -50,7 +50,6 @@ public:
     int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
     bool is_holding_some_block() const;
-    void print_diff_against(const Board& new_other) const;
 
     int get_num_blocks_placed() const;
     double get_tetris_percent() const;
@@ -82,15 +81,12 @@ private:
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.
     int get_row_after_drop(const Block& b, Placement p) const;
-    bool contour_matches(const Block& b, Placement p) const;
 
     int get_height_map_reduction(int deleted_row, int query_col) const;
 
     // Fundamental and Primary cache data must be up to date before calling update second/life cache.
     void update_secondary_cache();
     void update_lifetime_cache(int num_rows_cleared_just_now);
-
-    void assert_cache_correct() const;
 
     // MEMBERS
     static Board worst_board;

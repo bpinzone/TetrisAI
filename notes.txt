@@ -1,49 +1,15 @@
-DO NOT generate log file in watch mode.
-
-Profile
-Multi-thread. Thread pooling or dynamic work sharing.
-UI for playing
-
-1093
-    3 Deep
-    return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
-
-2155
-    4 deep
-    return -(100 * num_holes) - (height_difference * height_difference * height_difference) - current_trench_penalty + current_cyan_reward;
-
-After bug fix, didn't die, stopped at 9846 with 4 deep.
-
-
-todo: make sure we can still do this.
-survived 88k, 3 deep (really, 4 deep)
-
+Accurate random block generation model greatly improved play.
 
 Remember
-non-static reference members ruin copy/move semantics
-Compiler implicitly deleting copy/move semantics
+non-static reference members cause copy/move operations to be implicitly deleted.
 List initializer interpretation
 min() vs lowest()
 
+Improved performance
+    Using generators
+    Not using the heap.
+
 ====
-
-monitor for R/W seeds
-vector<State> seeds;
-
-monitor for R/W results
-vector<State> results;
-
-Tetris Worker:
-    Thread
-    while(seeds not empty){
-
-        make the new stack with a seed
-            process that seed
-
-        public result;
-
-
-    }
 
 Why not ref(move()) ?
     workers.push_back(thread{
@@ -61,5 +27,3 @@ shared_mutex: Non-exclusive access. Differentiates between readers and writers
 unique_lock: Lock as a writer. Usable on mutex and shared_mutex.
 shared_lock: Lock as a reader only. Usable on shared_mutex.
 */
-
-todo: if jeff gets all cyan's, its not great.

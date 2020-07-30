@@ -50,7 +50,6 @@ Block::Block(const string& _name, const vector<CH_maps>& _maps)
 const Block* Stdin_block_generator::generate() {
     char block;
     cin >> block;
-    assert(cin);
     return Block::char_to_block_ptr(block);
 }
 

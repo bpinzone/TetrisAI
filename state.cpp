@@ -116,6 +116,7 @@ State::Placement_generator::Placement_generator(const Block* _presented)
     : presented{_presented}, rot_x{0}, col{0}, exhausted{false} {
 }
 
+// WE WANT COROUTINES
 // Emulates:
 // for(int rot_x = 0; rot_x < presented.maps.size(); ++rot_x){
 //     const int max_valid_col = Board::c_cols - presented.maps[rot_x].contour.size();

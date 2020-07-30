@@ -30,6 +30,7 @@ public:
         const int num_placements_to_look_ahead
     );
 
+    // A "worst state" is one that will always compare worse than any other according to the utility function.
     static State generate_worst_state_from(const State& other);
 
     bool get_is_leaf() const {
@@ -44,7 +45,6 @@ public:
         assert(placement_taken_from_root);
         return *placement_taken_from_root;
     }
-
 
     // Generate the next child. Returns empty optional when there are no more children.
     std::optional<State> generate_next_child();

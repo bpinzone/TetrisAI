@@ -52,7 +52,6 @@ void Tetris_worker::wait_until_all_free(){
     });
 }
 
-// TODO: comment out calls to this later. Dont' want to lock so much.
 void Tetris_worker::assert_all_free(){
 
     unique_lock<mutex> fw_ulock(free_workers_mutex);
@@ -78,19 +77,21 @@ void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_stat
     }
 
     // Compute how many states each worker receives
+    // Round up as easy way to ensure don't run out of workers.
     const size_t states_per_worker = static_cast<size_t>(
         ceil(static_cast<double>(first_gen.size()) / workers.size())
     );
 
     // Hand out work.
     vector<State> work_chunk;
-    // int worker_x = 0;
     for(auto& state : first_gen){
         work_chunk.push_back(move(state));
         // Give out chunk
         if(work_chunk.size() == states_per_worker){
+            // Still holding fw lock
             free_workers.back()->restart_with_stack(move(work_chunk));
             free_workers.pop_back();
+            // On a moved-from object, only guaranteed safe operations are assignment and destruction.
             work_chunk = decltype(work_chunk){};
         }
     }
@@ -135,7 +136,7 @@ void Tetris_worker::run(){
         // We have our ss_ulock.
         // Wait for work if necessary.
         if(state_stack.empty()){
-            // Need if statement because threads start with non-empty stacks.
+            // Need if statement because threads can start with non-empty stacks.
 
             // Mark ourselves as free.
             unique_lock<mutex> free_workers_ulock{free_workers_mutex};

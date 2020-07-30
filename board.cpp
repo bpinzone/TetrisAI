@@ -74,8 +74,6 @@ ostream& operator<<(ostream& os, const Board& s) {
 // Return true iff this board is still promising.
 bool Board::place_block(const Block& b, Placement p){
 
-    assert_cache_correct();
-
     assert(!p.get_is_hold());
     const int old_num_holes = get_num_holes();
 
@@ -132,8 +130,6 @@ bool Board::place_block(const Block& b, Placement p){
 
     update_secondary_cache();
     update_lifetime_cache(num_rows_cleared_just_now);
-    assert_cache_correct();
-
     just_swapped = false;
     return true;
 }
@@ -149,7 +145,6 @@ void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
     lifetime_stats = new_lifetime_stats;
 }
 
-// NOTE: Values for granularity? Hybrid?
 bool Board::has_greater_utility_than(const Board& other) const {
 
     if(is_worst_board != other.is_worst_board){
@@ -161,7 +156,6 @@ bool Board::has_greater_utility_than(const Board& other) const {
     }
 
     // You are in tetris mode if you are here or less in height.
-    // todo: experiment with this later. How it relates to tetris percent.
     static const int c_max_tetris_mode_height = 6;
     static const int c_height_diff_punishment_thresh = 3;
 
@@ -196,8 +190,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     }
 
     // Keep relatively even except for the one trench.
-    const int this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
-    const int other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
+    const bool this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
+    const bool other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
     if(this_receives_height_punishment != other_receives_height_punishment){
         return !this_receives_height_punishment;
     }
@@ -259,33 +253,6 @@ bool Board::can_swap_block(const Block& b) const {
 
 bool Board::is_holding_some_block() const {
     return current_hold;
-}
-
-void Board::print_diff_against(const Board& new_other) const{
-
-    Board new_items_state;
-    new_items_state.board = ~board & new_other.board;
-
-    Board old_items_state;
-    old_items_state.board = board & new_other.board;
-
-    Output_manager::get_instance().get_board_os() << "Holding: ";
-    Output_manager::get_instance().get_board_os() << (new_other.current_hold ? new_other.current_hold->name : "none") << endl;
-
-    for(long row = Board::c_rows - 1; row >= 0; --row){
-        for(long col = 0; col < Board::c_cols; ++col){
-            if(new_items_state.at(row, col)){
-                Output_manager::get_instance().get_board_os() << "@";
-            }
-            else if(old_items_state.at(row, col)){
-                Output_manager::get_instance().get_board_os() << "X";
-            }
-            else{
-                Output_manager::get_instance().get_board_os() << ".";
-            }
-        }
-        Output_manager::get_instance().get_board_os() << "\n";
-    }
 }
 
 int Board::get_num_blocks_placed() const {
@@ -384,22 +351,6 @@ int Board::get_row_after_drop(const Block& b, Placement p) const {
     return max_row;
 }
 
-bool Board::contour_matches(const Block& b, Placement p) const {
-
-    const int leftmost_abs_col = p.get_column();
-    const int height_of_first_col = height_map[leftmost_abs_col];
-    const auto& contour_map = b.maps[p.get_rotation()].contour;
-
-    for(int cols_checked = 0; cols_checked < contour_map.size(); ++cols_checked){
-        const int abs_board_height = height_map[leftmost_abs_col + cols_checked];
-        const int rel_board_height = abs_board_height - height_of_first_col;
-        if(contour_map[cols_checked] != rel_board_height){
-            return false;
-        }
-    }
-    return true;
-}
-
 // Given a row is being deleted, how many to subtract from the height map
 // of query col. (Maybe holes will become exposed.)
 int Board::get_height_map_reduction(int deleted_row, int query_col) const {
@@ -478,24 +429,4 @@ void Board::update_lifetime_cache(int num_rows_cleared_just_now){
         (0.5 * highest_height) +
         (0.5 * lifetime_stats.max_height_exp_moving_average);
 
-}
-
-void Board::assert_cache_correct() const {
-
-    assert(num_cells_filled == board.count());
-    for(int col_x = 0; col_x < c_cols; ++col_x){
-
-        // Make sure rows above are empty.
-        for(int row_x = height_map[col_x]; row_x < c_rows; ++row_x){
-            assert(!at(row_x, col_x));
-        }
-
-        // Make sure height map has a cell filled in.
-        if(height_map[col_x] > 0){
-            assert(at(height_map[col_x] - 1, col_x));
-        }
-    }
-    const int correct_perfect_board_cell_count = accumulate(
-        cbegin(height_map), cend(height_map), 0);
-    assert(perfect_num_cells_filled == correct_perfect_board_cell_count);
 }

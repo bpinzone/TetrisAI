@@ -17,7 +17,8 @@ using std::copy;
 using std::abs;
 
 Action::Action(const Block* _block, Placement placement)
-    : block{_block}, offset{placement.get_column() - block->maps[placement.get_rotation()].leftmost_block_pos},
+    : block{_block},
+    offset{placement.get_column() - block->maps[placement.get_rotation()].leftmost_block_pos},
     rotation_count{placement.get_rotation()},
     hold{placement.get_is_hold()}{
 }
@@ -27,6 +28,7 @@ ostream& operator<<(ostream& os, const Action& action) {
     static bool is_first_action = true;
 
     vector<string> actions_strs;
+    // Switch to targetting attackers if this is our first action.
     if(is_first_action){
         is_first_action = false;
         actions_strs.push_back("stick r down");
@@ -54,12 +56,12 @@ ostream& operator<<(ostream& os, const Action& action) {
             trans_strs.push_back("left");
         }
 
-        // while rot count < trans count OR its safe to translate: single translate command
-        const int trans_limit = action.offset > 0 ?
+        // Translate as far as you can first, without hitting the wall, and while leaving translations to combine with rotations.
+        const int safe_trans_limit = action.offset > 0 ?
             action.block->safe_right_trans : action.block->safe_left_trans;
 
         for(int translations_done = 0;
-                trans_strs.size() > rot_strs.size() && translations_done < trans_limit;
+                trans_strs.size() > rot_strs.size() && translations_done < safe_trans_limit;
                 ++translations_done){
             actions_strs.push_back(trans_strs.back());
             trans_strs.pop_back();
