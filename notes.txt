@@ -1,9 +1,12 @@
 Accurate random block generation model greatly improved play.
+    +1 tetris percent
+    never die
 
 Remember
 non-static reference members cause copy/move operations to be implicitly deleted.
 List initializer interpretation
-min() vs lowest()
+numeric limits...
+    min() vs lowest()
 
 Improved performance
     Using generators
@@ -11,7 +14,7 @@ Improved performance
 
 ====
 
-Why not ref(move()) ?
+Not ref(move(*op_child)) because the return type is already a reference, more specifically: remove_reference<T>::type&&
     workers.push_back(thread{
         &get_best_foreseeable_state_from_subtree,
         move(*op_child),

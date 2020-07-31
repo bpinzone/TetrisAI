@@ -6,12 +6,9 @@
 #include <stdexcept>
 #include <algorithm>
 
-using std::uniform_int_distribution;
-using std::default_random_engine;
 using std::shuffle;
 using std::string;
 using std::vector;
-using std::queue;
 using std::cin;
 using std::runtime_error;
 

@@ -24,8 +24,7 @@ class Board {
 
 public:
 
-    Board(){
-    }
+    Board(){ }
 
     Board(std::istream& is);
 
@@ -58,8 +57,6 @@ public:
 
     Board_lifetime_stats get_lifetime_stats() const;
 
-    static const Board& get_worst_board();
-
 private:
 
     using Grid_t = std::bitset<c_size>;
@@ -89,8 +86,6 @@ private:
     void update_lifetime_cache(int num_rows_cleared_just_now);
 
     // MEMBERS
-    static Board worst_board;
-
     // === Fundamental ===
     Grid_t board;
 
@@ -121,9 +116,6 @@ private:
     // === Lifetime Cache ===
     // Stats that you could not infer just from viewing the board.
     Board_lifetime_stats lifetime_stats;
-
-    // === Misc ===
-    bool is_worst_board = false;
 
 };
 

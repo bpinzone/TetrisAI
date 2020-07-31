@@ -21,11 +21,9 @@
 #include <stdexcept>
 
 using std::mutex;
-using std::unique_lock;
 
 using std::swap;
 using std::move;
-using std::ref;
 
 using std::endl;
 using std::cin;
@@ -33,7 +31,6 @@ using std::string;
 using std::generate_n;
 using std::back_inserter;
 using std::transform;
-using std::max_element;
 using std::optional;
 using std::vector;
 using std::runtime_error;
@@ -70,7 +67,7 @@ struct Play_settings {
     Play_settings(int argc, char* argv[]){
 
         // NOTE: IMPORTANT
-        static int num_settings = 6;
+        static const int num_settings = 6;
 
         if(argc != num_settings + 1){
             throw runtime_error("Usage: <mode: wsmr> <block generation: seed# or i> <lookahead> <queue size> <game length> <num threads>");
@@ -174,7 +171,7 @@ void play(const Play_settings& settings){
     Tetris_queue_t queue;
     for(int i = 0; i < settings.queue_size; ++i){
         // Not going to write a wrapper just for this.
-        // generate_n takes functor by value. Can't use bc we use inheritance.
+        // generate_n takes functor by value. Can't use bc we use inheritance. Use ref()?
         queue.push_back(settings.block_generator->generate());
     }
 
@@ -182,9 +179,10 @@ void play(const Play_settings& settings){
     while(turn < settings.game_length){
 
         // Status
-        Output_manager::get_instance().get_board_os() << "Turn: " << turn << "\n";
-        Output_manager::get_instance().get_board_os() << "Tetris percent:" << board.get_tetris_percent() << " %" << endl;
-        Output_manager::get_instance().get_board_os() << "Presented with: " << next_to_present->name << endl;
+        Output_manager::get_instance().get_board_os()
+            << "Turn: " << turn << "\n"
+            << "Tetris percent:" << board.get_tetris_percent() << " %" << "\n"
+            << "Presented with: " << next_to_present->name << "\n";
 
         Placement next_placement = get_best_move(
             board, *next_to_present,
@@ -225,7 +223,7 @@ void play(const Play_settings& settings){
         }
 
         swap(board, new_board);
-        Output_manager::get_instance().get_board_os() << endl << board << endl;
+        Output_manager::get_instance().get_board_os() << "\n" << board << endl;
         ++turn;
     }
 }
@@ -261,11 +259,10 @@ void play_99(const Play_settings& settings) {
 
         // Output info.
         Output_manager::get_instance().get_board_os()
-            << "C++ thinks the queue is: "
-            << queue_chars << endl;
-        Output_manager::get_instance().get_board_os()
+            << "C++ thinks the queue is: " << queue_chars << endl
             << " ====================== " << endl
-            << "C++ thinks the board is: " << endl << board << endl;
+            << "C++ thinks the board is: " << endl
+            << board << endl;
 
         // Compute placement
         Placement next_placement = get_best_move(

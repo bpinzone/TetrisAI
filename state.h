@@ -30,9 +30,6 @@ public:
         const int num_placements_to_look_ahead
     );
 
-    // A "worst state" is one that will always compare worse than any other according to the utility function.
-    static State generate_worst_state_from(const State& other);
-
     bool get_is_leaf() const {
         return is_leaf;
     }

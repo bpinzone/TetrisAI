@@ -10,9 +10,8 @@
 #include <numeric>
 #include <iostream>
 
+// TODO: Replace with individual using statements
 using namespace std;
-
-Board Board::worst_board;
 
 Board::Board(istream& is){
 
@@ -56,7 +55,7 @@ Board::Board(istream& is){
 ostream& operator<<(ostream& os, const Board& s) {
 
     os << "Holding: ";
-    os << (s.current_hold ? s.current_hold->name : "none") << endl;
+    os << (s.current_hold ? s.current_hold->name : "none") << "\n";
 
     for(long row = Board::c_rows - 1; row >= 0; --row){
         for(long col = 0; col < Board::c_cols; ++col){
@@ -65,8 +64,8 @@ ostream& operator<<(ostream& os, const Board& s) {
         os << "\n";
     }
 
-    os << "All clears: " << s.lifetime_stats.num_all_clears << endl;
-    os << "Tetrises: " << s.lifetime_stats.num_tetrises << endl;
+    os << "All clears: " << s.lifetime_stats.num_all_clears << "\n";
+    os << "Tetrises: " << s.lifetime_stats.num_tetrises << "\n";
 
     return os;
 }
@@ -147,10 +146,6 @@ void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
 
 bool Board::has_greater_utility_than(const Board& other) const {
 
-    if(is_worst_board != other.is_worst_board){
-        return !is_worst_board;
-    }
-
     if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
         return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;
     }
@@ -167,12 +162,10 @@ bool Board::has_greater_utility_than(const Board& other) const {
         return num_trenches <= 1;
     }
     // Holes
-    {
-        const int this_holes = get_num_holes();
-        const int other_holes = other.get_num_holes();
-        if(this_holes != other_holes){
-            return this_holes < other_holes;
-        }
+    const int this_holes = get_num_holes();
+    const int other_holes = other.get_num_holes();
+    if(this_holes != other_holes){
+        return this_holes < other_holes;
     }
 
     // Prefer to be in Tetris mode.
@@ -273,11 +266,6 @@ bool Board::is_clear() const {
 
 Board_lifetime_stats Board::get_lifetime_stats() const {
     return lifetime_stats;
-}
-
-const Board& Board::get_worst_board() {
-    worst_board.is_worst_board = true;
-    return worst_board;
 }
 
 void Board::clear_row(int deleted_row) {

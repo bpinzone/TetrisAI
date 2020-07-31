@@ -10,7 +10,6 @@ using std::vector;
 using std::unique_lock;
 using std::thread;
 using std::mutex;
-using std::condition_variable;
 using std::move;
 using std::bind;
 using std::ceil;
@@ -25,7 +24,6 @@ Tetris_worker::Tetris_worker(){
 
 void Tetris_worker::restart_with_stack(vector<State>&& _state_stack){
     assert(!_state_stack.empty());
-    // best_state = State::generate_worst_state_from(_state_stack.front());
     best_state = {};
     lock_set_signal_stack(move(_state_stack));
 }
@@ -124,6 +122,7 @@ State& Tetris_worker::get_best_reachable_state(){
                 fw1->best_state->get_board()
             );
     });
+    assert(best_worker->best_state);
     return *best_worker->best_state;
 }
 
@@ -149,7 +148,7 @@ void Tetris_worker::run(){
             // It is OK that the worker is marked free first, because someone should never signal us without first acquiring our ss_mutex.
 
             // Wait until something is put in our stack.
-            // Predicate represents: Are we ready to go?
+            // Predicate returns: Are we ready to go?
             ss_empty.wait(ss_ulock, [this](){return !state_stack.empty();});
         }
         // We have ss_ulock and state_stack is not empty

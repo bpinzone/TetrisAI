@@ -16,7 +16,7 @@ struct CH_maps {
 
 class Placement {
 
-    // NOTE: Getters represent immutability without implicitly deleting ruining move/copy operators.
+    // NOTE: Getters represent immutability without implicitly deleting ruining move/copy operations.
 
 public:
 
@@ -46,7 +46,7 @@ struct Block {
 
     std::string name;
 
-    // maps[rotation] = maps for that rotation
+    // maps[rotation idx] = maps for that rotation
     std::vector<CH_maps> maps;
 
     // After this many translations, the piece will be against the wall (while in rotation 0)
