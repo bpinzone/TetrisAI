@@ -19,7 +19,7 @@ Created by myself and my magnificent roommate [Steven Schulte!](https://github.c
 * Uses template matching to figure out what blocks are in the queue.
   
 "Jeff's Hands" are a slightly modified version of [this repository.](https://github.com/mart1nro/joycontrol)
-* All credit to Robert Martin (mart1nro)
+* All credit to Robert Martin (mart1nro) and other contributors.
 * Allows us to communicate with the Nintendo Switch via a Bluetooth connection on the laptop.
   
 Watch Jeff play in your terminal:
