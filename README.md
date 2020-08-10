@@ -13,10 +13,10 @@ Created by myself and my magnificent roommate [Steven Schulte!](https://github.c
 * Jeff achieves 95% of all theoretically possible tetrises when he looks 6 moves into the future!
   
 "Jeff's Eyes" were implemented by Steven in Python using OpenCV.
-* steph write
-* some
-* bullet points
-* web cam cool.
+* Uses a webcam, so no physical connection to the TV or Switch is required!
+* Waits for a stable image before reading the game state. This allows us to ignore the firework VFX when getting line clears, among other visual obstructions.
+* Detects when the queue of blocks shifts so we know when it is time to act.
+* Uses template matching to figure out what blocks are in the queue.
   
 "Jeff's Hands" are a slightly modified version of [this repository.](https://github.com/mart1nro/joycontrol)
 * All credit to Robert Martin (mart1nro)
