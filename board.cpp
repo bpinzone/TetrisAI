@@ -9,6 +9,7 @@
 #include <utility>
 #include <numeric>
 #include <iostream>
+#include <cmath>
 
 // TODO: Replace with individual using statements
 using namespace std;
@@ -168,68 +169,19 @@ bool Board::has_greater_utility_than(const Board& other) const {
         return this_holes < other_holes;
     }
 
-    // Prefer to be in Tetris mode.
-    if(this_in_tetris_mode != other_in_tetris_mode){
-        return this_in_tetris_mode;
+    if(num_trenches != other.num_trenches){
+        return num_trenches < other.num_trenches;
     }
 
-    if(this_in_tetris_mode && other_in_tetris_mode){
-        if(at_least_one_side_clear != other.at_least_one_side_clear){
-            return at_least_one_side_clear;
-        }
-        if(lifetime_stats.num_non_tetrises != other.lifetime_stats.num_non_tetrises){
-            return lifetime_stats.num_non_tetrises < other.lifetime_stats.num_non_tetrises;
-        }
+    if(sum_of_squared_heights != other.sum_of_squared_heights){
+        return sum_of_squared_heights < other.sum_of_squared_heights;
     }
 
-    // Keep relatively even except for the one trench.
-    const bool this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
-    const bool other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
-    if(this_receives_height_punishment != other_receives_height_punishment){
-        return !this_receives_height_punishment;
+    if(num_cells_filled != other.num_cells_filled){
+        return num_cells_filled < other.num_cells_filled;
     }
 
-    if(this_in_tetris_mode){
-
-        // Get the tetrises
-        if(lifetime_stats.num_tetrises != other.lifetime_stats.num_tetrises){
-            return lifetime_stats.num_tetrises > other.lifetime_stats.num_tetrises;
-        }
-
-        // Become tetrisable
-        if(is_tetrisable != other.is_tetrisable){
-            return is_tetrisable;
-        }
-
-        // Build up
-        // Make the 2nd shortest column as large as possible.
-        // Encourges alg to build a solid mass of blocks, but not clear rows,
-        // in order to get to the point where we can forsee being tetris-able.
-        if(second_lowest_height != other.second_lowest_height){
-            return second_lowest_height > other.second_lowest_height;
-        }
-
-        if(sum_of_squared_heights != other.sum_of_squared_heights){
-            return sum_of_squared_heights < other.sum_of_squared_heights;
-        }
-        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
-
-    }
-    else{
-
-        if(num_trenches != other.num_trenches){
-            return num_trenches < other.num_trenches;
-        }
-
-        if(num_cells_filled != other.num_cells_filled){
-            return num_cells_filled < other.num_cells_filled;
-        }
-
-        if(sum_of_squared_heights != other.sum_of_squared_heights){
-            return sum_of_squared_heights < other.sum_of_squared_heights;
-        }
-        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
-    }
+    return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
 
 }
 
@@ -375,7 +327,11 @@ void Board::update_secondary_cache() {
 
     for(int col_x = 0; col_x < c_cols; ++col_x){
 
-        sum_of_squared_heights += middle_height * middle_height;
+        const int dist_from_center = abs(col_x - (static_cast<int>(c_cols) / 2));
+        const int target_height = (c_rows / 2) - (dist_from_center * 2);
+        const int height_error = abs(middle_height - target_height);
+
+        sum_of_squared_heights += height_error * height_error;
         second_lowest_height = middle_height <= lowest_height ? lowest_height : min(second_lowest_height, middle_height);
         lowest_height = min(lowest_height, middle_height);
         highest_height = max(highest_height, middle_height);
