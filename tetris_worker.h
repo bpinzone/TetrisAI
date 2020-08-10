@@ -9,6 +9,7 @@
 
 #include "state.h"
 
+// Wraps a thread object, and can find the best state given a stack of states to search through.
 class Tetris_worker {
 
 public:

@@ -14,14 +14,16 @@ Improved performance
 
 ====
 
-Not ref(move(*op_child)) because the return type is already a reference, more specifically: remove_reference<T>::type&&
+Not ref(move(*op_child)) because the return type of move is already an rvalue reference, more specifically: 
+
+remove_reference<T>::type&&
+
     workers.push_back(thread{
         &get_best_foreseeable_state_from_subtree,
         move(*op_child),
         ref(results),
         ref(results_mutex)
     });
-
 
 /*
 mutex: Exclusive access. Assuming everyone CAN be a writer.

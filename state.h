@@ -7,6 +7,7 @@
 #include <deque>
 #include <optional>
 
+// In addition to the board, has the block queue iterators, presented block, and house keeping for search logistics.
 class State {
 
 public:

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+// Coordinate where commands and board info a streamed to.
 class Output_manager {
 
 public:
