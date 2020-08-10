@@ -33,7 +33,7 @@ Placement get_best_move(
         const Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
-        const int num_placements_to_look_ahead);
+        int num_placements_to_look_ahead);
 
 int main(int argc, char* argv[]) {
 
@@ -130,6 +130,7 @@ void play(const Play_settings& settings){
         ++turn;
     }
 }
+
 
 // TODO: Poor design. Got messy after adding double plays because of holds, and board overrides.
 void play_99(const Play_settings& settings) {
@@ -238,7 +239,7 @@ Placement get_best_move(
         const Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
-        const int num_placements_to_look_ahead){
+        int num_placements_to_look_ahead){
 
     Tetris_worker::assert_all_free();
 
