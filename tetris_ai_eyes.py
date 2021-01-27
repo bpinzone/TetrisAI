@@ -4,6 +4,7 @@ import json
 import numpy as np
 from scipy import stats
 import sys
+import time
 
 def add_click(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -53,9 +54,12 @@ def main():
     # We will transform the images so they are of this size.
     # IF YOU CHANGE THESE YOU MUST REMAKE THE TEMPLATE FILE.
     im_dims = {
-            'hold_pic': (125, 140),
-            'board_pic': (500, 1000),
-            'queue_pic': (125, 450)
+            # 'hold_pic': (125, 140),
+            # 'board_pic': (500, 1000),
+            # 'queue_pic': (125, 450)
+            'hold_pic': (25, 28),
+            'board_pic': (100, 200),
+            'queue_pic': (25, 90)
             }
     hold_ideal_corners, board_ideal_corners, queue_ideal_corners = (np.array([
         [0, 0],
@@ -210,25 +214,10 @@ def main():
     # Queue will never actually be all red, but not set to None because None is for a failed read
     last_queue = ['red', 'red', 'red', 'red', 'red', 'red']
     last_hold = None
-    last_queue_mask = np.zeros(tuple(reversed(im_dims['queue_pic']))) == 0
-    last_hold_mask = np.zeros(tuple(reversed(im_dims['hold_pic']))) == 0
-    last_board_mask = np.zeros(tuple(reversed(im_dims['board_pic']))) == 0
 
-    queue_change_history = []
-    hold_change_history = []
+    queue_history = []
+    hold_history = []
     board_history = []
-
-    def is_stable(stable_history, reading, allowable_ratio, frames_until_stable=3, hist_len=30):
-        stable_history.append(reading)
-        if len(stable_history) <= hist_len:
-            # Assume the initial data stage is unstable
-            return False
-
-        stable_history.pop(0)
-
-        best_window_change = min((np.max(stable_history[range_i:range_i + frames_until_stable]) for range_i in range(len(stable_history) - frames_until_stable + 1)))
-        window_change = np.max(stable_history[-frames_until_stable:])
-        return window_change <= allowable_ratio * best_window_change
 
     presented = None
 
@@ -254,8 +243,7 @@ def main():
             queue_pic = cv2.warpPerspective(gray_frame, M_queue, im_dims['queue_pic'])
 
             def get_block_match_idx(mask, templates):
-                # If less than 5% is black, assume it's empty
-                mask = cv2.erode(mask.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
+                # If less than 10% isn't black, assume it's empty
                 if np.sum(mask) / mask.size < .05:
                     return None
                 mismatch_counts = []
@@ -275,8 +263,7 @@ def main():
                         starting_corner[1]:starting_corner[1] + template.shape[1]
                             ] ^= template
 
-                    # TODO too much erosion?
-                    # mismatch = cv2.erode(mismatch.astype(np.uint8) * 255, np.ones((8, 8), np.uint8), borderValue=0) != 0
+                    mismatch = cv2.erode(mismatch.astype(np.uint8) * 255, np.ones((2, 2), np.uint8), borderValue=0) != 0
                     mismatch_counts.append(np.sum(mismatch))
                     # cv2.imshow('temp', template.astype(np.uint8) * 255)
                     # cv2.imshow('mismatch', mismatch.astype(np.uint8) * 255)
@@ -306,7 +293,7 @@ def main():
             queue_annotated = show_sections(queue_mask, 6, 1)
             cv2.imshow('queue_mask', queue_annotated)
             
-            # First, let's get the board state
+            # Find the board
             full_threshold = .6 # To be considered filled, a piece must have 60% of its pixels be full
 
             # Find the first row with all empty spaces, and set all spaces above that to 0
@@ -323,18 +310,39 @@ def main():
                 elif np.all(board[row_idx, :] == 0):
                     found_empty_row = True
 
-            queue_stable = is_stable(queue_change_history, np.sum(queue_mask != last_queue_mask), 3.0)
-            hold_stable = is_stable(hold_change_history, np.sum(hold_mask != last_hold_mask), 3.0)
-            
-            if len(board_history) >= 3:
-                board_stable = all((np.all(board == past_board) for past_board in board_history))
-                board_history.append(board)
-                board_history.pop(0)
-            else:
-                board_history.append(board)
-                board_stable = False
+            # Find the queue
+            queue_idxs = [get_block_match_idx(individual_piece_masks[0], template_masks_big)]
+            for im in individual_piece_masks[1:]:
+                queue_idxs.append(get_block_match_idx(im, template_masks_little))
 
-            if len(board_history) >= 3:
+            queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
+
+            # Find the hold
+            hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
+            hold = color_names[hold_block_idx] if hold_block_idx != None else None
+
+            # If the first 4 elements of the queue are what we expect based on 
+            queue_speculative = last_queue[:3]
+
+            stability_number = 2
+            # Check stability
+            if len(queue_history) >= stability_number:
+                queue_stable = all(all(a == b for a, b in zip(queue, past_queue)) for past_queue in queue_history)
+                queue_history.append(queue)
+                queue_history.pop(0)
+            else:
+                queue_history.append(queue)
+                queue_stable = False
+
+            if len(hold_history) >= stability_number:
+                hold_stable = all((hold == past_hold for past_hold in hold_history))
+                hold_history.append(hold)
+                hold_history.pop(0)
+            else:
+                hold_history.append(hold)
+                hold_stable = False
+
+            if len(board_history) >= stability_number:
                 board_stable = all((np.all(board == past_board) for past_board in board_history))
                 board_history.append(board)
                 board_history.pop(0)
@@ -354,13 +362,6 @@ def main():
                 cv2.imshow('queue_stable', queue_annotated)
                 # print('stable')
 
-                queue_idxs = [get_block_match_idx(individual_piece_masks[0], template_masks_big)]
-                for im in individual_piece_masks[1:]:
-                    queue_idxs.append(get_block_match_idx(im, template_masks_little))
-
-                queue = [color_names[idx] if idx is not None else None for idx in queue_idxs]
-                hold_block_idx = get_block_match_idx(hold_mask, template_masks_big)
-                hold = color_names[hold_block_idx] if hold_block_idx != None else None
                 # Only just swapped on the first hold, because otherwise the other action will be performed
                 just_swapped = hold is not None and last_hold is None
 
