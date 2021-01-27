@@ -423,8 +423,8 @@ void Board::update_secondary_cache() {
 
     num_trenches = 0;
     at_least_one_side_clear = (height_map[0] == 0) || (height_map[c_cols - 1] == 0);
-    lowest_height = c_cols;
-    second_lowest_height = c_cols;
+    lowest_height = c_rows;
+    second_lowest_height = c_rows;
     highest_height = 0;
     sum_of_squared_heights = 0;
 
