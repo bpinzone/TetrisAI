@@ -7,14 +7,18 @@
 #include <cassert>
 #include <random>
 
+// For every shape block, and for every rotation, one of these exists to descripe the shape of the block in that orientation.
 struct CH_maps {
     std::vector<int> contour;
     std::vector<int> height;
-    // todo: does this really belong here? Perhaps struct name should change.
+    // TODO: Should rename struct now that this was added.
     int leftmost_block_pos;
 };
 
+// Represents something a player can do with a block. Hold the block, or place it at a certain position with a certain rotation.
 class Placement {
+
+    // NOTE: Getters represent immutability without implicitly deleting ruining move/copy operations.
 
 public:
 
@@ -40,13 +44,16 @@ private:
     bool is_hold;
 };
 
+// Exactly one instance for every type of block (tetrimino)
 struct Block {
 
-    // [rotation] = maps for that rotation
     std::string name;
+
+    // maps[rotation idx] = maps for that rotation
+    // size = number of possible rotations.
     std::vector<CH_maps> maps;
 
-    // After this many rotations, the piece will be against the wall, in rotation 0.
+    // After this many translations, the piece will be against the wall (while in rotation 0)
     int safe_left_trans;
     int safe_right_trans;
 

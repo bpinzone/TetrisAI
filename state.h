@@ -7,6 +7,7 @@
 #include <deque>
 #include <optional>
 
+// In addition to the board, has the block queue iterators, presented block, and house keeping for search logistics.
 class State {
 
 public:
@@ -30,8 +31,6 @@ public:
         const int num_placements_to_look_ahead
     );
 
-    static State generate_worst_state_from(const State& other);
-
     bool get_is_leaf() const {
         return is_leaf;
     }
@@ -44,7 +43,6 @@ public:
         assert(placement_taken_from_root);
         return *placement_taken_from_root;
     }
-
 
     // Generate the next child. Returns empty optional when there are no more children.
     std::optional<State> generate_next_child();

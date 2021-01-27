@@ -24,8 +24,7 @@ class Board {
 
 public:
 
-    Board(){
-    }
+    Board(){ }
 
     Board(std::istream& is);
 
@@ -50,7 +49,6 @@ public:
     int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
     bool is_holding_some_block() const;
-    void print_diff_against(const Board& new_other) const;
 
     int get_num_blocks_placed() const;
     double get_tetris_percent() const;
@@ -58,8 +56,6 @@ public:
     bool is_clear() const;
 
     Board_lifetime_stats get_lifetime_stats() const;
-
-    static const Board& get_worst_board();
 
 private:
 
@@ -82,7 +78,6 @@ private:
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.
     int get_row_after_drop(const Block& b, Placement p) const;
-    bool contour_matches(const Block& b, Placement p) const;
 
     int get_height_map_reduction(int deleted_row, int query_col) const;
 
@@ -90,11 +85,7 @@ private:
     void update_secondary_cache();
     void update_lifetime_cache(int num_rows_cleared_just_now);
 
-    void assert_cache_correct() const;
-
     // MEMBERS
-    static Board worst_board;
-
     // === Fundamental ===
     Grid_t board;
 
@@ -125,9 +116,6 @@ private:
     // === Lifetime Cache ===
     // Stats that you could not infer just from viewing the board.
     Board_lifetime_stats lifetime_stats;
-
-    // === Misc ===
-    bool is_worst_board = false;
 
 };
 

@@ -10,7 +10,6 @@ using std::vector;
 using std::unique_lock;
 using std::thread;
 using std::mutex;
-using std::condition_variable;
 using std::move;
 using std::bind;
 using std::ceil;
@@ -25,7 +24,6 @@ Tetris_worker::Tetris_worker(){
 
 void Tetris_worker::restart_with_stack(vector<State>&& _state_stack){
     assert(!_state_stack.empty());
-    // best_state = State::generate_worst_state_from(_state_stack.front());
     best_state = {};
     lock_set_signal_stack(move(_state_stack));
 }
@@ -52,7 +50,6 @@ void Tetris_worker::wait_until_all_free(){
     });
 }
 
-// TODO: comment out calls to this later. Dont' want to lock so much.
 void Tetris_worker::assert_all_free(){
 
     unique_lock<mutex> fw_ulock(free_workers_mutex);
@@ -78,19 +75,21 @@ void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_stat
     }
 
     // Compute how many states each worker receives
+    // Round up as easy way to ensure don't run out of workers.
     const size_t states_per_worker = static_cast<size_t>(
         ceil(static_cast<double>(first_gen.size()) / workers.size())
     );
 
     // Hand out work.
     vector<State> work_chunk;
-    // int worker_x = 0;
     for(auto& state : first_gen){
         work_chunk.push_back(move(state));
         // Give out chunk
         if(work_chunk.size() == states_per_worker){
+            // Still holding fw lock
             free_workers.back()->restart_with_stack(move(work_chunk));
             free_workers.pop_back();
+            // On a moved-from object, only guaranteed safe operations are assignment and destruction.
             work_chunk = decltype(work_chunk){};
         }
     }
@@ -123,6 +122,7 @@ State& Tetris_worker::get_best_reachable_state(){
                 fw1->best_state->get_board()
             );
     });
+    assert(best_worker->best_state);
     return *best_worker->best_state;
 }
 
@@ -135,7 +135,7 @@ void Tetris_worker::run(){
         // We have our ss_ulock.
         // Wait for work if necessary.
         if(state_stack.empty()){
-            // Need if statement because threads start with non-empty stacks.
+            // Need if statement because threads can start with non-empty stacks.
 
             // Mark ourselves as free.
             unique_lock<mutex> free_workers_ulock{free_workers_mutex};
@@ -148,7 +148,7 @@ void Tetris_worker::run(){
             // It is OK that the worker is marked free first, because someone should never signal us without first acquiring our ss_mutex.
 
             // Wait until something is put in our stack.
-            // Predicate represents: Are we ready to go?
+            // Predicate returns: Are we ready to go?
             ss_empty.wait(ss_ulock, [this](){return !state_stack.empty();});
         }
         // We have ss_ulock and state_stack is not empty

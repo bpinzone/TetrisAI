@@ -6,12 +6,9 @@
 #include <stdexcept>
 #include <algorithm>
 
-using std::uniform_int_distribution;
-using std::default_random_engine;
 using std::shuffle;
 using std::string;
 using std::vector;
-using std::queue;
 using std::cin;
 using std::runtime_error;
 
@@ -50,7 +47,6 @@ Block::Block(const string& _name, const vector<CH_maps>& _maps)
 const Block* Stdin_block_generator::generate() {
     char block;
     cin >> block;
-    assert(cin);
     return Block::char_to_block_ptr(block);
 }
 

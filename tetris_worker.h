@@ -9,6 +9,7 @@
 
 #include "state.h"
 
+// Wraps a thread object, and can find the best state given a stack of states to search through.
 class Tetris_worker {
 
 public:
@@ -27,6 +28,7 @@ public:
     // Gives work to all threads and marks them all as not free.
     static void distribute_new_work_and_wait_till_all_free(State&& root_state);
 
+    // Requires: Workers are free and they just finished doing work.
     static State& get_best_reachable_state();
 
 private:
@@ -38,12 +40,13 @@ private:
     // Adding: free workers add themselves.
     // Removing: busy workers remove free workers.
     inline static std::vector<Tetris_worker*> free_workers;
+
     inline static std::mutex free_workers_mutex;
     inline static std::condition_variable free_worker_added;
 
     inline static std::vector<Tetris_worker*> workers;
 
-    // Order matters.
+    // Construction Order matters.
     std::optional<State> best_state;
     std::vector<State> state_stack;
 

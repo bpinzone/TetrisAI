@@ -39,18 +39,6 @@ State State::generate_root_state(
 
 }
 
-State State::generate_worst_state_from(const State& other) {
-    return {
-        Board::get_worst_board(),
-        other.presented_block,
-        other.next_queue_it,
-        false,
-        other.end_queue_it,
-        other.placement_limit,
-        optional<Placement>{{0, 0, false}}
-    };
-}
-
 optional<State> State::generate_next_child() {
 
     for(optional<Placement> placement = pg(); placement; placement = pg()){
@@ -74,22 +62,23 @@ optional<State> State::generate_child_from_placement(Placement placement){
     if(!placement.get_is_hold()){
 
         bool is_child_promising = child_board.place_block(*presented_block, placement);
-        bool is_leaf = child_board.get_num_blocks_placed() == placement_limit
-                || next_queue_it == end_queue_it;
+        bool is_leaf =
+            (child_board.get_num_blocks_placed() == placement_limit)
+            || (next_queue_it == end_queue_it);
 
         if(is_child_promising){
 
             return State{
-                    child_board,
-                    // If next_queue_it is the end iterator, this is a terminal node, and presented will never be read.
-                    // Choice of Cyan is arbitrary.
-                    is_leaf ? &Block::Cyan : *next_queue_it,
-                    next_queue_it + 1,
-                    is_leaf,
-                    end_queue_it,
-                    placement_limit,
-                    placement_taken_from_root ? placement_taken_from_root : optional<Placement>{placement}
-                };
+                child_board,
+                // If next_queue_it is the end iterator, this is a terminal node, and presented will never be read.
+                // Choice of Cyan is arbitrary.
+                is_leaf ? &Block::Cyan : *next_queue_it,
+                next_queue_it + 1,
+                is_leaf,
+                end_queue_it,
+                placement_limit,
+                placement_taken_from_root ? placement_taken_from_root : optional<Placement>{placement}
+            };
         }
     }
     else if(board.can_swap_block(*presented_block)){
@@ -97,13 +86,13 @@ optional<State> State::generate_child_from_placement(Placement placement){
         bool is_leaf = next_queue_it == end_queue_it;
         const Block* was_held = child_board.swap_block(*presented_block);
         return State{
-                child_board,
-                is_leaf ? &Block::Cyan : (was_held ? was_held : *next_queue_it),
-                was_held ? next_queue_it : next_queue_it + 1,
-                is_leaf,
-                end_queue_it,
-                placement_limit,
-                placement_taken_from_root ? placement_taken_from_root : optional<Placement>{placement}
+            child_board,
+            is_leaf ? &Block::Cyan : (was_held ? was_held : *next_queue_it),
+            was_held ? next_queue_it : next_queue_it + 1,
+            is_leaf,
+            end_queue_it,
+            placement_limit,
+            placement_taken_from_root ? placement_taken_from_root : optional<Placement>{placement}
         };
     }
     return {};
@@ -116,6 +105,7 @@ State::Placement_generator::Placement_generator(const Block* _presented)
     : presented{_presented}, rot_x{0}, col{0}, exhausted{false} {
 }
 
+// WE WANT COROUTINES
 // Emulates:
 // for(int rot_x = 0; rot_x < presented.maps.size(); ++rot_x){
 //     const int max_valid_col = Board::c_cols - presented.maps[rot_x].contour.size();
