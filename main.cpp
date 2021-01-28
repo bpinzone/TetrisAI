@@ -18,6 +18,7 @@ using std::swap;
 using std::move;
 using std::endl;
 using std::cin;
+using std::cout;
 using std::string;
 using std::back_inserter;
 using std::transform;
@@ -49,7 +50,7 @@ int main(int argc, char* argv[]) {
 
     Play_settings ps(argc, argv);
     Output_manager::get_instance().set_streams(ps.mode);
-    ps.wait_for_controller_connection_if_necessary();
+    // ps.wait_for_controller_connection_if_necessary();
 
     Tetris_worker::create_workers(ps.num_threads);
     // Wait for them to spin up and mark themselves free for work.
@@ -139,6 +140,19 @@ void play_99(const Play_settings& settings) {
     Board_lifetime_stats lifetime_stats;
     while(true){
 
+        char buffer;
+        cin >> buffer;
+        if(buffer == '!'){
+            // Do manual command.
+            string command;
+            getline(cin, command, '!');
+            cout << command << endl;
+            continue;
+        }
+        else{
+            cin.putback(buffer);
+        }
+
         // Read in effective state.
         string label;
         cin >> label;
@@ -164,6 +178,7 @@ void play_99(const Play_settings& settings) {
         // Output info.
         Output_manager::get_instance().get_board_os()
             << "C++ thinks the queue is: " << queue_chars << endl
+            << "C++ thinks the presented is: " << presented_ch << endl
             << " ====================== " << endl
             << "C++ thinks the board is: " << endl
             << board << endl;
@@ -175,6 +190,7 @@ void play_99(const Play_settings& settings) {
         // Send Command
         Action action{presented, next_placement};
         Output_manager::get_instance().get_command_os() << action;
+        Output_manager::get_instance().get_board_os() << action;
 
         bool just_held_non_first = false;
         // Predict Future
@@ -189,6 +205,7 @@ void play_99(const Play_settings& settings) {
         }
         else{
             new_board.place_block(*presented, next_placement);
+            // If you cleared a row, DON'T read next time.
             if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
                     > board.get_lifetime_stats().num_placements_that_cleared_rows){
                 override_board = new_board;
@@ -232,6 +249,7 @@ void play_99(const Play_settings& settings) {
         // Send Command
         action = Action{presented, next_placement};
         Output_manager::get_instance().get_command_os() << action;
+        Output_manager::get_instance().get_board_os() << action;
     }
 }
 
