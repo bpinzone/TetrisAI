@@ -28,6 +28,10 @@ ostream& operator<<(ostream& os, const Action& action) {
     vector<string> actions_strs;
     // Switch to targetting attackers if this is our first action.
     if(Action::switch_to_attackers){
+
+        // first thing is ignored.
+        actions_strs.push_back("stick r center");
+
         actions_strs.push_back("stick r down");
         // actions_strs.push_back("wait");
         actions_strs.push_back("stick r center");

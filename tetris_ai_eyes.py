@@ -9,7 +9,7 @@ from pynput.keyboard import Listener
 
 interrupted = True
 res = (640, 480)
-fps = 30
+fps = 60
 
 def interupt(key):
     global interrupted
