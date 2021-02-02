@@ -143,6 +143,7 @@ void play_99(const Play_settings& settings) {
         char buffer;
         cin >> buffer;
         if(buffer == '!'){
+            Action::switch_to_attackers = true;
             // Do manual command.
             string command;
             getline(cin, command, '!');

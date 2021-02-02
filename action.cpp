@@ -25,15 +25,13 @@ Action::Action(const Block* _block, Placement placement)
 
 ostream& operator<<(ostream& os, const Action& action) {
 
-    static bool is_first_action = true;
-
     vector<string> actions_strs;
     // Switch to targetting attackers if this is our first action.
-    if(is_first_action){
-        is_first_action = false;
+    if(Action::switch_to_attackers){
         actions_strs.push_back("stick r down");
-        actions_strs.push_back("wait");
+        // actions_strs.push_back("wait");
         actions_strs.push_back("stick r center");
+        Action::switch_to_attackers = false;
     }
 
     if(action.hold){

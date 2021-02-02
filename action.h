@@ -13,6 +13,8 @@ public:
     Action(const Block* _block, Placement placement);
     friend std::ostream& operator<<(std::ostream& os, const Action& action);
 
+    inline static bool switch_to_attackers = true;
+
 private:
     const Block* block;
     int offset;
