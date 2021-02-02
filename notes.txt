@@ -1,9 +1,15 @@
+my gpu could hold 8e9 / 280 state objects. ~ 28.5 million
+sizeof(State) = 280
+
+could reduce to 272 --> ~29.4 million
+could reduce to 264 --> ~30.3 million
+
+
 for HDMI config: switch's screen size is 96%
 Run using while cwd is joycontrol.
     sudo python3
 
-python3 ../TetrisAI/tetris_ai_eyes.py --config ../TetrisAI/hdmi_coords.config | ../TetrisAI/main r i 4 6 999999999999 12 | sudo python3 run_controller_cli.py PRO_CONTROLLER
-
+python3 tetris_ai_eyes.py --config hdmi_coords.config | ./main r i 4 6 999999999999 12 | sudo python3 ../switch-controller/bridge.py
 
 Accurate random block generation model greatly improved play.
     +1 tetris percent
@@ -39,3 +45,5 @@ shared_mutex: Non-exclusive access. Differentiates between readers and writers
 unique_lock: Lock as a writer. Usable on mutex and shared_mutex.
 shared_lock: Lock as a reader only. Usable on shared_mutex.
 */
+
+python3 ../TetrisAI/tetris_ai_eyes.py --config ../TetrisAI/hdmi_coords.config | ../TetrisAI/main r i 4 6 999999999999 12 | sudo python3 run_controller_cli.py PRO_CONTROLLER
