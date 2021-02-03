@@ -5,7 +5,7 @@ import numpy as np
 from scipy import stats
 import sys
 import time
-from pynput.keyboard import Listener
+from pynput.keyboard import Listener, Key
 
 interrupted = True
 res = (640, 480)

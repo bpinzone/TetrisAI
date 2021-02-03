@@ -5,6 +5,13 @@ could reduce to 272 --> ~29.4 million
 could reduce to 264 --> ~30.3 million
 
 
+=====
+4 deep, pruning: ~94k comparisons per turn
+4 deep, no pruning: 1.8e6 comparisons per turn.
+
+=====
+
+
 for HDMI config: switch's screen size is 96%
 Run using while cwd is joycontrol.
     sudo python3

@@ -2,6 +2,7 @@
 
 #include "block.h"
 #include "utility.h"
+#include "global_stats.h"
 
 #include <algorithm>
 #include <cassert>
@@ -124,7 +125,7 @@ bool Board::place_block(const Block& b, Placement p){
     if(get_num_holes() - old_num_holes > max_holes_allowed_generated_at_once){
         // Moves that create more than 2 holes immediatley pruned.
         // Save time by not updating cache.
-        return false;
+        // return false;
     }
 
     update_secondary_cache();
@@ -145,6 +146,8 @@ void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
 }
 
 bool Board::has_greater_utility_than(const Board& other) const {
+
+    ++gs_num_comparisons;
 
     if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
         return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;

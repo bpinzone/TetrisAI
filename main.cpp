@@ -5,6 +5,7 @@
 #include "utility.h"
 #include "tetris_worker.h"
 #include "play_settings.h"
+#include "global_stats.h"
 
 #include <iostream>
 #include <cassert>
@@ -82,6 +83,8 @@ void play(const Play_settings& settings){
     int turn = 0;
     while(turn < settings.game_length){
 
+        cout << "Comparisons: " << gs_num_comparisons << endl;
+
         // Status
         Output_manager::get_instance().get_board_os()
             << "Turn: " << turn << "\n"
@@ -130,6 +133,8 @@ void play(const Play_settings& settings){
         Output_manager::get_instance().get_board_os() << "\n" << board << endl;
         ++turn;
     }
+
+    cout << "Comparisons per turn: " << static_cast<double>(gs_num_comparisons) / settings.game_length << endl;
 }
 
 
