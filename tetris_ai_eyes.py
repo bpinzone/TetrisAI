@@ -55,9 +55,11 @@ def show_sections(image_mask, rows, cols):
                 ) for pic_row in np.array_split(image_mask, rows, axis=0)]
             )
 
+default_video = 0 # '/dev/video0'
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--video', help='path to video file. Uses webcam otherwise', default=0)
+    parser.add_argument('-v', '--video', help='path to video file. Uses webcam otherwise', default=default_video)
     parser.add_argument('-t', '--make-template', help='Helps you create a template file. Use --video for the template video and --config for the clicked points in the template.', action='store_true')
     parser.add_argument('-c', '--config', help='path to the clicks configuration file. Creates a new_config otherwise.')
     args = parser.parse_args()
@@ -79,14 +81,16 @@ def main():
         [0, dim[1]],
         ], dtype=np.float32) for dim in (im_dims['hold_pic'], im_dims['board_pic'], im_dims['queue_pic']))
 
-    # Figure out where we are getting our images from: 
+    # Figure out where we are getting our images from:
     capture = cv2.VideoCapture(args.video)
     writer = None
     global res
     global fps
-    if args.video == 0:
-        ret = capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
-        ret = capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
+    if args.video == default_video:
+        assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
+        assert capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
+        assert capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
+        assert capture.set(cv2.CAP_PROP_FPS, int(fps))
 
     # Get the corner points of hold, board, and queue
     if args.config == None:
@@ -282,9 +286,45 @@ def main():
 
             else:
                 # Do a loop of regular tetris play.
+                t0 = time.time()
                 ret, frame = capture.read()
+
+                cv2.imshow('testing', frame)
+                cv2.waitKey(1)
+                print('test')
+
                 if writer:
                     writer.write(frame)
+                t1 = time.time()
+                print(t1 - t0)
+
+                continue # TODO remove once we are ready
+
+                downscale = 4
+
+                # TODO find these coords
+                upper_left_hold = 'TODO'
+                bottom_right_hold = 'TODO'
+                hold_pic = frame[upper_left_hold[0]:bottom_right_hold[0], upper_left_hold[1]:bottom_right_hold[1]]
+                hold_pic[::downscale, ::downscale]
+
+                upper_left_board = 'TODO'
+                bottom_right_board = 'TODO'
+                board_pic = 'TODO'
+                board_pic = frame[upper_left_board[0]:bottom_right_board[0], upper_left_board[1]:bottom_right_board[1]]
+                board_pic[::downscale, ::downscale]
+
+                # TODO consider having something special for the queue because the front of it is bigger
+                upper_right_queue = 'TODO'
+                bottom_right_queue = 'TODO'
+                queue_pic = frame[upper_left_queue[0]:bottom_right_queue[0], upper_left_queue[1]:bottom_right_queue[1]]
+                queue_pic[::downscale, ::downscale]
+
+                # TODO next, I think it's worth checking if that gameboy skin does indeed have an exact particular color for empty space
+                # if so, this gets very easy
+
+
+
 
                 if not ret:
                     print('Out of video. Exiting.')
