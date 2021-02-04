@@ -2,6 +2,7 @@
 
 #include "block.h"
 #include "utility.h"
+#include "global_stats.h"
 
 #include <algorithm>
 #include <cassert>
@@ -129,7 +130,6 @@ bool Board::place_block(const Block& b, Placement p){
         // Save time by not updating cache.
         // return false;
     }
-
     if(!is_promising()){
         return false;
     }
@@ -152,6 +152,8 @@ void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
 }
 
 bool Board::has_greater_utility_than(const Board& other) const {
+
+    ++gs_num_comparisons;
 
     if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
         return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;
