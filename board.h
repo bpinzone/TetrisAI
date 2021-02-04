@@ -5,12 +5,13 @@
 #include <utility>
 #include <optional>
 #include <array>
-#include <deque>
 
 #include <iosfwd>
 
 struct Block;
 struct Placement;
+
+constexpr int height_increase_history_length = 6;
 
 struct Board_lifetime_stats {
     int num_blocks_placed = 0;
@@ -116,8 +117,10 @@ private:
     bool is_tetrisable = false;
     // Most recent increase is in back.
     // TODO: this is now poorly named. Its relative (kind of doesn't change on line clears)
-    std::deque<int> height_increase_history;
+    int height_increase_history[height_increase_history_length] = {0};
+    int history_loc_to_evict = 0;
     int height_increase_history_sum = 0;
+    int history_populated = 0;
 
     // === Lifetime Cache ===
     // Stats that you could not infer just from viewing the board.

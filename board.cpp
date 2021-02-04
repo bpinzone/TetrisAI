@@ -15,8 +15,6 @@
 // TODO: Replace with individual using statements
 using namespace std;
 
-static constexpr int height_increase_history_length = 6;
-
 Board::Board(istream& is){
 
     string label;
@@ -338,12 +336,12 @@ bool Board::is_promising() const {
     static constexpr double perfect_growth_rate =
         cells_per_tetrimino / static_cast<double>(c_cols);
 
-    if(height_increase_history.size() < 3){
+    if(history_populated < 3){
         return true;
     }
 
     double avg_growth_rate =
-        height_increase_history_sum / static_cast<double>(height_increase_history.size());
+        height_increase_history_sum / static_cast<double>(history_populated);
 
     return avg_growth_rate < 2 * perfect_growth_rate;
 }
@@ -430,11 +428,13 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
     const int height_diff = (highest_height + num_rows_cleared_just_now) - old_highest_height;
 
     height_increase_history_sum += height_diff;
-    height_increase_history.push_back(height_diff);
+    height_increase_history_sum -= height_increase_history[history_loc_to_evict];
+    height_increase_history[history_loc_to_evict] = height_diff;
 
-    if(height_increase_history.size() > height_increase_history_length){
-        height_increase_history_sum -= height_increase_history.front();
-        height_increase_history.pop_front();
+    ++history_loc_to_evict;
+    history_loc_to_evict %= height_increase_history_length;
+    if(history_populated < height_increase_history_length){
+        ++history_populated;
     }
 }
 

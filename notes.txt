@@ -1,12 +1,9 @@
-Timing:
-    time ./main w 123 5 6 5 12
-    trad pruning: 1.77s
-    no pruning: 39.54s
-    new pruning: 18.338s
+TIMING for games of small length is NOT representative anymore!!!
 
 Decisions decisions:
     ./main w 123 4 6 100 1
     no differences in play with length=6, auto length = 3, growth thresh=2
+    plays same game, but 4.6268420551x less comparisons on average
 
 =======
 Steven's notes on Jeff's Eyes
