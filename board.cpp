@@ -9,9 +9,12 @@
 #include <utility>
 #include <numeric>
 #include <iostream>
+#include <cmath>
 
 // TODO: Replace with individual using statements
 using namespace std;
+
+static constexpr int height_increase_history_length = 6;
 
 Board::Board(istream& is){
 
@@ -48,7 +51,7 @@ Board::Board(istream& is){
     }
     num_cells_filled = board.count();
 
-    update_secondary_cache();
+    update_secondary_cache(0);
 
 }
 
@@ -124,10 +127,14 @@ bool Board::place_block(const Block& b, Placement p){
     if(get_num_holes() - old_num_holes > max_holes_allowed_generated_at_once){
         // Moves that create more than 2 holes immediatley pruned.
         // Save time by not updating cache.
+        // return false;
+    }
+
+    if(!is_promising()){
         return false;
     }
 
-    update_secondary_cache();
+    update_secondary_cache(num_rows_cleared_just_now);
     update_lifetime_cache(num_rows_cleared_just_now);
     just_swapped = false;
     return true;
@@ -323,6 +330,22 @@ int Board::compute_height(size_t col_x) const {
     return height;
 }
 
+bool Board::is_promising() const {
+
+    static constexpr int cells_per_tetrimino = 4;
+    static constexpr double perfect_growth_rate =
+        cells_per_tetrimino / static_cast<double>(c_cols);
+
+    if(height_increase_history.size() < 3){
+        return true;
+    }
+
+    double avg_growth_rate =
+        height_increase_history_sum / static_cast<double>(height_increase_history.size());
+
+    return avg_growth_rate < 2 * perfect_growth_rate;
+}
+
 int Board::get_row_after_drop(const Block& b, Placement p) const {
 
     const auto& contour = b.maps[p.get_rotation()].contour;
@@ -355,10 +378,12 @@ int Board::get_height_map_reduction(int deleted_row, int query_col) const {
     return reductions;
 }
 
-void Board::update_secondary_cache() {
+void Board::update_secondary_cache(int num_rows_cleared_just_now) {
 
     static const int impossibly_high_wall = c_rows + 5;
     static const int min_depth_considered_trench = 3;
+
+    const int old_highest_height = highest_height;
 
     num_trenches = 0;
     at_least_one_side_clear = (height_map[0] == 0) || (height_map[c_cols - 1] == 0);
@@ -396,6 +421,19 @@ void Board::update_secondary_cache() {
         num_trenches == 1
         && lowest_height == some_trench_height
         && second_lowest_height >= some_trench_height + 4;
+
+    // Update height history
+    // TODO: any more subtleties with this math???
+    // Yes: see ipad screenshot.
+    const int height_diff = (highest_height + num_rows_cleared_just_now) - old_highest_height;
+
+    height_increase_history_sum += height_diff;
+    height_increase_history.push_back(height_diff);
+
+    if(height_increase_history.size() > height_increase_history_length){
+        height_increase_history_sum -= height_increase_history.front();
+        height_increase_history.pop_front();
+    }
 }
 
 void Board::update_lifetime_cache(int num_rows_cleared_just_now){

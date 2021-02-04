@@ -5,6 +5,7 @@
 #include <utility>
 #include <optional>
 #include <array>
+#include <deque>
 
 #include <iosfwd>
 
@@ -74,6 +75,7 @@ private:
     bool at(size_t row, size_t col) const;
     bool is_row_full(int row) const;
     int compute_height(size_t col_x) const;
+    bool is_promising() const;
 
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.
@@ -82,7 +84,7 @@ private:
     int get_height_map_reduction(int deleted_row, int query_col) const;
 
     // Fundamental and Primary cache data must be up to date before calling update second/life cache.
-    void update_secondary_cache();
+    void update_secondary_cache(int num_rows_cleared_just_now);
     void update_lifetime_cache(int num_rows_cleared_just_now);
 
     // MEMBERS
@@ -90,7 +92,7 @@ private:
     Grid_t board;
 
     const Block* current_hold = nullptr;
-    bool just_swapped = true;
+    bool just_swapped = false;
 
     // === Primary Cache. Should be updated in place_block() and clear_row() ===
     std::array<int, c_cols> height_map = {0};
@@ -112,6 +114,10 @@ private:
     int sum_of_squared_heights = 0;
     // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
     bool is_tetrisable = false;
+    // Most recent increase is in back.
+    // TODO: this is now poorly named. Its relative (kind of doesn't change on line clears)
+    std::deque<int> height_increase_history;
+    int height_increase_history_sum = 0;
 
     // === Lifetime Cache ===
     // Stats that you could not infer just from viewing the board.
