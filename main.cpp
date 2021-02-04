@@ -32,7 +32,7 @@ void play(const Play_settings& settings);
 void play_99(const Play_settings& settings);
 
 Placement get_best_move(
-        const Board& board,
+        Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
         int num_placements_to_look_ahead);
@@ -260,10 +260,13 @@ void play_99(const Play_settings& settings) {
 }
 
 Placement get_best_move(
-        const Board& board,
+        Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
         int num_placements_to_look_ahead){
+
+
+    board.reset_ancestor_smallest_max_height();
 
     Tetris_worker::assert_all_free();
 
@@ -273,5 +276,9 @@ Placement get_best_move(
     Tetris_worker::distribute_new_work_and_wait_till_all_free(move(root_state));
 
     State& best_state = Tetris_worker::get_best_reachable_state();
+
+    // cout << "This is the worst board I can imagine!\n";
+    // cout << best_state << "\n";
+
     return best_state.get_placement_taken_from_root();
 }

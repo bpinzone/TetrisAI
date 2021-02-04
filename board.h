@@ -11,7 +11,7 @@
 struct Block;
 struct Placement;
 
-constexpr int height_increase_history_length = 6;
+constexpr int max_allowable_height_increase = 3;
 
 struct Board_lifetime_stats {
     int num_blocks_placed = 0;
@@ -43,6 +43,7 @@ public:
     bool place_block(const Block& b, Placement p);
     const Block* swap_block(const Block& b);
     void set_lifetime_stats(const Board_lifetime_stats& new_board_lifetime_stats);
+    void reset_ancestor_smallest_max_height();
 
     // Non-modifying
 
@@ -115,16 +116,13 @@ private:
     int sum_of_squared_heights = 0;
     // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
     bool is_tetrisable = false;
-    // Most recent increase is in back.
-    // TODO: this is now poorly named. Its relative (kind of doesn't change on line clears)
-    int height_increase_history[height_increase_history_length] = {0};
-    int history_loc_to_evict = 0;
-    int height_increase_history_sum = 0;
-    int history_populated = 0;
 
     // === Lifetime Cache ===
     // Stats that you could not infer just from viewing the board.
     Board_lifetime_stats lifetime_stats;
+
+    // === Ancestral Data. Choose carefully when to manipulate this. ===
+    int ancestor_smallest_max_height = 0;
 
 };
 

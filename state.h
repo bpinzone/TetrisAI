@@ -6,6 +6,8 @@
 
 #include <deque>
 #include <optional>
+#include <iosfwd>
+
 
 // In addition to the board, has the block queue iterators, presented block, and house keeping for search logistics.
 class State {
@@ -13,6 +15,8 @@ class State {
 public:
 
     using Tetris_queue_t = std::deque<const Block*>;
+
+    friend std::ostream& operator<<(std::ostream& os, const State& state);
 
     State(
         const Board& _board,
@@ -53,6 +57,7 @@ public:
 
     State& operator=(State&& other) = default;
     State(State&& other) = default;
+
 
 private:
 

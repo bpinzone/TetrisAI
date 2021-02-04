@@ -1,7 +1,10 @@
 #include "state.h"
 #include "block.h"
 
+#include <iostream>
+
 using std::optional;
+using std::ostream;
 
 // === STATE ===
 
@@ -129,4 +132,11 @@ optional<Placement> State::Placement_generator::operator()(){
     exhausted = true;
     // Returning the hold placement. 0's are never read.
     return {{0, 0, true}};
+}
+
+ostream& operator<<(ostream& os, const State& state){
+
+    os << state.board << "\n";
+
+    return os;
 }

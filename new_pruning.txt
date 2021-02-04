@@ -27,7 +27,7 @@ Holding: Green
 All clears: 0
 Tetrises: 0
 
-Comparisons: 17798
+Comparisons: 109839
 Turn: 1
 Tetris percent:-nan %
 Presented with: Cyan
@@ -56,7 +56,7 @@ Holding: Green
 All clears: 0
 Tetrises: 0
 
-Comparisons: 26671
+Comparisons: 168651
 Turn: 2
 Tetris percent:0 %
 Presented with: Blue
@@ -85,7 +85,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 0
 
-Comparisons: 37221
+Comparisons: 630873
 Turn: 3
 Tetris percent:0 %
 Presented with: Green
@@ -114,7 +114,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 0
 
-Comparisons: 42658
+Comparisons: 858658
 Turn: 4
 Tetris percent:0 %
 Presented with: Red
@@ -143,7 +143,7 @@ Holding: Red
 All clears: 0
 Tetrises: 0
 
-Comparisons: 61510
+Comparisons: 2078706
 Turn: 5
 Tetris percent:0 %
 Presented with: Blue
@@ -172,7 +172,7 @@ Holding: Red
 All clears: 0
 Tetrises: 0
 
-Comparisons: 71498
+Comparisons: 2708590
 Turn: 6
 Tetris percent:0 %
 Presented with: Purple
@@ -201,7 +201,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 0
 
-Comparisons: 100305
+Comparisons: 3220240
 Turn: 7
 Tetris percent:0 %
 Presented with: Red
@@ -230,7 +230,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 0
 
-Comparisons: 113886
+Comparisons: 3452112
 Turn: 8
 Tetris percent:0 %
 Presented with: Yellow
@@ -259,7 +259,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 0
 
-Comparisons: 203842
+Comparisons: 4538652
 Turn: 9
 Tetris percent:0 %
 Presented with: Purple
@@ -288,7 +288,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 0
 
-Comparisons: 247847
+Comparisons: 5219956
 Turn: 10
 Tetris percent:0 %
 Presented with: Orange
@@ -317,7 +317,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 0
 
-Comparisons: 557998
+Comparisons: 5644115
 Turn: 11
 Tetris percent:0 %
 Presented with: Yellow
@@ -346,7 +346,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 0
 
-Comparisons: 697856
+Comparisons: 5839574
 Turn: 12
 Tetris percent:0 %
 Presented with: Purple
@@ -375,7 +375,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 0
 
-Comparisons: 1870770
+Comparisons: 6242130
 Turn: 13
 Tetris percent:0 %
 Presented with: Orange
@@ -404,7 +404,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 0
 
-Comparisons: 2411777
+Comparisons: 6443850
 Turn: 14
 Tetris percent:0 %
 Presented with: Green
@@ -433,7 +433,7 @@ Holding: Green
 All clears: 0
 Tetrises: 0
 
-Comparisons: 4505972
+Comparisons: 7681042
 Turn: 15
 Tetris percent:0 %
 Presented with: Purple
@@ -462,7 +462,7 @@ Holding: Green
 All clears: 0
 Tetrises: 0
 
-Comparisons: 5619199
+Comparisons: 8342155
 Turn: 16
 Tetris percent:0 %
 Presented with: Red
@@ -491,7 +491,7 @@ Holding: Red
 All clears: 0
 Tetrises: 0
 
-Comparisons: 6383501
+Comparisons: 9481067
 Turn: 17
 Tetris percent:0 %
 Presented with: Green
@@ -520,7 +520,7 @@ Holding: Red
 All clears: 0
 Tetrises: 0
 
-Comparisons: 6741391
+Comparisons: 10044086
 Turn: 18
 Tetris percent:0 %
 Presented with: Blue
@@ -549,7 +549,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 0
 
-Comparisons: 7255043
+Comparisons: 10750155
 Turn: 19
 Tetris percent:0 %
 Presented with: Red
@@ -578,7 +578,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 0
 
-Comparisons: 7509505
+Comparisons: 11096832
 Turn: 20
 Tetris percent:0 %
 Presented with: Orange
@@ -607,7 +607,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 0
 
-Comparisons: 8048793
+Comparisons: 12409356
 Turn: 21
 Tetris percent:0 %
 Presented with: Blue
@@ -636,7 +636,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 0
 
-Comparisons: 8308590
+Comparisons: 13041743
 Turn: 22
 Tetris percent:0 %
 Presented with: Yellow
@@ -665,7 +665,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 0
 
-Comparisons: 8753827
+Comparisons: 13539736
 Turn: 23
 Tetris percent:0 %
 Presented with: Orange
@@ -694,7 +694,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 0
 
-Comparisons: 9014257
+Comparisons: 13843990
 Turn: 24
 Tetris percent:0 %
 Presented with: Cyan
@@ -723,7 +723,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 1
 
-Comparisons: 9436666
+Comparisons: 14006160
 Turn: 25
 Tetris percent:7.69231 %
 Presented with: Orange
@@ -752,7 +752,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 1
 
-Comparisons: 10014659
+Comparisons: 14136463
 Turn: 26
 Tetris percent:7.69231 %
 Presented with: Yellow
@@ -781,7 +781,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 1
 
-Comparisons: 10309594
+Comparisons: 14202604
 Turn: 27
 Tetris percent:7.14286 %
 Presented with: Red
@@ -810,7 +810,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 1
 
-Comparisons: 11878004
+Comparisons: 14404640
 Turn: 28
 Tetris percent:6.66667 %
 Presented with: Cyan
@@ -839,7 +839,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 1
 
-Comparisons: 13092470
+Comparisons: 14941669
 Turn: 29
 Tetris percent:6.25 %
 Presented with: Yellow
@@ -868,7 +868,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 1
 
-Comparisons: 14523919
+Comparisons: 15368765
 Turn: 30
 Tetris percent:5.88235 %
 Presented with: Purple
@@ -897,7 +897,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 1
 
-Comparisons: 15500832
+Comparisons: 16581777
 Turn: 31
 Tetris percent:5.88235 %
 Presented with: Orange
@@ -926,7 +926,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 1
 
-Comparisons: 15975542
+Comparisons: 17183104
 Turn: 32
 Tetris percent:5.55556 %
 Presented with: Green
@@ -955,7 +955,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 1
 
-Comparisons: 16431304
+Comparisons: 18353875
 Turn: 33
 Tetris percent:5.26316 %
 Presented with: Blue
@@ -984,7 +984,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 1
 
-Comparisons: 16885251
+Comparisons: 19251732
 Turn: 34
 Tetris percent:5.26316 %
 Presented with: Purple
@@ -1013,7 +1013,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 1
 
-Comparisons: 17119136
+Comparisons: 19692247
 Turn: 35
 Tetris percent:5 %
 Presented with: Yellow
@@ -1042,7 +1042,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 1
 
-Comparisons: 17862725
+Comparisons: 20114742
 Turn: 36
 Tetris percent:5 %
 Presented with: Blue
@@ -1071,7 +1071,7 @@ XXX.......
 All clears: 0
 Tetrises: 1
 
-Comparisons: 18301844
+Comparisons: 20379457
 Turn: 37
 Tetris percent:4.7619 %
 Presented with: Red
@@ -1100,7 +1100,7 @@ XXX.......
 All clears: 0
 Tetrises: 1
 
-Comparisons: 19053433
+Comparisons: 21075274
 Turn: 38
 Tetris percent:4.7619 %
 Presented with: Yellow
@@ -1129,7 +1129,7 @@ XXX..XX...
 All clears: 0
 Tetrises: 1
 
-Comparisons: 19429081
+Comparisons: 21389804
 Turn: 39
 Tetris percent:4.54545 %
 Presented with: Blue
@@ -1158,7 +1158,7 @@ XXXXXXX...
 All clears: 0
 Tetrises: 1
 
-Comparisons: 20622769
+Comparisons: 23310482
 Turn: 40
 Tetris percent:4.34783 %
 Presented with: Purple
@@ -1187,7 +1187,7 @@ XXXXXXX...
 All clears: 0
 Tetrises: 1
 
-Comparisons: 21496585
+Comparisons: 24321495
 Turn: 41
 Tetris percent:4.34783 %
 Presented with: Red
@@ -1216,7 +1216,7 @@ XXXXXXX.XX
 All clears: 0
 Tetrises: 1
 
-Comparisons: 21915787
+Comparisons: 24810946
 Turn: 42
 Tetris percent:4.16667 %
 Presented with: Orange
@@ -1245,7 +1245,7 @@ XXXXXXX.XX
 All clears: 0
 Tetrises: 1
 
-Comparisons: 23575377
+Comparisons: 25836926
 Turn: 43
 Tetris percent:4.16667 %
 Presented with: Purple
@@ -1274,7 +1274,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 1
 
-Comparisons: 24377453
+Comparisons: 26328229
 Turn: 44
 Tetris percent:4 %
 Presented with: Green
@@ -1303,7 +1303,7 @@ Holding: Green
 All clears: 0
 Tetrises: 1
 
-Comparisons: 26054808
+Comparisons: 28066062
 Turn: 45
 Tetris percent:4 %
 Presented with: Orange
@@ -1332,7 +1332,7 @@ Holding: Green
 All clears: 0
 Tetrises: 1
 
-Comparisons: 27027258
+Comparisons: 29086923
 Turn: 46
 Tetris percent:3.84615 %
 Presented with: Cyan
@@ -1361,7 +1361,7 @@ Holding: Green
 All clears: 0
 Tetrises: 2
 
-Comparisons: 28181113
+Comparisons: 29751867
 Turn: 47
 Tetris percent:7.40741 %
 Presented with: Orange
@@ -1390,7 +1390,7 @@ Holding: Green
 All clears: 0
 Tetrises: 2
 
-Comparisons: 29645598
+Comparisons: 30415589
 Turn: 48
 Tetris percent:7.14286 %
 Presented with: Purple
@@ -1419,7 +1419,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 2
 
-Comparisons: 30543759
+Comparisons: 30635923
 Turn: 49
 Tetris percent:7.14286 %
 Presented with: Green
@@ -1448,7 +1448,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 2
 
-Comparisons: 30978922
+Comparisons: 30740300
 Turn: 50
 Tetris percent:6.89655 %
 Presented with: Yellow
@@ -1477,7 +1477,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 2
 
-Comparisons: 32024328
+Comparisons: 31257305
 Turn: 51
 Tetris percent:6.66667 %
 Presented with: Cyan
@@ -1506,7 +1506,7 @@ Holding: Cyan
 All clears: 0
 Tetrises: 2
 
-Comparisons: 33538942
+Comparisons: 31876253
 Turn: 52
 Tetris percent:6.66667 %
 Presented with: Purple
@@ -1535,7 +1535,7 @@ Holding: Cyan
 All clears: 0
 Tetrises: 2
 
-Comparisons: 34373743
+Comparisons: 32231698
 Turn: 53
 Tetris percent:6.45161 %
 Presented with: Red
@@ -1564,7 +1564,7 @@ Holding: Cyan
 All clears: 0
 Tetrises: 2
 
-Comparisons: 34717111
+Comparisons: 32770913
 Turn: 54
 Tetris percent:6.25 %
 Presented with: Blue
@@ -1593,7 +1593,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 2
 
-Comparisons: 35036095
+Comparisons: 33043931
 Turn: 55
 Tetris percent:6.25 %
 Presented with: Cyan
@@ -1622,7 +1622,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 3
 
-Comparisons: 35156455
+Comparisons: 33168538
 Turn: 56
 Tetris percent:9.09091 %
 Presented with: Green
@@ -1651,7 +1651,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 35726833
+Comparisons: 33429668
 Turn: 57
 Tetris percent:9.09091 %
 Presented with: Blue
@@ -1680,7 +1680,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 36010652
+Comparisons: 33563193
 Turn: 58
 Tetris percent:8.82353 %
 Presented with: Yellow
@@ -1709,7 +1709,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 36557455
+Comparisons: 33891635
 Turn: 59
 Tetris percent:8.57143 %
 Presented with: Red
@@ -1738,7 +1738,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 37330376
+Comparisons: 34210894
 Turn: 60
 Tetris percent:8.33333 %
 Presented with: Cyan
@@ -1767,7 +1767,7 @@ Holding: Cyan
 All clears: 0
 Tetrises: 3
 
-Comparisons: 37913305
+Comparisons: 34942873
 Turn: 61
 Tetris percent:8.33333 %
 Presented with: Green
@@ -1796,7 +1796,7 @@ Holding: Cyan
 All clears: 0
 Tetrises: 3
 
-Comparisons: 38296586
+Comparisons: 35379186
 Turn: 62
 Tetris percent:8.10811 %
 Presented with: Purple
@@ -1825,7 +1825,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 3
 
-Comparisons: 39614102
+Comparisons: 36366886
 Turn: 63
 Tetris percent:8.10811 %
 Presented with: Cyan
@@ -1854,7 +1854,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 3
 
-Comparisons: 40116417
+Comparisons: 36809880
 Turn: 64
 Tetris percent:7.89474 %
 Presented with: Green
@@ -1883,7 +1883,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 41440189
+Comparisons: 39002506
 Turn: 65
 Tetris percent:7.89474 %
 Presented with: Purple
@@ -1912,7 +1912,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 42188443
+Comparisons: 40215759
 Turn: 66
 Tetris percent:7.69231 %
 Presented with: Blue
@@ -1941,7 +1941,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 43162752
+Comparisons: 40964096
 Turn: 67
 Tetris percent:7.5 %
 Presented with: Orange
@@ -1970,7 +1970,7 @@ Holding: Green
 All clears: 0
 Tetrises: 3
 
-Comparisons: 44079687
+Comparisons: 41415162
 Turn: 68
 Tetris percent:7.31707 %
 Presented with: Orange
@@ -1999,7 +1999,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 3
 
-Comparisons: 45420003
+Comparisons: 41634464
 Turn: 69
 Tetris percent:7.31707 %
 Presented with: Green
@@ -2028,7 +2028,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 3
 
-Comparisons: 46063203
+Comparisons: 41740129
 Turn: 70
 Tetris percent:7.14286 %
 Presented with: Yellow
@@ -2057,7 +2057,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 3
 
-Comparisons: 47384498
+Comparisons: 42353114
 Turn: 71
 Tetris percent:7.14286 %
 Presented with: Orange
@@ -2086,7 +2086,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 3
 
-Comparisons: 48063431
+Comparisons: 42683603
 Turn: 72
 Tetris percent:6.97674 %
 Presented with: Blue
@@ -2115,7 +2115,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 3
 
-Comparisons: 48483102
+Comparisons: 43148852
 Turn: 73
 Tetris percent:6.97674 %
 Presented with: Yellow
@@ -2144,7 +2144,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 3
 
-Comparisons: 48683633
+Comparisons: 43364360
 Turn: 74
 Tetris percent:6.81818 %
 Presented with: Cyan
@@ -2173,7 +2173,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 4
 
-Comparisons: 49008009
+Comparisons: 43895749
 Turn: 75
 Tetris percent:8.88889 %
 Presented with: Green
@@ -2202,7 +2202,7 @@ Holding: Blue
 All clears: 0
 Tetrises: 4
 
-Comparisons: 49835267
+Comparisons: 44425091
 Turn: 76
 Tetris percent:8.69565 %
 Presented with: Red
@@ -2231,7 +2231,7 @@ Holding: Red
 All clears: 0
 Tetrises: 4
 
-Comparisons: 51042348
+Comparisons: 44762491
 Turn: 77
 Tetris percent:8.69565 %
 Presented with: Blue
@@ -2260,7 +2260,7 @@ Holding: Red
 All clears: 0
 Tetrises: 4
 
-Comparisons: 51636716
+Comparisons: 44944350
 Turn: 78
 Tetris percent:8.51064 %
 Presented with: Purple
@@ -2289,7 +2289,7 @@ Holding: Red
 All clears: 0
 Tetrises: 4
 
-Comparisons: 52246343
+Comparisons: 45232796
 Turn: 79
 Tetris percent:8.33333 %
 Presented with: Yellow
@@ -2318,7 +2318,7 @@ Holding: Red
 All clears: 0
 Tetrises: 4
 
-Comparisons: 52448794
+Comparisons: 45298171
 Turn: 80
 Tetris percent:8.16327 %
 Presented with: Cyan
@@ -2347,7 +2347,7 @@ Holding: Red
 All clears: 0
 Tetrises: 4
 
-Comparisons: 52765248
+Comparisons: 45400081
 Turn: 81
 Tetris percent:8 %
 Presented with: Red
@@ -2376,7 +2376,7 @@ Holding: Red
 All clears: 0
 Tetrises: 4
 
-Comparisons: 53142154
+Comparisons: 45644692
 Turn: 82
 Tetris percent:7.84314 %
 Presented with: Green
@@ -2405,7 +2405,7 @@ Holding: Red
 All clears: 0
 Tetrises: 4
 
-Comparisons: 54201627
+Comparisons: 47275167
 Turn: 83
 Tetris percent:7.69231 %
 Presented with: Purple
@@ -2434,7 +2434,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 4
 
-Comparisons: 55114237
+Comparisons: 48581995
 Turn: 84
 Tetris percent:7.69231 %
 Presented with: Red
@@ -2463,7 +2463,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 4
 
-Comparisons: 55593279
+Comparisons: 49254378
 Turn: 85
 Tetris percent:7.54717 %
 Presented with: Blue
@@ -2492,7 +2492,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 4
 
-Comparisons: 56494295
+Comparisons: 52404056
 Turn: 86
 Tetris percent:7.40741 %
 Presented with: Orange
@@ -2521,7 +2521,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 4
 
-Comparisons: 57511183
+Comparisons: 53691633
 Turn: 87
 Tetris percent:7.27273 %
 Presented with: Red
@@ -2550,7 +2550,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 4
 
-Comparisons: 58615808
+Comparisons: 54161852
 Turn: 88
 Tetris percent:7.14286 %
 Presented with: Blue
@@ -2579,7 +2579,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 4
 
-Comparisons: 60090792
+Comparisons: 54480906
 Turn: 89
 Tetris percent:7.01754 %
 Presented with: Cyan
@@ -2608,7 +2608,7 @@ Holding: Purple
 All clears: 0
 Tetrises: 5
 
-Comparisons: 60956481
+Comparisons: 54958116
 Turn: 90
 Tetris percent:8.62069 %
 Presented with: Green
@@ -2637,7 +2637,7 @@ Holding: Green
 All clears: 0
 Tetrises: 5
 
-Comparisons: 62688489
+Comparisons: 55646819
 Turn: 91
 Tetris percent:8.62069 %
 Presented with: Purple
@@ -2666,7 +2666,7 @@ Holding: Green
 All clears: 0
 Tetrises: 5
 
-Comparisons: 63690383
+Comparisons: 56049658
 Turn: 92
 Tetris percent:8.47458 %
 Presented with: Yellow
@@ -2695,7 +2695,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 5
 
-Comparisons: 64339310
+Comparisons: 56702099
 Turn: 93
 Tetris percent:8.47458 %
 Presented with: Green
@@ -2724,7 +2724,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 5
 
-Comparisons: 64705510
+Comparisons: 57077687
 Turn: 94
 Tetris percent:8.33333 %
 Presented with: Purple
@@ -2753,7 +2753,7 @@ Holding: Yellow
 All clears: 0
 Tetrises: 5
 
-Comparisons: 65841158
+Comparisons: 57695125
 Turn: 95
 Tetris percent:8.19672 %
 Presented with: Orange
@@ -2782,7 +2782,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 5
 
-Comparisons: 66500736
+Comparisons: 57931310
 Turn: 96
 Tetris percent:8.19672 %
 Presented with: Yellow
@@ -2811,7 +2811,7 @@ Holding: Orange
 All clears: 0
 Tetrises: 5
 
-Comparisons: 66877183
+Comparisons: 58040933
 Turn: 97
 Tetris percent:8.06452 %
 Presented with: Green
@@ -2840,7 +2840,7 @@ Holding: Green
 All clears: 0
 Tetrises: 5
 
-Comparisons: 69034924
+Comparisons: 59494160
 Turn: 98
 Tetris percent:8.06452 %
 Presented with: Orange
@@ -2869,7 +2869,7 @@ Holding: Green
 All clears: 0
 Tetrises: 5
 
-Comparisons: 70225637
+Comparisons: 60309617
 Turn: 99
 Tetris percent:7.93651 %
 Presented with: Purple
@@ -2898,4 +2898,4 @@ Holding: Green
 All clears: 0
 Tetrises: 5
 
-Comparisons per turn: 714148
+Comparisons per turn: 622707

@@ -51,6 +51,7 @@ Board::Board(istream& is){
     num_cells_filled = board.count();
 
     update_secondary_cache(0);
+    ancestor_smallest_max_height = highest_height;
 
 }
 
@@ -121,13 +122,14 @@ bool Board::place_block(const Block& b, Placement p){
         }
     }
 
+    update_secondary_cache(num_rows_cleared_just_now);
+
     int new_holes = get_num_holes() - old_num_holes;
     // Don't update cache if we're not promising
     if(!is_promising(new_holes)){
         return false;
     }
 
-    update_secondary_cache(num_rows_cleared_just_now);
     update_lifetime_cache(num_rows_cleared_just_now);
     just_swapped = false;
     return true;
@@ -142,6 +144,10 @@ const Block* Board::swap_block(const Block& b){
 
 void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
     lifetime_stats = new_lifetime_stats;
+}
+
+void Board::reset_ancestor_smallest_max_height() {
+    ancestor_smallest_max_height = highest_height;
 }
 
 bool Board::has_greater_utility_than(const Board& other) const {
@@ -327,9 +333,6 @@ int Board::compute_height(size_t col_x) const {
 
 bool Board::is_promising(int num_new_holes) const {
 
-    static constexpr int cells_per_tetrimino = 4;
-    static constexpr double perfect_growth_rate =
-        cells_per_tetrimino / static_cast<double>(c_cols);
 
     // return true;
 
@@ -337,14 +340,8 @@ bool Board::is_promising(int num_new_holes) const {
     //     return false;
     // }
 
-    if(history_populated < 3){
-        return true;
-    }
+    return highest_height - ancestor_smallest_max_height <= max_allowable_height_increase;
 
-    double avg_growth_rate =
-        height_increase_history_sum / static_cast<double>(history_populated);
-
-    return avg_growth_rate < 2 * perfect_growth_rate;
 }
 
 int Board::get_row_after_drop(const Block& b, Placement p) const {
@@ -423,20 +420,7 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
         && lowest_height == some_trench_height
         && second_lowest_height >= some_trench_height + 4;
 
-    // Update height history
-    // TODO: any more subtleties with this math???
-    // Yes: see ipad screenshot.
-    const int height_diff = (highest_height + num_rows_cleared_just_now) - old_highest_height;
-
-    height_increase_history_sum += height_diff;
-    height_increase_history_sum -= height_increase_history[history_loc_to_evict];
-    height_increase_history[history_loc_to_evict] = height_diff;
-
-    ++history_loc_to_evict;
-    history_loc_to_evict %= height_increase_history_length;
-    if(history_populated < height_increase_history_length){
-        ++history_populated;
-    }
+    ancestor_smallest_max_height = min(ancestor_smallest_max_height, highest_height);
 }
 
 void Board::update_lifetime_cache(int num_rows_cleared_just_now){
