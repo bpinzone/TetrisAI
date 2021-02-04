@@ -121,14 +121,9 @@ bool Board::place_block(const Block& b, Placement p){
         }
     }
 
+    int new_holes = get_num_holes() - old_num_holes;
     // Don't update cache if we're not promising
-    static const int max_holes_allowed_generated_at_once = 1;
-    if(get_num_holes() - old_num_holes > max_holes_allowed_generated_at_once){
-        // Moves that create more than 2 holes immediatley pruned.
-        // Save time by not updating cache.
-        // return false;
-    }
-    if(!is_promising()){
+    if(!is_promising(new_holes)){
         return false;
     }
 
@@ -330,11 +325,17 @@ int Board::compute_height(size_t col_x) const {
     return height;
 }
 
-bool Board::is_promising() const {
+bool Board::is_promising(int num_new_holes) const {
 
     static constexpr int cells_per_tetrimino = 4;
     static constexpr double perfect_growth_rate =
         cells_per_tetrimino / static_cast<double>(c_cols);
+
+    // return true;
+
+    // if(num_new_holes > 1){
+    //     return false;
+    // }
 
     if(history_populated < 3){
         return true;

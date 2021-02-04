@@ -76,7 +76,7 @@ private:
     bool at(size_t row, size_t col) const;
     bool is_row_full(int row) const;
     int compute_height(size_t col_x) const;
-    bool is_promising() const;
+    bool is_promising(int num_new_holes) const;
 
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.
