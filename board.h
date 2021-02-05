@@ -11,8 +11,6 @@
 struct Block;
 struct Placement;
 
-constexpr int max_allowable_height_increase = 3;
-
 struct Board_lifetime_stats {
     int num_blocks_placed = 0;
     int num_placements_that_cleared_rows = 0;

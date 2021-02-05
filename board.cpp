@@ -10,10 +10,11 @@
 #include <utility>
 #include <numeric>
 #include <iostream>
-#include <cmath>
 
 // TODO: Replace with individual using statements
 using namespace std;
+
+static constexpr int max_allowable_height_increase = 3;
 
 Board::Board(istream& is){
 
