@@ -8,16 +8,12 @@ Decisions decisions:
 =======
 Steven's notes on Jeff's Eyes
 
-1. Test to see if we can really read at 60 fps from the capture card
-2. Make sure that coords are stored at full size of the image, probably
-3. Scale the coords and the image down as far as possible
-4. Don't get 4 corners, get 2 corners and cut to avoid the image transformation
-5. Simplify the black/white logic
-6. Consider whether we can detect stars / detect specific colors and ignore stars
-7. Better viz for debugging (specifically, I'd like to overlay what we see onto the board and the queue and the hold)
-8. Timing logic for testing speed throughput
-9. Can we get rid of the templates or something?
-10. Can we use a simple theme and detect the background green color to ignore stars more easily?
+?. delete a lot of python.
+1. Better viz
+2. Remove the stability requirement (and simplify queue reading logic)
+3. Speed (python? Arduino?)
+4. Find a way to ignore stars
+5. frame.read() in another thread???
 
 remove math based on: perfect shape picture. "Perfect" pixel values.
 pre-empt on cpp side.
