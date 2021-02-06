@@ -39,9 +39,13 @@ def show_sections(image_mask, rows, cols):
 
 default_video = 0 # '/dev/video0'
 
+threshold_to_not_be_empty = 80
+cutoff_to_not_be_stars = 210
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--video', help='path to video file. Uses webcam otherwise', default=default_video)
+    parser.add_argument('-d', '--big-debug-image', help='Show a bigger debug image (slow)', action='store_true')
     # parser.add_argument('-t', '--make-template', help='Helps you create a template file. Use --video for the template video and --config for the clicked points in the template.', action='store_true')
     # TODO needed?
     # parser.add_argument('-c', '--config', help='path to the clicks configuration file. Creates a new_config otherwise.')
@@ -59,17 +63,18 @@ def main():
         assert capture.set(cv2.CAP_PROP_FPS, int(fps))
 
 
-    # TODO consider grayscale conversion
-    # TODO consider searching for > 10% black for a cell to be empty
     def get_bw_mask(image):
-        return np.sum(image, axis=2) > 250
+        return np.logical_and(image > threshold_to_not_be_empty, image < cutoff_to_not_be_stars)
+
+    def is_board_obscured(board):
+        return (board > cutoff_to_not_be_stars).sum() / board.size > .03 # if part of the board is bright, consider it obscured
 
     colors = ['r', 'o', 'y', 'g', 'b', 'p', 'c']
 
-    hold_templates = [get_bw_mask(cv2.imread('template_images/hold_' + l + '.png')) for l in colors]
+    hold_templates = [get_bw_mask(cv2.imread('template_images/hold_' + l + '.png', cv2.IMREAD_GRAYSCALE)) for l in colors]
 
     # TODO: keep bw mask here?
-    queue_mask_templates = [[get_bw_mask(cv2.imread('template_images/queue_' + str(i) + '_' + l + '.png')) for l in colors] for i in range(6)]
+    queue_mask_templates = [[get_bw_mask(cv2.imread('template_images/queue_' + str(i) + '_' + l + '.png', cv2.IMREAD_GRAYSCALE)) for l in colors] for i in range(6)]
 
     # Any history needs to be reset in the interrupt 'play' option too
     frame_count = 0
@@ -171,8 +176,11 @@ def main():
                 #         cv2.imwrite('template_images/queue_' + str(i) + '_' + c + '.png', individual_queue_pics[i])
                 # End getting template images
 
+                hold_gray = cv2.cvtColor(hold_pic, cv2.COLOR_BGR2GRAY)
+                board_gray = cv2.cvtColor(board_pic, cv2.COLOR_BGR2GRAY)
+                queue_gray = cv2.cvtColor(queue_pic, cv2.COLOR_BGR2GRAY)
 
-                hold_mask, board_mask, queue_mask = get_bw_mask(hold_pic), get_bw_mask(board_pic), get_bw_mask(queue_pic)
+                hold_mask, board_mask, queue_mask = get_bw_mask(hold_gray), get_bw_mask(board_gray), get_bw_mask(queue_gray)
 
                 individual_queue_masks = np.array_split(queue_mask, 6, axis=0)
 
@@ -186,6 +194,7 @@ def main():
                     else:
                         # case where its all junk and there are stars everywhere.
                         # TODO perhaps add in a 'is this pretty much guaranteed'
+                        # TODO is this even still guaranteed or close to it
                         locked_in = matches[best_match] / image.size > .95
                         return colors[best_match], locked_in
 
@@ -200,7 +209,7 @@ def main():
                 # Do not attempt to understand
                 # TODO change this to < 10% is black
                 board = np.array([
-                    [np.mean(board_pic_cell) > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
+                    [np.sum(board_pic_cell) / board_pic_cell.size > full_threshold for board_pic_cell in np.array_split(board_pic_row, num_cols, axis=1)]
                         for board_pic_row in np.array_split(board_mask, num_rows, axis=0)
                     ])
 
@@ -212,8 +221,7 @@ def main():
                     elif np.all(board[row_idx, :] == 0):
                         found_empty_row = True
 
-                # TODO everything below this should be gone until the end of the loop
-
+                board_obscured = is_board_obscured(board_gray)
 
                 # this will be incorrect technically if we swap a block for the same block, but Jeff doesn't do that
                 just_swapped = hold != last_held_block
@@ -229,13 +237,15 @@ def main():
                     # TODO maybe don't have this risk? just choose one?
                     # queue just shifted, so the first 5 elements of observed queue match with the shifted last queue
                     # TODO is this legal. if so use it elsewhere
-                    for (current_q, current_locked), (last_q, last_locked) in zip(observed_queue[:5], queue_last_frame[1:]):
-                        if current_locked and last_locked:
-                            assert current_q == last_q, queue_last_frame + [' '] + observed_queue
+                    # for (current_q, current_locked), (last_q, last_locked) in zip(observed_queue[:5], queue_last_frame[1:]):
+                    #     if current_locked and last_locked:
+                    #         assert current_q == last_q, queue_last_frame + [' '] + observed_queue
 
                     # last queue if it's locked in otherwise use the current one
-                    queue = [last_q if last_q[1] else current_q for current_q, last_q in zip(observed_queue[:5], queue_last_frame[1:])] + [observed_queue[5]]
+                    queue = [last_q if last_q[1] and not current_q[1] else current_q for current_q, last_q in zip(observed_queue[:5], queue_last_frame[1:])] + [observed_queue[5]]
 
+                    print('board_obscured')
+                    print('true' if board_obscured else 'false')
                     print('presented')
                     print(presented[0])
                     print('queue')
@@ -254,17 +264,14 @@ def main():
                     # Sanity check assert
                     # TODO maybe don't have this risk? just choose one?
                     if queue_last_frame is not None:
-                        for (current_q, current_locked), (last_q, last_locked) in zip(observed_queue, queue_last_frame):
-                            if current_locked and last_locked:
-                                assert current_q == last_q, queue_last_frame + [' '] + observed_queue
+                        # for (current_q, current_locked), (last_q, last_locked) in zip(observed_queue, queue_last_frame):
+                        #     if current_locked and last_locked:
+                        #         assert current_q == last_q, queue_last_frame + [' '] + observed_queue
 
-                        queue = [last_q if last_q[1] else current_q for current_q, last_q in zip(observed_queue, queue_last_frame)]
+                        queue = [last_q if last_q[1] and not current_q[1] else current_q for current_q, last_q in zip(observed_queue, queue_last_frame)]
                     else:
                         queue = observed_queue
                 queue_last_frame = queue # update every frame
-
-                t1 = time.time()
-                # print(t1 - t0)
 
                 # Scope: regular tetris play loop
 
@@ -315,9 +322,12 @@ def main():
                     queue_pics.append(modified_pic)
                 modified_queue = np.vstack(queue_pics)
 
-                debug_image[upper_left_row:lower_right_row, upper_left_col:lower_right_col] = modified_board
                 debug_image[queue_upper_left_row:queue_lower_right_row, queue_upper_left_col:queue_lower_right_col] = modified_queue
                 debug_image[hold_upper_left_row:hold_lower_right_row:2, hold_upper_left_col:hold_lower_right_col:2] = piece_colors[hold] if hold != None else np.array([0, 0, 0])
+                if board_obscured:
+                    debug_image = cv2.rectangle(debug_image, (upper_left_board[1], upper_left_board[0]), (lower_right_board[1], lower_right_board[0]), (0, 255, 255), 1)
+                else:
+                    debug_image[upper_left_row:lower_right_row, upper_left_col:lower_right_col] = modified_board
 
 
 
@@ -332,11 +342,18 @@ def main():
                 #         cell_lower_right_col = cell_upper_left_col + cell_width
                 #         debug_image[cell_upper_left_row:cell_lower_right_row:2, cell_upper_left_col:cell_lower_right_col:2, :] = 255 if cell else 0
 
+                scale_factor = 2
+                if args.big_debug_image:
+                    debug_image = cv2.resize(debug_image, (debug_image.shape[1] * scale_factor, debug_image.shape[0] * scale_factor))
                 cv2.imshow('debug image', debug_image)
+
                 cv2.waitKey(1)
 
                 if writer:
-                    writer.write(frame)
+                    writer.write(debug_image)
+                t1 = time.time()
+                # print(t1 - t0)
+
 
     capture.release()
     if writer:

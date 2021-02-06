@@ -141,8 +141,10 @@ void play(const Play_settings& settings){
 // TODO: Poor design. Got messy after adding double plays because of holds, and board overrides.
 void play_99(const Play_settings& settings) {
 
-    optional<Board> override_board;
+    bool use_last_resulting_board = false;
+    Board last_resulting_board;
     Board_lifetime_stats lifetime_stats;
+
     while(true){
 
         char buffer;
@@ -161,6 +163,14 @@ void play_99(const Play_settings& settings) {
 
         // Read in effective state.
         string label;
+
+        cin >> label;
+        assert(label == "board_obscured");
+
+        string use_last_resulting_board_str;
+        cin >> use_last_resulting_board_str;
+        use_last_resulting_board |= use_last_resulting_board_str == "true";
+
         cin >> label;
         assert(label == "presented");
         char presented_ch;
@@ -175,9 +185,10 @@ void play_99(const Play_settings& settings) {
         transform(queue_chars.begin(), queue_chars.end(), back_inserter(queue), &Block::char_to_block_ptr);
 
         Board board(cin);
-        if(override_board){
-            board = *override_board;
-            override_board = {};
+        if(use_last_resulting_board){
+            board = last_resulting_board;
+            last_resulting_board = Board{};
+            use_last_resulting_board = false;
         }
         board.set_lifetime_stats(lifetime_stats);
 
@@ -205,16 +216,17 @@ void play_99(const Play_settings& settings) {
             const Block* old_hold = new_board.swap_block(*presented);
             if(old_hold){
                 just_held_non_first = true;
-                board = new_board;
+                last_resulting_board = board = new_board;
                 presented = old_hold;
             }
         }
         else{
             new_board.place_block(*presented, next_placement);
+            last_resulting_board = new_board;
             // If you cleared a row, DON'T read next time.
             if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
                     > board.get_lifetime_stats().num_placements_that_cleared_rows){
-                override_board = new_board;
+                use_last_resulting_board = true;
             }
         }
         lifetime_stats = new_board.get_lifetime_stats();
@@ -241,10 +253,11 @@ void play_99(const Play_settings& settings) {
         // You could assert new_board == board
         assert(!next_placement.get_is_hold());
         new_board.place_block(*presented, next_placement);
+        last_resulting_board = new_board;
 
         if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
                 > board.get_lifetime_stats().num_placements_that_cleared_rows){
-            override_board = new_board;
+            use_last_resulting_board = true;
         }
 
         lifetime_stats = new_board.get_lifetime_stats();
