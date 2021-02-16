@@ -24,6 +24,7 @@ public:
     static void create_workers(int num_workers);
     static void wait_until_all_free();
     static void assert_all_free();
+    static void print_workers_states();
 
     // Gives work to all threads and marks them all as not free.
     static void distribute_new_work_and_wait_till_all_free(State&& root_state);

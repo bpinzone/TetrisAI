@@ -6,6 +6,7 @@
 #include "tetris_worker.h"
 #include "play_settings.h"
 #include "global_stats.h"
+#include "post_play.h"
 
 #include <iostream>
 #include <cassert>
@@ -30,6 +31,7 @@ using Seed_t = Random_block_generator::Seed_t;
 
 void play(const Play_settings& settings);
 void play_99(const Play_settings& settings);
+Post_play_report play_99_move(Game_state& original_state, const Play_settings& settings);
 
 Placement get_best_move(
         Board& board,
@@ -138,11 +140,9 @@ void play(const Play_settings& settings){
 }
 
 
-// TODO: Poor design. Got messy after adding double plays because of holds, and board overrides.
 void play_99(const Play_settings& settings) {
 
-    bool use_last_resulting_board = false;
-    Board last_resulting_board;
+    optional<Post_play_report> post_play_report;
     Board_lifetime_stats lifetime_stats;
 
     while(true){
@@ -161,115 +161,107 @@ void play_99(const Play_settings& settings) {
             cin.putback(buffer);
         }
 
-        // Read in effective state.
-        string label;
+        Vision_state vision_state{cin};
 
-        cin >> label;
-        assert(label == "board_obscured");
+        bool replace_board = post_play_report && (
+            post_play_report->just_cleared_line || vision_state.use_last_resulting_board
+        );
 
-        string use_last_resulting_board_str;
-        cin >> use_last_resulting_board_str;
-        use_last_resulting_board |= use_last_resulting_board_str == "true";
-
-        cin >> label;
-        assert(label == "presented");
-        char presented_ch;
-        cin >> presented_ch;
-        const Block* presented = Block::char_to_block_ptr(presented_ch);
-
-        cin >> label;
-        assert(label == "queue");
-        string queue_chars;
-        cin >> queue_chars;
-        Tetris_queue_t queue;
-        transform(queue_chars.begin(), queue_chars.end(), back_inserter(queue), &Block::char_to_block_ptr);
-
-        Board board(cin);
-        if(use_last_resulting_board){
-            board = last_resulting_board;
-            last_resulting_board = Board{};
-            use_last_resulting_board = false;
-        }
-        board.set_lifetime_stats(lifetime_stats);
-
-        // Output info.
-        Output_manager::get_instance().get_board_os()
-            << "C++ thinks the queue is: " << queue_chars << endl
-            << "C++ thinks the presented is: " << presented_ch << endl
-            << " ====================== " << endl
-            << "C++ thinks the board is: " << endl
-            << board << endl;
-
-        // Compute placement
-        Placement next_placement = get_best_move(
-            board, *presented, queue, settings.lookahead_placements);
-
-        // Send Command
-        Action action{presented, next_placement};
-        Output_manager::get_instance().get_command_os() << action;
-        Output_manager::get_instance().get_board_os() << action;
-
-        bool just_held_non_first = false;
-        // Predict Future
-        Board new_board{board};
-        if(next_placement.get_is_hold()){
-            const Block* old_hold = new_board.swap_block(*presented);
-            if(old_hold){
-                just_held_non_first = true;
-                last_resulting_board = board = new_board;
-                presented = old_hold;
-            }
-        }
-        else{
-            new_board.place_block(*presented, next_placement);
-            last_resulting_board = new_board;
-            // If you cleared a row, DON'T read next time.
-            if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
-                    > board.get_lifetime_stats().num_placements_that_cleared_rows){
-                use_last_resulting_board = true;
-            }
-        }
-        lifetime_stats = new_board.get_lifetime_stats();
-        Output_manager::get_instance().get_board_os()
-            << endl << "C++ thinks after the move, the board will be: " << endl << new_board << endl
-            << " ====================== " << endl;
-
-
-        // If we ever hold, just take the next move right away, not waiting for another state to come through the pipeline.
-
-        if(!just_held_non_first){
-            continue;
+        if(replace_board){
+            vision_state.game_state.board = post_play_report->board;
         }
 
-        // === BONUS TIME ===
+        vision_state.game_state.board.set_lifetime_stats(lifetime_stats);
+        post_play_report = play_99_move(vision_state.game_state, settings);
+        lifetime_stats = post_play_report->board.get_lifetime_stats();
 
-        Output_manager::get_instance().get_board_os()
-            << endl << "C++ just held!: " << endl;
+        if(post_play_report->just_held_non_first){
 
-        next_placement = get_best_move(
-            board, *presented, queue, settings.lookahead_placements);
+            Output_manager::get_instance().get_board_os()
+                << endl << "C++ just held!: " << endl;
 
-        // Predict Future
-        // You could assert new_board == board
-        assert(!next_placement.get_is_hold());
-        new_board.place_block(*presented, next_placement);
-        last_resulting_board = new_board;
+            Game_state post_hold_game_state{
+                post_play_report->presented,
+                vision_state.game_state.queue,
+                post_play_report->board
+            };
 
-        if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
-                > board.get_lifetime_stats().num_placements_that_cleared_rows){
-            use_last_resulting_board = true;
+            post_play_report = play_99_move(post_hold_game_state, settings);
+            lifetime_stats = post_play_report->board.get_lifetime_stats();
         }
 
-        lifetime_stats = new_board.get_lifetime_stats();
-        Output_manager::get_instance().get_board_os()
-            << endl << "C++ thinks after the BONUS BONUS BONUS move, the board will be: " << endl << new_board << endl
-            << " ====================== " << endl;
-
-        // Send Command
-        action = Action{presented, next_placement};
-        Output_manager::get_instance().get_command_os() << action;
-        Output_manager::get_instance().get_board_os() << action;
     }
+}
+
+// Original_state is what the c++ will actually act on.
+// Assumes: At call time, original_state's lifetime stats are up to date.
+Post_play_report play_99_move(Game_state& original_state, const Play_settings& settings){
+
+    string queue_str;
+    transform(
+        original_state.queue.begin(), original_state.queue.end(),
+        back_inserter(queue_str),
+        &Block::block_ptr_to_char
+    );
+
+    // Output info.
+    Output_manager::get_instance().get_board_os()
+        << "C++ thinks the queue is: " << queue_str << endl
+        << "C++ thinks the presented is: "
+        << Block::block_ptr_to_char(original_state.presented) << endl
+        << " ====================== " << endl
+        << "C++ thinks the board is: " << endl
+        << original_state.board << endl;
+
+    // Compute placement
+    Placement next_placement = get_best_move(
+        original_state.board,
+        *original_state.presented,
+        original_state.queue,
+        settings.lookahead_placements);
+
+    Output_manager::get_instance().get_board_os() << "Time to press buttons:\n";
+
+    // Send Command
+    // If its a hold, presented is not read by action or its members.
+    Action action{original_state.presented, next_placement};
+    Output_manager::get_instance().get_command_os() << action;
+    Output_manager::get_instance().get_board_os() << action;
+
+    bool just_held_non_first = false;
+    bool just_cleared_line = false;
+    const Block* new_presented_block = nullptr;
+
+    // Predict Future
+    Board new_board{original_state.board};
+    if(next_placement.get_is_hold()){
+        const Block* old_hold = new_board.swap_block(*original_state.presented);
+        if(old_hold){
+            just_held_non_first = true;
+            new_presented_block = old_hold;
+        }
+    }
+    else{
+        new_board.place_block(*original_state.presented, next_placement);
+        new_presented_block = original_state.queue.front();
+        // last_resulting_board = new_board;
+        // If you cleared a row, DON'T read next time.
+        if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
+                > original_state.board.get_lifetime_stats().num_placements_that_cleared_rows){
+            just_cleared_line = true;
+        }
+    }
+
+    Output_manager::get_instance().get_board_os()
+        << endl << "C++ thinks after the move, the board will be: " << endl << new_board << endl
+        << " ====================== " << endl;
+
+    return Post_play_report{
+        new_presented_block,
+        new_board,
+        just_held_non_first,
+        just_cleared_line
+    };
 }
 
 Placement get_best_move(
@@ -279,7 +271,7 @@ Placement get_best_move(
         int num_placements_to_look_ahead){
 
 
-    board.reset_ancestor_smallest_max_height();
+    board.load_ancestral_data_with_current_data();
 
     Tetris_worker::assert_all_free();
 
@@ -290,8 +282,11 @@ Placement get_best_move(
 
     State& best_state = Tetris_worker::get_best_reachable_state();
 
+    // Tetris_worker::print_workers_states();
+
     // cout << "This is the worst board I can imagine!\n";
     // cout << best_state << "\n";
 
     return best_state.get_placement_taken_from_root();
 }
+

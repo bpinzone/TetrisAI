@@ -65,11 +65,12 @@ optional<State> State::generate_child_from_placement(Placement placement){
     if(!placement.get_is_hold()){
 
         bool is_child_promising = child_board.place_block(*presented_block, placement);
-        bool is_leaf =
-            (child_board.get_num_blocks_placed() == placement_limit)
-            || (next_queue_it == end_queue_it);
 
         if(is_child_promising){
+
+            bool is_leaf =
+                (child_board.get_num_blocks_placed() == placement_limit)
+                || (next_queue_it == end_queue_it);
 
             return State{
                 child_board,

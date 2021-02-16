@@ -20,6 +20,12 @@ struct Board_lifetime_stats {
     double max_height_exp_moving_average = 0;
 };
 
+struct Ancestor_data {
+    int highest_height = 0;
+    int second_lowest_height = 0;
+    bool good_trench_status = true;
+};
+
 class Board {
 
 public:
@@ -41,7 +47,8 @@ public:
     bool place_block(const Block& b, Placement p);
     const Block* swap_block(const Block& b);
     void set_lifetime_stats(const Board_lifetime_stats& new_board_lifetime_stats);
-    void reset_ancestor_smallest_max_height();
+    void load_ancestral_data_with_current_data();
+
 
     // Non-modifying
 
@@ -75,7 +82,9 @@ private:
     bool at(size_t row, size_t col) const;
     bool is_row_full(int row) const;
     int compute_height(size_t col_x) const;
-    bool is_promising(int num_new_holes) const;
+    bool is_promising() const;
+    bool has_good_trench_status() const;
+    int num_holes_above_height(int height) const;
 
     // Given a block and placement, drop the block:
     // return the row idx of the left-bottom most cell of the block.
@@ -120,7 +129,7 @@ private:
     Board_lifetime_stats lifetime_stats;
 
     // === Ancestral Data. Choose carefully when to manipulate this. ===
-    int ancestor_smallest_max_height = 0;
+    Ancestor_data ancestor_with_smallest_max_height;
 
 };
 

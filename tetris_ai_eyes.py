@@ -5,6 +5,7 @@ import numpy as np
 from scipy import stats
 import sys
 import time
+from datetime import datetime
 from pynput.keyboard import Listener, Key
 
 interrupted = True
@@ -54,6 +55,7 @@ def main():
     # Figure out where we are getting our images from:
     capture = cv2.VideoCapture(args.video)
     writer = None
+    debug_writer = None
     global res
     global fps
     if args.video == default_video:
@@ -63,8 +65,11 @@ def main():
         assert capture.set(cv2.CAP_PROP_FPS, int(fps))
 
 
-    def get_bw_mask(image):
-        return np.logical_and(image > threshold_to_not_be_empty, image < cutoff_to_not_be_stars)
+    def get_bw_mask(image, check_if_too_bright=False):
+        if check_if_too_bright:
+            return np.logical_and(image > threshold_to_not_be_empty, image < cutoff_to_not_be_stars)
+        else:
+            return image > threshold_to_not_be_empty
 
     def is_board_obscured(board):
         return (board > cutoff_to_not_be_stars).sum() / board.size > .03 # if part of the board is bright, consider it obscured
@@ -75,6 +80,26 @@ def main():
 
     # TODO: keep bw mask here?
     queue_mask_templates = [[get_bw_mask(cv2.imread('template_images/queue_' + str(i) + '_' + l + '.png', cv2.IMREAD_GRAYSCALE)) for l in colors] for i in range(6)]
+
+    # [
+    #     [
+    #         cv2.imshow(
+    #             'template_images/queue_' + str(i) + '_' + l + '.png',
+    #             np.asarray(
+    #                 get_bw_mask(
+    #                     cv2.imread(
+    #                         'template_images/queue_' + str(i) + '_' + l + '.png',
+    #                         cv2.IMREAD_GRAYSCALE
+    #                     )
+    #                 ),
+    #                 dtype=np.float
+    #             ),
+    #         )
+
+    #     for l in colors]
+    # for i in range(6)]
+
+    # cv2.waitKey(0)
 
     # Any history needs to be reset in the interrupt 'play' option too
     frame_count = 0
@@ -104,10 +129,12 @@ def main():
                     # resume play
                     interrupted = False
 
+                    dt_string = datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
                     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-
-                    # NOTE: commented this out.
-                    writer = cv2.VideoWriter('last_run_video.mp4', fourcc, fps, res)
+                    if args.video == default_video:
+                        writer = cv2.VideoWriter(f'last_run_video_{dt_string}.mp4', fourcc, fps, res)
+                    # Always write the debug
+                    debug_writer = cv2.VideoWriter(f'last_run_video_debug_{dt_string}.mp4', fourcc, fps, res)
 
                     # TODO this should be a class to avoid duplication of reset code.
                     # Reset history; new game
@@ -180,7 +207,7 @@ def main():
                 board_gray = cv2.cvtColor(board_pic, cv2.COLOR_BGR2GRAY)
                 queue_gray = cv2.cvtColor(queue_pic, cv2.COLOR_BGR2GRAY)
 
-                hold_mask, board_mask, queue_mask = get_bw_mask(hold_gray), get_bw_mask(board_gray), get_bw_mask(queue_gray)
+                hold_mask, board_mask, queue_mask = get_bw_mask(hold_gray), get_bw_mask(board_gray, check_if_too_bright=True), get_bw_mask(queue_gray)
 
                 individual_queue_masks = np.array_split(queue_mask, 6, axis=0)
 
@@ -244,8 +271,6 @@ def main():
                     # last queue if it's locked in otherwise use the current one
                     queue = [last_q if last_q[1] and not current_q[1] else current_q for current_q, last_q in zip(observed_queue[:5], queue_last_frame[1:])] + [observed_queue[5]]
 
-                    print('board_obscured')
-                    print('true' if board_obscured else 'false')
                     print('presented')
                     print(presented[0])
                     print('queue')
@@ -258,7 +283,10 @@ def main():
                     print('in_hold')
                     print(hold[0] if hold != None else '.')
                     print('just_swapped')
-                    print('true' if just_swapped else 'false', flush=True)
+                    print('true' if just_swapped else 'false')
+                    print('board_obscured')
+                    print('true' if board_obscured else 'false')
+                    print('', flush=True)
                     last_held_block = hold # only update when the queue changes
                 else:
                     # Sanity check assert
@@ -317,8 +345,10 @@ def main():
                 queue_pics = []
                 for queue_info, queue_pic in zip(queue, np.array_split(debug_image[queue_upper_left_row:queue_lower_right_row, queue_upper_left_col:queue_lower_right_col], 6, axis=0)):
                     modified_pic = queue_pic
-                    color, _ = queue_info
+                    color, is_locked = queue_info
                     modified_pic[::2, ::2] = piece_colors[color]
+                    if is_locked:
+                        modified_pic = cv2.rectangle(modified_pic, (1, 1), (modified_pic.shape[0] - 1, modified_pic.shape[1] - 1), (0, 255, 255), 1)
                     queue_pics.append(modified_pic)
                 modified_queue = np.vstack(queue_pics)
 
@@ -347,17 +377,24 @@ def main():
                     debug_image = cv2.resize(debug_image, (debug_image.shape[1] * scale_factor, debug_image.shape[0] * scale_factor))
                 cv2.imshow('debug image', debug_image)
 
+                # cv2.waitKey(0 if frame_count % 10 == 0 else 1)
                 cv2.waitKey(1)
 
                 if writer:
-                    writer.write(debug_image)
-                t1 = time.time()
+                    writer.write(frame)
+                if debug_writer:
+                    debug_writer.write(debug_image)
+                # t1 = time.time()
                 # print(t1 - t0)
 
 
     capture.release()
+
     if writer:
         writer.release()
+
+    if debug_writer:
+        debug_writer.release()
 
 if __name__ == '__main__':
     main()

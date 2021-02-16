@@ -1,3 +1,21 @@
+c++ bug
+vision whoosh white bug
+have python dump all moves at once, keep things in buffer until down "presses" finish.
+    python would have to keep track of how many things it sends, then listen for that many responses.
+        define "terminal" commands.
+dynamically change cycle count.
+always run 3 deep. start running 4 deep, if you run out of time, fall back to 3 deep answer.
+    how do 3 vs 4 deep answers differ?
+
+
+Updated TODO:
+
+1. Play faster
+2. Fix the slam-whoosh board reading
+3. With the new pruning, does he play the same game?
+
+
+
 TIMING for games of small length is NOT representative anymore!!!
 
 Decisions decisions:

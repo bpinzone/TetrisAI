@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 using std::vector;
 using std::unique_lock;
@@ -14,6 +15,8 @@ using std::move;
 using std::bind;
 using std::ceil;
 using std::max_element;
+using std::cout;
+using std::endl;
 
 static const int c_num_to_consider_with_head_down = 100;
 static const int c_offload_threshold = 2;
@@ -54,6 +57,16 @@ void Tetris_worker::assert_all_free(){
 
     unique_lock<mutex> fw_ulock(free_workers_mutex);
     assert(workers.size() == free_workers.size());
+}
+
+void Tetris_worker::print_workers_states(){
+
+    assert_all_free();
+
+    for(auto& free_worker : free_workers){
+        cout << "Here is a state a worker found:" << endl;
+        cout << *free_worker->best_state << endl;
+    }
 }
 
 void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_state){

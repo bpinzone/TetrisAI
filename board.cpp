@@ -14,8 +14,6 @@
 // TODO: Replace with individual using statements
 using namespace std;
 
-static constexpr int max_allowable_height_increase = 3;
-
 Board::Board(istream& is){
 
     string label;
@@ -52,7 +50,7 @@ Board::Board(istream& is){
     num_cells_filled = board.count();
 
     update_secondary_cache(0);
-    ancestor_smallest_max_height = highest_height;
+    load_ancestral_data_with_current_data();
 
 }
 
@@ -78,7 +76,6 @@ ostream& operator<<(ostream& os, const Board& s) {
 bool Board::place_block(const Block& b, Placement p){
 
     assert(!p.get_is_hold());
-    const int old_num_holes = get_num_holes();
 
     const int left_bottom_row = get_row_after_drop(b, p);
 
@@ -123,11 +120,10 @@ bool Board::place_block(const Block& b, Placement p){
         }
     }
 
+    // must be called before is_promising.
     update_secondary_cache(num_rows_cleared_just_now);
 
-    int new_holes = get_num_holes() - old_num_holes;
-    // Don't update cache if we're not promising
-    if(!is_promising(new_holes)){
+    if(!is_promising()){
         return false;
     }
 
@@ -147,10 +143,6 @@ void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
     lifetime_stats = new_lifetime_stats;
 }
 
-void Board::reset_ancestor_smallest_max_height() {
-    ancestor_smallest_max_height = highest_height;
-}
-
 bool Board::has_greater_utility_than(const Board& other) const {
 
     ++gs_num_comparisons;
@@ -167,8 +159,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
 
     // === Fundamental Priorities ===
-    if((num_trenches > 1) != (other.num_trenches > 1)){
-        return num_trenches <= 1;
+    if(has_good_trench_status() != other.has_good_trench_status()){
+        return has_good_trench_status();
     }
     // Holes
     const int this_holes = get_num_holes();
@@ -306,6 +298,14 @@ Board::Grid_t::reference Board::at(size_t row, size_t col){
     return board[idx];
 }
 
+void Board::load_ancestral_data_with_current_data() {
+
+    ancestor_with_smallest_max_height.highest_height = highest_height;
+    ancestor_with_smallest_max_height.second_lowest_height = second_lowest_height;
+    ancestor_with_smallest_max_height.good_trench_status = has_good_trench_status();
+}
+
+
 bool Board::at(size_t row, size_t col) const {
     size_t idx = c_size - 1 - ((row * c_cols) + col);
     return board[idx];
@@ -332,17 +332,48 @@ int Board::compute_height(size_t col_x) const {
     return height;
 }
 
-bool Board::is_promising(int num_new_holes) const {
+bool Board::is_promising() const {
 
+    static constexpr int max_acceptable_holes_above_anc = 0;
+    static constexpr int max_acceptable_height_increase = 3;
 
-    // return true;
+    const Ancestor_data& ancestor = ancestor_with_smallest_max_height;
 
-    // if(num_new_holes > 1){
-    //     return false;
-    // }
+    bool added_needless_trench = ancestor.good_trench_status && !has_good_trench_status();
 
-    return highest_height - ancestor_smallest_max_height <= max_allowable_height_increase;
+    if(highest_height - ancestor.highest_height > max_acceptable_height_increase){
+        return false;
+    }
+    if(added_needless_trench){
+        return true;
+    }
 
+    int hole_leeway = (ancestor.highest_height == ancestor.second_lowest_height) ? 1 : 0;
+    int holes_above_anc_max = num_holes_above_height(ancestor.highest_height + hole_leeway);
+    if(holes_above_anc_max > max_acceptable_holes_above_anc){
+        return false;
+    }
+
+    return true;
+
+}
+
+bool Board::has_good_trench_status() const {
+    return num_trenches <= 1;
+}
+
+int Board::num_holes_above_height(int height) const {
+
+    int found = 0;
+    for(int col_x = 0; col_x < c_cols; ++col_x){
+        // Would still be correct if it was height_map[col_x] - 1,
+        for(int row_x = height; row_x <= height_map[col_x] - 2; ++row_x){
+            if(!at(row_x, col_x)){
+                ++found;
+            }
+        }
+    }
+    return found;
 }
 
 int Board::get_row_after_drop(const Block& b, Placement p) const {
@@ -379,10 +410,8 @@ int Board::get_height_map_reduction(int deleted_row, int query_col) const {
 
 void Board::update_secondary_cache(int num_rows_cleared_just_now) {
 
-    static const int impossibly_high_wall = c_rows + 5;
-    static const int min_depth_considered_trench = 3;
-
-    const int old_highest_height = highest_height;
+    static constexpr int impossibly_high_wall = c_rows + 5;
+    static constexpr int min_depth_considered_trench = 3;
 
     num_trenches = 0;
     at_least_one_side_clear = (height_map[0] == 0) || (height_map[c_cols - 1] == 0);
@@ -421,7 +450,9 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
         && lowest_height == some_trench_height
         && second_lowest_height >= some_trench_height + 4;
 
-    ancestor_smallest_max_height = min(ancestor_smallest_max_height, highest_height);
+    if(highest_height < ancestor_with_smallest_max_height.highest_height){
+        load_ancestral_data_with_current_data();
+    }
 }
 
 void Board::update_lifetime_cache(int num_rows_cleared_just_now){

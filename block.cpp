@@ -28,7 +28,33 @@ const Block* Block::char_to_block_ptr(char c){
             + " Must be one of: b, p, r, c, y, o, g."
         };
     }
+}
 
+const char Block::block_ptr_to_char(const Block* block){
+
+    if(block == &Blue){
+        return 'b';
+    }
+    if(block == &Purple){
+        return 'p';
+    }
+    if(block == &Red){
+        return 'r';
+    }
+    if(block == &Cyan){
+        return 'c';
+    }
+    if(block == &Yellow){
+        return 'y';
+    }
+    if(block == &Orange){
+        return 'o';
+    }
+    if(block == &Green){
+        return 'g';
+    }
+
+    throw std::runtime_error{"Invalid block pointer!"};
 }
 
 int Block::get_max_valid_placement_col(int rot_x) const {

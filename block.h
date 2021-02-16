@@ -66,6 +66,7 @@ struct Block {
     static const Block Green;
 
     static const Block* char_to_block_ptr(char c);
+    static const char block_ptr_to_char(const Block* block);
 
     int get_max_valid_placement_col(int rot_x) const;
 
