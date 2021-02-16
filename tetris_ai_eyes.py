@@ -107,6 +107,15 @@ def main():
     last_held_block = None
     presented = None
 
+    piece_colors = {
+        'r': np.array([0, 0, 255]),
+        'o': np.array([0,165,255]),
+        'y': np.array([0, 255, 255]),
+        'g': np.array([0, 255, 0]),
+        'b': np.array([255, 0, 0]),
+        'p': np.array([219,112,147]),
+        'c': np.array([255,255,224])
+    }
 
     # frames_to_skip = 0
 
@@ -301,9 +310,6 @@ def main():
                         queue = observed_queue
                 queue_last_frame = queue # update every frame
 
-                # Scope: regular tetris play loop
-
-                # TODO create one debug picture to show at the end
                 debug_image = frame.copy()
                 # fill in the board
                 # for np.array_split(pic_row, cols, axis=1):
@@ -332,16 +338,6 @@ def main():
                 hold_upper_left_row, hold_upper_left_col = upper_left_hold
                 hold_lower_right_row, hold_lower_right_col = lower_right_hold
 
-                piece_colors = {
-                    'r': np.array([0, 0, 255]),
-                    'o': np.array([0,165,255]),
-                    'y': np.array([0, 255, 255]),
-                    'g': np.array([0, 255, 0]),
-                    'b': np.array([255, 0, 0]),
-                    'p': np.array([219,112,147]),
-                    'c': np.array([255,255,224])
-                }
-
                 queue_pics = []
                 for queue_info, queue_pic in zip(queue, np.array_split(debug_image[queue_upper_left_row:queue_lower_right_row, queue_upper_left_col:queue_lower_right_col], 6, axis=0)):
                     modified_pic = queue_pic
@@ -362,22 +358,11 @@ def main():
 
 
 
-                # cell_height = (lower_right_row - upper_left_row) // num_rows
-                # cell_width = (lower_right_col - upper_left_col) // num_cols
-                # for row_ind, row in enumerate(board):
-                #     for col_ind, cell in enumerate(row):
-                #         cell_upper_left_row = upper_left_row + cell_height * row_ind
-                #         cell_lower_right_row = cell_upper_left_row + cell_height
-                #         cell_upper_left_col = upper_left_col + cell_width * col_ind
-                #         cell_lower_right_col = cell_upper_left_col + cell_width
-                #         debug_image[cell_upper_left_row:cell_lower_right_row:2, cell_upper_left_col:cell_lower_right_col:2, :] = 255 if cell else 0
-
                 scale_factor = 2
                 if args.big_debug_image:
                     debug_image = cv2.resize(debug_image, (debug_image.shape[1] * scale_factor, debug_image.shape[0] * scale_factor))
                 cv2.imshow('debug image', debug_image)
 
-                # cv2.waitKey(0 if frame_count % 10 == 0 else 1)
                 cv2.waitKey(1)
 
                 if writer:

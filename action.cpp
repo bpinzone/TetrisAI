@@ -94,7 +94,8 @@ ostream& operator<<(ostream& os, const Action& action) {
     }
 
     for(const auto& action : actions_strs){
-        os << action << endl; // must flush immediately.
+        os << action << "\n";
     }
+    os.flush();
     return os;
 }

@@ -41,6 +41,8 @@ Placement get_best_move(
 
 int main(int argc, char* argv[]) {
 
+    std::ios_base::sync_with_stdio(false);
+
     // For Xcode file redirection.
 #ifdef __APPLE__
    if (getenv("STDIN"))
@@ -206,12 +208,12 @@ Post_play_report play_99_move(Game_state& original_state, const Play_settings& s
 
     // Output info.
     Output_manager::get_instance().get_board_os()
-        << "C++ thinks the queue is: " << queue_str << endl
+        << "C++ thinks the queue is: " << queue_str << "\n"
         << "C++ thinks the presented is: "
-        << Block::block_ptr_to_char(original_state.presented) << endl
-        << " ====================== " << endl
-        << "C++ thinks the board is: " << endl
-        << original_state.board << endl;
+        << Block::block_ptr_to_char(original_state.presented) << "\n"
+        << " ====================== " << "\n"
+        << "C++ thinks the board is: " << "\n"
+        << original_state.board << "\n";
 
     // Compute placement
     Placement next_placement = get_best_move(

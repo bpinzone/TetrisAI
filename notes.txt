@@ -1,3 +1,5 @@
+hesitation almost certainly due to poor pruning kills us.
+
 c++ bug
 vision whoosh white bug
 have python dump all moves at once, keep things in buffer until down "presses" finish.
