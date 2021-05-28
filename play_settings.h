@@ -29,8 +29,10 @@ struct Play_settings {
 
     int num_threads;
 
+    bool board_log;
+
     // NOTE: IMPORTANT
-    inline static constexpr int num_settings = 6;
+    inline static constexpr int num_settings = 7;
 
     Play_settings(int argc, char* argv[]);
 

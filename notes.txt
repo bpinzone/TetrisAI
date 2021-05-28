@@ -1,42 +1,62 @@
-hesitation almost certainly due to poor pruning kills us.
+python3 tetris_ai_eyes.py -o | ./main r i 3 6 999999999 12 d | sudo python3 ../switch-controller/bridge.py
 
-c++ bug
-vision whoosh white bug
-have python dump all moves at once, keep things in buffer until down "presses" finish.
-    python would have to keep track of how many things it sends, then listen for that many responses.
-        define "terminal" commands.
-dynamically change cycle count.
-always run 3 deep. start running 4 deep, if you run out of time, fall back to 3 deep answer.
-    how do 3 vs 4 deep answers differ?
+https://my.eng.utah.edu/~cs5789/2010/slides/Interruptsx2.pdf
 
 
-Updated TODO:
+https://github.com/malcom/AVR-Tick-Counter
 
-1. Play faster
-2. Fix the slam-whoosh board reading
-3. With the new pruning, does he play the same game?
+https://ww1.microchip.com/downloads/en/DeviceDoc/doc7799.pdf
+
+clock division is probably almost certainly wrong.
+
+another concern is thinking about how the clock works now, start/stop safety, and when we start counting vs when we should start counting
+
+if it stutters, it's probably disk
+
+============
 
 
+View sticky notes on mac for stutter time stamps.
 
-TIMING for games of small length is NOT representative anymore!!!
+Normally, according to OpenShot video replay, we go from presented frame to a frame where we have moved in ~30ms.
+But occasionally, it takes ~200ms.
+    Eyes and brain are not to blame, even though brain took 10ms instead of ~1ms.
+Look at sutter.mp4 and stutter_debug.mp4
+
+STUTTER IS due to low hard drive space.
+
+
+Not a solution, but another thought: Make c++ limit even lower? to 5ms?
+
+System Wide
+    Go faster
+    hesitation due to poor pruning is terrible for time.
+
+Eyes
+    Improve queue framework: 3 things: current stable, last stable, raw frame.
+    What was this? - Too slow? Look at replay right after a hold?
+    read() from another thread?
+    Better star ignoring?
+
+Brain
+    Iterative DFS
+    With the new pruning, does he play the same game?
+    More preemption?
+    Time limit appears to not work.
+
+Hands
+    Timing instead of poll count?
+    4 poll count for down, 2 poll count for neutral.
+    dynamically change cycle count
+
+
+============================================================
 
 Decisions decisions:
     ./main w 123 4 6 100 1
     no differences in play with length=6, auto length = 3, growth thresh=2
     plays same game, but 4.6268420551x less comparisons on average
 
-=======
-Steven's notes on Jeff's Eyes
-
-?. delete a lot of python.
-1. Better viz
-2. Remove the stability requirement (and simplify queue reading logic)
-3. Speed (python? Arduino?)
-4. Find a way to ignore stars
-5. frame.read() in another thread???
-
-remove math based on: perfect shape picture. "Perfect" pixel values.
-pre-empt on cpp side.
 
 =====
 my gpu could hold 8e9 / 280 state objects. ~ 28.5 million

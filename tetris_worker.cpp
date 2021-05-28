@@ -21,6 +21,8 @@ using std::endl;
 static const int c_num_to_consider_with_head_down = 100;
 static const int c_offload_threshold = 2;
 
+static const std::chrono::milliseconds time_limit = std::chrono::milliseconds(10);
+
 Tetris_worker::Tetris_worker(){
     t = thread{bind(&Tetris_worker::run, this)};
 }
@@ -70,6 +72,8 @@ void Tetris_worker::print_workers_states(){
 }
 
 void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_state){
+
+    work_start_time = std::chrono::high_resolution_clock::now();
 
     assert_all_free();
 
@@ -189,10 +193,19 @@ void Tetris_worker::run(){
 
             // Attempt to offload work periodically if appropriate.
             ++num_considered_with_head_down;
-            if(num_considered_with_head_down >= c_num_to_consider_with_head_down
-                    && state_stack.size() >= c_offload_threshold){
+            if(num_considered_with_head_down >= c_num_to_consider_with_head_down){
+
                 num_considered_with_head_down = 0;
-                attempt_to_offload_work();
+
+                auto curr_time = std::chrono::high_resolution_clock::now();
+                if(curr_time - Tetris_worker::work_start_time > time_limit){
+                    state_stack.clear();
+                }
+
+                if(state_stack.size() >= c_offload_threshold){
+                    attempt_to_offload_work();
+                }
+
             }
         } // not empty
 

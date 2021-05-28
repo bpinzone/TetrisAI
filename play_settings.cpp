@@ -32,6 +32,7 @@ Play_settings::Play_settings(int argc, char* argv[]){
     queue_size = atoi(argv[4]);
     game_length = atoi(argv[5]);
     num_threads = atoi(argv[6]);
+    board_log = string(argv[7]) == "e";
 
     if(lookahead_placements > queue_size + 1 ){
         throw runtime_error{"With this queue size, Jeff cannot see that far into the future"};

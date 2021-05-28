@@ -90,10 +90,12 @@ void play(const Play_settings& settings){
         cout << "Comparisons: " << gs_num_comparisons << endl;
 
         // Status
-        Output_manager::get_instance().get_board_os()
-            << "Turn: " << turn << "\n"
-            << "Tetris percent:" << board.get_tetris_percent() << " %" << "\n"
-            << "Presented with: " << next_to_present->name << "\n";
+        if(settings.board_log){
+            Output_manager::get_instance().get_board_os()
+                << "Turn: " << turn << "\n"
+                << "Tetris percent:" << board.get_tetris_percent() << " %" << "\n"
+                << "Presented with: " << next_to_present->name << "\n";
+        }
 
         Placement next_placement = get_best_move(
             board, *next_to_present,
@@ -125,7 +127,9 @@ void play(const Play_settings& settings){
             bool is_promising = new_board.place_block(*next_to_present, next_placement);
 
             if(!is_promising){
-                Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
+                if(settings.board_log){
+                    Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
+                }
                 return;
             }
             next_to_present = queue.front();
@@ -134,7 +138,9 @@ void play(const Play_settings& settings){
         }
 
         swap(board, new_board);
-        Output_manager::get_instance().get_board_os() << "\n" << board << endl;
+        if(settings.board_log){
+            Output_manager::get_instance().get_board_os() << "\n" << board << endl;
+        }
         ++turn;
     }
 
@@ -179,8 +185,10 @@ void play_99(const Play_settings& settings) {
 
         if(post_play_report->just_held_non_first){
 
-            Output_manager::get_instance().get_board_os()
-                << endl << "C++ just held!: " << endl;
+            if(settings.board_log){
+                Output_manager::get_instance().get_board_os()
+                    << endl << "C++ just held!: " << endl;
+            }
 
             Game_state post_hold_game_state{
                 post_play_report->presented,
@@ -207,13 +215,15 @@ Post_play_report play_99_move(Game_state& original_state, const Play_settings& s
     );
 
     // Output info.
-    Output_manager::get_instance().get_board_os()
-        << "C++ thinks the queue is: " << queue_str << "\n"
-        << "C++ thinks the presented is: "
-        << Block::block_ptr_to_char(original_state.presented) << "\n"
-        << " ====================== " << "\n"
-        << "C++ thinks the board is: " << "\n"
-        << original_state.board << "\n";
+    if(settings.board_log){
+        Output_manager::get_instance().get_board_os()
+            << "C++ thinks the queue is: " << queue_str << "\n"
+            << "C++ thinks the presented is: "
+            << Block::block_ptr_to_char(original_state.presented) << "\n"
+            << " ====================== " << "\n"
+            << "C++ thinks the board is: " << "\n"
+            << original_state.board << "\n";
+    }
 
     // Compute placement
     Placement next_placement = get_best_move(
@@ -222,13 +232,17 @@ Post_play_report play_99_move(Game_state& original_state, const Play_settings& s
         original_state.queue,
         settings.lookahead_placements);
 
-    Output_manager::get_instance().get_board_os() << "Time to press buttons:\n";
+    if(settings.board_log){
+        Output_manager::get_instance().get_board_os() << "Time to press buttons:\n";
+    }
 
     // Send Command
     // If its a hold, presented is not read by action or its members.
     Action action{original_state.presented, next_placement};
     Output_manager::get_instance().get_command_os() << action;
-    Output_manager::get_instance().get_board_os() << action;
+    if(settings.board_log){
+        Output_manager::get_instance().get_board_os() << action;
+    }
 
     bool just_held_non_first = false;
     bool just_cleared_line = false;
@@ -245,7 +259,7 @@ Post_play_report play_99_move(Game_state& original_state, const Play_settings& s
     }
     else{
         new_board.place_block(*original_state.presented, next_placement);
-        new_presented_block = original_state.queue.front();
+        new_presented_block = nullptr; // this should never be read.
         // last_resulting_board = new_board;
         // If you cleared a row, DON'T read next time.
         if(new_board.get_lifetime_stats().num_placements_that_cleared_rows
@@ -254,9 +268,11 @@ Post_play_report play_99_move(Game_state& original_state, const Play_settings& s
         }
     }
 
-    Output_manager::get_instance().get_board_os()
-        << endl << "C++ thinks after the move, the board will be: " << endl << new_board << endl
-        << " ====================== " << endl;
+    if(settings.board_log){
+        Output_manager::get_instance().get_board_os()
+            << endl << "C++ thinks after the move, the board will be: " << endl << new_board << endl
+            << " ====================== " << endl;
+    }
 
     return Post_play_report{
         new_presented_block,

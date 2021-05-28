@@ -6,6 +6,7 @@
 #include <thread>
 #include <condition_variable>
 #include <optional>
+#include <chrono>
 
 #include "state.h"
 
@@ -46,6 +47,8 @@ private:
     inline static std::condition_variable free_worker_added;
 
     inline static std::vector<Tetris_worker*> workers;
+
+    inline static std::chrono::time_point<std::chrono::high_resolution_clock> work_start_time;
 
     // Construction Order matters.
     std::optional<State> best_state;
