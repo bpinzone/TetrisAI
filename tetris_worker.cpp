@@ -198,7 +198,8 @@ void Tetris_worker::run(){
                 num_considered_with_head_down = 0;
 
                 auto curr_time = std::chrono::high_resolution_clock::now();
-                if(curr_time - Tetris_worker::work_start_time > time_limit){
+                // if(curr_time - Tetris_worker::work_start_time > time_limit){
+                if(false){
                     state_stack.clear();
                 }
 

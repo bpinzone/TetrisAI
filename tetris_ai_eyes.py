@@ -207,7 +207,9 @@ def main():
     global num_rows
     global num_cols
     if args.video == default_video:
-        assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
+        # Need to run this on Linux, but it fails on Windows
+        if sys.platform == "linux" or sys.platform == "linux2":
+            assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
         assert capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
         assert capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
         assert capture.set(cv2.CAP_PROP_FPS, int(fps))
@@ -258,6 +260,16 @@ def main():
     global piece_colors
 
     # frames_to_skip = 0
+
+    # fps check
+    # t0 = time.time()
+    # for i in range(120):
+    #     ret, frame = capture.read()
+    # t1 = time.time()
+    # print("LOOOOOOOOOOOOOK")
+    # print(t1 - t0)
+
+    t0 = None
 
     try:
 
@@ -436,6 +448,8 @@ def main():
                         print('board_obscured')
                         print('true' if board_obscured else 'false')
                         print('', flush=True)
+                        print(f'\nTime after read image:  {t0 * 1000}\n', file=sys.stderr)
+                        print(f'\nTime after send data:  {time.time() * 1000}\n', file=sys.stderr, flush=True)
                         last_held_block = hold # only update when the queue changes
                         presented = queue[0][0]
                     else:
@@ -509,7 +523,7 @@ def generate_correct_board(board):
     # 0, 1 is the top left but one cell to the right.
 
     # Things get confirmed BEFORE going into the frontier.
-    confirmed_cells = np.zeros_like(board, dtype=np.bool)
+    confirmed_cells = np.zeros_like(board, dtype=bool)
 
     frontier = [(num_rows - 1, col_x) for col_x in range(0, num_cols) if board[num_rows - 1, col_x]]
     for coord in frontier:

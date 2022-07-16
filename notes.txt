@@ -1,4 +1,45 @@
+made some mods to Joystick.c, trying to use timer thats separate from main clock, by accessing mem mapped IO directly.
+    seeing negative results, unclear why.
+
+    had to build .hex on wsl, and flash on mac.
+    BUT IN FUTURE JUST BUILD AND FLASH ON MAC YOU FOOL
+
+
+next:
+    timing info in timing.txt
+    figure out clock dev on ard, get time between buffer receptions.
+    send time diffs back over serial (printf("U"), etc)
+    make conclusion that joystick.c vs pyserial being the problem...
+
+
+Order physical converter cable.
+
+Thinking about 8 frame delay between presentation and frame where we see acting.
+how to make pyserial perform with less latency?
+    http://www.brainboxes.com/faq/items/what-is-rts--cts-hardware-flow-control-
+    https://forum.pjrc.com/archive/index.php/t-36163.html
+    https://forum.pjrc.com/archive/index.php/t-36163.html
+    https://forum.pjrc.com/archive/index.php/t-36163.html
+
+We should verify that serial is the issue by doing an end-to-end test of camera frame gets read to when it gets to right before serial (unix time stamp)
+We should make sure that we're not getting out-of-date camera images (make sure old images get dropped)
+
+
+acts on 8th frame.
+
+
 python3 tetris_ai_eyes.py -o | ./main r i 3 6 999999999 12 d | sudo python3 ../switch-controller/bridge.py
+
+CMD /c 'python tetris_ai_eyes.py -o | main.exe r i 3 6 999999999 12 d | python ../switch-controller/bridge.py'
+CMD /c 'Get-Content input.txt | python ../switch-controller/bridge.py'
+CMD /c 'python ../switch-controller/bridge.py'
+
+
+CMD /c 'main.exe w 0 3 6 999999999 12 e'
+./main.exe w 0 3 6 999999999 12 e
+
+CMD /c
+Measure-Command { ./main.exe w 0 3 6 99 12 e }
 
 https://my.eng.utah.edu/~cs5789/2010/slides/Interruptsx2.pdf
 
@@ -115,3 +156,27 @@ shared_lock: Lock as a reader only. Usable on shared_mutex.
 */
 
 python3 ../TetrisAI/tetris_ai_eyes.py --config ../TetrisAI/hdmi_coords.config | ../TetrisAI/main r i 4 6 999999999999 12 | sudo python3 run_controller_cli.py PRO_CONTROLLER
+
+
+
+
+Installing on windows 10 (powershell, assuming python3 and pip are installed)
+    pip install opencv-python
+    pip install sdl2
+    pip install pysdl2
+    pip install pysdl2-dll
+    pip install pyserial
+
+
+clock division stuff
+    https://www.nongnu.org/avr-libc/user-manual/group__avr__power.html
+    https://ww1.microchip.com/downloads/en/devicedoc/atmel-7766-8-bit-avr-atmega16u4-32u4_datasheet.pdf
+
+
+
+
+
+
+
+
+

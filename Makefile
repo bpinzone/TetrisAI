@@ -24,7 +24,8 @@ EXECUTABLE 	= main
 DEBUG       = $(EXECUTABLE)_debug
 
 # designate which compiler to use
-CXX			= g++
+# CXX			= g++
+CXX			= nvcc
 
 # list of test drivers (with main()) for development
 TESTSOURCES = $(wildcard test*.cpp)
@@ -36,7 +37,8 @@ SOURCES 	= $(wildcard *.cpp)
 # Expanded on definition rather than use.
 SOURCES     := $(filter-out $(TESTSOURCES), $(SOURCES))
 # list of objects used in project
-OBJECTS		= $(SOURCES:%.cpp=%.o)
+# OBJECTS		= $(SOURCES:%.cpp=%.o)
+OBJECTS		= $(SOURCES:%.cpp=%.obj)
 
 # If main() is in a file named project*.cpp, use the following line
 # PROJECTFILE = $(or $(wildcard project*.cpp), nomain.cpp)
@@ -48,7 +50,8 @@ PROJECTFILE = main.cpp
 # Strict
 # CXXFLAGS = -std=c++1z -Wconversion -Wall -Werror -Wextra -pedantic
 # I do what I want.
-CXXFLAGS = -std=c++17 -pthread
+# CXXFLAGS = -std=c++17 -pthread
+CXXFLAGS = -std=c++17
 
 # make release - will compile "all" with $(CXXFLAGS) and the -O3 flag
 #				 also defines NDEBUG so that asserts will not check
@@ -95,7 +98,8 @@ $(foreach test, $(TESTS), $(eval $(call make_tests, $(test))))
 alltests: clean $(TESTS)
 
 # rule for creating objects
-%.o: %.cpp
+# %.o: %.cpp
+%.obj: %.cpp
 	$(CXX) $(CXXFLAGS) -c $*.cpp
 
 # make clean - remove .o files, executables, tarball

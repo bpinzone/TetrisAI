@@ -1,0 +1,1340 @@
+Hands received  line: hold_a at time 1624588159925.836
+Hands ser.write line: hold_a at time 1624588159925.836
+Hands ser.flush line: hold_a at time 1624588159925.836
+Hands read response at time 1624588162322.8218
+Time after read image:  1624588199286.957
+Time after send data :  1624588199289.9568
+
+Hands received  line: stick r center at time 1624588199290.9565
+Hands ser.write line: stick r center at time 1624588199291.9568
+Hands ser.flush line: stick r center at time 1624588199291.9568
+Hands read response at time 1624588199358.955
+
+Hands received  line: stick r down at time 1624588199358.9558
+Hands ser.write line: stick r down at time 1624588199358.9558
+Hands ser.flush line: stick r down at time 1624588199358.9558
+Hands read response at time 1624588199422.955
+
+Hands received  line: stick r center at time 1624588199422.9556
+Hands ser.write line: stick r center at time 1624588199422.9556
+Hands ser.flush line: stick r center at time 1624588199422.9556
+Hands read response at time 1624588199485.95
+
+Hands received  line: r at time 1624588199486.9573
+Hands ser.write line: r at time 1624588199486.9573
+Hands ser.flush line: r at time 1624588199486.9573
+Time after read image:  1624588199606.9578
+Time after send data :  1624588199609.95
+
+Hands received  line: left && up at time 1624588199610.9556
+Hands ser.write line: left && up at time 1624588199610.9556
+Hands ser.flush line: left && up at time 1624588199610.9556
+Hands read response at time 1624588199677.9568
+Time after read image:  1624588199845.955
+Time after send data :  1624588199849.955
+
+Hands received  line: left at time 1624588199849.9556
+Hands ser.write line: left at time 1624588199850.9563
+Hands ser.flush line: left at time 1624588199850.956
+
+Hands received  line: left at time 1624588199850.9563
+Hands ser.write line: left at time 1624588199850.9563
+Hands ser.flush line: left at time 1624588199850.956
+
+Hands received  line: left && up at time 1624588199850.9563
+Hands ser.write line: left && up at time 1624588199851.9568
+Hands ser.flush line: left && up at time 1624588199851.9568
+Hands read response at time 1624588200044.9592
+Time after read image:  1624588200214.9548
+Time after send data :  1624588200218.95
+
+Hands received  line: right at time 1624588200218.956
+Hands ser.write line: right at time 1624588200218.956
+Hands ser.flush line: right at time 1624588200219.958
+
+Hands received  line: right && up at time 1624588200219.9587
+Hands ser.write line: right && up at time 1624588200219.9587
+Hands ser.flush line: right && up at time 1624588200219.9587
+Hands read response at time 1624588200348.9612
+Time after read image:  1624588200517.9539
+Time after send data :  1624588200521.955
+
+Hands received  line: r at time 1624588200522.959
+Hands ser.write line: r at time 1624588200522.959
+Hands ser.flush line: r at time 1624588200522.95
+
+Hands received  line: a && left && up at time 1624588200522.959
+Hands ser.write line: a && left && up at time 1624588200523.9578
+Hands ser.flush line: a && left && up at time 1624588200523.9578
+Hands read response at time 1624588200651.9556
+Time after read image:  1624588200822.957
+Time after send data :  1624588200825.955
+
+Hands received  line: right at time 1624588200826.958
+Hands ser.write line: right at time 1624588200826.958
+Hands ser.flush line: right at time 1624588200827.956
+
+Hands received  line: a && right at time 1624588200827.9563
+Hands ser.write line: a && right at time 1624588200827.9563
+Hands ser.flush line: a && right at time 1624588200827.956
+
+Hands received  line: a && right at time 1624588200827.9563
+Hands ser.write line: a && right at time 1624588200828.9553
+Hands ser.flush line: a && right at time 1624588200828.955
+
+Hands received  line: a && right && up at time 1624588200828.9553
+Hands ser.write line: a && right && up at time 1624588200828.9553
+Hands ser.flush line: a && right && up at time 1624588200828.9553
+Hands read response at time 1624588201083.9575
+Time after read image:  1624588201253.9548
+Time after send data :  1624588201257.95
+
+Hands received  line: r at time 1624588201257.956
+Hands ser.write line: r at time 1624588201257.956
+Hands ser.flush line: r at time 1624588201257.95
+
+Hands received  line: left at time 1624588201258.9614
+Hands ser.write line: left at time 1624588201258.9614
+Hands ser.flush line: left at time 1624588201258.961
+
+Hands received  line: left at time 1624588201258.9614
+Hands ser.write line: left at time 1624588201258.9614
+Hands ser.flush line: left at time 1624588201259.959
+
+Hands received  line: left && up at time 1624588201259.9595
+Hands ser.write line: left && up at time 1624588201259.9595
+Hands ser.flush line: left && up at time 1624588201259.9595
+Hands read response at time 1624588201514.9592
+Time after read image:  1624588201686.9546
+Time after send data :  1624588201690.956
+
+Hands received  line: right && up at time 1624588201690.9568
+Hands ser.write line: right && up at time 1624588201690.9568
+Hands ser.flush line: right && up at time 1624588201690.9568
+Hands read response at time 1624588201754.9565
+Time after read image:  1624588201926.9565
+Time after send data :  1624588201931.955
+
+Hands received  line: left at time 1624588201931.9558
+Hands ser.write line: left at time 1624588201932.9578
+Hands ser.flush line: left at time 1624588201932.957
+
+Hands received  line: left at time 1624588201932.9578
+Hands ser.write line: left at time 1624588201932.9578
+Hands ser.flush line: left at time 1624588201932.957
+
+Hands received  line: left at time 1624588201932.9578
+Hands ser.write line: left at time 1624588201933.958
+Hands ser.flush line: left at time 1624588201933.95
+
+Hands received  line: a && left at time 1624588201933.958
+Hands ser.write line: a && left at time 1624588201933.958
+Hands ser.flush line: a && left at time 1624588201933.95
+
+Hands received  line: left && up at time 1624588201933.958
+Hands ser.write line: left && up at time 1624588201934.9558
+Hands ser.flush line: left && up at time 1624588201934.9558
+Hands read response at time 1624588202249.7068
+Time after read image:  1624588202428.3313
+Time after send data :  1624588202432.332
+
+Hands received  line: r at time 1624588202434.331
+Hands ser.write line: r at time 1624588202435.3328
+Hands ser.flush line: r at time 1624588202436.332
+
+Hands received  line: a && right at time 1624588202436.3323
+Hands ser.write line: a && right at time 1624588202436.3323
+Hands ser.flush line: a && right at time 1624588202437.33
+
+Hands received  line: a && right at time 1624588202437.333
+Hands ser.write line: a && right at time 1624588202437.333
+Hands ser.flush line: a && right at time 1624588202437.33
+
+Hands received  line: a && right && up at time 1624588202437.333
+Hands ser.write line: a && right && up at time 1624588202437.333
+Hands ser.flush line: a && right && up at time 1624588202438.3325
+Hands read response at time 1624588202697.3318
+Time after read image:  1624588202870.2678
+Time after send data :  1624588202874.268
+
+Hands received  line: a && right at time 1624588202875.2695
+Hands ser.write line: a && right at time 1624588202875.2695
+Hands ser.flush line: a && right at time 1624588202875.269
+
+Hands received  line: a && up at time 1624588202875.2695
+Hands ser.write line: a && up at time 1624588202876.2686
+Hands ser.flush line: a && up at time 1624588202876.2686
+Hands read response at time 1624588203016.2659
+Time after read image:  1624588203174.7021
+Time after send data :  1624588203178.702
+
+Hands received  line: r at time 1624588203179.7
+Hands ser.write line: r at time 1624588203179.7
+Hands ser.flush line: r at time 1624588203179.
+
+Hands received  line: right && up at time 1624588203179.7
+Hands ser.write line: right && up at time 1624588203180.7031
+Hands ser.flush line: right && up at time 1624588203180.7031
+Hands read response at time 1624588203320.2136
+Time after read image:  1624588203478.2126
+Time after send data :  1624588203482.214
+
+Hands received  line: left at time 1624588203482.2146
+Hands ser.write line: left at time 1624588203482.2146
+Hands ser.flush line: left at time 1624588203483.21
+
+Hands received  line: left && up at time 1624588203483.215
+Hands ser.write line: left && up at time 1624588203483.215
+Hands ser.flush line: left && up at time 1624588203483.215
+Hands read response at time 1624588203623.2144
+Time after read image:  1624588203798.2122
+Time after send data :  1624588203802.213
+
+Hands received  line: r at time 1624588203802.2139
+Hands ser.write line: r at time 1624588203803.2168
+Hands ser.flush line: r at time 1624588203803.216
+
+Hands received  line: right at time 1624588203803.2168
+Hands ser.write line: right at time 1624588203803.2168
+Hands ser.flush line: right at time 1624588203803.216
+
+Hands received  line: right at time 1624588203804.2168
+Hands ser.write line: right at time 1624588203804.2168
+Hands ser.flush line: right at time 1624588203804.216
+
+Hands received  line: right at time 1624588203804.2168
+Hands ser.write line: right at time 1624588203804.2168
+Hands ser.flush line: right at time 1624588203805.214
+
+Hands received  line: a && right && up at time 1624588203805.2148
+Hands ser.write line: a && right && up at time 1624588203805.2148
+Hands ser.flush line: a && right && up at time 1624588203805.2148
+Hands read response at time 1624588204134.2131
+Time after read image:  1624588204982.2603
+Time after send data :  1624588204986.26
+
+Hands received  line: r at time 1624588204986.261
+Hands ser.write line: r at time 1624588204987.263
+Hands ser.flush line: r at time 1624588204987.26
+
+Hands received  line: left at time 1624588204987.263
+Hands ser.write line: left at time 1624588204987.263
+Hands ser.flush line: left at time 1624588204987.26
+
+Hands received  line: left at time 1624588204987.263
+Hands ser.write line: left at time 1624588204988.2625
+Hands ser.flush line: left at time 1624588204988.262
+
+Hands received  line: left at time 1624588204988.2625
+Hands ser.write line: left at time 1624588204988.2625
+Hands ser.flush line: left at time 1624588204989.262
+
+Hands received  line: a && left && up at time 1624588204989.2627
+Hands ser.write line: a && left && up at time 1624588204989.2627
+Hands ser.flush line: a && left && up at time 1624588204989.2627
+Hands read response at time 1624588205316.2612
+Time after read image:  1624588205464.282
+Time after send data :  1624588205468.287
+
+Hands received  line: left at time 1624588205468.2878
+Hands ser.write line: left at time 1624588205469.2861
+Hands ser.flush line: left at time 1624588205469.286
+
+Hands received  line: a && left && up at time 1624588205469.2861
+Hands ser.write line: a && left && up at time 1624588205469.2861
+Hands ser.flush line: a && left && up at time 1624588205469.2861
+Hands read response at time 1624588205604.2866
+Time after read image:  1624588206438.6472
+Time after send data :  1624588206442.648
+
+Hands received  line: r at time 1624588206443.649
+Hands ser.write line: r at time 1624588206443.649
+Hands ser.flush line: r at time 1624588206444.649
+
+Hands received  line: left && up at time 1624588206444.6497
+Hands ser.write line: left && up at time 1624588206444.6497
+Hands ser.flush line: left && up at time 1624588206444.6497
+Hands read response at time 1624588206577.6472
+Time after read image:  1624588206742.6465
+Time after send data :  1624588206746.64
+
+Hands received  line: right at time 1624588206747.6492
+Hands ser.write line: right at time 1624588206747.6492
+Hands ser.flush line: right at time 1624588206747.649
+
+Hands received  line: right at time 1624588206748.649
+Hands ser.write line: right at time 1624588206748.649
+Hands ser.flush line: right at time 1624588206748.64
+
+Hands received  line: right at time 1624588206748.649
+Hands ser.write line: right at time 1624588206748.649
+Hands ser.flush line: right at time 1624588206748.64
+
+Hands received  line: right && up at time 1624588206749.6501
+Hands ser.write line: right && up at time 1624588206749.6501
+Hands ser.flush line: right && up at time 1624588206749.6501
+Hands read response at time 1624588207009.6472
+Time after read image:  1624588207158.6462
+Time after send data :  1624588207162.647
+
+Hands received  line: r at time 1624588207163.649
+Hands ser.write line: r at time 1624588207163.649
+Hands ser.flush line: r at time 1624588207164.650
+
+Hands received  line: a && right && up at time 1624588207164.6504
+Hands ser.write line: a && right && up at time 1624588207164.6504
+Hands ser.flush line: a && right && up at time 1624588207164.6504
+Hands read response at time 1624588207296.6472
+Time after read image:  1624588208134.6462
+Time after send data :  1624588208139.64
+
+Hands received  line: r at time 1624588208140.6497
+Hands ser.write line: r at time 1624588208141.648
+Hands ser.flush line: r at time 1624588208141.64
+
+Hands received  line: right at time 1624588208141.648
+Hands ser.write line: right at time 1624588208141.648
+Hands ser.flush line: right at time 1624588208142.651
+
+Hands received  line: right at time 1624588208142.6514
+Hands ser.write line: right at time 1624588208142.6514
+Hands ser.flush line: right at time 1624588208142.651
+
+Hands received  line: a && right && up at time 1624588208142.6514
+Hands ser.write line: a && right && up at time 1624588208143.6497
+Hands ser.flush line: a && right && up at time 1624588208143.6497
+Hands read response at time 1624588208398.6472
+Time after read image:  1624588208582.6465
+Time after send data :  1624588208586.64
+
+Hands received  line: right at time 1624588208586.648
+Hands ser.write line: right at time 1624588208587.6477
+Hands ser.flush line: right at time 1624588208587.647
+
+Hands received  line: right at time 1624588208587.6477
+Hands ser.write line: right at time 1624588208587.6477
+Hands ser.flush line: right at time 1624588208587.647
+
+Hands received  line: right at time 1624588208588.6484
+Hands ser.write line: right at time 1624588208588.6484
+Hands ser.flush line: right at time 1624588208588.648
+
+Hands received  line: a && right && up at time 1624588208588.6484
+Hands ser.write line: a && right && up at time 1624588208588.6484
+Hands ser.flush line: a && right && up at time 1624588208588.6484
+Hands read response at time 1624588208845.6494
+Time after read image:  1624588209702.6462
+Time after send data :  1624588209705.648
+
+Hands received  line: a && left at time 1624588209707.6536
+Hands ser.write line: a && left at time 1624588209707.6536
+Hands ser.flush line: a && left at time 1624588209707.653
+
+Hands received  line: a && up at time 1624588209707.6536
+Hands ser.write line: a && up at time 1624588209708.6492
+Hands ser.flush line: a && up at time 1624588209708.6492
+Hands read response at time 1624588209836.6484
+Time after read image:  1624588210006.6475
+Time after send data :  1624588210010.649
+
+Hands received  line: r at time 1624588210011.648
+Hands ser.write line: r at time 1624588210011.648
+Hands ser.flush line: r at time 1624588210011.64
+
+Hands received  line: a && right at time 1624588210012.651
+Hands ser.write line: a && right at time 1624588210012.651
+Hands ser.flush line: a && right at time 1624588210012.65
+
+Hands received  line: a && right && up at time 1624588210012.651
+Hands ser.write line: a && right && up at time 1624588210012.651
+Hands ser.flush line: a && right && up at time 1624588210013.6492
+Hands read response at time 1624588210203.6482
+Time after read image:  1624588210374.648
+Time after send data :  1624588210378.648
+
+Hands received  line: right at time 1624588210378.6484
+Hands ser.write line: right at time 1624588210379.65
+Hands ser.flush line: right at time 1624588210379.6
+
+Hands received  line: a && right at time 1624588210379.65
+Hands ser.write line: a && right at time 1624588210379.65
+Hands ser.flush line: a && right at time 1624588210379.6
+
+Hands received  line: a && right && up at time 1624588210380.649
+Hands ser.write line: a && right && up at time 1624588210380.649
+Hands ser.flush line: a && right && up at time 1624588210380.649
+Hands read response at time 1624588210570.6465
+Time after read image:  1624588210726.648
+Time after send data :  1624588210730.64
+
+Hands received  line: r at time 1624588210730.649
+Hands ser.write line: r at time 1624588210731.6484
+Hands ser.flush line: r at time 1624588210731.648
+
+Hands received  line: left at time 1624588210731.6484
+Hands ser.write line: left at time 1624588210731.6484
+Hands ser.flush line: left at time 1624588210731.648
+
+Hands received  line: left at time 1624588210732.6504
+Hands ser.write line: left at time 1624588210732.6504
+Hands ser.flush line: left at time 1624588210732.650
+
+Hands received  line: a && left && up at time 1624588210732.6504
+Hands ser.write line: a && left && up at time 1624588210732.6504
+Hands ser.flush line: a && left && up at time 1624588210733.6501
+Hands read response at time 1624588210986.6484
+Time after read image:  1624588211158.6465
+Time after send data :  1624588211161.646
+
+Hands received  line: left && up at time 1624588211161.6467
+Hands ser.write line: left && up at time 1624588211162.6477
+Hands ser.flush line: left && up at time 1624588211162.6477
+Hands read response at time 1624588211225.6484
+Time after read image:  1624588211414.6465
+Time after send data :  1624588211418.647
+
+Hands received  line: r at time 1624588211418.6477
+Hands ser.write line: r at time 1624588211418.6477
+Hands ser.flush line: r at time 1624588211419.65
+
+Hands received  line: left at time 1624588211419.651
+Hands ser.write line: left at time 1624588211419.651
+Hands ser.flush line: left at time 1624588211419.65
+
+Hands received  line: left at time 1624588211420.6523
+Hands ser.write line: left at time 1624588211420.6523
+Hands ser.flush line: left at time 1624588211420.652
+
+Hands received  line: left at time 1624588211420.6523
+Hands ser.write line: left at time 1624588211420.6523
+Hands ser.flush line: left at time 1624588211421.647
+
+Hands received  line: a && left at time 1624588211421.6477
+Hands ser.write line: a && left at time 1624588211421.6477
+Hands ser.flush line: a && left at time 1624588211421.647
+
+Hands received  line: left && up at time 1624588211421.6477
+Hands ser.write line: left && up at time 1624588211421.6477
+Hands ser.flush line: left && up at time 1624588211422.6487
+Hands read response at time 1624588211816.6462
+Time after read image:  1624588211974.6494
+Time after send data :  1624588211978.647
+
+Hands received  line: up at time 1624588211978.6477
+Hands ser.write line: up at time 1624588211978.6477
+Hands ser.flush line: up at time 1624588211978.6477
+Hands read response at time 1624588212056.6487
+Time after read image:  1624588212230.6467
+Time after send data :  1624588212234.648
+
+Hands received  line: right at time 1624588212234.6482
+Hands ser.write line: right at time 1624588212235.652
+Hands ser.flush line: right at time 1624588212235.65
+
+Hands received  line: right at time 1624588212235.652
+Hands ser.write line: right at time 1624588212235.652
+Hands ser.flush line: right at time 1624588212236.6
+
+Hands received  line: right && up at time 1624588212236.65
+Hands ser.write line: right && up at time 1624588212236.65
+Hands ser.flush line: right && up at time 1624588212236.65
+Hands read response at time 1624588212439.6514
+Time after read image:  1624588212598.6475
+Time after send data :  1624588212602.64
+
+Hands received  line: r at time 1624588212602.649
+Hands ser.write line: r at time 1624588212603.6494
+Hands ser.flush line: r at time 1624588212603.649
+
+Hands received  line: left && up at time 1624588212603.6494
+Hands ser.write line: left && up at time 1624588212603.6494
+Hands ser.flush line: left && up at time 1624588212603.6494
+Hands read response at time 1624588212743.6497
+Time after read image:  1624588212918.6477
+Time after send data :  1624588212922.648
+
+Hands received  line: right && up at time 1624588212922.6487
+Hands ser.write line: right && up at time 1624588212922.6487
+Hands ser.flush line: right && up at time 1624588212922.6487
+Hands read response at time 1624588212998.6475
+Time after read image:  1624588213142.6472
+Time after send data :  1624588213146.647
+
+Hands received  line: left at time 1624588213147.6482
+Hands ser.write line: left at time 1624588213147.6482
+Hands ser.flush line: left at time 1624588213148.649
+
+Hands received  line: left at time 1624588213148.6492
+Hands ser.write line: left at time 1624588213148.6492
+Hands ser.flush line: left at time 1624588213148.649
+
+Hands received  line: left && up at time 1624588213148.6492
+Hands ser.write line: left && up at time 1624588213149.6492
+Hands ser.flush line: left && up at time 1624588213149.6492
+Hands read response at time 1624588213350.6465
+Time after read image:  1624588213526.647
+Time after send data :  1624588213530.647
+
+Hands received  line: left at time 1624588213531.6477
+Hands ser.write line: left at time 1624588213532.653
+Hands ser.flush line: left at time 1624588213532.65
+
+Hands received  line: a && left at time 1624588213532.653
+Hands ser.write line: a && left at time 1624588213532.653
+Hands ser.flush line: a && left at time 1624588213532.65
+
+Hands received  line: a && left && up at time 1624588213532.653
+Hands ser.write line: a && left && up at time 1624588213533.6519
+Hands ser.flush line: a && left && up at time 1624588213533.6519
+Hands read response at time 1624588213733.6492
+Time after read image:  1624588213878.6472
+Time after send data :  1624588213882.64
+
+Hands received  line: r at time 1624588213883.649
+Hands ser.write line: r at time 1624588213883.649
+Hands ser.flush line: r at time 1624588213883.64
+
+Hands received  line: left && up at time 1624588213883.649
+Hands ser.write line: left && up at time 1624588213884.6492
+Hands ser.flush line: left && up at time 1624588213884.6492
+Hands read response at time 1624588214020.647
+Time after read image:  1624588214198.6472
+Time after send data :  1624588214202.648
+
+Hands received  line: right at time 1624588214203.6497
+Hands ser.write line: right at time 1624588214203.6497
+Hands ser.flush line: right at time 1624588214203.649
+
+Hands received  line: right at time 1624588214203.6497
+Hands ser.write line: right at time 1624588214204.649
+Hands ser.flush line: right at time 1624588214204.64
+
+Hands received  line: right at time 1624588214204.649
+Hands ser.write line: right at time 1624588214204.649
+Hands ser.flush line: right at time 1624588214204.64
+
+Hands received  line: a && right && up at time 1624588214205.649
+Hands ser.write line: a && right && up at time 1624588214205.649
+Hands ser.flush line: a && right && up at time 1624588214205.649
+Hands read response at time 1624588214468.6475
+Time after read image:  1624588215303.6462
+Time after send data :  1624588215307.6
+
+Hands received  line: r at time 1624588215308.6482
+Hands ser.write line: r at time 1624588215308.6482
+Hands ser.flush line: r at time 1624588215309.64
+
+Hands received  line: a && right at time 1624588215309.648
+Hands ser.write line: a && right at time 1624588215309.648
+Hands ser.flush line: a && right at time 1624588215309.64
+
+Hands received  line: a && right && up at time 1624588215309.648
+Hands ser.write line: a && right && up at time 1624588215310.6504
+Hands ser.flush line: a && right && up at time 1624588215310.6504
+Hands read response at time 1624588215506.6492
+Time after read image:  1624588215670.6475
+Time after send data :  1624588215674.648
+
+Hands received  line: right at time 1624588215674.6482
+Hands ser.write line: right at time 1624588215674.6482
+Hands ser.flush line: right at time 1624588215674.648
+
+Hands received  line: right at time 1624588215675.6501
+Hands ser.write line: right at time 1624588215675.6501
+Hands ser.flush line: right at time 1624588215675.650
+
+Hands received  line: a && right && up at time 1624588215675.6501
+Hands ser.write line: a && right && up at time 1624588215675.6501
+Hands ser.flush line: a && right && up at time 1624588215676.6494
+Hands read response at time 1624588215873.6465
+Time after read image:  1624588216038.6484
+Time after send data :  1624588216043.648
+
+Hands received  line: r at time 1624588216043.6482
+Hands ser.write line: r at time 1624588216044.6484
+Hands ser.flush line: r at time 1624588216045.64
+
+Hands received  line: a && left at time 1624588216045.649
+Hands ser.write line: a && left at time 1624588216045.649
+Hands ser.flush line: a && left at time 1624588216045.64
+
+Hands received  line: a && left && up at time 1624588216045.649
+Hands ser.write line: a && left && up at time 1624588216045.649
+Hands ser.flush line: a && left && up at time 1624588216045.649
+Hands read response at time 1624588216241.6484
+Time after read image:  1624588216406.6492
+Time after send data :  1624588216410.649
+
+Hands received  line: left at time 1624588216410.6497
+Hands ser.write line: left at time 1624588216410.6497
+Hands ser.flush line: left at time 1624588216410.649
+
+Hands received  line: left at time 1624588216411.65
+Hands ser.write line: left at time 1624588216411.65
+Hands ser.flush line: left at time 1624588216411.6
+
+Hands received  line: left at time 1624588216411.65
+Hands ser.write line: left at time 1624588216411.65
+Hands ser.flush line: left at time 1624588216411.6
+
+Hands received  line: a && left && up at time 1624588216412.6514
+Hands ser.write line: a && left && up at time 1624588216412.6514
+Hands ser.flush line: a && left && up at time 1624588216412.6514
+Hands read response at time 1624588216672.1616
+Time after read image:  1624588216839.163
+Time after send data :  1624588216843.16
+
+Hands received  line: right at time 1624588216843.162
+Hands ser.write line: right at time 1624588216844.162
+Hands ser.flush line: right at time 1624588216844.16
+
+Hands received  line: right at time 1624588216844.162
+Hands ser.write line: right at time 1624588216844.162
+Hands ser.flush line: right at time 1624588216844.16
+
+Hands received  line: right && up at time 1624588216845.1624
+Hands ser.write line: right && up at time 1624588216845.1624
+Hands ser.flush line: right && up at time 1624588216845.1624
+Hands read response at time 1624588217040.162
+Time after read image:  1624588217207.1602
+Time after send data :  1624588217211.162
+
+Hands received  line: r at time 1624588217212.163
+Hands ser.write line: r at time 1624588217212.163
+Hands ser.flush line: r at time 1624588217212.16
+
+Hands received  line: a && up at time 1624588217212.163
+Hands ser.write line: a && up at time 1624588217213.1643
+Hands ser.flush line: a && up at time 1624588217213.1643
+Hands read response at time 1624588217343.1614
+Time after read image:  1624588217526.1633
+Time after send data :  1624588217530.16
+
+Hands received  line: a && right at time 1624588217530.162
+Hands ser.write line: a && right at time 1624588217530.162
+Hands ser.flush line: a && right at time 1624588217531.163
+
+Hands received  line: a && right && up at time 1624588217531.1636
+Hands ser.write line: a && right && up at time 1624588217531.1636
+Hands ser.flush line: a && right && up at time 1624588217531.1636
+Hands read response at time 1624588217663.1616
+Time after read image:  1624588217830.1614
+Time after send data :  1624588217834.162
+
+Hands received  line: left at time 1624588217834.1624
+Hands ser.write line: left at time 1624588217835.163
+Hands ser.flush line: left at time 1624588217835.16
+
+Hands received  line: a && left at time 1624588217835.163
+Hands ser.write line: a && left at time 1624588217835.163
+Hands ser.flush line: a && left at time 1624588217836.162
+
+Hands received  line: a && left && up at time 1624588217836.1626
+Hands ser.write line: a && left && up at time 1624588217836.1626
+Hands ser.flush line: a && left && up at time 1624588217836.1626
+Hands read response at time 1624588218030.163
+Time after read image:  1624588218221.1614
+Time after send data :  1624588218225.162
+
+Hands received  line: left && up at time 1624588218225.1626
+Hands ser.write line: left && up at time 1624588218225.1626
+Hands ser.flush line: left && up at time 1624588218226.1636
+Hands read response at time 1624588218302.1614
+Time after read image:  1624588218478.161
+Time after send data :  1624588218482.162
+
+Hands received  line: right at time 1624588218482.1624
+Hands ser.write line: right at time 1624588218483.163
+Hands ser.flush line: right at time 1624588218483.16
+
+Hands received  line: right at time 1624588218483.163
+Hands ser.write line: right at time 1624588218483.163
+Hands ser.flush line: right at time 1624588218483.16
+
+Hands received  line: right at time 1624588218483.163
+Hands ser.write line: right at time 1624588218484.1638
+Hands ser.flush line: right at time 1624588218484.163
+
+Hands received  line: a && right && up at time 1624588218484.1638
+Hands ser.write line: a && right && up at time 1624588218484.1638
+Hands ser.flush line: a && right && up at time 1624588218484.1638
+Hands read response at time 1624588218749.1636
+Time after read image:  1624588219591.1606
+Time after send data :  1624588219594.161
+
+Hands received  line: left at time 1624588219595.1653
+Hands ser.write line: left at time 1624588219595.1653
+Hands ser.flush line: left at time 1624588219595.165
+
+Hands received  line: left && up at time 1624588219596.1653
+Hands ser.write line: left && up at time 1624588219596.1653
+Hands ser.flush line: left && up at time 1624588219596.1653
+Hands read response at time 1624588219723.162
+Time after read image:  1624588219878.1606
+Time after send data :  1624588219882.162
+
+Hands received  line: right at time 1624588219882.1626
+Hands ser.write line: right at time 1624588219883.1663
+Hands ser.flush line: right at time 1624588219883.166
+
+Hands received  line: right at time 1624588219883.1663
+Hands ser.write line: right at time 1624588219883.1663
+Hands ser.flush line: right at time 1624588219883.166
+
+Hands received  line: a && right && up at time 1624588219884.164
+Hands ser.write line: a && right && up at time 1624588219884.164
+Hands ser.flush line: a && right && up at time 1624588219884.164
+Hands read response at time 1624588220074.163
+Time after read image:  1624588220268.1616
+Time after send data :  1624588220272.161
+
+Hands received  line: left at time 1624588220272.1619
+Hands ser.write line: left at time 1624588220273.1643
+Hands ser.flush line: left at time 1624588220273.164
+
+Hands received  line: left at time 1624588220273.1643
+Hands ser.write line: left at time 1624588220273.1643
+Hands ser.flush line: left at time 1624588220273.164
+
+Hands received  line: left at time 1624588220274.1648
+Hands ser.write line: left at time 1624588220274.1648
+Hands ser.flush line: left at time 1624588220274.164
+
+Hands received  line: a && left && up at time 1624588220274.1648
+Hands ser.write line: a && left && up at time 1624588220274.1648
+Hands ser.flush line: a && left && up at time 1624588220275.1628
+Hands read response at time 1624588220538.1616
+Time after read image:  1624588220694.1606
+Time after send data :  1624588220698.162
+
+Hands received  line: r at time 1624588220699.163
+Hands ser.write line: r at time 1624588220700.1619
+Hands ser.flush line: r at time 1624588220700.161
+
+Hands received  line: up at time 1624588220700.1619
+Hands ser.write line: up at time 1624588220700.1619
+Hands ser.flush line: up at time 1624588220701.1648
+Hands read response at time 1624588220825.162
+Time after read image:  1624588221020.1619
+Time after send data :  1624588221024.162
+
+Hands received  line: a && right at time 1624588221026.1648
+Hands ser.write line: a && right at time 1624588221026.1648
+Hands ser.flush line: a && right at time 1624588221026.164
+
+Hands received  line: a && right at time 1624588221026.1648
+Hands ser.write line: a && right at time 1624588221026.1648
+Hands ser.flush line: a && right at time 1624588221027.16
+
+Hands received  line: a && up at time 1624588221027.164
+Hands ser.write line: a && up at time 1624588221027.164
+Hands ser.flush line: a && up at time 1624588221027.164
+Hands read response at time 1624588221224.161
+Time after read image:  1624588221382.1636
+Time after send data :  1624588221386.162
+
+Hands received  line: a && left at time 1624588221387.1636
+Hands ser.write line: a && left at time 1624588221387.1636
+Hands ser.flush line: a && left at time 1624588221387.163
+
+Hands received  line: a && up at time 1624588221388.1653
+Hands ser.write line: a && up at time 1624588221388.1653
+Hands ser.flush line: a && up at time 1624588221388.1653
+Hands read response at time 1624588221528.1624
+Time after read image:  1624588221702.1604
+Time after send data :  1624588221706.163
+
+Hands received  line: right at time 1624588221706.1636
+Hands ser.write line: right at time 1624588221707.1619
+Hands ser.flush line: right at time 1624588221707.161
+
+Hands received  line: right at time 1624588221707.1619
+Hands ser.write line: right at time 1624588221707.1619
+Hands ser.flush line: right at time 1624588221708.164
+
+Hands received  line: right at time 1624588221708.1646
+Hands ser.write line: right at time 1624588221708.1646
+Hands ser.flush line: right at time 1624588221708.164
+
+Hands received  line: a && right && up at time 1624588221708.1646
+Hands ser.write line: a && right && up at time 1624588221708.1646
+Hands ser.flush line: a && right && up at time 1624588221709.1658
+Hands read response at time 1624588221975.1692
+Time after read image:  1624588222806.1614
+Time after send data :  1624588222810.161
+
+Hands received  line: r at time 1624588222810.1619
+Hands ser.write line: r at time 1624588222811.162
+Hands ser.flush line: r at time 1624588222811.16
+
+Hands received  line: left at time 1624588222811.162
+Hands ser.write line: left at time 1624588222812.1663
+Hands ser.flush line: left at time 1624588222812.166
+
+Hands received  line: a && left at time 1624588222812.1663
+Hands ser.write line: a && left at time 1624588222812.1663
+Hands ser.flush line: a && left at time 1624588222812.166
+
+Hands received  line: a && left && up at time 1624588222812.1663
+Hands ser.write line: a && left && up at time 1624588222813.1636
+Hands ser.flush line: a && left && up at time 1624588222813.1636
+Hands read response at time 1624588223077.1633
+Time after read image:  1624588223245.1646
+Time after send data :  1624588223249.165
+
+Hands received  line: a && left at time 1624588223249.1658
+Hands ser.write line: a && left at time 1624588223249.1658
+Hands ser.flush line: a && left at time 1624588223250.16
+
+Hands received  line: a && left && up at time 1624588223250.165
+Hands ser.write line: a && left && up at time 1624588223250.165
+Hands ser.flush line: a && left && up at time 1624588223250.165
+Hands read response at time 1624588223381.1604
+Time after read image:  1624588223558.1614
+Time after send data :  1624588223562.16
+
+Hands received  line: r at time 1624588223562.161
+Hands ser.write line: r at time 1624588223563.162
+Hands ser.flush line: r at time 1624588223563.16
+
+Hands received  line: up at time 1624588223563.162
+Hands ser.write line: up at time 1624588223563.162
+Hands ser.flush line: up at time 1624588223563.162
+Hands read response at time 1624588223700.1606
+Time after read image:  1624588223862.1636
+Time after send data :  1624588223866.161
+
+Hands received  line: right at time 1624588223866.1616
+Hands ser.write line: right at time 1624588223866.1616
+Hands ser.flush line: right at time 1624588223867.16
+
+Hands received  line: right at time 1624588223867.167
+Hands ser.write line: right at time 1624588223867.167
+Hands ser.flush line: right at time 1624588223867.16
+
+Hands received  line: a && right && up at time 1624588223867.167
+Hands ser.write line: a && right && up at time 1624588223867.167
+Hands ser.flush line: a && right && up at time 1624588223868.1667
+Hands read response at time 1624588224067.1614
+Time after read image:  1624588224246.1633
+Time after send data :  1624588224250.162
+
+Hands received  line: r at time 1624588224250.1624
+Hands ser.write line: r at time 1624588224251.162
+Hands ser.flush line: r at time 1624588224251.16
+
+Hands received  line: right at time 1624588224251.162
+Hands ser.write line: right at time 1624588224251.162
+Hands ser.flush line: right at time 1624588224251.16
+
+Hands received  line: a && right && up at time 1624588224251.162
+Hands ser.write line: a && right && up at time 1624588224252.1643
+Hands ser.flush line: a && right && up at time 1624588224252.1643
+Hands read response at time 1624588224451.1606
+Time after read image:  1624588224614.1636
+Time after send data :  1624588224618.16
+
+Hands received  line: right && up at time 1624588224618.164
+Hands ser.write line: right && up at time 1624588224619.1638
+Hands ser.flush line: right && up at time 1624588224619.1638
+Hands read response at time 1624588224690.1616
+Time after read image:  1624588224854.1616
+Time after send data :  1624588224858.161
+
+Hands received  line: left at time 1624588224859.1633
+Hands ser.write line: left at time 1624588224859.1633
+Hands ser.flush line: left at time 1624588224859.163
+
+Hands received  line: left at time 1624588224859.1633
+Hands ser.write line: left at time 1624588224859.1633
+Hands ser.flush line: left at time 1624588224860.16
+
+Hands received  line: left at time 1624588224860.167
+Hands ser.write line: left at time 1624588224860.167
+Hands ser.flush line: left at time 1624588224860.16
+
+Hands received  line: a && left && up at time 1624588224860.167
+Hands ser.write line: a && left && up at time 1624588224860.167
+Hands ser.flush line: a && left && up at time 1624588224861.162
+Hands read response at time 1624588225122.1604
+Time after read image:  1624588225292.1614
+Time after send data :  1624588225296.162
+
+Hands received  line: r at time 1624588225296.1624
+Hands ser.write line: r at time 1624588225297.1638
+Hands ser.flush line: r at time 1624588225297.163
+
+Hands received  line: right at time 1624588225297.1638
+Hands ser.write line: right at time 1624588225298.1636
+Hands ser.flush line: right at time 1624588225298.163
+
+Hands received  line: right at time 1624588225298.1636
+Hands ser.write line: right at time 1624588225298.1636
+Hands ser.flush line: right at time 1624588225298.163
+
+Hands received  line: right at time 1624588225298.1636
+Hands ser.write line: right at time 1624588225299.1646
+Hands ser.flush line: right at time 1624588225299.164
+
+Hands received  line: a && right && up at time 1624588225299.1646
+Hands ser.write line: a && right && up at time 1624588225299.1646
+Hands ser.flush line: a && right && up at time 1624588225299.1646
+Hands read response at time 1624588225633.1614
+Time after read image:  1624588226456.1633
+Time after send data :  1624588226460.164
+
+Hands received  line: left at time 1624588226460.1646
+Hands ser.write line: left at time 1624588226460.1646
+Hands ser.flush line: left at time 1624588226461.165
+
+Hands received  line: left && up at time 1624588226461.1655
+Hands ser.write line: left && up at time 1624588226461.1655
+Hands ser.flush line: left && up at time 1624588226461.1655
+Hands read response at time 1624588226591.1614
+Time after read image:  1624588226742.1602
+Time after send data :  1624588226746.162
+
+Hands received  line: r at time 1624588226746.1626
+Hands ser.write line: r at time 1624588226747.1628
+Hands ser.flush line: r at time 1624588226747.162
+
+Hands received  line: right at time 1624588226747.1628
+Hands ser.write line: right at time 1624588226747.1628
+Hands ser.flush line: right at time 1624588226747.162
+
+Hands received  line: right at time 1624588226748.1638
+Hands ser.write line: right at time 1624588226748.1638
+Hands ser.flush line: right at time 1624588226748.163
+
+Hands received  line: right at time 1624588226748.1638
+Hands ser.write line: right at time 1624588226748.1638
+Hands ser.flush line: right at time 1624588226749.164
+
+Hands received  line: a && right && up at time 1624588226749.1643
+Hands ser.write line: a && right && up at time 1624588226749.1643
+Hands ser.flush line: a && right && up at time 1624588226749.1643
+Hands read response at time 1624588227070.1614
+Time after read image:  1624588227894.1833
+Time after send data :  1624588227898.185
+
+Hands received  line: right at time 1624588227898.1858
+Hands ser.write line: right at time 1624588227898.1858
+Hands ser.flush line: right at time 1624588227898.185
+
+Hands received  line: right at time 1624588227898.1858
+Hands ser.write line: right at time 1624588227899.1848
+Hands ser.flush line: right at time 1624588227899.184
+
+Hands received  line: right at time 1624588227899.1848
+Hands ser.write line: right at time 1624588227899.1848
+Hands ser.flush line: right at time 1624588227899.184
+
+Hands received  line: right && up at time 1624588227900.186
+Hands ser.write line: right && up at time 1624588227900.186
+Hands ser.flush line: right && up at time 1624588227900.186
+Hands read response at time 1624588228156.2075
+Time after read image:  1624588228326.2068
+Time after send data :  1624588228330.208
+
+Hands received  line: r at time 1624588228330.2083
+Hands ser.write line: r at time 1624588228331.209
+Hands ser.flush line: r at time 1624588228331.20
+
+Hands received  line: right at time 1624588228332.2097
+Hands ser.write line: right at time 1624588228332.2097
+Hands ser.flush line: right at time 1624588228332.209
+
+Hands received  line: right && up at time 1624588228332.2097
+Hands ser.write line: right && up at time 1624588228332.2097
+Hands ser.flush line: right && up at time 1624588228333.2083
+Hands read response at time 1624588228524.21
+Time after read image:  1624588228678.2053
+Time after send data :  1624588228682.20
+
+Hands received  line: left at time 1624588228682.208
+Hands ser.write line: left at time 1624588228682.208
+Hands ser.flush line: left at time 1624588228682.20
+
+Hands received  line: left at time 1624588228682.208
+Hands ser.write line: left at time 1624588228683.2087
+Hands ser.flush line: left at time 1624588228683.208
+
+Hands received  line: left && up at time 1624588228683.2087
+Hands ser.write line: left && up at time 1624588228683.2087
+Hands ser.flush line: left && up at time 1624588228683.2087
+Hands read response at time 1624588228875.2073
+Time after read image:  1624588229063.2065
+Time after send data :  1624588229067.206
+
+Hands received  line: a && left && up at time 1624588229069.2073
+Hands ser.write line: a && left && up at time 1624588229069.2073
+Hands ser.flush line: a && left && up at time 1624588229069.2073
+Hands read response at time 1624588229131.2083
+Time after read image:  1624588229324.2065
+Time after send data :  1624588229327.207
+
+Hands received  line: r at time 1624588229330.2068
+Hands ser.write line: r at time 1624588229331.2068
+Hands ser.flush line: r at time 1624588229331.206
+
+Hands received  line: a && right at time 1624588229331.2068
+Hands ser.write line: a && right at time 1624588229331.2068
+Hands ser.flush line: a && right at time 1624588229331.206
+
+Hands received  line: a && up at time 1624588229332.2092
+Hands ser.write line: a && up at time 1624588229332.2092
+Hands ser.flush line: a && up at time 1624588229332.2092
+Hands read response at time 1624588229530.207
+Time after read image:  1624588229702.205
+Time after send data :  1624588229706.20
+
+Hands received  line: right at time 1624588229706.207
+Hands ser.write line: right at time 1624588229706.207
+Hands ser.flush line: right at time 1624588229707.209
+
+Hands received  line: right at time 1624588229707.2095
+Hands ser.write line: right at time 1624588229707.2095
+Hands ser.flush line: right at time 1624588229707.209
+
+Hands received  line: a && right at time 1624588229707.2095
+Hands ser.write line: a && right at time 1624588229708.2075
+Hands ser.flush line: a && right at time 1624588229708.207
+
+Hands received  line: a && right && up at time 1624588229708.2075
+Hands ser.write line: a && right && up at time 1624588229708.2075
+Hands ser.flush line: a && right && up at time 1624588229708.2075
+Hands read response at time 1624588229961.2068
+Time after read image:  1624588230158.2065
+Time after send data :  1624588230162.212
+
+Hands received  line: r at time 1624588230162.2126
+Hands ser.write line: r at time 1624588230163.209
+Hands ser.flush line: r at time 1624588230163.20
+
+Hands received  line: right && up at time 1624588230163.209
+Hands ser.write line: right && up at time 1624588230163.209
+Hands ser.flush line: right && up at time 1624588230164.21
+Hands read response at time 1624588230296.7258
+Time after read image:  1624588230471.7234
+Time after send data :  1624588230475.72
+
+Hands received  line: right at time 1624588230475.725
+Hands ser.write line: right at time 1624588230475.725
+Hands ser.flush line: right at time 1624588230475.72
+
+Hands received  line: right at time 1624588230476.7253
+Hands ser.write line: right at time 1624588230476.7253
+Hands ser.flush line: right at time 1624588230476.725
+
+Hands received  line: right at time 1624588230476.7253
+Hands ser.write line: right at time 1624588230476.7253
+Hands ser.flush line: right at time 1624588230477.725
+
+Hands received  line: right && up at time 1624588230477.7258
+Hands ser.write line: right && up at time 1624588230477.7258
+Hands ser.flush line: right && up at time 1624588230477.7258
+Hands read response at time 1624588230743.724
+Time after read image:  1624588230902.7258
+Time after send data :  1624588230906.724
+
+Hands received  line: r at time 1624588230907.7249
+Hands ser.write line: r at time 1624588230907.7249
+Hands ser.flush line: r at time 1624588230908.726
+
+Hands received  line: left at time 1624588230908.7268
+Hands ser.write line: left at time 1624588230908.7268
+Hands ser.flush line: left at time 1624588230908.726
+
+Hands received  line: left && up at time 1624588230908.7268
+Hands ser.write line: left && up at time 1624588230909.7288
+Hands ser.flush line: left && up at time 1624588230909.7288
+Hands read response at time 1624588231111.724
+Time after read image:  1624588231270.7231
+Time after send data :  1624588231274.723
+
+Hands received  line: left at time 1624588231274.7239
+Hands ser.write line: left at time 1624588231274.7239
+Hands ser.flush line: left at time 1624588231275.725
+
+Hands received  line: left at time 1624588231275.7258
+Hands ser.write line: left at time 1624588231275.7258
+Hands ser.flush line: left at time 1624588231275.725
+
+Hands received  line: left && up at time 1624588231275.7258
+Hands ser.write line: left && up at time 1624588231276.7256
+Hands ser.flush line: left && up at time 1624588231276.7256
+Hands read response at time 1624588231478.7239
+Time after read image:  1624588231638.7244
+Time after send data :  1624588231642.72
+
+Hands received  line: right && up at time 1624588231643.7258
+Hands ser.write line: right && up at time 1624588231644.7258
+Hands ser.flush line: right && up at time 1624588231644.7258
+Hands read response at time 1624588231718.7239
+Time after read image:  1624588231862.7231
+Time after send data :  1624588231866.724
+
+Hands received  line: r at time 1624588231867.7249
+Hands ser.write line: r at time 1624588231867.7249
+Hands ser.flush line: r at time 1624588231867.724
+
+Hands received  line: a && left at time 1624588231868.7256
+Hands ser.write line: a && left at time 1624588231868.7256
+Hands ser.flush line: a && left at time 1624588231868.725
+
+Hands received  line: a && left && up at time 1624588231868.7256
+Hands ser.write line: a && left && up at time 1624588231869.725
+Hands ser.flush line: a && left && up at time 1624588231869.725
+Hands read response at time 1624588232069.7239
+Time after read image:  1624588232246.724
+Time after send data :  1624588232250.724
+
+Hands received  line: right at time 1624588232250.7246
+Hands ser.write line: right at time 1624588232250.7246
+Hands ser.flush line: right at time 1624588232251.72
+
+Hands received  line: right at time 1624588232251.727
+Hands ser.write line: right at time 1624588232251.727
+Hands ser.flush line: right at time 1624588232251.72
+
+Hands received  line: a && right at time 1624588232251.727
+Hands ser.write line: a && right at time 1624588232251.727
+Hands ser.flush line: a && right at time 1624588232252.727
+
+Hands received  line: a && right at time 1624588232252.7278
+Hands ser.write line: a && right at time 1624588232252.7278
+Hands ser.flush line: a && right at time 1624588232252.727
+
+Hands received  line: a && right && up at time 1624588232252.7278
+Hands ser.write line: a && right && up at time 1624588232253.7246
+Hands ser.flush line: a && right && up at time 1624588232253.7246
+Hands read response at time 1624588232580.7258
+Time after read image:  1624588233414.3643
+Time after send data :  1624588233418.36
+
+Hands received  line: r at time 1624588233418.366
+Hands ser.write line: r at time 1624588233418.366
+Hands ser.flush line: r at time 1624588233419.36
+
+Hands received  line: up at time 1624588233419.365
+Hands ser.write line: up at time 1624588233419.365
+Hands ser.flush line: up at time 1624588233419.365
+Hands read response at time 1624588233555.3667
+Time after read image:  1624588233740.3652
+Time after send data :  1624588233744.366
+
+Hands received  line: left at time 1624588233744.3665
+Hands ser.write line: left at time 1624588233744.3665
+Hands ser.flush line: left at time 1624588233744.366
+
+Hands received  line: left at time 1624588233745.3667
+Hands ser.write line: left at time 1624588233745.3667
+Hands ser.flush line: left at time 1624588233745.366
+
+Hands received  line: left at time 1624588233745.3667
+Hands ser.write line: left at time 1624588233745.3667
+Hands ser.flush line: left at time 1624588233745.366
+
+Hands received  line: a && left at time 1624588233746.366
+Hands ser.write line: a && left at time 1624588233746.366
+Hands ser.flush line: a && left at time 1624588233746.36
+
+Hands received  line: left && up at time 1624588233746.366
+Hands ser.write line: left && up at time 1624588233746.366
+Hands ser.flush line: left && up at time 1624588233746.366
+Hands read response at time 1624588234066.367
+Time after read image:  1624588234918.3635
+Time after send data :  1624588234921.363
+
+Hands received  line: r at time 1624588234922.3647
+Hands ser.write line: r at time 1624588234922.3647
+Hands ser.flush line: r at time 1624588234922.364
+
+Hands received  line: right at time 1624588234923.367
+Hands ser.write line: right at time 1624588234923.367
+Hands ser.flush line: right at time 1624588234923.36
+
+Hands received  line: right at time 1624588234923.367
+Hands ser.write line: right at time 1624588234923.367
+Hands ser.flush line: right at time 1624588234924.36
+
+Hands received  line: a && right && up at time 1624588234924.368
+Hands ser.write line: a && right && up at time 1624588234924.368
+Hands ser.flush line: a && right && up at time 1624588234924.368
+Hands read response at time 1624588235184.3643
+Time after read image:  1624588235350.3638
+Time after send data :  1624588235354.36
+
+Hands received  line: up at time 1624588235354.366
+Hands ser.write line: up at time 1624588235354.366
+Hands ser.flush line: up at time 1624588235355.3645
+Hands read response at time 1624588235423.3645
+Time after read image:  1624588235590.3645
+Time after send data :  1624588235594.365
+
+Hands received  line: r at time 1624588235595.367
+Hands ser.write line: r at time 1624588235595.367
+Hands ser.flush line: r at time 1624588235596.368
+
+Hands received  line: left at time 1624588235596.3682
+Hands ser.write line: left at time 1624588235596.3682
+Hands ser.flush line: left at time 1624588235596.368
+
+Hands received  line: left at time 1624588235596.3682
+Hands ser.write line: left at time 1624588235597.3677
+Hands ser.flush line: left at time 1624588235597.367
+
+Hands received  line: left && up at time 1624588235597.3677
+Hands ser.write line: left && up at time 1624588235597.3677
+Hands ser.flush line: left && up at time 1624588235597.3677
+Hands read response at time 1624588235855.3665
+Time after read image:  1624588236022.3643
+Time after send data :  1624588236026.36
+
+Hands received  line: left && up at time 1624588236026.367
+Hands ser.write line: left && up at time 1624588236027.3672
+Hands ser.flush line: left && up at time 1624588236027.3672
+Hands read response at time 1624588236094.3638
+Time after read image:  1624588236278.3645
+Time after send data :  1624588236282.365
+
+Hands received  line: right at time 1624588236284.365
+Hands ser.write line: right at time 1624588236284.365
+Hands ser.flush line: right at time 1624588236284.36
+
+Hands received  line: a && right && up at time 1624588236284.365
+Hands ser.write line: a && right && up at time 1624588236285.3696
+Hands ser.flush line: a && right && up at time 1624588236285.3696
+Hands read response at time 1624588236414.3657
+Time after read image:  1624588236582.3633
+Time after send data :  1624588236586.3
+
+Hands received  line: r at time 1624588236586.37
+Hands ser.write line: r at time 1624588236587.3662
+Hands ser.flush line: r at time 1624588236587.366
+
+Hands received  line: a && right at time 1624588236587.3662
+Hands ser.write line: a && right at time 1624588236588.365
+Hands ser.flush line: a && right at time 1624588236588.36
+
+Hands received  line: a && right && up at time 1624588236588.365
+Hands ser.write line: a && right && up at time 1624588236588.365
+Hands ser.flush line: a && right && up at time 1624588236589.366
+Hands read response at time 1624588236781.365
+Time after read image:  1624588236950.3635
+Time after send data :  1624588236954.365
+
+Hands received  line: left at time 1624588236954.3655
+Hands ser.write line: left at time 1624588236954.3655
+Hands ser.flush line: left at time 1624588236954.365
+
+Hands received  line: left at time 1624588236954.3655
+Hands ser.write line: left at time 1624588236955.366
+Hands ser.flush line: left at time 1624588236955.36
+
+Hands received  line: left at time 1624588236955.366
+Hands ser.write line: left at time 1624588236955.366
+Hands ser.flush line: left at time 1624588236955.36
+
+Hands received  line: a && left at time 1624588236956.3665
+Hands ser.write line: a && left at time 1624588236956.3665
+Hands ser.flush line: a && left at time 1624588236956.366
+
+Hands received  line: left && up at time 1624588236956.3665
+Hands ser.write line: left && up at time 1624588236956.3665
+Hands ser.flush line: left && up at time 1624588236957.3655
+Hands read response at time 1624588237276.3647
+Time after read image:  1624588238118.5806
+Time after send data :  1624588238122.581
+
+Hands received  line: left at time 1624588238122.5815
+Hands ser.write line: left at time 1624588238122.5815
+Hands ser.flush line: left at time 1624588238122.581
+
+Hands received  line: left at time 1624588238122.5815
+Hands ser.write line: left at time 1624588238123.5845
+Hands ser.flush line: left at time 1624588238123.584
+
+Hands received  line: left && up at time 1624588238123.5845
+Hands ser.write line: left && up at time 1624588238123.5845
+Hands ser.flush line: left && up at time 1624588238123.5845
+Hands read response at time 1624588238314.5818
+Time after read image:  1624588238502.5808
+Time after send data :  1624588238506.580
+
+Hands received  line: r at time 1624588238506.5808
+Hands ser.write line: r at time 1624588238507.581
+Hands ser.flush line: r at time 1624588238507.58
+
+Hands received  line: a && left && up at time 1624588238507.581
+Hands ser.write line: a && left && up at time 1624588238507.581
+Hands ser.flush line: a && left && up at time 1624588238507.581
+Hands read response at time 1624588238634.5854
+Time after read image:  1624588238812.5815
+Time after send data :  1624588238816.581
+
+Hands received  line: right at time 1624588238816.5815
+Hands ser.write line: right at time 1624588238817.5823
+Hands ser.flush line: right at time 1624588238817.582
+
+Hands received  line: right at time 1624588238817.5823
+Hands ser.write line: right at time 1624588238817.5823
+Hands ser.flush line: right at time 1624588238817.582
+
+Hands received  line: a && right && up at time 1624588238818.5837
+Hands ser.write line: a && right && up at time 1624588238818.5837
+Hands ser.flush line: a && right && up at time 1624588238818.5837
+Hands read response at time 1624588239018.5798
+Time after read image:  1624588239190.579
+Time after send data :  1624588239194.580
+
+Hands received  line: r at time 1624588239195.5825
+Hands ser.write line: r at time 1624588239195.5825
+Hands ser.flush line: r at time 1624588239196.582
+
+Hands received  line: right && up at time 1624588239196.5828
+Hands ser.write line: right && up at time 1624588239196.5828
+Hands ser.flush line: right && up at time 1624588239196.5828
+Hands read response at time 1624588239321.5796
+Time after read image:  1624588239478.5793
+Time after send data :  1624588239482.58
+
+Hands received  line: left && up at time 1624588239482.581
+Hands ser.write line: left && up at time 1624588239482.581
+Hands ser.flush line: left && up at time 1624588239483.5825
+Hands read response at time 1624588239545.5828
+Time after read image:  1624588240198.5793
+Time after send data :  1624588240203.582
+
+Hands received  line: r at time 1624588240205.5823
+Hands ser.write line: r at time 1624588240206.582
+Hands ser.flush line: r at time 1624588240207.580
+
+Hands received  line: left at time 1624588240207.5806
+Hands ser.write line: left at time 1624588240207.5806
+Hands ser.flush line: left at time 1624588240207.580
+
+Hands received  line: a && left at time 1624588240207.5806
+Hands ser.write line: a && left at time 1624588240207.5806
+Hands ser.flush line: a && left at time 1624588240208.582
+
+Hands received  line: a && left && up at time 1624588240208.5823
+Hands ser.write line: a && left && up at time 1624588240208.5823
+Hands ser.flush line: a && left && up at time 1624588240208.5823
+Hands read response at time 1624588240456.5803
+Time after read image:  1624588240632.5793
+Time after send data :  1624588240636.5815
+
+
+Hands received  line: a && right at time 1624588240637.584
+Hands ser.write line: a && right at time 1624588240637.584
+Hands ser.flush line: a && right at time 1624588240637.58
+
+Hands received  line: a && right at time 1624588240638.5837
+Hands ser.write line: a && right at time 1624588240638.5837
+Hands ser.flush line: a && right at time 1624588240638.583
+
+Hands received  line: a && right && up at time 1624588240638.5837
+Hands ser.write line: a && right && up at time 1624588240639.5823
+Hands ser.flush line: a && right && up at time 1624588240639.5823
+Hands read response at time 1624588240840.5825

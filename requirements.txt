@@ -1,0 +1,5 @@
+opencv-python
+sdl2
+pysdl2
+pysdl2-dll
+pyserial

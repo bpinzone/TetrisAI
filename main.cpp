@@ -53,24 +53,29 @@ int main(int argc, char* argv[]) {
       freopen(getenv("STDERR"), "w", stderr);
 #endif
 
-    Play_settings ps(argc, argv);
-    Output_manager::get_instance().set_streams(ps.mode);
-    // ps.wait_for_controller_connection_if_necessary();
+    try{
+        Play_settings ps(argc, argv);
+        Output_manager::get_instance().set_streams(ps.mode);
+        // ps.wait_for_controller_connection_if_necessary();
 
-    Tetris_worker::create_workers(ps.num_threads);
-    // Wait for them to spin up and mark themselves free for work.
-    Tetris_worker::wait_until_all_free();
+        Tetris_worker::create_workers(ps.num_threads);
+        // Wait for them to spin up and mark themselves free for work.
+        Tetris_worker::wait_until_all_free();
 
-    if(ps.is_watching()){
-        play(ps);
+        if(ps.is_watching()){
+            play(ps);
+        }
+        else{
+            play_99(ps);
+        }
+
+        // Not bothering with unique_ptr
+        delete ps.block_generator;
+        return 0;
     }
-    else{
-        play_99(ps);
+    catch(const std::exception& ex){
+        cout << ex.what() << endl;
     }
-
-    // Not bothering with unique_ptr
-    delete ps.block_generator;
-    return 0;
 }
 
 void play(const Play_settings& settings){
@@ -87,7 +92,9 @@ void play(const Play_settings& settings){
     int turn = 0;
     while(turn < settings.game_length){
 
-        cout << "Comparisons: " << gs_num_comparisons << endl;
+        cout << "Comparisons: " << gs_num_comparisons << "\n";
+        gs_num_comparisons = 0;
+
 
         // Status
         if(settings.board_log){
@@ -139,7 +146,7 @@ void play(const Play_settings& settings){
 
         swap(board, new_board);
         if(settings.board_log){
-            Output_manager::get_instance().get_board_os() << "\n" << board << endl;
+            Output_manager::get_instance().get_board_os() << "\n" << board << "\n";
         }
         ++turn;
     }
