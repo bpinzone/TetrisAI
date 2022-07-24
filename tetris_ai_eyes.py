@@ -15,6 +15,10 @@ interrupted = True
 res = (640, 480)
 fps = 60
 
+# NOTE: switch "TV SIZE" setting must be set to 96%
+# NOTE: switch "TV SIZE" setting must be set to 96%
+# NOTE: switch "TV SIZE" setting must be set to 96%
+# NOTE: switch "TV SIZE" setting must be set to 96%
 upper_left_board = (35, 243)
 lower_right_board = (445, 397)
 upper_left_queue = (47, 400)
@@ -60,7 +64,8 @@ def show_sections(image_mask, rows, cols):
                 ) for pic_row in np.array_split(image_mask, rows, axis=0)]
             )
 
-default_video = 0 # '/dev/video0'
+# default_video = 0 # '/dev/video0'
+default_video = 1 # '/dev/video0'
 
 threshold_to_not_be_empty = 80
 cutoff_to_not_be_stars = 210
@@ -131,10 +136,12 @@ def debug_loop():
 
         debug_image[queue_upper_left_row:queue_lower_right_row, queue_upper_left_col:queue_lower_right_col] = modified_queue
         debug_image[hold_upper_left_row:hold_lower_right_row:2, hold_upper_left_col:hold_lower_right_col:2] = piece_colors[hold] if hold != None else np.array([0, 0, 0])
-        if board_obscured:
-            debug_image = cv2.rectangle(debug_image, (upper_left_board[1], upper_left_board[0]), (lower_right_board[1], lower_right_board[0]), (0, 255, 255), 1)
-        else:
-            debug_image[upper_left_row:lower_right_row, upper_left_col:lower_right_col] = modified_board
+        # if board_obscured:
+        debug_image = cv2.rectangle(debug_image, (upper_left_board[1], upper_left_board[0]), (lower_right_board[1], lower_right_board[0]), (0, 255, 255), 1)
+        debug_image = cv2.rectangle(debug_image, (upper_left_queue[1], upper_left_queue[0]), (lower_right_queue[1], lower_right_queue[0]), (0, 255, 255), 1)
+        debug_image = cv2.rectangle(debug_image, (upper_left_hold[1], upper_left_hold[0]), (lower_right_hold[1], lower_right_hold[0]), (0, 255, 255), 1)
+        # else:
+            # debug_image[upper_left_row:lower_right_row, upper_left_col:lower_right_col] = modified_board
 
 
 
@@ -207,7 +214,10 @@ def main():
     global num_rows
     global num_cols
     if args.video == default_video:
-        assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
+        # Need to run this on Linux, but it fails on Windows
+        if sys.platform == "linux" or sys.platform == "linux2":
+            assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
+        # assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
         assert capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
         assert capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
         assert capture.set(cv2.CAP_PROP_FPS, int(fps))
@@ -509,7 +519,7 @@ def generate_correct_board(board):
     # 0, 1 is the top left but one cell to the right.
 
     # Things get confirmed BEFORE going into the frontier.
-    confirmed_cells = np.zeros_like(board, dtype=np.bool)
+    confirmed_cells = np.zeros_like(board, dtype=bool)
 
     frontier = [(num_rows - 1, col_x) for col_x in range(0, num_cols) if board[num_rows - 1, col_x]]
     for coord in frontier:
