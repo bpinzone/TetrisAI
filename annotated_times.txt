@@ -1,0 +1,1642 @@
+1658810031550.116 hands: just received user input with no up command
+1658810031551.115 hands: about to start listening for 1 responses
+1658810031551.115 hands: about to write serial message
+1658810031551.115 hands: just flushed serial message
+1658810033960.198 hands: found all responses
+	 (+ 2409.083 ms!!!!!!!!!!)
+1658810033960.198 hands: found response
+1658810063276.15 eyes: just flushed to brain
+	 (+ 29315.952 ms!!!!!!!!!!)
+1658810063276.15 eyes: just saw the queue shift
+1658810063278.152 hands: about to start listening for 1 responses
+	 (+ 2.002 ms!)
+1658810063278.152 hands: about to write serial message
+1658810063278.152 hands: just flushed serial message
+1658810063278.152 hands: just received user input with no up command
+1658810063349.157 hands: found all responses
+	 (+ 71.005 ms!!!!!!!!!!)
+1658810063349.157 hands: found response
+1658810063350.16 hands: about to start listening for 1 responses
+	 (+ 1.003 ms!)
+1658810063350.16 hands: about to write serial message
+1658810063350.16 hands: just flushed serial message
+1658810063350.16 hands: just received user input with no up command
+1658810063413.001 hands: found all responses
+	 (+ 62.841 ms!!!!!!!!!!)
+1658810063413.001 hands: found response
+1658810063413.001 hands: just received user input with no up command
+1658810063414.001 hands: about to start listening for 1 responses
+1658810063414.001 hands: about to write serial message
+1658810063414.001 hands: just flushed serial message
+1658810063477.517 hands: about to write serial message
+	 (+ 63.516 ms!!!!!!!!!!)
+1658810063477.517 hands: found all responses
+1658810063477.517 hands: found response
+1658810063477.517 hands: just flushed serial message
+1658810063477.517 hands: just received user input with no up command
+1658810063596.558 eyes: just flushed to brain
+	 (+ 119.041 ms!!!!!!!!!!)
+1658810063596.558 eyes: just saw the queue shift
+1658810063597.556 hands: about to write serial message
+1658810063597.556 hands: about to write serial message
+1658810063597.556 hands: just flushed serial message
+1658810063597.556 hands: just received user input with no up command
+1658810063597.556 hands: just received user input with no up command
+1658810063598.558 hands: about to start listening for 4 responses
+	 (+ 1.002 ms!)
+1658810063598.558 hands: about to write serial message
+1658810063598.558 hands: found response
+1658810063598.558 hands: just flushed serial message
+1658810063598.558 hands: just flushed serial message
+1658810063598.558 hands: just received user input WITH UP COMMAND
+1658810063668.086 hands: found response
+	 (+ 69.528 ms!!!!!!!!!!)
+1658810063732.086 hands: found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810063795.603 hands: found all responses
+	 (+ 63.517 ms!!!!!!!!!!)
+1658810063795.603 hands: found response
+1658810063963.999 eyes: just flushed to brain
+	 (+ 168.396 ms!!!!!!!!!!)
+1658810063963.999 eyes: just saw the queue shift
+1658810063964.999 hands: about to write serial message
+1658810063964.999 hands: just received user input WITH UP COMMAND
+1658810063965.999 hands: about to start listening for 1 responses
+1658810063965.999 hands: just flushed serial message
+1658810064034.999 hands: found all responses
+	 (+ 69.0 ms!!!!!!!!!!)
+1658810064034.999 hands: found response
+1658810064204.401 eyes: just flushed to brain
+	 (+ 169.402 ms!!!!!!!!!!)
+1658810064204.401 eyes: just saw the queue shift
+1658810064206.403 hands: about to write serial message
+	 (+ 2.002 ms!)
+1658810064206.403 hands: about to write serial message
+1658810064206.403 hands: just flushed serial message
+1658810064206.403 hands: just flushed serial message
+1658810064206.403 hands: just received user input with no up command
+1658810064206.403 hands: just received user input with no up command
+1658810064207.405 hands: about to start listening for 4 responses
+	 (+ 1.002 ms!)
+1658810064207.405 hands: about to write serial message
+1658810064207.405 hands: about to write serial message
+1658810064207.405 hands: just flushed serial message
+1658810064207.405 hands: just flushed serial message
+1658810064207.405 hands: just received user input with no up command
+1658810064207.405 hands: just received user input WITH UP COMMAND
+1658810064273.437 hands: found response
+	 (+ 66.032 ms!!!!!!!!!!)
+1658810064337.663 hands: found response
+	 (+ 64.226 ms!!!!!!!!!!)
+1658810064401.723 hands: found response
+	 (+ 64.06 ms!!!!!!!!!!)
+1658810064465.027 hands: found all responses
+	 (+ 63.304 ms!!!!!!!!!!)
+1658810064465.027 hands: found response
+1658810064636.105 eyes: just flushed to brain
+	 (+ 171.078 ms!!!!!!!!!!)
+1658810064636.105 eyes: just saw the queue shift
+1658810064637.106 hands: about to start listening for 1 responses
+	 (+ 1.001 ms!)
+1658810064637.106 hands: about to write serial message
+1658810064637.106 hands: just flushed serial message
+1658810064637.106 hands: just received user input WITH UP COMMAND
+1658810064704.247 hands: found all responses
+	 (+ 67.141 ms!!!!!!!!!!)
+1658810064704.247 hands: found response
+1658810064859.771 eyes: just saw the queue shift
+	 (+ 155.524 ms!!!!!!!!!!)
+1658810064861.275 eyes: just flushed to brain
+	 (+ 1.504 ms!)
+1658810064863.283 hands: about to write serial message
+	 (+ 2.008 ms!)
+1658810064863.283 hands: about to write serial message
+1658810064863.283 hands: just flushed serial message
+1658810064863.283 hands: just received user input with no up command
+1658810064863.283 hands: just received user input with no up command
+1658810064864.28 hands: about to start listening for 4 responses
+1658810064864.28 hands: about to write serial message
+1658810064864.28 hands: about to write serial message
+1658810064864.28 hands: just flushed serial message
+1658810064864.28 hands: just flushed serial message
+1658810064864.28 hands: just flushed serial message
+1658810064864.28 hands: just received user input with no up command
+1658810064864.28 hands: just received user input WITH UP COMMAND
+1658810064927.551 hands: found response
+	 (+ 63.271 ms!!!!!!!!!!)
+1658810064990.976 hands: found response
+	 (+ 63.425 ms!!!!!!!!!!)
+1658810065054.979 hands: found response
+	 (+ 64.003 ms!!!!!!!!!!)
+1658810065118.492 hands: found all responses
+	 (+ 63.513 ms!!!!!!!!!!)
+1658810065118.492 hands: found response
+1658810065292.526 eyes: just flushed to brain
+	 (+ 174.034 ms!!!!!!!!!!)
+1658810065292.526 eyes: just saw the queue shift
+1658810065293.528 hands: about to write serial message
+	 (+ 1.002 ms!)
+1658810065293.528 hands: just flushed serial message
+1658810065293.528 hands: just received user input with no up command
+1658810065294.531 hands: about to start listening for 3 responses
+	 (+ 1.003 ms!)
+1658810065294.531 hands: about to write serial message
+1658810065294.531 hands: about to write serial message
+1658810065294.531 hands: just flushed serial message
+1658810065294.531 hands: just flushed serial message
+1658810065294.531 hands: just received user input with no up command
+1658810065294.531 hands: just received user input WITH UP COMMAND
+1658810065357.532 hands: found response
+	 (+ 63.001 ms!!!!!!!!!!)
+1658810065421.611 hands: found response
+	 (+ 64.079 ms!!!!!!!!!!)
+1658810065484.87 hands: found all responses
+	 (+ 63.259 ms!!!!!!!!!!)
+1658810065484.87 hands: found response
+1658810065660.395 eyes: just flushed to brain
+	 (+ 175.525 ms!!!!!!!!!!)
+1658810065660.395 eyes: just saw the queue shift
+1658810065661.902 hands: about to write serial message
+	 (+ 1.507 ms!)
+1658810065661.902 hands: just flushed serial message
+1658810065661.902 hands: just received user input with no up command
+1658810065661.902 hands: just received user input with no up command
+1658810065662.911 hands: about to start listening for 3 responses
+	 (+ 1.009 ms!)
+1658810065662.911 hands: about to write serial message
+1658810065662.911 hands: about to write serial message
+1658810065662.911 hands: just flushed serial message
+1658810065662.911 hands: just flushed serial message
+1658810065662.911 hands: just received user input WITH UP COMMAND
+1658810065723.909 hands: found response
+	 (+ 60.998 ms!!!!!!!!!!)
+1658810065788.426 hands: found response
+	 (+ 64.517 ms!!!!!!!!!!)
+1658810065851.431 hands: found all responses
+	 (+ 63.005 ms!!!!!!!!!!)
+1658810065851.431 hands: found response
+1658810066044.46 eyes: just flushed to brain
+	 (+ 193.029 ms!!!!!!!!!!)
+1658810066044.46 eyes: just saw the queue shift
+1658810066045.46 hands: about to write serial message
+1658810066045.46 hands: about to write serial message
+1658810066045.46 hands: just flushed serial message
+1658810066045.46 hands: just received user input with no up command
+1658810066045.46 hands: just received user input with no up command
+1658810066046.461 hands: about to start listening for 4 responses
+	 (+ 1.001 ms!)
+1658810066046.461 hands: about to write serial message
+1658810066046.461 hands: about to write serial message
+1658810066046.461 hands: just flushed serial message
+1658810066046.461 hands: just flushed serial message
+1658810066046.461 hands: just flushed serial message
+1658810066046.461 hands: just received user input with no up command
+1658810066046.461 hands: just received user input WITH UP COMMAND
+1658810066122.978 hands: found response
+	 (+ 76.517 ms!!!!!!!!!!)
+1658810066186.03 hands: found response
+	 (+ 63.052 ms!!!!!!!!!!)
+1658810066250.325 hands: found response
+	 (+ 64.295 ms!!!!!!!!!!)
+1658810066313.834 hands: found all responses
+	 (+ 63.509 ms!!!!!!!!!!)
+1658810066313.834 hands: found response
+1658810066460.034 eyes: just flushed to brain
+	 (+ 146.2 ms!!!!!!!!!!)
+1658810066460.034 eyes: just saw the queue shift
+1658810066462.036 hands: about to start listening for 1 responses
+	 (+ 2.002 ms!)
+1658810066462.036 hands: about to write serial message
+1658810066462.036 hands: just flushed serial message
+1658810066462.036 hands: just received user input WITH UP COMMAND
+1658810066537.164 hands: found all responses
+	 (+ 75.128 ms!!!!!!!!!!)
+1658810066537.164 hands: found response
+1658810066700.194 eyes: just flushed to brain
+	 (+ 163.03 ms!!!!!!!!!!)
+1658810066700.194 eyes: just saw the queue shift
+1658810066702.196 hands: about to write serial message
+	 (+ 2.002 ms!)
+1658810066702.196 hands: about to write serial message
+1658810066702.196 hands: just flushed serial message
+1658810066702.196 hands: just received user input with no up command
+1658810066702.196 hands: just received user input with no up command
+1658810066703.201 hands: about to start listening for 3 responses
+	 (+ 1.005 ms!)
+1658810066703.201 hands: about to write serial message
+1658810066703.201 hands: just flushed serial message
+1658810066703.201 hands: just flushed serial message
+1658810066703.201 hands: just received user input WITH UP COMMAND
+1658810066775.713 hands: found response
+	 (+ 72.512 ms!!!!!!!!!!)
+1658810066839.713 hands: found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810066903.233 hands: found response
+	 (+ 63.52 ms!!!!!!!!!!)
+1658810066904.23 hands: found all responses
+1658810067068.335 eyes: just flushed to brain
+	 (+ 164.105 ms!!!!!!!!!!)
+1658810067068.335 eyes: just saw the queue shift
+1658810067069.336 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810067069.336 hands: just received user input with no up command
+1658810067070.337 hands: about to start listening for 2 responses
+	 (+ 1.001 ms!)
+1658810067070.337 hands: about to write serial message
+1658810067070.337 hands: just flushed serial message
+1658810067070.337 hands: just flushed serial message
+1658810067070.337 hands: just received user input WITH UP COMMAND
+1658810067142.336 hands: found response
+	 (+ 71.999 ms!!!!!!!!!!)
+1658810067206.855 hands: found all responses
+	 (+ 64.519 ms!!!!!!!!!!)
+1658810067206.855 hands: found response
+1658810067372.893 eyes: just saw the queue shift
+	 (+ 166.038 ms!!!!!!!!!!)
+1658810067373.893 eyes: just flushed to brain
+1658810067374.893 hands: about to write serial message
+1658810067374.893 hands: about to write serial message
+1658810067374.893 hands: just flushed serial message
+1658810067374.893 hands: just received user input with no up command
+1658810067374.893 hands: just received user input with no up command
+1658810067375.893 hands: about to write serial message
+1658810067375.893 hands: about to write serial message
+1658810067375.893 hands: about to write serial message
+1658810067375.893 hands: just flushed serial message
+1658810067375.893 hands: just flushed serial message
+1658810067375.893 hands: just flushed serial message
+1658810067375.893 hands: just received user input with no up command
+1658810067375.893 hands: just received user input with no up command
+1658810067375.893 hands: just received user input WITH UP COMMAND
+1658810067376.892 hands: about to start listening for 5 responses
+1658810067376.892 hands: just flushed serial message
+1658810067445.894 hands: found response
+	 (+ 69.002 ms!!!!!!!!!!)
+1658810067509.409 hands: found response
+	 (+ 63.515 ms!!!!!!!!!!)
+1658810067572.926 hands: found response
+	 (+ 63.517 ms!!!!!!!!!!)
+1658810067637.189 hands: found response
+	 (+ 64.263 ms!!!!!!!!!!)
+1658810067700.707 hands: found all responses
+	 (+ 63.518 ms!!!!!!!!!!)
+1658810067700.707 hands: found response
+1658810068523.94 eyes: just flushed to brain
+	 (+ 823.233 ms!!!!!!!!!!)
+1658810068523.94 eyes: just saw the queue shift
+1658810068524.942 hands: about to write serial message
+	 (+ 1.002 ms!)
+1658810068524.942 hands: just flushed serial message
+1658810068524.942 hands: just received user input with no up command
+1658810068525.941 hands: about to start listening for 3 responses
+1658810068525.941 hands: about to write serial message
+1658810068525.941 hands: about to write serial message
+1658810068525.941 hands: just flushed serial message
+1658810068525.941 hands: just flushed serial message
+1658810068525.941 hands: just received user input with no up command
+1658810068525.941 hands: just received user input WITH UP COMMAND
+1658810068592.982 hands: found response
+	 (+ 67.041 ms!!!!!!!!!!)
+1658810068656.988 hands: found response
+	 (+ 64.006 ms!!!!!!!!!!)
+1658810068720.358 hands: found all responses
+	 (+ 63.37 ms!!!!!!!!!!)
+1658810068720.358 hands: found response
+1658810068894.403 eyes: just flushed to brain
+	 (+ 174.045 ms!!!!!!!!!!)
+1658810068894.403 eyes: just saw the queue shift
+1658810068895.399 hands: about to write serial message
+1658810068895.399 hands: about to write serial message
+1658810068895.399 hands: just flushed serial message
+1658810068895.399 hands: just received user input with no up command
+1658810068895.399 hands: just received user input WITH UP COMMAND
+1658810068896.399 hands: about to start listening for 2 responses
+1658810068896.399 hands: just flushed serial message
+1658810068959.403 hands: found response
+	 (+ 63.004 ms!!!!!!!!!!)
+1658810069023.664 hands: found all responses
+	 (+ 64.261 ms!!!!!!!!!!)
+1658810069023.664 hands: found response
+1658810069212.231 eyes: just flushed to brain
+	 (+ 188.567 ms!!!!!!!!!!)
+1658810069212.231 eyes: just saw the queue shift
+1658810069214.233 hands: just received user input with no up command
+	 (+ 2.002 ms!)
+1658810069215.237 hands: about to start listening for 2 responses
+	 (+ 1.004 ms!)
+1658810069215.237 hands: about to write serial message
+1658810069215.237 hands: about to write serial message
+1658810069215.237 hands: just flushed serial message
+1658810069215.237 hands: just flushed serial message
+1658810069215.237 hands: just received user input WITH UP COMMAND
+1658810069278.751 hands: found response
+	 (+ 63.514 ms!!!!!!!!!!)
+1658810069341.755 hands: found response
+	 (+ 63.004 ms!!!!!!!!!!)
+1658810069342.752 hands: found all responses
+1658810069516.782 eyes: just flushed to brain
+	 (+ 174.03 ms!!!!!!!!!!)
+1658810069516.782 eyes: just saw the queue shift
+1658810069517.783 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810069517.783 hands: about to write serial message
+1658810069517.783 hands: just flushed serial message
+1658810069517.783 hands: just flushed serial message
+1658810069517.783 hands: just received user input with no up command
+1658810069517.783 hands: just received user input with no up command
+1658810069518.787 hands: about to start listening for 4 responses
+	 (+ 1.004 ms!)
+1658810069518.787 hands: about to write serial message
+1658810069518.787 hands: about to write serial message
+1658810069518.787 hands: just flushed serial message
+1658810069518.787 hands: just flushed serial message
+1658810069518.787 hands: just received user input with no up command
+1658810069518.787 hands: just received user input WITH UP COMMAND
+1658810069581.298 hands: found response
+	 (+ 62.511 ms!!!!!!!!!!)
+1658810069645.299 hands: found response
+	 (+ 64.001 ms!!!!!!!!!!)
+1658810069708.819 hands: found response
+	 (+ 63.52 ms!!!!!!!!!!)
+1658810069772.858 hands: found all responses
+	 (+ 64.039 ms!!!!!!!!!!)
+1658810069772.858 hands: found response
+1658810069948.738 eyes: just flushed to brain
+	 (+ 175.88 ms!!!!!!!!!!)
+1658810069948.738 eyes: just saw the queue shift
+1658810069950.743 hands: about to write serial message
+	 (+ 2.005 ms!)
+1658810069950.743 hands: about to write serial message
+1658810069950.743 hands: about to write serial message
+1658810069950.743 hands: just flushed serial message
+1658810069950.743 hands: just flushed serial message
+1658810069950.743 hands: just received user input with no up command
+1658810069950.743 hands: just received user input with no up command
+1658810069950.743 hands: just received user input WITH UP COMMAND
+1658810069951.744 hands: about to start listening for 3 responses
+	 (+ 1.001 ms!)
+1658810069951.744 hands: just flushed serial message
+1658810070011.254 hands: found response
+	 (+ 59.51 ms!!!!!!!!!!)
+1658810070091.775 hands: found response
+	 (+ 80.521 ms!!!!!!!!!!)
+1658810070154.782 hands: found all responses
+	 (+ 63.007 ms!!!!!!!!!!)
+1658810070154.782 hands: found response
+1658810070316.81 eyes: just saw the queue shift
+	 (+ 162.028 ms!!!!!!!!!!)
+1658810070317.812 eyes: just flushed to brain
+	 (+ 1.002 ms!)
+1658810070318.807 hands: just received user input with no up command
+1658810070319.808 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810070319.808 hands: just flushed serial message
+1658810070320.81 hands: about to start listening for 4 responses
+	 (+ 1.002 ms!)
+1658810070320.81 hands: about to write serial message
+1658810070320.81 hands: about to write serial message
+1658810070320.81 hands: about to write serial message
+1658810070320.81 hands: just flushed serial message
+1658810070320.81 hands: just flushed serial message
+1658810070320.81 hands: just flushed serial message
+1658810070320.81 hands: just received user input with no up command
+1658810070320.81 hands: just received user input with no up command
+1658810070320.81 hands: just received user input WITH UP COMMAND
+1658810070394.159 hands: found response
+	 (+ 73.349 ms!!!!!!!!!!)
+1658810070458.163 hands: found response
+	 (+ 64.004 ms!!!!!!!!!!)
+1658810070521.249 hands: found response
+	 (+ 63.086 ms!!!!!!!!!!)
+1658810070585.303 hands: found all responses
+	 (+ 64.054 ms!!!!!!!!!!)
+1658810070585.303 hands: found response
+1658810070765.043 eyes: just saw the queue shift
+	 (+ 179.74 ms!!!!!!!!!!)
+1658810070766.053 eyes: just flushed to brain
+	 (+ 1.01 ms!)
+1658810070767.051 hands: about to start listening for 1 responses
+1658810070767.051 hands: about to write serial message
+1658810070767.051 hands: just flushed serial message
+1658810070767.051 hands: just received user input WITH UP COMMAND
+1658810070840.048 hands: found all responses
+	 (+ 72.997 ms!!!!!!!!!!)
+1658810070840.048 hands: found response
+1658810070988.624 eyes: just flushed to brain
+	 (+ 148.576 ms!!!!!!!!!!)
+1658810070988.624 eyes: just saw the queue shift
+1658810070990.625 hands: about to write serial message
+	 (+ 2.001 ms!)
+1658810070990.625 hands: just flushed serial message
+1658810070990.625 hands: just received user input with no up command
+1658810070991.626 hands: about to start listening for 2 responses
+	 (+ 1.001 ms!)
+1658810070991.626 hands: about to write serial message
+1658810070991.626 hands: just flushed serial message
+1658810070991.626 hands: just received user input WITH UP COMMAND
+1658810071063.628 hands: found response
+	 (+ 72.002 ms!!!!!!!!!!)
+1658810071127.802 hands: found all responses
+	 (+ 64.174 ms!!!!!!!!!!)
+1658810071127.802 hands: found response
+1658810071275.839 eyes: just saw the queue shift
+	 (+ 148.037 ms!!!!!!!!!!)
+1658810071276.839 eyes: just flushed to brain
+1658810071277.839 hands: about to write serial message
+1658810071277.839 hands: about to write serial message
+1658810071277.839 hands: about to write serial message
+1658810071277.839 hands: just flushed serial message
+1658810071277.839 hands: just flushed serial message
+1658810071277.839 hands: just received user input with no up command
+1658810071277.839 hands: just received user input with no up command
+1658810071277.839 hands: just received user input WITH UP COMMAND
+1658810071278.843 hands: about to start listening for 3 responses
+	 (+ 1.004 ms!)
+1658810071278.843 hands: just flushed serial message
+1658810071350.843 hands: found response
+	 (+ 72.0 ms!!!!!!!!!!)
+1658810071414.057 hands: found response
+	 (+ 63.214 ms!!!!!!!!!!)
+1658810071477.579 hands: found all responses
+	 (+ 63.522 ms!!!!!!!!!!)
+1658810071477.579 hands: found response
+1658810071660.103 eyes: just saw the queue shift
+	 (+ 182.524 ms!!!!!!!!!!)
+1658810071661.104 eyes: just flushed to brain
+	 (+ 1.001 ms!)
+1658810071662.104 hands: about to start listening for 1 responses
+1658810071662.104 hands: about to write serial message
+1658810071662.104 hands: just flushed serial message
+1658810071662.104 hands: just received user input WITH UP COMMAND
+1658810071732.824 hands: found all responses
+	 (+ 70.72 ms!!!!!!!!!!)
+1658810071732.824 hands: found response
+1658810071922.384 eyes: just saw the queue shift
+	 (+ 189.56 ms!!!!!!!!!!)
+1658810071923.382 eyes: just flushed to brain
+1658810071923.382 hands: just received user input with no up command
+1658810071924.383 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810071924.383 hands: about to write serial message
+1658810071924.383 hands: about to write serial message
+1658810071924.383 hands: about to write serial message
+1658810071924.383 hands: just flushed serial message
+1658810071924.383 hands: just flushed serial message
+1658810071924.383 hands: just flushed serial message
+1658810071924.383 hands: just received user input with no up command
+1658810071924.383 hands: just received user input with no up command
+1658810071924.383 hands: just received user input WITH UP COMMAND
+1658810071925.382 hands: about to start listening for 4 responses
+1658810071925.382 hands: just flushed serial message
+1658810071988.423 hands: found response
+	 (+ 63.041 ms!!!!!!!!!!)
+1658810072051.428 hands: found response
+	 (+ 63.005 ms!!!!!!!!!!)
+1658810072131.709 hands: found response
+	 (+ 80.281 ms!!!!!!!!!!)
+1658810072194.864 hands: found all responses
+	 (+ 63.155 ms!!!!!!!!!!)
+1658810072194.864 hands: found response
+1658810073020.094 eyes: just flushed to brain
+	 (+ 825.23 ms!!!!!!!!!!)
+1658810073020.094 eyes: just saw the queue shift
+1658810073021.095 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810073021.095 hands: about to write serial message
+1658810073021.095 hands: just flushed serial message
+1658810073021.095 hands: just received user input with no up command
+1658810073021.095 hands: just received user input with no up command
+1658810073022.1 hands: about to start listening for 3 responses
+	 (+ 1.005 ms!)
+1658810073022.1 hands: about to write serial message
+1658810073022.1 hands: just flushed serial message
+1658810073022.1 hands: just flushed serial message
+1658810073022.1 hands: just received user input WITH UP COMMAND
+1658810073087.899 hands: found response
+	 (+ 65.799 ms!!!!!!!!!!)
+1658810073151.904 hands: found response
+	 (+ 64.005 ms!!!!!!!!!!)
+1658810073215.419 hands: found all responses
+	 (+ 63.515 ms!!!!!!!!!!)
+1658810073215.419 hands: found response
+1658810073371.996 eyes: just flushed to brain
+	 (+ 156.577 ms!!!!!!!!!!)
+1658810073371.996 eyes: just saw the queue shift
+1658810073372.996 hands: about to write serial message
+1658810073372.996 hands: about to write serial message
+1658810073372.996 hands: just flushed serial message
+1658810073372.996 hands: just received user input with no up command
+1658810073372.996 hands: just received user input WITH UP COMMAND
+1658810073373.996 hands: about to start listening for 2 responses
+1658810073373.996 hands: just flushed serial message
+1658810073438.292 hands: found response
+	 (+ 64.296 ms!!!!!!!!!!)
+1658810073501.804 hands: found all responses
+	 (+ 63.512 ms!!!!!!!!!!)
+1658810073501.804 hands: found response
+1658810073681.811 eyes: just flushed to brain
+	 (+ 180.007 ms!!!!!!!!!!)
+1658810073681.811 eyes: just saw the queue shift
+1658810073682.811 hands: about to start listening for 1 responses
+1658810073682.811 hands: about to write serial message
+1658810073682.811 hands: just flushed serial message
+1658810073682.811 hands: just received user input WITH UP COMMAND
+1658810073756.814 hands: found all responses
+	 (+ 74.003 ms!!!!!!!!!!)
+1658810073756.814 hands: found response
+1658810073916.197 eyes: just flushed to brain
+	 (+ 159.383 ms!!!!!!!!!!)
+1658810073916.197 eyes: just saw the queue shift
+1658810073917.195 hands: about to write serial message
+1658810073917.195 hands: about to write serial message
+1658810073917.195 hands: just flushed serial message
+1658810073917.195 hands: just received user input with no up command
+1658810073917.195 hands: just received user input with no up command
+1658810073918.195 hands: about to start listening for 3 responses
+1658810073918.195 hands: about to write serial message
+1658810073918.195 hands: just flushed serial message
+1658810073918.195 hands: just flushed serial message
+1658810073918.195 hands: just received user input WITH UP COMMAND
+1658810073980.715 hands: found response
+	 (+ 62.52 ms!!!!!!!!!!)
+1658810074043.715 hands: found response
+	 (+ 63.0 ms!!!!!!!!!!)
+1658810074108.231 hands: found all responses
+	 (+ 64.516 ms!!!!!!!!!!)
+1658810074108.231 hands: found response
+1658810074300.461 eyes: just flushed to brain
+	 (+ 192.23 ms!!!!!!!!!!)
+1658810074300.461 eyes: just saw the queue shift
+1658810074301.462 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810074301.462 hands: about to write serial message
+1658810074301.462 hands: about to write serial message
+1658810074301.462 hands: just flushed serial message
+1658810074301.462 hands: just flushed serial message
+1658810074301.462 hands: just received user input with no up command
+1658810074301.462 hands: just received user input with no up command
+1658810074301.462 hands: just received user input WITH UP COMMAND
+1658810074302.466 hands: about to start listening for 3 responses
+	 (+ 1.004 ms!)
+1658810074302.466 hands: just flushed serial message
+1658810074378.994 hands: found response
+	 (+ 76.528 ms!!!!!!!!!!)
+1658810074442.259 hands: found response
+	 (+ 63.265 ms!!!!!!!!!!)
+1658810074505.776 hands: found all responses
+	 (+ 63.517 ms!!!!!!!!!!)
+1658810074505.776 hands: found response
+1658810074668.331 eyes: just flushed to brain
+	 (+ 162.555 ms!!!!!!!!!!)
+1658810074668.331 eyes: just saw the queue shift
+1658810074669.333 hands: about to start listening for 1 responses
+	 (+ 1.002 ms!)
+1658810074669.333 hands: about to write serial message
+1658810074669.333 hands: just flushed serial message
+1658810074669.333 hands: just received user input WITH UP COMMAND
+1658810074745.332 hands: found all responses
+	 (+ 75.999 ms!!!!!!!!!!)
+1658810074745.332 hands: found response
+1658810074914.892 eyes: just saw the queue shift
+	 (+ 169.56 ms!!!!!!!!!!)
+1658810074915.892 eyes: just flushed to brain
+1658810074916.893 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810074916.893 hands: about to write serial message
+1658810074916.893 hands: just flushed serial message
+1658810074916.893 hands: just flushed serial message
+1658810074916.893 hands: just received user input with no up command
+1658810074916.893 hands: just received user input with no up command
+1658810074917.892 hands: about to start listening for 3 responses
+1658810074917.892 hands: about to write serial message
+1658810074917.892 hands: just flushed serial message
+1658810074917.892 hands: just received user input WITH UP COMMAND
+1658810074983.929 hands: found response
+	 (+ 66.037 ms!!!!!!!!!!)
+1658810075047.929 hands: found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810075111.456 hands: found all responses
+	 (+ 63.527 ms!!!!!!!!!!)
+1658810075111.456 hands: found response
+1658810075292.055 eyes: just flushed to brain
+	 (+ 180.599 ms!!!!!!!!!!)
+1658810075292.055 eyes: just saw the queue shift
+1658810075294.057 hands: about to start listening for 1 responses
+	 (+ 2.002 ms!)
+1658810075294.057 hands: about to write serial message
+1658810075294.057 hands: just flushed serial message
+1658810075294.057 hands: just received user input WITH UP COMMAND
+1658810075367.06 hands: found all responses
+	 (+ 73.003 ms!!!!!!!!!!)
+1658810075367.06 hands: found response
+1658810075549.832 eyes: just saw the queue shift
+	 (+ 182.772 ms!!!!!!!!!!)
+1658810075550.836 eyes: just flushed to brain
+	 (+ 1.004 ms!)
+1658810075551.832 hands: about to write serial message
+1658810075551.832 hands: about to write serial message
+1658810075551.832 hands: about to write serial message
+1658810075551.832 hands: just flushed serial message
+1658810075551.832 hands: just flushed serial message
+1658810075551.832 hands: just flushed serial message
+1658810075551.832 hands: just received user input with no up command
+1658810075551.832 hands: just received user input with no up command
+1658810075551.832 hands: just received user input with no up command
+1658810075552.837 hands: about to start listening for 4 responses
+	 (+ 1.005 ms!)
+1658810075552.837 hands: about to write serial message
+1658810075552.837 hands: just flushed serial message
+1658810075552.837 hands: just received user input WITH UP COMMAND
+1658810075622.35 hands: found response
+	 (+ 69.513 ms!!!!!!!!!!)
+1658810075685.398 hands: found response
+	 (+ 63.048 ms!!!!!!!!!!)
+1658810075749.397 hands: found response
+	 (+ 63.999 ms!!!!!!!!!!)
+1658810075812.703 hands: found all responses
+	 (+ 63.306 ms!!!!!!!!!!)
+1658810075812.703 hands: found response
+1658810075980.739 eyes: just saw the queue shift
+	 (+ 168.036 ms!!!!!!!!!!)
+1658810075981.744 eyes: just flushed to brain
+	 (+ 1.005 ms!)
+1658810075981.744 hands: just received user input with no up command
+1658810075982.741 hands: about to write serial message
+1658810075982.741 hands: about to write serial message
+1658810075982.741 hands: about to write serial message
+1658810075982.741 hands: about to write serial message
+1658810075982.741 hands: just flushed serial message
+1658810075982.741 hands: just flushed serial message
+1658810075982.741 hands: just flushed serial message
+1658810075982.741 hands: just received user input with no up command
+1658810075982.741 hands: just received user input with no up command
+1658810075982.741 hands: just received user input WITH UP COMMAND
+1658810075983.74 hands: about to start listening for 4 responses
+1658810075983.74 hands: just flushed serial message
+1658810076051.739 hands: found response
+	 (+ 67.999 ms!!!!!!!!!!)
+1658810076115.795 hands: found response
+	 (+ 64.056 ms!!!!!!!!!!)
+1658810076179.317 hands: found response
+	 (+ 63.522 ms!!!!!!!!!!)
+1658810076243.317 hands: found all responses
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810076243.317 hands: found response
+1658810077068.251 eyes: just saw the queue shift
+	 (+ 824.934 ms!!!!!!!!!!)
+1658810077068.757 eyes: just flushed to brain
+1658810077069.763 hands: about to write serial message
+	 (+ 1.006 ms!)
+1658810077069.763 hands: about to write serial message
+1658810077069.763 hands: about to write serial message
+1658810077069.763 hands: just flushed serial message
+1658810077069.763 hands: just flushed serial message
+1658810077069.763 hands: just received user input with no up command
+1658810077069.763 hands: just received user input with no up command
+1658810077069.763 hands: just received user input with no up command
+1658810077070.764 hands: about to start listening for 4 responses
+	 (+ 1.001 ms!)
+1658810077070.764 hands: about to write serial message
+1658810077070.764 hands: just flushed serial message
+1658810077070.764 hands: just flushed serial message
+1658810077070.764 hands: just received user input WITH UP COMMAND
+1658810077135.763 hands: found response
+	 (+ 64.999 ms!!!!!!!!!!)
+1658810077199.552 hands: found response
+	 (+ 63.789 ms!!!!!!!!!!)
+1658810077263.556 hands: found response
+	 (+ 64.004 ms!!!!!!!!!!)
+1658810077327.593 hands: found all responses
+	 (+ 64.037 ms!!!!!!!!!!)
+1658810077327.593 hands: found response
+1658810077500.625 eyes: just flushed to brain
+	 (+ 173.032 ms!!!!!!!!!!)
+1658810077500.625 eyes: just saw the queue shift
+1658810077501.625 hands: about to start listening for 1 responses
+1658810077501.625 hands: about to write serial message
+1658810077501.625 hands: just flushed serial message
+1658810077501.625 hands: just received user input WITH UP COMMAND
+1658810077566.629 hands: found all responses
+	 (+ 65.004 ms!!!!!!!!!!)
+1658810077566.629 hands: found response
+1658810077740.187 eyes: just flushed to brain
+	 (+ 173.558 ms!!!!!!!!!!)
+1658810077740.187 eyes: just saw the queue shift
+1658810077741.186 hands: just received user input with no up command
+1658810077742.186 hands: about to write serial message
+1658810077742.186 hands: about to write serial message
+1658810077742.186 hands: about to write serial message
+1658810077742.186 hands: just flushed serial message
+1658810077742.186 hands: just flushed serial message
+1658810077742.186 hands: just received user input with no up command
+1658810077742.186 hands: just received user input WITH UP COMMAND
+1658810077743.191 hands: about to start listening for 3 responses
+	 (+ 1.005 ms!)
+1658810077743.191 hands: just flushed serial message
+1658810077805.704 hands: found response
+	 (+ 62.513 ms!!!!!!!!!!)
+1658810077868.708 hands: found response
+	 (+ 63.004 ms!!!!!!!!!!)
+1658810077932.757 hands: found all responses
+	 (+ 64.049 ms!!!!!!!!!!)
+1658810077932.757 hands: found response
+1658810078091.94 eyes: just flushed to brain
+	 (+ 159.183 ms!!!!!!!!!!)
+1658810078091.94 eyes: just saw the queue shift
+1658810078092.94 hands: about to start listening for 2 responses
+1658810078092.94 hands: about to write serial message
+1658810078092.94 hands: about to write serial message
+1658810078092.94 hands: just flushed serial message
+1658810078092.94 hands: just flushed serial message
+1658810078092.94 hands: just received user input with no up command
+1658810078092.94 hands: just received user input WITH UP COMMAND
+1658810078155.943 hands: found response
+	 (+ 63.003 ms!!!!!!!!!!)
+1658810078219.458 hands: found all responses
+	 (+ 63.515 ms!!!!!!!!!!)
+1658810078219.458 hands: found response
+1658810078396.499 eyes: just saw the queue shift
+	 (+ 177.041 ms!!!!!!!!!!)
+1658810078397.495 eyes: just flushed to brain
+1658810078399.497 hands: about to write serial message
+	 (+ 2.002 ms!)
+1658810078399.497 hands: just flushed serial message
+1658810078399.497 hands: just received user input with no up command
+1658810078400.497 hands: about to start listening for 4 responses
+1658810078400.497 hands: about to write serial message
+1658810078400.497 hands: about to write serial message
+1658810078400.497 hands: about to write serial message
+1658810078400.497 hands: just flushed serial message
+1658810078400.497 hands: just flushed serial message
+1658810078400.497 hands: just flushed serial message
+1658810078400.497 hands: just received user input with no up command
+1658810078400.497 hands: just received user input with no up command
+1658810078400.497 hands: just received user input WITH UP COMMAND
+1658810078475.006 hands: found response
+	 (+ 74.509 ms!!!!!!!!!!)
+1658810078539.009 hands: found response
+	 (+ 64.003 ms!!!!!!!!!!)
+1658810078602.528 hands: found response
+	 (+ 63.519 ms!!!!!!!!!!)
+1658810078666.532 hands: found all responses
+	 (+ 64.004 ms!!!!!!!!!!)
+1658810078666.532 hands: found response
+1658810078844.563 eyes: just flushed to brain
+	 (+ 178.031 ms!!!!!!!!!!)
+1658810078844.563 eyes: just saw the queue shift
+1658810078846.565 hands: about to write serial message
+	 (+ 2.002 ms!)
+1658810078846.565 hands: about to write serial message
+1658810078846.565 hands: about to write serial message
+1658810078846.565 hands: just flushed serial message
+1658810078846.565 hands: just flushed serial message
+1658810078846.565 hands: just received user input with no up command
+1658810078846.565 hands: just received user input with no up command
+1658810078846.565 hands: just received user input with no up command
+1658810078847.566 hands: about to start listening for 4 responses
+	 (+ 1.001 ms!)
+1658810078847.566 hands: about to write serial message
+1658810078847.566 hands: just flushed serial message
+1658810078847.566 hands: just flushed serial message
+1658810078847.566 hands: just received user input WITH UP COMMAND
+1658810078921.077 hands: found response
+	 (+ 73.511 ms!!!!!!!!!!)
+1658810078984.596 hands: found response
+	 (+ 63.519 ms!!!!!!!!!!)
+1658810079048.597 hands: found response
+	 (+ 64.001 ms!!!!!!!!!!)
+1658810079112.109 hands: found all responses
+	 (+ 63.512 ms!!!!!!!!!!)
+1658810079112.109 hands: found response
+1658810079275.783 eyes: just saw the queue shift
+	 (+ 163.674 ms!!!!!!!!!!)
+1658810079276.783 eyes: just flushed to brain
+1658810079278.783 hands: about to write serial message
+	 (+ 2.0 ms!)
+1658810079278.783 hands: about to write serial message
+1658810079278.783 hands: about to write serial message
+1658810079278.783 hands: just flushed serial message
+1658810079278.783 hands: just flushed serial message
+1658810079278.783 hands: just received user input with no up command
+1658810079278.783 hands: just received user input with no up command
+1658810079278.783 hands: just received user input with no up command
+1658810079279.782 hands: about to start listening for 5 responses
+1658810079279.782 hands: about to write serial message
+1658810079279.782 hands: about to write serial message
+1658810079279.782 hands: just flushed serial message
+1658810079279.782 hands: just flushed serial message
+1658810079279.782 hands: just flushed serial message
+1658810079279.782 hands: just received user input with no up command
+1658810079279.782 hands: just received user input WITH UP COMMAND
+1658810079351.78 hands: found response
+	 (+ 71.998 ms!!!!!!!!!!)
+1658810079415.296 hands: found response
+	 (+ 63.516 ms!!!!!!!!!!)
+1658810079479.352 hands: found response
+	 (+ 64.056 ms!!!!!!!!!!)
+1658810079542.35 hands: found response
+	 (+ 62.998 ms!!!!!!!!!!)
+1658810079606.748 hands: found all responses
+	 (+ 64.398 ms!!!!!!!!!!)
+1658810079606.748 hands: found response
+1658810079771.416 eyes: just saw the queue shift
+	 (+ 164.668 ms!!!!!!!!!!)
+1658810079772.416 eyes: just flushed to brain
+1658810079774.419 hands: about to write serial message
+	 (+ 2.003 ms!)
+1658810079774.419 hands: just flushed serial message
+1658810079774.419 hands: just received user input with no up command
+1658810079775.419 hands: about to start listening for 2 responses
+1658810079775.419 hands: about to write serial message
+1658810079775.419 hands: just flushed serial message
+1658810079775.419 hands: just received user input WITH UP COMMAND
+1658810079845.417 hands: found response
+	 (+ 69.998 ms!!!!!!!!!!)
+1658810079909.216 hands: found all responses
+	 (+ 63.799 ms!!!!!!!!!!)
+1658810079909.216 hands: found response
+1658810080076.329 eyes: just saw the queue shift
+	 (+ 167.113 ms!!!!!!!!!!)
+1658810080077.331 eyes: just flushed to brain
+	 (+ 1.002 ms!)
+1658810080077.331 hands: about to write serial message
+1658810080077.331 hands: just received user input with no up command
+1658810080078.332 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810080078.332 hands: about to write serial message
+1658810080078.332 hands: about to write serial message
+1658810080078.332 hands: just flushed serial message
+1658810080078.332 hands: just flushed serial message
+1658810080078.332 hands: just flushed serial message
+1658810080078.332 hands: just received user input with no up command
+1658810080078.332 hands: just received user input with no up command
+1658810080078.332 hands: just received user input WITH UP COMMAND
+1658810080079.328 hands: about to start listening for 4 responses
+1658810080079.328 hands: just flushed serial message
+1658810080148.328 hands: found response
+	 (+ 69.0 ms!!!!!!!!!!)
+1658810080211.856 hands: found response
+	 (+ 63.528 ms!!!!!!!!!!)
+1658810080275.372 hands: found response
+	 (+ 63.516 ms!!!!!!!!!!)
+1658810080339.371 hands: found all responses
+	 (+ 63.999 ms!!!!!!!!!!)
+1658810080339.371 hands: found response
+1658810081164.53 eyes: just flushed to brain
+	 (+ 825.159 ms!!!!!!!!!!)
+1658810081164.53 eyes: just saw the queue shift
+1658810081166.531 hands: about to start listening for 1 responses
+	 (+ 2.001 ms!)
+1658810081166.531 hands: about to write serial message
+1658810081166.531 hands: just flushed serial message
+1658810081166.531 hands: just received user input WITH UP COMMAND
+1658810081231.794 hands: found response
+	 (+ 65.263 ms!!!!!!!!!!)
+1658810081232.801 hands: found all responses
+	 (+ 1.007 ms!)
+1658810081404.369 eyes: just flushed to brain
+	 (+ 171.568 ms!!!!!!!!!!)
+1658810081404.369 eyes: just saw the queue shift
+1658810081407.371 hands: about to write serial message
+	 (+ 3.002 ms!)
+1658810081407.371 hands: just flushed serial message
+1658810081407.371 hands: just received user input with no up command
+1658810081408.372 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810081408.372 hands: just received user input with no up command
+1658810081409.372 hands: about to start listening for 4 responses
+1658810081409.372 hands: about to write serial message
+1658810081409.372 hands: about to write serial message
+1658810081409.372 hands: just flushed serial message
+1658810081409.372 hands: just flushed serial message
+1658810081409.372 hands: just flushed serial message
+1658810081409.372 hands: just received user input with no up command
+1658810081409.372 hands: just received user input WITH UP COMMAND
+1658810081470.885 hands: found response
+	 (+ 61.513 ms!!!!!!!!!!)
+1658810081534.894 hands: found response
+	 (+ 64.009 ms!!!!!!!!!!)
+1658810081598.413 hands: found response
+	 (+ 63.519 ms!!!!!!!!!!)
+1658810081662.418 hands: found all responses
+	 (+ 64.005 ms!!!!!!!!!!)
+1658810081662.418 hands: found response
+1658810081836.448 eyes: just flushed to brain
+	 (+ 174.03 ms!!!!!!!!!!)
+1658810081836.448 eyes: just saw the queue shift
+1658810081838.448 hands: about to start listening for 1 responses
+	 (+ 2.0 ms!)
+1658810081838.448 hands: about to write serial message
+1658810081838.448 hands: just flushed serial message
+1658810081838.448 hands: just received user input WITH UP COMMAND
+1658810081901.967 hands: found all responses
+	 (+ 63.519 ms!!!!!!!!!!)
+1658810081901.967 hands: found response
+1658810082075.049 eyes: just flushed to brain
+	 (+ 173.082 ms!!!!!!!!!!)
+1658810082075.049 eyes: just saw the queue shift
+1658810082077.049 hands: about to write serial message
+	 (+ 2.0 ms!)
+1658810082077.049 hands: just flushed serial message
+1658810082077.049 hands: just received user input with no up command
+1658810082078.051 hands: about to start listening for 3 responses
+	 (+ 1.002 ms!)
+1658810082078.051 hands: about to write serial message
+1658810082078.051 hands: about to write serial message
+1658810082078.051 hands: just flushed serial message
+1658810082078.051 hands: just flushed serial message
+1658810082078.051 hands: just received user input with no up command
+1658810082078.051 hands: just received user input WITH UP COMMAND
+1658810082141.047 hands: found response
+	 (+ 62.996 ms!!!!!!!!!!)
+1658810082204.569 hands: found response
+	 (+ 63.522 ms!!!!!!!!!!)
+1658810082268.579 hands: found all responses
+	 (+ 64.01 ms!!!!!!!!!!)
+1658810082268.579 hands: found response
+1658810082460.613 eyes: just flushed to brain
+	 (+ 192.034 ms!!!!!!!!!!)
+1658810082460.613 eyes: just saw the queue shift
+1658810082462.616 hands: about to start listening for 1 responses
+	 (+ 2.003 ms!)
+1658810082462.616 hands: about to write serial message
+1658810082462.616 hands: just flushed serial message
+1658810082462.616 hands: just received user input WITH UP COMMAND
+1658810082539.125 hands: found all responses
+	 (+ 76.509 ms!!!!!!!!!!)
+1658810082539.125 hands: found response
+1658810082700.179 eyes: just flushed to brain
+	 (+ 161.054 ms!!!!!!!!!!)
+1658810082700.179 eyes: just saw the queue shift
+1658810082702.181 hands: about to write serial message
+	 (+ 2.002 ms!)
+1658810082702.181 hands: just flushed serial message
+1658810082702.181 hands: just received user input with no up command
+1658810082703.182 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810082703.182 hands: about to write serial message
+1658810082703.182 hands: just flushed serial message
+1658810082703.182 hands: just flushed serial message
+1658810082703.182 hands: just received user input with no up command
+1658810082703.182 hands: just received user input with no up command
+1658810082703.182 hands: just received user input with no up command
+1658810082704.18 hands: about to start listening for 5 responses
+1658810082704.18 hands: about to write serial message
+1658810082704.18 hands: about to write serial message
+1658810082704.18 hands: just flushed serial message
+1658810082704.18 hands: just flushed serial message
+1658810082704.18 hands: just received user input WITH UP COMMAND
+1658810082778.228 hands: found response
+	 (+ 74.048 ms!!!!!!!!!!)
+1658810082842.228 hands: found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810082905.743 hands: found response
+	 (+ 63.515 ms!!!!!!!!!!)
+1658810082969.749 hands: found response
+	 (+ 64.006 ms!!!!!!!!!!)
+1658810083033.258 hands: found all responses
+	 (+ 63.509 ms!!!!!!!!!!)
+1658810083033.258 hands: found response
+1658810083196.34 eyes: just saw the queue shift
+	 (+ 163.082 ms!!!!!!!!!!)
+1658810083197.339 eyes: just flushed to brain
+1658810083197.339 hands: about to write serial message
+1658810083197.339 hands: just flushed serial message
+1658810083197.339 hands: just received user input with no up command
+1658810083198.344 hands: about to start listening for 3 responses
+	 (+ 1.005 ms!)
+1658810083198.344 hands: about to write serial message
+1658810083198.344 hands: about to write serial message
+1658810083198.344 hands: just flushed serial message
+1658810083198.344 hands: just flushed serial message
+1658810083198.344 hands: just received user input with no up command
+1658810083198.344 hands: just received user input WITH UP COMMAND
+1658810083271.852 hands: found response
+	 (+ 73.508 ms!!!!!!!!!!)
+1658810083335.857 hands: found response
+	 (+ 64.005 ms!!!!!!!!!!)
+1658810083399.376 hands: found all responses
+	 (+ 63.519 ms!!!!!!!!!!)
+1658810083399.376 hands: found response
+1658810083580.697 eyes: just flushed to brain
+	 (+ 181.321 ms!!!!!!!!!!)
+1658810083580.697 eyes: just saw the queue shift
+1658810083583.696 hands: about to write serial message
+	 (+ 2.999 ms!)
+1658810083583.696 hands: just flushed serial message
+1658810083583.696 hands: just received user input with no up command
+1658810083584.694 hands: about to start listening for 2 responses
+1658810083584.694 hands: about to write serial message
+1658810083584.694 hands: just flushed serial message
+1658810083584.694 hands: just received user input WITH UP COMMAND
+1658810083654.694 hands: found response
+	 (+ 70.0 ms!!!!!!!!!!)
+1658810083718.796 hands: found all responses
+	 (+ 64.102 ms!!!!!!!!!!)
+1658810083718.796 hands: found response
+1658810083905.838 eyes: just saw the queue shift
+	 (+ 187.042 ms!!!!!!!!!!)
+1658810083906.838 eyes: just flushed to brain
+1658810083907.835 hands: about to write serial message
+1658810083907.835 hands: just received user input with no up command
+1658810083908.834 hands: about to write serial message
+1658810083908.834 hands: just flushed serial message
+1658810083908.834 hands: just flushed serial message
+1658810083908.834 hands: just received user input with no up command
+1658810083908.834 hands: just received user input WITH UP COMMAND
+1658810083909.834 hands: about to start listening for 3 responses
+1658810083909.834 hands: about to write serial message
+1658810083909.834 hands: just flushed serial message
+1658810083973.159 hands: found response
+	 (+ 63.325 ms!!!!!!!!!!)
+1658810084037.159 hands: found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810084101.353 hands: found all responses
+	 (+ 64.194 ms!!!!!!!!!!)
+1658810084101.353 hands: found response
+1658810084268.398 eyes: just saw the queue shift
+	 (+ 167.045 ms!!!!!!!!!!)
+1658810084269.399 eyes: just flushed to brain
+	 (+ 1.001 ms!)
+1658810084269.399 hands: about to start listening for 1 responses
+1658810084269.399 hands: about to write serial message
+1658810084269.399 hands: just flushed serial message
+1658810084269.399 hands: just received user input WITH UP COMMAND
+1658810084340.452 hands: found all responses
+	 (+ 71.053 ms!!!!!!!!!!)
+1658810084340.452 hands: found response
+1658810084509.567 eyes: just flushed to brain
+	 (+ 169.115 ms!!!!!!!!!!)
+1658810084509.567 eyes: just saw the queue shift
+1658810084511.564 hands: about to write serial message
+	 (+ 1.997 ms!)
+1658810084511.564 hands: just flushed serial message
+1658810084511.564 hands: just received user input with no up command
+1658810084512.564 hands: about to write serial message
+1658810084512.564 hands: about to write serial message
+1658810084512.564 hands: about to write serial message
+1658810084512.564 hands: just flushed serial message
+1658810084512.564 hands: just flushed serial message
+1658810084512.564 hands: just received user input with no up command
+1658810084512.564 hands: just received user input with no up command
+1658810084512.564 hands: just received user input with no up command
+1658810084513.564 hands: about to start listening for 5 responses
+1658810084513.564 hands: about to write serial message
+1658810084513.564 hands: just flushed serial message
+1658810084513.564 hands: just flushed serial message
+1658810084513.564 hands: just received user input WITH UP COMMAND
+1658810084578.813 hands: found response
+	 (+ 65.249 ms!!!!!!!!!!)
+1658810084642.812 hands: found response
+	 (+ 63.999 ms!!!!!!!!!!)
+1658810084706.911 hands: found response
+	 (+ 64.099 ms!!!!!!!!!!)
+1658810084769.916 hands: found response
+	 (+ 63.005 ms!!!!!!!!!!)
+1658810084834.43 hands: found all responses
+	 (+ 64.514 ms!!!!!!!!!!)
+1658810084834.43 hands: found response
+1658810085660.53 eyes: just saw the queue shift
+	 (+ 826.1 ms!!!!!!!!!!)
+1658810085661.53 eyes: just flushed to brain
+1658810085662.529 hands: about to start listening for 1 responses
+1658810085662.529 hands: about to write serial message
+1658810085662.529 hands: just flushed serial message
+1658810085662.529 hands: just received user input WITH UP COMMAND
+1658810085727.041 hands: found all responses
+	 (+ 64.512 ms!!!!!!!!!!)
+1658810085727.041 hands: found response
+1658810085900.666 eyes: just flushed to brain
+	 (+ 173.625 ms!!!!!!!!!!)
+1658810085900.666 eyes: just saw the queue shift
+1658810085902.665 hands: about to write serial message
+	 (+ 1.999 ms!)
+1658810085902.665 hands: just received user input with no up command
+1658810085903.665 hands: about to write serial message
+1658810085903.665 hands: just flushed serial message
+1658810085903.665 hands: just flushed serial message
+1658810085903.665 hands: just received user input with no up command
+1658810085904.664 hands: about to start listening for 5 responses
+1658810085904.664 hands: about to write serial message
+1658810085904.664 hands: about to write serial message
+1658810085904.664 hands: about to write serial message
+1658810085904.664 hands: just flushed serial message
+1658810085904.664 hands: just flushed serial message
+1658810085904.664 hands: just flushed serial message
+1658810085904.664 hands: just received user input with no up command
+1658810085904.664 hands: just received user input with no up command
+1658810085904.664 hands: just received user input WITH UP COMMAND
+1658810085965.669 hands: found response
+	 (+ 61.005 ms!!!!!!!!!!)
+1658810086029.702 hands: found response
+	 (+ 64.033 ms!!!!!!!!!!)
+1658810086093.216 hands: found response
+	 (+ 63.514 ms!!!!!!!!!!)
+1658810086157.217 hands: found response
+	 (+ 64.001 ms!!!!!!!!!!)
+1658810086220.739 hands: found all responses
+	 (+ 63.522 ms!!!!!!!!!!)
+1658810086220.739 hands: found response
+1658810086395.96 eyes: just saw the queue shift
+	 (+ 175.221 ms!!!!!!!!!!)
+1658810086396.96 eyes: just flushed to brain
+1658810086396.96 hands: about to write serial message
+1658810086396.96 hands: just received user input with no up command
+1658810086397.963 hands: about to start listening for 4 responses
+	 (+ 1.003 ms!)
+1658810086397.963 hands: about to write serial message
+1658810086397.963 hands: about to write serial message
+1658810086397.963 hands: about to write serial message
+1658810086397.963 hands: just flushed serial message
+1658810086397.963 hands: just flushed serial message
+1658810086397.963 hands: just flushed serial message
+1658810086397.963 hands: just flushed serial message
+1658810086397.963 hands: just received user input with no up command
+1658810086397.963 hands: just received user input with no up command
+1658810086397.963 hands: just received user input WITH UP COMMAND
+1658810086459.965 hands: found response
+	 (+ 62.002 ms!!!!!!!!!!)
+1658810086523.48 hands: found response
+	 (+ 63.515 ms!!!!!!!!!!)
+1658810086603.004 hands: found response
+	 (+ 79.524 ms!!!!!!!!!!)
+1658810086667.009 hands: found all responses
+	 (+ 64.005 ms!!!!!!!!!!)
+1658810086667.009 hands: found response
+1658810086843.931 eyes: just flushed to brain
+	 (+ 176.922 ms!!!!!!!!!!)
+1658810086843.931 eyes: just saw the queue shift
+1658810086847.932 hands: about to write serial message
+	 (+ 4.001 ms!)
+1658810086847.932 hands: just received user input with no up command
+1658810086848.932 hands: just flushed serial message
+1658810086849.931 hands: about to write serial message
+1658810086849.931 hands: just flushed serial message
+1658810086849.931 hands: just received user input with no up command
+1658810086850.936 hands: about to start listening for 5 responses
+	 (+ 1.005 ms!)
+1658810086850.936 hands: about to write serial message
+1658810086850.936 hands: about to write serial message
+1658810086850.936 hands: about to write serial message
+1658810086850.936 hands: just flushed serial message
+1658810086850.936 hands: just flushed serial message
+1658810086850.936 hands: just flushed serial message
+1658810086850.936 hands: just received user input with no up command
+1658810086850.936 hands: just received user input with no up command
+1658810086850.936 hands: just received user input WITH UP COMMAND
+1658810086922.45 hands: found response
+	 (+ 71.514 ms!!!!!!!!!!)
+1658810086985.975 hands: found response
+	 (+ 63.525 ms!!!!!!!!!!)
+1658810087049.975 hands: found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810087113.028 hands: found response
+	 (+ 63.053 ms!!!!!!!!!!)
+1658810087177.097 hands: found all responses
+	 (+ 64.069 ms!!!!!!!!!!)
+1658810087177.097 hands: found response
+1658810087340.617 eyes: just flushed to brain
+	 (+ 163.52 ms!!!!!!!!!!)
+1658810087340.617 eyes: just saw the queue shift
+1658810087342.619 hands: about to start listening for 1 responses
+	 (+ 2.002 ms!)
+1658810087342.619 hands: about to write serial message
+1658810087342.619 hands: just flushed serial message
+1658810087342.619 hands: just received user input WITH UP COMMAND
+1658810087416.143 hands: found all responses
+	 (+ 73.524 ms!!!!!!!!!!)
+1658810087416.143 hands: found response
+1658810087596.455 eyes: just saw the queue shift
+	 (+ 180.312 ms!!!!!!!!!!)
+1658810087597.457 eyes: just flushed to brain
+	 (+ 1.002 ms!)
+1658810087600.454 hands: about to write serial message
+	 (+ 2.997 ms!)
+1658810087600.454 hands: just flushed serial message
+1658810087600.454 hands: just received user input with no up command
+1658810087601.454 hands: about to write serial message
+1658810087601.454 hands: just flushed serial message
+1658810087601.454 hands: just received user input with no up command
+1658810087601.454 hands: just received user input WITH UP COMMAND
+1658810087602.458 hands: about to start listening for 3 responses
+	 (+ 1.004 ms!)
+1658810087602.458 hands: about to write serial message
+1658810087602.458 hands: just flushed serial message
+1658810087671.458 hands: found response
+	 (+ 69.0 ms!!!!!!!!!!)
+1658810087734.974 hands: found response
+	 (+ 63.516 ms!!!!!!!!!!)
+1658810087798.489 hands: found all responses
+	 (+ 63.515 ms!!!!!!!!!!)
+1658810087798.489 hands: found response
+1658810087964.555 eyes: just flushed to brain
+	 (+ 166.066 ms!!!!!!!!!!)
+1658810087964.555 eyes: just saw the queue shift
+1658810087965.555 hands: about to write serial message
+1658810087965.555 hands: just flushed serial message
+1658810087965.555 hands: just received user input with no up command
+1658810087966.557 hands: about to start listening for 3 responses
+	 (+ 1.002 ms!)
+1658810087966.557 hands: about to write serial message
+1658810087966.557 hands: about to write serial message
+1658810087966.557 hands: just flushed serial message
+1658810087966.557 hands: just flushed serial message
+1658810087966.557 hands: just received user input with no up command
+1658810087966.557 hands: just received user input WITH UP COMMAND
+1658810088037.604 hands: found response
+	 (+ 71.047 ms!!!!!!!!!!)
+1658810088101.417 hands: found response
+	 (+ 63.813 ms!!!!!!!!!!)
+1658810088165.422 hands: found all responses
+	 (+ 64.005 ms!!!!!!!!!!)
+1658810088165.422 hands: found response
+1658810088332.462 eyes: just saw the queue shift
+	 (+ 167.04 ms!!!!!!!!!!)
+1658810088333.462 eyes: just flushed to brain
+1658810088334.465 hands: about to start listening for 1 responses
+	 (+ 1.003 ms!)
+1658810088334.465 hands: about to write serial message
+1658810088334.465 hands: just flushed serial message
+1658810088334.465 hands: just received user input WITH UP COMMAND
+1658810088403.981 hands: found all responses
+	 (+ 69.516 ms!!!!!!!!!!)
+1658810088403.981 hands: found response
+1658810088572.354 eyes: just saw the queue shift
+	 (+ 168.373 ms!!!!!!!!!!)
+1658810088573.355 eyes: just flushed to brain
+	 (+ 1.001 ms!)
+1658810088574.357 hands: about to write serial message
+	 (+ 1.002 ms!)
+1658810088574.357 hands: just flushed serial message
+1658810088574.357 hands: just received user input with no up command
+1658810088575.745 hands: about to write serial message
+	 (+ 1.388 ms!)
+1658810088575.745 hands: about to write serial message
+1658810088575.745 hands: about to write serial message
+1658810088575.745 hands: about to write serial message
+1658810088575.745 hands: just flushed serial message
+1658810088575.745 hands: just flushed serial message
+1658810088575.745 hands: just flushed serial message
+1658810088575.745 hands: just received user input with no up command
+1658810088575.745 hands: just received user input with no up command
+1658810088575.745 hands: just received user input with no up command
+1658810088575.745 hands: just received user input WITH UP COMMAND
+1658810088576.744 hands: about to start listening for 5 responses
+1658810088576.744 hands: just flushed serial message
+1658810088643.743 hands: found response
+	 (+ 66.999 ms!!!!!!!!!!)
+1658810088707.259 hands: found response
+	 (+ 63.516 ms!!!!!!!!!!)
+1658810088771.264 hands: found response
+	 (+ 64.005 ms!!!!!!!!!!)
+1658810088834.439 hands: found response
+	 (+ 63.175 ms!!!!!!!!!!)
+1658810088898.493 hands: found all responses
+	 (+ 64.054 ms!!!!!!!!!!)
+1658810088898.493 hands: found response
+1658810089067.963 eyes: just saw the queue shift
+	 (+ 169.47 ms!!!!!!!!!!)
+1658810089068.963 eyes: just flushed to brain
+1658810089068.963 hands: about to write serial message
+1658810089068.963 hands: just flushed serial message
+1658810089068.963 hands: just received user input with no up command
+1658810089069.968 hands: about to start listening for 2 responses
+	 (+ 1.005 ms!)
+1658810089069.968 hands: about to write serial message
+1658810089069.968 hands: just flushed serial message
+1658810089069.968 hands: just received user input WITH UP COMMAND
+1658810089137.474 hands: found response
+	 (+ 67.506 ms!!!!!!!!!!)
+1658810089201.544 hands: found all responses
+	 (+ 64.07 ms!!!!!!!!!!)
+1658810089201.544 hands: found response
+1658810089372.605 eyes: just saw the queue shift
+	 (+ 171.061 ms!!!!!!!!!!)
+1658810089373.608 eyes: just flushed to brain
+	 (+ 1.003 ms!)
+1658810089375.115 hands: about to start listening for 1 responses
+	 (+ 1.507 ms!)
+1658810089375.115 hands: about to write serial message
+1658810089375.115 hands: just flushed serial message
+1658810089375.115 hands: just received user input WITH UP COMMAND
+1658810089440.532 hands: found all responses
+	 (+ 65.417 ms!!!!!!!!!!)
+1658810089440.532 hands: found response
+1658810089618.081 eyes: just saw the queue shift
+	 (+ 177.549 ms!!!!!!!!!!)
+1658810089619.08 eyes: just flushed to brain
+1658810089620.081 hands: about to write serial message
+	 (+ 1.001 ms!)
+1658810089620.081 hands: about to write serial message
+1658810089620.081 hands: about to write serial message
+1658810089620.081 hands: about to write serial message
+1658810089620.081 hands: just flushed serial message
+1658810089620.081 hands: just flushed serial message
+1658810089620.081 hands: just flushed serial message
+1658810089620.081 hands: just received user input with no up command
+1658810089620.081 hands: just received user input with no up command
+1658810089620.081 hands: just received user input with no up command
+1658810089620.081 hands: just received user input WITH UP COMMAND
+1658810089621.081 hands: about to start listening for 4 responses
+1658810089621.081 hands: just flushed serial message
+1658810089695.597 hands: found response
+	 (+ 74.516 ms!!!!!!!!!!)
+1658810089758.597 hands: found response
+	 (+ 63.0 ms!!!!!!!!!!)
+1658810089823.115 hands: found response
+	 (+ 64.518 ms!!!!!!!!!!)
+1658810089886.199 hands: found all responses
+	 (+ 63.084 ms!!!!!!!!!!)
+1658810089886.199 hands: found response
+1658810090716.425 eyes: just flushed to brain
+	 (+ 830.226 ms!!!!!!!!!!)
+1658810090716.425 eyes: just saw the queue shift
+1658810090717.424 hands: about to write serial message
+1658810090717.424 hands: just received user input with no up command
+1658810090718.425 hands: about to start listening for 2 responses
+	 (+ 1.001 ms!)
+1658810090718.425 hands: about to write serial message
+1658810090718.425 hands: just flushed serial message
+1658810090718.425 hands: just flushed serial message
+1658810090718.425 hands: just received user input WITH UP COMMAND
+1658810090794.796 hands: found response
+	 (+ 76.371 ms!!!!!!!!!!)
+1658810090858.791 hands: found all responses
+	 (+ 63.995 ms!!!!!!!!!!)
+1658810090858.791 hands: found response
+1658810091020.345 eyes: just flushed to brain
+	 (+ 161.554 ms!!!!!!!!!!)
+1658810091020.345 eyes: just saw the queue shift
+1658810091021.346 hands: about to start listening for 1 responses
+	 (+ 1.001 ms!)
+1658810091021.346 hands: about to write serial message
+1658810091021.346 hands: just flushed serial message
+1658810091021.346 hands: just received user input WITH UP COMMAND
+1658810091097.866 hands: found all responses
+	 (+ 76.52 ms!!!!!!!!!!)
+1658810091097.866 hands: found response
+1658810091244.38 eyes: just saw the queue shift
+	 (+ 146.514 ms!!!!!!!!!!)
+1658810091245.381 eyes: just flushed to brain
+	 (+ 1.001 ms!)
+1658810091246.382 hands: about to start listening for 2 responses
+	 (+ 1.001 ms!)
+1658810091246.382 hands: about to write serial message
+1658810091246.382 hands: about to write serial message
+1658810091246.382 hands: just flushed serial message
+1658810091246.382 hands: just flushed serial message
+1658810091246.382 hands: just received user input with no up command
+1658810091246.382 hands: just received user input WITH UP COMMAND
+1658810091321.419 hands: found response
+	 (+ 75.037 ms!!!!!!!!!!)
+1658810091384.704 hands: found all responses
+	 (+ 63.285 ms!!!!!!!!!!)
+1658810091384.704 hands: found response
+1658810091548.769 eyes: just flushed to brain
+	 (+ 164.065 ms!!!!!!!!!!)
+1658810091548.769 eyes: just saw the queue shift
+1658810091549.771 hands: about to write serial message
+	 (+ 1.002 ms!)
+1658810091549.771 hands: just received user input with no up command
+1658810091550.767 hands: about to start listening for 4 responses
+1658810091550.767 hands: about to write serial message
+1658810091550.767 hands: about to write serial message
+1658810091550.767 hands: about to write serial message
+1658810091550.767 hands: just flushed serial message
+1658810091550.767 hands: just flushed serial message
+1658810091550.767 hands: just flushed serial message
+1658810091550.767 hands: just flushed serial message
+1658810091550.767 hands: just received user input with no up command
+1658810091550.767 hands: just received user input with no up command
+1658810091550.767 hands: just received user input WITH UP COMMAND
+1658810091623.807 hands: found response
+	 (+ 73.04 ms!!!!!!!!!!)
+1658810091687.333 hands: found response
+	 (+ 63.526 ms!!!!!!!!!!)
+1658810091751.338 hands: found response
+	 (+ 64.005 ms!!!!!!!!!!)
+1658810091814.854 hands: found all responses
+	 (+ 63.516 ms!!!!!!!!!!)
+1658810091814.854 hands: found response
+1658810091979.952 eyes: just saw the queue shift
+	 (+ 165.098 ms!!!!!!!!!!)
+1658810091980.954 eyes: just flushed to brain
+	 (+ 1.002 ms!)
+1658810091981.952 hands: about to write serial message
+1658810091981.952 hands: just flushed serial message
+1658810091981.952 hands: just received user input with no up command
+1658810091982.951 hands: about to write serial message
+1658810091982.951 hands: about to write serial message
+1658810091982.951 hands: about to write serial message
+1658810091982.951 hands: just flushed serial message
+1658810091982.951 hands: just flushed serial message
+1658810091982.951 hands: just flushed serial message
+1658810091982.951 hands: just received user input with no up command
+1658810091982.951 hands: just received user input with no up command
+1658810091982.951 hands: just received user input with no up command
+1658810091983.953 hands: about to start listening for 5 responses
+	 (+ 1.002 ms!)
+1658810091983.953 hands: about to write serial message
+1658810091983.953 hands: just flushed serial message
+1658810091983.953 hands: just received user input WITH UP COMMAND
+1658810092053.952 hands: found response
+	 (+ 69.999 ms!!!!!!!!!!)
+1658810092118.108 hands: found response
+	 (+ 64.156 ms!!!!!!!!!!)
+1658810092181.911 hands: found response
+	 (+ 63.803 ms!!!!!!!!!!)
+1658810092244.912 hands: found response
+	 (+ 63.001 ms!!!!!!!!!!)
+1658810092308.95 hands: found all responses
+	 (+ 64.038 ms!!!!!!!!!!)
+1658810092308.95 hands: found response
+1658810092475.979 eyes: just saw the queue shift
+	 (+ 167.029 ms!!!!!!!!!!)
+1658810092476.985 eyes: just flushed to brain
+	 (+ 1.006 ms!)
+1658810092477.987 hands: about to write serial message
+	 (+ 1.002 ms!)
+1658810092477.987 hands: about to write serial message
+1658810092477.987 hands: just flushed serial message
+1658810092477.987 hands: just flushed serial message
+1658810092477.987 hands: just received user input with no up command
+1658810092477.987 hands: just received user input with no up command
+1658810092478.986 hands: about to start listening for 3 responses
+1658810092478.986 hands: about to write serial message
+1658810092478.986 hands: just flushed serial message
+1658810092478.986 hands: just received user input WITH UP COMMAND
+1658810092547.984 hands: found response
+	 (+ 68.998 ms!!!!!!!!!!)
+1658810092612.503 hands: found response
+	 (+ 64.519 ms!!!!!!!!!!)
+1658810092676.012 hands: found all responses
+	 (+ 63.509 ms!!!!!!!!!!)
+1658810092676.012 hands: found response
+1658810092860.055 eyes: just saw the queue shift
+	 (+ 184.043 ms!!!!!!!!!!)
+1658810092861.056 eyes: just flushed to brain
+	 (+ 1.001 ms!)
+1658810092862.061 hands: about to write serial message
+	 (+ 1.005 ms!)
+1658810092862.061 hands: about to write serial message
+1658810092862.061 hands: about to write serial message
+1658810092862.061 hands: just flushed serial message
+1658810092862.061 hands: just flushed serial message
+1658810092862.061 hands: just flushed serial message
+1658810092862.061 hands: just received user input with no up command
+1658810092862.061 hands: just received user input with no up command
+1658810092862.061 hands: just received user input with no up command
+1658810092863.067 hands: about to start listening for 4 responses
+	 (+ 1.006 ms!)
+1658810092863.067 hands: about to write serial message
+1658810092863.067 hands: just flushed serial message
+1658810092863.067 hands: just received user input WITH UP COMMAND
+1658810092930.572 hands: found response
+	 (+ 67.505 ms!!!!!!!!!!)
+1658810092994.089 hands: found response
+	 (+ 63.517 ms!!!!!!!!!!)
+1658810093058.089 hands: found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658810093122.129 hands: found all responses
+	 (+ 64.04 ms!!!!!!!!!!)
+1658810093122.129 hands: found response
+1658810093947.662 eyes: just flushed to brain
+	 (+ 825.533 ms!!!!!!!!!!)
+1658810093947.662 eyes: just saw the queue shift
+1658810093949.663 hands: about to write serial message
+	 (+ 2.001 ms!)
+1658810093949.663 hands: about to write serial message
+1658810093949.663 hands: about to write serial message
+1658810093949.663 hands: just flushed serial message
+1658810093949.663 hands: just flushed serial message
+1658810093949.663 hands: just flushed serial message
+1658810093949.663 hands: just received user input with no up command
+1658810093949.663 hands: just received user input with no up command
+1658810093949.663 hands: just received user input with no up command
+1658810093950.662 hands: about to start listening for 5 responses
+1658810093950.662 hands: about to write serial message
+1658810093950.662 hands: about to write serial message
+1658810093950.662 hands: just flushed serial message
+1658810093950.662 hands: just flushed serial message
+1658810093950.662 hands: just received user input with no up command
+1658810093950.662 hands: just received user input WITH UP COMMAND
+1658810094014.187 hands: found response
+	 (+ 63.525 ms!!!!!!!!!!)
+1658810094078.697 hands: found response
+	 (+ 64.51 ms!!!!!!!!!!)
+1658810094141.698 hands: found response
+	 (+ 63.001 ms!!!!!!!!!!)
+1658810094205.742 hands: found response
+	 (+ 64.044 ms!!!!!!!!!!)
+1658810094269.748 hands: found all responses
+	 (+ 64.006 ms!!!!!!!!!!)
+1658810094269.748 hands: found response
+1658810094444.297 eyes: just flushed to brain
+	 (+ 174.549 ms!!!!!!!!!!)
+1658810094444.297 eyes: just saw the queue shift
+1658810094445.298 hands: about to start listening for 1 responses
+	 (+ 1.001 ms!)
+1658810094445.298 hands: about to write serial message
+1658810094445.298 hands: just flushed serial message
+1658810094445.298 hands: just received user input WITH UP COMMAND
+1658810094508.812 hands: found all responses
+	 (+ 63.514 ms!!!!!!!!!!)
+1658810094508.812 hands: found response
+1658810094683.254 eyes: just flushed to brain
+	 (+ 174.442 ms!!!!!!!!!!)
+1658810094683.254 eyes: just saw the queue shift
+1658810094684.256 hands: just received user input with no up command
+	 (+ 1.002 ms!)
+1658810094685.256 hands: about to write serial message
+1658810094685.256 hands: about to write serial message
+1658810094685.256 hands: about to write serial message
+1658810094685.256 hands: just flushed serial message
+1658810094685.256 hands: just flushed serial message
+1658810094685.256 hands: just received user input with no up command
+1658810094685.256 hands: just received user input with no up command
+1658810094686.257 hands: about to start listening for 4 responses
+	 (+ 1.001 ms!)
+1658810094686.257 hands: about to write serial message
+1658810094686.257 hands: just flushed serial message
+1658810094686.257 hands: just flushed serial message
+1658810094686.257 hands: just received user input WITH UP COMMAND
+1658810094747.255 hands: found response
+	 (+ 60.998 ms!!!!!!!!!!)
+1658810094811.774 hands: found response
+	 (+ 64.519 ms!!!!!!!!!!)
+1658810094890.569 hands: found response
+	 (+ 78.795 ms!!!!!!!!!!)
+1658810094954.568 hands: found all responses
+	 (+ 63.999 ms!!!!!!!!!!)
+1658810094954.568 hands: found response
+1658810095116.46 eyes: just flushed to brain
+	 (+ 161.892 ms!!!!!!!!!!)
+1658810095116.46 eyes: just saw the queue shift
+1658810095117.46 hands: about to start listening for 1 responses
+1658810095117.46 hands: about to write serial message
+1658810095117.46 hands: just flushed serial message
+1658810095117.46 hands: just received user input WITH UP COMMAND
+1658810095193.517 hands: found all responses
+	 (+ 76.057 ms!!!!!!!!!!)
+1658810095193.517 hands: found response
+1658810095356.043 eyes: just flushed to brain
+	 (+ 162.526 ms!!!!!!!!!!)
+1658810095356.043 eyes: just saw the queue shift
+1658810095358.046 hands: about to write serial message
+	 (+ 2.003 ms!)
+1658810095358.046 hands: just flushed serial message
+1658810095358.046 hands: just received user input with no up command
+1658810095359.044 hands: about to write serial message
+1658810095359.044 hands: about to write serial message
+1658810095359.044 hands: about to write serial message
+1658810095359.044 hands: just flushed serial message
+1658810095359.044 hands: just flushed serial message
+1658810095359.044 hands: just flushed serial message
+1658810095359.044 hands: just received user input with no up command
+1658810095359.044 hands: just received user input with no up command
+1658810095359.044 hands: just received user input WITH UP COMMAND
+1658810095360.045 hands: about to start listening for 4 responses
+	 (+ 1.001 ms!)
+1658810095432.562 hands: found response
+	 (+ 72.517 ms!!!!!!!!!!)
+1658810095496.716 hands: found response
+	 (+ 64.154 ms!!!!!!!!!!)
+1658810095560.715 hands: found response
+	 (+ 63.999 ms!!!!!!!!!!)
+1658810095624.237 hands: found all responses
+	 (+ 63.522 ms!!!!!!!!!!)
+1658810095624.237 hands: found response
+1658810095790.194 eyes: just flushed to brain
+	 (+ 165.957 ms!!!!!!!!!!)
+1658810095790.194 eyes: just saw the queue shift
+1658810095793.19 hands: about to write serial message
+	 (+ 2.996 ms!)
+1658810095793.19 hands: just flushed serial message
+1658810095793.19 hands: just received user input with no up command
+1658810095794.193 hands: about to start listening for 2 responses
+	 (+ 1.003 ms!)
+1658810095794.193 hands: about to write serial message
+1658810095794.193 hands: just flushed serial message
+1658810095794.193 hands: just received user input WITH UP COMMAND
+1658810095863.194 hands: found response
+	 (+ 69.001 ms!!!!!!!!!!)
+1658810095926.703 hands: found all responses
+	 (+ 63.509 ms!!!!!!!!!!)
+1658810095926.703 hands: found response
+1658810096093.751 eyes: just flushed to brain
+	 (+ 167.048 ms!!!!!!!!!!)
+1658810096093.751 eyes: just saw the queue shift
+1658810096094.746 hands: about to write serial message
+1658810096094.746 hands: just flushed serial message
+1658810096094.746 hands: just received user input with no up command
+1658810096095.747 hands: about to start listening for 2 responses
+	 (+ 1.001 ms!)
+1658810096095.747 hands: about to write serial message
+1658810096095.747 hands: just flushed serial message
+1658810096095.747 hands: just received user input WITH UP COMMAND
+1658810096165.751 hands: found response
+	 (+ 70.004 ms!!!!!!!!!!)
+1658810096229.4 hands: found response
+	 (+ 63.649 ms!!!!!!!!!!)
+1658810096230.405 hands: found all responses
+	 (+ 1.005 ms!)
