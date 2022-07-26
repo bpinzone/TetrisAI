@@ -39,7 +39,81 @@ Placement get_best_move(
         const Tetris_queue_t& queue,
         int num_placements_to_look_ahead);
 
+// struct minimal_lifetime_stats {
+//     float max_height_exp_moving_average;
+//     short num_blocks_placed;
+//     short num_placements_that_cleared_rows;
+//     short num_tetrises;
+//     short num_non_tetrises;
+//     char num_all_clears;
+// };
+
+// struct minimal_ancestor_data {
+//     char highest_height;
+//     char second_lowest_height;
+//     bool good_trench_status;
+// };
+
+// // struct minimal_state
+// struct minimal_board {
+//     static constexpr size_t c_cols = 10;
+//     static constexpr size_t c_rows = 20;
+//     static constexpr size_t c_size = c_cols * c_rows;
+//     using Grid_t = std::bitset<c_size>;
+
+//     Grid_t board;
+//     minimal_lifetime_stats mls;
+//     std::array<char, c_cols> height_map;
+//     minimal_ancestor_data mad;
+
+//     int sum_of_squared_heights;
+
+//     char lowest_height, sec_lowest_height, highest_height;
+
+//     char current_hold;
+//     char num_cells_filled;
+//     char perfect_num_cells_filled;
+//     char num_trenches;
+
+//     bool at_least_one_side_clear;
+//     bool is_tetrisable;
+//     bool just_swapped;
+
+// };
+
+// struct minimal_placement_generator {
+//     char presented;
+//     char rot_x;
+//     char col;
+//     bool exhaused;
+// };
+
+// struct minimal_placement {
+//     char rot, col, is_hold;
+// };
+
+// struct minimal_state {
+//     minimal_board b;
+//     char queue[6];
+//     minimal_placement_generator pg;
+//     minimal_placement ms;
+//     char presented_block;
+//     char next_queue_it;
+//     char end_queue_it;
+//     char placement_limit;
+//     bool is_leaf;
+
+// };
+
 int main(int argc, char* argv[]) {
+
+    // std::cout << "state bytes: " << sizeof(minimal_state) << std::endl;
+    // std::cout << "min lifetime stats: " << sizeof(minimal_lifetime_stats) << std::endl;
+    // std::cout << "min_anc: " << sizeof(minimal_ancestor_data) << std::endl;
+    // std::cout << "board : " << sizeof(std::bitset<200>) << std::endl;
+    // std::cout << "height map : " << sizeof(std::array<char, 10>) << std::endl;
+    // // std::cout << "state bytes: " << sizeof(State) << std::endl;
+    // return 0;
 
     std::ios_base::sync_with_stdio(false);
 
