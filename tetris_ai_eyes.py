@@ -14,6 +14,16 @@ import copy
 interrupted = True
 res = (640, 480)
 fps = 60
+show_debug = False
+
+time_log_file = open('eyes_time_log.txt', 'w')
+
+lines_written = 0
+def time_log_msg(msg_str):
+    global lines_written
+    time_log_file.write(f"{round(time.time() * 1000, 6)} eyes (log line num {lines_written}): {msg_str}\n")
+    time_log_file.flush()
+    lines_written += 1
 
 # NOTE: switch "TV SIZE" setting must be set to 96%
 # NOTE: switch "TV SIZE" setting must be set to 96%
@@ -185,17 +195,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--video', help='path to video file. Uses webcam otherwise', default=default_video)
     parser.add_argument('-d', '--debug', help='write the debug video', action='store_true')
+    parser.add_argument('-s', '--show_debug', help='show the debug video', action='store_true')
     parser.add_argument('-o', '--overwrite', help='should videos be overwritten or have a timestamp', action='store_true')
     # parser.add_argument('-d', '--big-debug-image', help='Show a bigger debug image (slow)', action='store_true')
     # parser.add_argument('-t', '--make-template', help='Helps you create a template file. Use --video for the template video and --config for the clicked points in the template.', action='store_true')
     # TODO needed?
     # parser.add_argument('-c', '--config', help='path to the clicks configuration file. Creates a new_config otherwise.')
     args = parser.parse_args()
+    show_debug = args.show_debug
 
-
-    debug_thread = threading.Thread(target=debug_loop)
-    debug_thread.keep_going = True
-    debug_thread.start()
+    if show_debug:
+        debug_thread = threading.Thread(target=debug_loop)
+        debug_thread.keep_going = True
+        debug_thread.start()
 
     # Figure out where we are getting our images from:
     capture = cv2.VideoCapture(args.video)
@@ -213,11 +225,11 @@ def main():
     global lower_right_queue
     global num_rows
     global num_cols
+    # NOTE: this block of code is what causes the hang in the beginning
     if args.video == default_video:
         # Need to run this on Linux, but it fails on Windows
         if sys.platform == "linux" or sys.platform == "linux2":
-            assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
-        # assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
+            assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'))
         assert capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
         assert capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
         assert capture.set(cv2.CAP_PROP_FPS, int(fps))
@@ -414,6 +426,8 @@ def main():
 
                     if queue_shifted:
 
+                        time_log_msg("just saw the queue shift")
+
                         if presented is None:
                             presented = queue_last_frame[0][0]
                         # Sanity check assert
@@ -446,6 +460,7 @@ def main():
                         print('board_obscured')
                         print('true' if board_obscured else 'false')
                         print('', flush=True)
+                        time_log_msg("just flushed to brain")
                         last_held_block = hold # only update when the queue changes
                         presented = queue[0][0]
                     else:
@@ -467,7 +482,8 @@ def main():
                     # TODO: put this back.
                     # TODO: put this back.
                     # TODO: put this back.
-                    debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
+                    if show_debug:
+                        debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
 
                     # debugging_processing_queue.put((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
 
@@ -476,18 +492,19 @@ def main():
     except KeyboardInterrupt:
 
         capture.release()
-        debug_thread.keep_going = False
-        # Eliminate the possibility of deadlock by adding something to queue after keep going set to false
+        if show_debug:
+            debug_thread.keep_going = False
+            # Eliminate the possibility of deadlock by adding something to queue after keep going set to false
 
-        # debugging_processing_queue.put((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
+            # debugging_processing_queue.put((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
 
-        # TODO: put this back.
-        # TODO: put this back.
-        # TODO: put this back.
-        # TODO: put this back.
-        debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
+            # TODO: put this back.
+            # TODO: put this back.
+            # TODO: put this back.
+            # TODO: put this back.
+            debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
 
-        debug_thread.join()
+            debug_thread.join()
 
 
 # coord is an array. [row, col]

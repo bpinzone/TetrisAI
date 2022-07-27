@@ -1,0 +1,877 @@
+1658887822060.0967 hands (log line num 0): just received user input with no up command
+1658887822060.0967 hands (log line num 1): about to write serial message
+1658887822060.0967 hands (log line num 2): just flushed serial message
+1658887822060.0967 hands (log line num 3): about to start listening for 1 responses
+1658887822139.1594 hands (log line num 4): found response
+	 (+ 79.062744 ms!!!!!!!!!!)
+1658887822139.1594 hands (log line num 5): found all responses
+1658887826384.4446 hands (log line num 6): just received user input with no up command
+	 (+ 4245.285156 ms!!!!!!!!!!)
+1658887826384.4446 hands (log line num 7): about to write serial message
+1658887826385.4446 hands (log line num 8): just flushed serial message
+1658887826385.4446 hands (log line num 9): about to start listening for 1 responses
+1658887826458.487 hands (log line num 10): found response
+	 (+ 73.04248 ms!!!!!!!!!!)
+1658887826458.487 hands (log line num 11): found all responses
+1658887826458.487 hands (log line num 12): just received user input with no up command
+1658887826458.487 hands (log line num 13): about to write serial message
+1658887826459.4878 hands (log line num 14): just flushed serial message
+	 (+ 1.000732 ms!)
+1658887826459.4878 hands (log line num 15): about to start listening for 1 responses
+1658887826538.7014 hands (log line num 16): found response
+	 (+ 79.213623 ms!!!!!!!!!!)
+1658887826538.7014 hands (log line num 17): found all responses
+1658887826538.7014 hands (log line num 18): just received user input with no up command
+1658887826538.7014 hands (log line num 19): about to write serial message
+1658887826538.7014 hands (log line num 20): just flushed serial message
+1658887826538.7014 hands (log line num 21): about to start listening for 1 responses
+1658887826601.7012 hands (log line num 22): found response
+	 (+ 62.999756 ms!!!!!!!!!!)
+1658887826601.7012 hands (log line num 23): found all responses
+1658887826601.7012 hands (log line num 24): just received user input with no up command
+1658887826601.7012 hands (log line num 25): about to write serial message
+1658887826602.7014 hands (log line num 26): just flushed serial message
+	 (+ 1.000244 ms!)
+1658887826602.7014 hands (log line num 27): about to start listening for 1 responses
+1658887826666.1345 hands (log line num 28): found response
+	 (+ 63.433105 ms!!!!!!!!!!)
+1658887826666.1345 hands (log line num 29): found all responses
+1658887826666.1345 hands (log line num 30): just received user input with no up command
+1658887826666.1345 hands (log line num 31): about to write serial message
+1658887826666.1345 hands (log line num 32): just flushed serial message
+1658887826666.1345 hands (log line num 33): about to start listening for 1 responses
+1658887826729.6614 hands (log line num 34): found response
+	 (+ 63.526855 ms!!!!!!!!!!)
+1658887826729.6614 hands (log line num 35): found all responses
+1658887826729.6614 hands (log line num 36): just received user input with no up command
+1658887826729.6614 hands (log line num 37): about to write serial message
+1658887826729.6614 hands (log line num 38): just flushed serial message
+1658887826729.6614 hands (log line num 39): about to start listening for 1 responses
+1658887826793.6614 hands (log line num 40): found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658887826793.6614 hands (log line num 41): found all responses
+1658887826793.6614 hands (log line num 42): just received user input with no up command
+1658887826793.6614 hands (log line num 43): about to write serial message
+1658887826793.6614 hands (log line num 44): just flushed serial message
+1658887826793.6614 hands (log line num 45): about to start listening for 1 responses
+1658887826856.85 hands (log line num 46): found response
+	 (+ 63.188721 ms!!!!!!!!!!)
+1658887826856.85 hands (log line num 47): found all responses
+1658887826856.85 hands (log line num 48): just received user input with no up command
+1658887826856.85 hands (log line num 49): about to write serial message
+1658887826856.85 hands (log line num 50): just flushed serial message
+1658887826856.85 hands (log line num 51): about to start listening for 1 responses
+1658887826920.8599 hands (log line num 52): found response
+	 (+ 64.009766 ms!!!!!!!!!!)
+1658887826920.8599 hands (log line num 53): found all responses
+1658887826920.8599 hands (log line num 54): just received user input with no up command
+1658887826920.8599 hands (log line num 55): about to write serial message
+1658887826920.8599 hands (log line num 56): just flushed serial message
+1658887826920.8599 hands (log line num 57): about to start listening for 1 responses
+1658887826984.9932 hands (log line num 58): found response
+	 (+ 64.133301 ms!!!!!!!!!!)
+1658887826984.9932 hands (log line num 59): found all responses
+1658887826984.9932 hands (log line num 60): just received user input with no up command
+1658887826984.9932 hands (log line num 61): about to write serial message
+1658887826984.9932 hands (log line num 62): just flushed serial message
+1658887826984.9932 hands (log line num 63): about to start listening for 1 responses
+1658887827048.054 hands (log line num 64): found response
+	 (+ 63.060791 ms!!!!!!!!!!)
+1658887827048.054 hands (log line num 65): found all responses
+1658887827048.054 hands (log line num 66): just received user input with no up command
+1658887827048.054 hands (log line num 67): about to write serial message
+1658887827049.0557 hands (log line num 68): just flushed serial message
+	 (+ 1.001709 ms!)
+1658887827049.0557 hands (log line num 69): about to start listening for 1 responses
+1658887827112.0627 hands (log line num 70): found response
+	 (+ 63.00708 ms!!!!!!!!!!)
+1658887827112.0627 hands (log line num 71): found all responses
+1658887827112.0627 hands (log line num 72): just received user input with no up command
+1658887827112.0627 hands (log line num 73): about to write serial message
+1658887827112.0627 hands (log line num 74): just flushed serial message
+1658887827112.0627 hands (log line num 75): about to start listening for 1 responses
+1658887827176.1147 hands (log line num 76): found response
+	 (+ 64.052002 ms!!!!!!!!!!)
+1658887827176.1147 hands (log line num 77): found all responses
+1658887827176.1147 hands (log line num 78): just received user input with no up command
+1658887827176.1147 hands (log line num 79): about to write serial message
+1658887827176.1147 hands (log line num 80): just flushed serial message
+1658887827176.1147 hands (log line num 81): about to start listening for 1 responses
+1658887827240.174 hands (log line num 82): found response
+	 (+ 64.059326 ms!!!!!!!!!!)
+1658887827240.174 hands (log line num 83): found all responses
+1658887827240.174 hands (log line num 84): just received user input with no up command
+1658887827240.174 hands (log line num 85): about to write serial message
+1658887827240.174 hands (log line num 86): just flushed serial message
+1658887827240.174 hands (log line num 87): about to start listening for 1 responses
+1658887827303.1736 hands (log line num 88): found response
+	 (+ 62.999512 ms!!!!!!!!!!)
+1658887827303.1736 hands (log line num 89): found all responses
+1658887827303.1736 hands (log line num 90): just received user input with no up command
+1658887827303.1736 hands (log line num 91): about to write serial message
+1658887827303.1736 hands (log line num 92): just flushed serial message
+1658887827303.1736 hands (log line num 93): about to start listening for 1 responses
+1658887827367.2356 hands (log line num 94): found response
+	 (+ 64.062012 ms!!!!!!!!!!)
+1658887827367.2356 hands (log line num 95): found all responses
+1658887827367.2356 hands (log line num 96): just received user input with no up command
+1658887827367.2356 hands (log line num 97): about to write serial message
+1658887827367.2356 hands (log line num 98): just flushed serial message
+1658887827367.2356 hands (log line num 99): about to start listening for 1 responses
+1658887827430.4053 hands (log line num 100): found response
+	 (+ 63.169678 ms!!!!!!!!!!)
+1658887827431.4058 hands (log line num 101): found all responses
+	 (+ 1.000488 ms!)
+1658887827431.4058 hands (log line num 102): just received user input with no up command
+1658887827431.4058 hands (log line num 103): about to write serial message
+1658887827431.4058 hands (log line num 104): just flushed serial message
+1658887827431.4058 hands (log line num 105): about to start listening for 1 responses
+1658887827494.4058 hands (log line num 106): found response
+	 (+ 63.0 ms!!!!!!!!!!)
+1658887827494.4058 hands (log line num 107): found all responses
+1658887827494.4058 hands (log line num 108): just received user input with no up command
+1658887827494.4058 hands (log line num 109): about to write serial message
+1658887827494.4058 hands (log line num 110): just flushed serial message
+1658887827495.406 hands (log line num 111): about to start listening for 1 responses
+	 (+ 1.000244 ms!)
+1658887827558.5493 hands (log line num 112): found response
+	 (+ 63.143311 ms!!!!!!!!!!)
+1658887827558.5493 hands (log line num 113): found all responses
+1658887827558.5493 hands (log line num 114): just received user input with no up command
+1658887827558.5493 hands (log line num 115): about to write serial message
+1658887827558.5493 hands (log line num 116): just flushed serial message
+1658887827558.5493 hands (log line num 117): about to start listening for 1 responses
+1658887827622.5583 hands (log line num 118): found response
+	 (+ 64.009033 ms!!!!!!!!!!)
+1658887827622.5583 hands (log line num 119): found all responses
+1658887827622.5583 hands (log line num 120): just received user input with no up command
+1658887827622.5583 hands (log line num 121): about to write serial message
+1658887827622.5583 hands (log line num 122): just flushed serial message
+1658887827622.5583 hands (log line num 123): about to start listening for 1 responses
+1658887827685.6045 hands (log line num 124): found response
+	 (+ 63.046143 ms!!!!!!!!!!)
+1658887827685.6045 hands (log line num 125): found all responses
+1658887827685.6045 hands (log line num 126): just received user input with no up command
+1658887827685.6045 hands (log line num 127): about to write serial message
+1658887827686.6047 hands (log line num 128): just flushed serial message
+	 (+ 1.000244 ms!)
+1658887827686.6047 hands (log line num 129): about to start listening for 1 responses
+1658887827749.6592 hands (log line num 130): found response
+	 (+ 63.054443 ms!!!!!!!!!!)
+1658887827749.6592 hands (log line num 131): found all responses
+1658887827749.6592 hands (log line num 132): just received user input with no up command
+1658887827749.6592 hands (log line num 133): about to write serial message
+1658887827749.6592 hands (log line num 134): just flushed serial message
+1658887827749.6592 hands (log line num 135): about to start listening for 1 responses
+1658887827813.6682 hands (log line num 136): found response
+	 (+ 64.009033 ms!!!!!!!!!!)
+1658887827813.6682 hands (log line num 137): found all responses
+1658887827813.6682 hands (log line num 138): just received user input with no up command
+1658887827813.6682 hands (log line num 139): about to write serial message
+1658887827813.6682 hands (log line num 140): just flushed serial message
+1658887827813.6682 hands (log line num 141): about to start listening for 1 responses
+1658887827876.7173 hands (log line num 142): found response
+	 (+ 63.049072 ms!!!!!!!!!!)
+1658887827876.7173 hands (log line num 143): found all responses
+1658887827876.7173 hands (log line num 144): just received user input with no up command
+1658887827877.7185 hands (log line num 145): about to write serial message
+	 (+ 1.001221 ms!)
+1658887827877.7185 hands (log line num 146): just flushed serial message
+1658887827877.7185 hands (log line num 147): about to start listening for 1 responses
+1658887827940.7842 hands (log line num 148): found response
+	 (+ 63.065674 ms!!!!!!!!!!)
+1658887827940.7842 hands (log line num 149): found all responses
+1658887827940.7842 hands (log line num 150): just received user input with no up command
+1658887827940.7842 hands (log line num 151): about to write serial message
+1658887827940.7842 hands (log line num 152): just flushed serial message
+1658887827940.7842 hands (log line num 153): about to start listening for 1 responses
+1658887828005.072 hands (log line num 154): found response
+	 (+ 64.287842 ms!!!!!!!!!!)
+1658887828005.072 hands (log line num 155): found all responses
+1658887828005.072 hands (log line num 156): just received user input with no up command
+1658887828005.072 hands (log line num 157): about to write serial message
+1658887828005.072 hands (log line num 158): just flushed serial message
+1658887828005.072 hands (log line num 159): about to start listening for 1 responses
+1658887828068.5986 hands (log line num 160): found response
+	 (+ 63.526611 ms!!!!!!!!!!)
+1658887828068.5986 hands (log line num 161): found all responses
+1658887828068.5986 hands (log line num 162): just received user input with no up command
+1658887828068.5986 hands (log line num 163): about to write serial message
+1658887828068.5986 hands (log line num 164): just flushed serial message
+1658887828068.5986 hands (log line num 165): about to start listening for 1 responses
+1658887828147.6519 hands (log line num 166): found response
+	 (+ 79.053223 ms!!!!!!!!!!)
+1658887828148.6523 hands (log line num 167): found all responses
+	 (+ 1.000488 ms!)
+1658887828148.6523 hands (log line num 168): just received user input with no up command
+1658887828148.6523 hands (log line num 169): about to write serial message
+1658887828148.6523 hands (log line num 170): just flushed serial message
+1658887828148.6523 hands (log line num 171): about to start listening for 1 responses
+1658887828227.7185 hands (log line num 172): found response
+	 (+ 79.066162 ms!!!!!!!!!!)
+1658887828227.7185 hands (log line num 173): found all responses
+1658887828227.7185 hands (log line num 174): just received user input with no up command
+1658887828227.7185 hands (log line num 175): about to write serial message
+1658887828227.7185 hands (log line num 176): just flushed serial message
+1658887828227.7185 hands (log line num 177): about to start listening for 1 responses
+1658887828307.7185 hands (log line num 178): found response
+	 (+ 80.0 ms!!!!!!!!!!)
+1658887828307.7185 hands (log line num 179): found all responses
+1658887828307.7185 hands (log line num 180): just received user input with no up command
+1658887828307.7185 hands (log line num 181): about to write serial message
+1658887828307.7185 hands (log line num 182): just flushed serial message
+1658887828307.7185 hands (log line num 183): about to start listening for 1 responses
+1658887828386.7783 hands (log line num 184): found response
+	 (+ 79.059814 ms!!!!!!!!!!)
+1658887828386.7783 hands (log line num 185): found all responses
+1658887828386.7783 hands (log line num 186): just received user input with no up command
+1658887828386.7783 hands (log line num 187): about to write serial message
+1658887828387.7788 hands (log line num 188): just flushed serial message
+	 (+ 1.000488 ms!)
+1658887828387.7788 hands (log line num 189): about to start listening for 1 responses
+1658887828466.8325 hands (log line num 190): found response
+	 (+ 79.053711 ms!!!!!!!!!!)
+1658887828466.8325 hands (log line num 191): found all responses
+1658887828466.8325 hands (log line num 192): just received user input with no up command
+1658887828466.8325 hands (log line num 193): about to write serial message
+1658887828466.8325 hands (log line num 194): just flushed serial message
+1658887828466.8325 hands (log line num 195): about to start listening for 1 responses
+1658887828546.8914 hands (log line num 196): found response
+	 (+ 80.058838 ms!!!!!!!!!!)
+1658887828546.8914 hands (log line num 197): found all responses
+1658887828546.8914 hands (log line num 198): just received user input with no up command
+1658887828546.8914 hands (log line num 199): about to write serial message
+1658887828546.8914 hands (log line num 200): just flushed serial message
+1658887828546.8914 hands (log line num 201): about to start listening for 1 responses
+1658887828609.8918 hands (log line num 202): found response
+	 (+ 63.000488 ms!!!!!!!!!!)
+1658887828609.8918 hands (log line num 203): found all responses
+1658887828609.8918 hands (log line num 204): just received user input with no up command
+1658887828609.8918 hands (log line num 205): about to write serial message
+1658887828610.892 hands (log line num 206): just flushed serial message
+	 (+ 1.000244 ms!)
+1658887828610.892 hands (log line num 207): about to start listening for 1 responses
+1658887828673.9553 hands (log line num 208): found response
+	 (+ 63.063232 ms!!!!!!!!!!)
+1658887828673.9553 hands (log line num 209): found all responses
+1658887828673.9553 hands (log line num 210): just received user input with no up command
+1658887828673.9553 hands (log line num 211): about to write serial message
+1658887828673.9553 hands (log line num 212): just flushed serial message
+1658887828673.9553 hands (log line num 213): about to start listening for 1 responses
+1658887828738.015 hands (log line num 214): found response
+	 (+ 64.05957 ms!!!!!!!!!!)
+1658887828738.015 hands (log line num 215): found all responses
+1658887828738.015 hands (log line num 216): just received user input with no up command
+1658887828738.015 hands (log line num 217): about to write serial message
+1658887828738.015 hands (log line num 218): just flushed serial message
+1658887828738.015 hands (log line num 219): about to start listening for 1 responses
+1658887828802.015 hands (log line num 220): found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658887828802.015 hands (log line num 221): found all responses
+1658887828802.015 hands (log line num 222): just received user input with no up command
+1658887828802.015 hands (log line num 223): about to write serial message
+1658887828802.015 hands (log line num 224): just flushed serial message
+1658887828802.015 hands (log line num 225): about to start listening for 1 responses
+1658887828865.0857 hands (log line num 226): found response
+	 (+ 63.070801 ms!!!!!!!!!!)
+1658887828865.0857 hands (log line num 227): found all responses
+1658887828865.0857 hands (log line num 228): just received user input with no up command
+1658887828865.0857 hands (log line num 229): about to write serial message
+1658887828865.0857 hands (log line num 230): just flushed serial message
+1658887828865.0857 hands (log line num 231): about to start listening for 1 responses
+1658887828929.1448 hands (log line num 232): found response
+	 (+ 64.059082 ms!!!!!!!!!!)
+1658887828929.1448 hands (log line num 233): found all responses
+1658887828929.1448 hands (log line num 234): just received user input with no up command
+1658887828929.1448 hands (log line num 235): about to write serial message
+1658887828929.1448 hands (log line num 236): just flushed serial message
+1658887828929.1448 hands (log line num 237): about to start listening for 1 responses
+1658887828993.1448 hands (log line num 238): found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658887828993.1448 hands (log line num 239): found all responses
+1658887828993.1448 hands (log line num 240): just received user input with no up command
+1658887828993.1448 hands (log line num 241): about to write serial message
+1658887828993.1448 hands (log line num 242): just flushed serial message
+1658887828993.1448 hands (log line num 243): about to start listening for 1 responses
+1658887829056.2056 hands (log line num 244): found response
+	 (+ 63.060791 ms!!!!!!!!!!)
+1658887829056.2056 hands (log line num 245): found all responses
+1658887829056.2056 hands (log line num 246): just received user input with no up command
+1658887829056.2056 hands (log line num 247): about to write serial message
+1658887829057.2065 hands (log line num 248): just flushed serial message
+	 (+ 1.000977 ms!)
+1658887829057.2065 hands (log line num 249): about to start listening for 1 responses
+1658887829120.214 hands (log line num 250): found response
+	 (+ 63.007568 ms!!!!!!!!!!)
+1658887829120.214 hands (log line num 251): found all responses
+1658887829120.214 hands (log line num 252): just received user input with no up command
+1658887829120.214 hands (log line num 253): about to write serial message
+1658887829120.214 hands (log line num 254): just flushed serial message
+1658887829120.214 hands (log line num 255): about to start listening for 1 responses
+1658887829183.7505 hands (log line num 256): found response
+	 (+ 63.536377 ms!!!!!!!!!!)
+1658887829183.7505 hands (log line num 257): found all responses
+1658887829183.7505 hands (log line num 258): just received user input with no up command
+1658887829183.7505 hands (log line num 259): about to write serial message
+1658887829184.7515 hands (log line num 260): just flushed serial message
+	 (+ 1.000977 ms!)
+1658887829184.7515 hands (log line num 261): about to start listening for 1 responses
+1658887829248.2788 hands (log line num 262): found response
+	 (+ 63.527344 ms!!!!!!!!!!)
+1658887829248.2788 hands (log line num 263): found all responses
+1658887829248.2788 hands (log line num 264): just received user input with no up command
+1658887829248.2788 hands (log line num 265): about to write serial message
+1658887829248.2788 hands (log line num 266): just flushed serial message
+1658887829248.2788 hands (log line num 267): about to start listening for 1 responses
+1658887829311.2776 hands (log line num 268): found response
+	 (+ 62.998779 ms!!!!!!!!!!)
+1658887829311.2776 hands (log line num 269): found all responses
+1658887829311.2776 hands (log line num 270): just received user input with no up command
+1658887829311.2776 hands (log line num 271): about to write serial message
+1658887829312.281 hands (log line num 272): just flushed serial message
+	 (+ 1.003418 ms!)
+1658887829312.281 hands (log line num 273): about to start listening for 1 responses
+1658887829375.7656 hands (log line num 274): found response
+	 (+ 63.484619 ms!!!!!!!!!!)
+1658887829375.7656 hands (log line num 275): found all responses
+1658887829375.7656 hands (log line num 276): just received user input with no up command
+1658887829375.7656 hands (log line num 277): about to write serial message
+1658887829375.7656 hands (log line num 278): just flushed serial message
+1658887829375.7656 hands (log line num 279): about to start listening for 1 responses
+1658887829439.2917 hands (log line num 280): found response
+	 (+ 63.526123 ms!!!!!!!!!!)
+1658887829439.2917 hands (log line num 281): found all responses
+1658887829439.2917 hands (log line num 282): just received user input with no up command
+1658887829439.2917 hands (log line num 283): about to write serial message
+1658887829439.2917 hands (log line num 284): just flushed serial message
+1658887829439.2917 hands (log line num 285): about to start listening for 1 responses
+1658887829502.8186 hands (log line num 286): found response
+	 (+ 63.526855 ms!!!!!!!!!!)
+1658887829502.8186 hands (log line num 287): found all responses
+1658887829502.8186 hands (log line num 288): just received user input with no up command
+1658887829502.8186 hands (log line num 289): about to write serial message
+1658887829502.8186 hands (log line num 290): just flushed serial message
+1658887829502.8186 hands (log line num 291): about to start listening for 1 responses
+1658887829566.3457 hands (log line num 292): found response
+	 (+ 63.5271 ms!!!!!!!!!!)
+1658887829566.3457 hands (log line num 293): found all responses
+1658887829566.3457 hands (log line num 294): just received user input with no up command
+1658887829566.3457 hands (log line num 295): about to write serial message
+1658887829566.3457 hands (log line num 296): just flushed serial message
+1658887829566.3457 hands (log line num 297): about to start listening for 1 responses
+1658887829630.5093 hands (log line num 298): found response
+	 (+ 64.163574 ms!!!!!!!!!!)
+1658887829630.5093 hands (log line num 299): found all responses
+1658887829630.5093 hands (log line num 300): just received user input with no up command
+1658887829630.5093 hands (log line num 301): about to write serial message
+1658887829630.5093 hands (log line num 302): just flushed serial message
+1658887829630.5093 hands (log line num 303): about to start listening for 1 responses
+1658887829694.5095 hands (log line num 304): found response
+	 (+ 64.000244 ms!!!!!!!!!!)
+1658887829694.5095 hands (log line num 305): found all responses
+1658887829694.5095 hands (log line num 306): just received user input with no up command
+1658887829694.5095 hands (log line num 307): about to write serial message
+1658887829694.5095 hands (log line num 308): just flushed serial message
+1658887829694.5095 hands (log line num 309): about to start listening for 1 responses
+1658887829757.5637 hands (log line num 310): found response
+	 (+ 63.054199 ms!!!!!!!!!!)
+1658887829757.5637 hands (log line num 311): found all responses
+1658887829757.5637 hands (log line num 312): just received user input with no up command
+1658887829757.5637 hands (log line num 313): about to write serial message
+1658887829757.5637 hands (log line num 314): just flushed serial message
+1658887829758.5635 hands (log line num 315): about to start listening for 1 responses
+1658887829821.9922 hands (log line num 316): found response
+	 (+ 63.428711 ms!!!!!!!!!!)
+1658887829821.9922 hands (log line num 317): found all responses
+1658887829821.9922 hands (log line num 318): just received user input with no up command
+1658887829821.9922 hands (log line num 319): about to write serial message
+1658887829821.9922 hands (log line num 320): just flushed serial message
+1658887829821.9922 hands (log line num 321): about to start listening for 1 responses
+1658887829885.5103 hands (log line num 322): found response
+	 (+ 63.518066 ms!!!!!!!!!!)
+1658887829885.5103 hands (log line num 323): found all responses
+1658887829885.5103 hands (log line num 324): just received user input with no up command
+1658887829885.5103 hands (log line num 325): about to write serial message
+1658887829885.5103 hands (log line num 326): just flushed serial message
+1658887829885.5103 hands (log line num 327): about to start listening for 1 responses
+1658887829949.5693 hands (log line num 328): found response
+	 (+ 64.059082 ms!!!!!!!!!!)
+1658887829949.5693 hands (log line num 329): found all responses
+1658887829949.5693 hands (log line num 330): just received user input with no up command
+1658887829949.5693 hands (log line num 331): about to write serial message
+1658887829949.5693 hands (log line num 332): just flushed serial message
+1658887829949.5693 hands (log line num 333): about to start listening for 1 responses
+1658887830013.108 hands (log line num 334): found response
+	 (+ 63.538574 ms!!!!!!!!!!)
+1658887830013.108 hands (log line num 335): found all responses
+1658887830013.108 hands (log line num 336): just received user input with no up command
+1658887830013.108 hands (log line num 337): about to write serial message
+1658887830013.108 hands (log line num 338): just flushed serial message
+1658887830013.108 hands (log line num 339): about to start listening for 1 responses
+1658887830076.6257 hands (log line num 340): found response
+	 (+ 63.517822 ms!!!!!!!!!!)
+1658887830076.6257 hands (log line num 341): found all responses
+1658887830076.6257 hands (log line num 342): just received user input with no up command
+1658887830076.6257 hands (log line num 343): about to write serial message
+1658887830076.6257 hands (log line num 344): just flushed serial message
+1658887830076.6257 hands (log line num 345): about to start listening for 1 responses
+1658887830140.771 hands (log line num 346): found response
+	 (+ 64.145264 ms!!!!!!!!!!)
+1658887830140.771 hands (log line num 347): found all responses
+1658887830140.771 hands (log line num 348): just received user input with no up command
+1658887830140.771 hands (log line num 349): about to write serial message
+1658887830140.771 hands (log line num 350): just flushed serial message
+1658887830140.771 hands (log line num 351): about to start listening for 1 responses
+1658887830219.7805 hands (log line num 352): found response
+	 (+ 79.009521 ms!!!!!!!!!!)
+1658887830219.7805 hands (log line num 353): found all responses
+1658887830219.7805 hands (log line num 354): just received user input with no up command
+1658887830219.7805 hands (log line num 355): about to write serial message
+1658887830219.7805 hands (log line num 356): just flushed serial message
+1658887830219.7805 hands (log line num 357): about to start listening for 1 responses
+1658887830299.3047 hands (log line num 358): found response
+	 (+ 79.52417 ms!!!!!!!!!!)
+1658887830299.3047 hands (log line num 359): found all responses
+1658887830299.3047 hands (log line num 360): just received user input with no up command
+1658887830300.3052 hands (log line num 361): about to write serial message
+	 (+ 1.000488 ms!)
+1658887830300.3052 hands (log line num 362): just flushed serial message
+1658887830300.3052 hands (log line num 363): about to start listening for 1 responses
+1658887830379.8325 hands (log line num 364): found response
+	 (+ 79.527344 ms!!!!!!!!!!)
+1658887830379.8325 hands (log line num 365): found all responses
+1658887830379.8325 hands (log line num 366): just received user input with no up command
+1658887830379.8325 hands (log line num 367): about to write serial message
+1658887830379.8325 hands (log line num 368): just flushed serial message
+1658887830379.8325 hands (log line num 369): about to start listening for 1 responses
+1658887830458.8918 hands (log line num 370): found response
+	 (+ 79.059326 ms!!!!!!!!!!)
+1658887830458.8918 hands (log line num 371): found all responses
+1658887830458.8918 hands (log line num 372): just received user input with no up command
+1658887830458.8918 hands (log line num 373): about to write serial message
+1658887830458.8918 hands (log line num 374): just flushed serial message
+1658887830458.8918 hands (log line num 375): about to start listening for 1 responses
+1658887830538.9514 hands (log line num 376): found response
+	 (+ 80.05957 ms!!!!!!!!!!)
+1658887830538.9514 hands (log line num 377): found all responses
+1658887830538.9514 hands (log line num 378): just received user input with no up command
+1658887830538.9514 hands (log line num 379): about to write serial message
+1658887830538.9514 hands (log line num 380): just flushed serial message
+1658887830538.9514 hands (log line num 381): about to start listening for 1 responses
+1658887830618.9612 hands (log line num 382): found response
+	 (+ 80.009766 ms!!!!!!!!!!)
+1658887830618.9612 hands (log line num 383): found all responses
+1658887830618.9612 hands (log line num 384): just received user input with no up command
+1658887830618.9612 hands (log line num 385): about to write serial message
+1658887830618.9612 hands (log line num 386): just flushed serial message
+1658887830618.9612 hands (log line num 387): about to start listening for 1 responses
+1658887830682.1348 hands (log line num 388): found response
+	 (+ 63.173584 ms!!!!!!!!!!)
+1658887830682.1348 hands (log line num 389): found all responses
+1658887830682.1348 hands (log line num 390): just received user input with no up command
+1658887830682.1348 hands (log line num 391): about to write serial message
+1658887830682.1348 hands (log line num 392): just flushed serial message
+1658887830682.1348 hands (log line num 393): about to start listening for 1 responses
+1658887830745.5159 hands (log line num 394): found response
+	 (+ 63.381104 ms!!!!!!!!!!)
+1658887830746.516 hands (log line num 395): found all responses
+	 (+ 1.000244 ms!)
+1658887830746.516 hands (log line num 396): just received user input with no up command
+1658887830746.516 hands (log line num 397): about to write serial message
+1658887830746.516 hands (log line num 398): just flushed serial message
+1658887830746.516 hands (log line num 399): about to start listening for 1 responses
+1658887830809.5159 hands (log line num 400): found response
+	 (+ 62.999756 ms!!!!!!!!!!)
+1658887830809.5159 hands (log line num 401): found all responses
+1658887830809.5159 hands (log line num 402): just received user input with no up command
+1658887830809.5159 hands (log line num 403): about to write serial message
+1658887830809.5159 hands (log line num 404): just flushed serial message
+1658887830809.5159 hands (log line num 405): about to start listening for 1 responses
+1658887830873.0432 hands (log line num 406): found response
+	 (+ 63.527344 ms!!!!!!!!!!)
+1658887830873.0432 hands (log line num 407): found all responses
+1658887830874.044 hands (log line num 408): just received user input with no up command
+	 (+ 1.000732 ms!)
+1658887830874.044 hands (log line num 409): about to write serial message
+1658887830874.044 hands (log line num 410): just flushed serial message
+1658887830874.044 hands (log line num 411): about to start listening for 1 responses
+1658887830937.34 hands (log line num 412): found response
+	 (+ 63.296143 ms!!!!!!!!!!)
+1658887830937.34 hands (log line num 413): found all responses
+1658887830937.34 hands (log line num 414): just received user input with no up command
+1658887830937.34 hands (log line num 415): about to write serial message
+1658887830937.34 hands (log line num 416): just flushed serial message
+1658887830937.34 hands (log line num 417): about to start listening for 1 responses
+1658887831001.3398 hands (log line num 418): found response
+	 (+ 63.999756 ms!!!!!!!!!!)
+1658887831001.3398 hands (log line num 419): found all responses
+1658887831001.3398 hands (log line num 420): just received user input with no up command
+1658887831001.3398 hands (log line num 421): about to write serial message
+1658887831001.3398 hands (log line num 422): just flushed serial message
+1658887831001.3398 hands (log line num 423): about to start listening for 1 responses
+1658887831064.3972 hands (log line num 424): found response
+	 (+ 63.057373 ms!!!!!!!!!!)
+1658887831064.3972 hands (log line num 425): found all responses
+1658887831064.3972 hands (log line num 426): just received user input with no up command
+1658887831064.3972 hands (log line num 427): about to write serial message
+1658887831065.3982 hands (log line num 428): just flushed serial message
+	 (+ 1.000977 ms!)
+1658887831065.3982 hands (log line num 429): about to start listening for 1 responses
+1658887831128.4065 hands (log line num 430): found response
+	 (+ 63.008301 ms!!!!!!!!!!)
+1658887831128.4065 hands (log line num 431): found all responses
+1658887831128.4065 hands (log line num 432): just received user input with no up command
+1658887831128.4065 hands (log line num 433): about to write serial message
+1658887831128.4065 hands (log line num 434): just flushed serial message
+1658887831128.4065 hands (log line num 435): about to start listening for 1 responses
+1658887831192.4578 hands (log line num 436): found response
+	 (+ 64.05127 ms!!!!!!!!!!)
+1658887831192.4578 hands (log line num 437): found all responses
+1658887831192.4578 hands (log line num 438): just received user input with no up command
+1658887831192.4578 hands (log line num 439): about to write serial message
+1658887831192.4578 hands (log line num 440): just flushed serial message
+1658887831192.4578 hands (log line num 441): about to start listening for 1 responses
+1658887831255.549 hands (log line num 442): found response
+	 (+ 63.091309 ms!!!!!!!!!!)
+1658887831255.549 hands (log line num 443): found all responses
+1658887831256.549 hands (log line num 444): just received user input with no up command
+1658887831256.549 hands (log line num 445): about to write serial message
+1658887831256.549 hands (log line num 446): just flushed serial message
+1658887831256.549 hands (log line num 447): about to start listening for 1 responses
+1658887831319.5579 hands (log line num 448): found response
+	 (+ 63.008789 ms!!!!!!!!!!)
+1658887831319.5579 hands (log line num 449): found all responses
+1658887831319.5579 hands (log line num 450): just received user input with no up command
+1658887831319.5579 hands (log line num 451): about to write serial message
+1658887831319.5579 hands (log line num 452): just flushed serial message
+1658887831319.5579 hands (log line num 453): about to start listening for 1 responses
+1658887831383.7092 hands (log line num 454): found response
+	 (+ 64.151367 ms!!!!!!!!!!)
+1658887831383.7092 hands (log line num 455): found all responses
+1658887831383.7092 hands (log line num 456): just received user input with no up command
+1658887831383.7092 hands (log line num 457): about to write serial message
+1658887831383.7092 hands (log line num 458): just flushed serial message
+1658887831383.7092 hands (log line num 459): about to start listening for 1 responses
+1658887831447.767 hands (log line num 460): found response
+	 (+ 64.057861 ms!!!!!!!!!!)
+1658887831447.767 hands (log line num 461): found all responses
+1658887831447.767 hands (log line num 462): just received user input with no up command
+1658887831447.767 hands (log line num 463): about to write serial message
+1658887831447.767 hands (log line num 464): just flushed serial message
+1658887831447.767 hands (log line num 465): about to start listening for 1 responses
+1658887831510.7668 hands (log line num 466): found response
+	 (+ 62.999756 ms!!!!!!!!!!)
+1658887831510.7668 hands (log line num 467): found all responses
+1658887831510.7668 hands (log line num 468): just received user input with no up command
+1658887831510.7668 hands (log line num 469): about to write serial message
+1658887831510.7668 hands (log line num 470): just flushed serial message
+1658887831511.7666 hands (log line num 471): about to start listening for 1 responses
+1658887831574.849 hands (log line num 472): found response
+	 (+ 63.08252 ms!!!!!!!!!!)
+1658887831574.849 hands (log line num 473): found all responses
+1658887831574.849 hands (log line num 474): just received user input with no up command
+1658887831574.849 hands (log line num 475): about to write serial message
+1658887831574.849 hands (log line num 476): just flushed serial message
+1658887831574.849 hands (log line num 477): about to start listening for 1 responses
+1658887831638.9128 hands (log line num 478): found response
+	 (+ 64.063721 ms!!!!!!!!!!)
+1658887831638.9128 hands (log line num 479): found all responses
+1658887831638.9128 hands (log line num 480): just received user input with no up command
+1658887831638.9128 hands (log line num 481): about to write serial message
+1658887831638.9128 hands (log line num 482): just flushed serial message
+1658887831638.9128 hands (log line num 483): about to start listening for 1 responses
+1658887831701.9128 hands (log line num 484): found response
+	 (+ 63.0 ms!!!!!!!!!!)
+1658887831701.9128 hands (log line num 485): found all responses
+1658887831701.9128 hands (log line num 486): just received user input with no up command
+1658887831701.9128 hands (log line num 487): about to write serial message
+1658887831702.9133 hands (log line num 488): just flushed serial message
+	 (+ 1.000488 ms!)
+1658887831702.9133 hands (log line num 489): about to start listening for 1 responses
+1658887831765.972 hands (log line num 490): found response
+	 (+ 63.058594 ms!!!!!!!!!!)
+1658887831765.972 hands (log line num 491): found all responses
+1658887831765.972 hands (log line num 492): just received user input with no up command
+1658887831765.972 hands (log line num 493): about to write serial message
+1658887831765.972 hands (log line num 494): just flushed serial message
+1658887831765.972 hands (log line num 495): about to start listening for 1 responses
+1658887831830.034 hands (log line num 496): found response
+	 (+ 64.062012 ms!!!!!!!!!!)
+1658887831830.034 hands (log line num 497): found all responses
+1658887831830.034 hands (log line num 498): just received user input with no up command
+1658887831830.034 hands (log line num 499): about to write serial message
+1658887831830.034 hands (log line num 500): just flushed serial message
+1658887831830.034 hands (log line num 501): about to start listening for 1 responses
+1658887831894.034 hands (log line num 502): found response
+	 (+ 64.0 ms!!!!!!!!!!)
+1658887831894.034 hands (log line num 503): found all responses
+1658887831894.034 hands (log line num 504): just received user input with no up command
+1658887831894.034 hands (log line num 505): about to write serial message
+1658887831894.034 hands (log line num 506): just flushed serial message
+1658887831894.034 hands (log line num 507): about to start listening for 1 responses
+1658887831957.0974 hands (log line num 508): found response
+	 (+ 63.063477 ms!!!!!!!!!!)
+1658887831957.0974 hands (log line num 509): found all responses
+1658887831957.0974 hands (log line num 510): just received user input with no up command
+1658887831957.0974 hands (log line num 511): about to write serial message
+1658887831957.0974 hands (log line num 512): just flushed serial message
+1658887831957.0974 hands (log line num 513): about to start listening for 1 responses
+1658887832021.1064 hands (log line num 514): found response
+	 (+ 64.009033 ms!!!!!!!!!!)
+1658887832021.1064 hands (log line num 515): found all responses
+1658887832021.1064 hands (log line num 516): just received user input with no up command
+1658887832021.1064 hands (log line num 517): about to write serial message
+1658887832021.1064 hands (log line num 518): just flushed serial message
+1658887832021.1064 hands (log line num 519): about to start listening for 1 responses
+1658887832085.1555 hands (log line num 520): found response
+	 (+ 64.049072 ms!!!!!!!!!!)
+1658887832085.1555 hands (log line num 521): found all responses
+1658887832085.1555 hands (log line num 522): just received user input with no up command
+1658887832085.1555 hands (log line num 523): about to write serial message
+1658887832085.1555 hands (log line num 524): just flushed serial message
+1658887832085.1555 hands (log line num 525): about to start listening for 1 responses
+1658887832148.9849 hands (log line num 526): found response
+	 (+ 63.829346 ms!!!!!!!!!!)
+1658887832148.9849 hands (log line num 527): found all responses
+1658887832148.9849 hands (log line num 528): just received user input with no up command
+1658887832148.9849 hands (log line num 529): about to write serial message
+1658887832148.9849 hands (log line num 530): just flushed serial message
+1658887832148.9849 hands (log line num 531): about to start listening for 1 responses
+1658887832211.9846 hands (log line num 532): found response
+	 (+ 62.999756 ms!!!!!!!!!!)
+1658887832211.9846 hands (log line num 533): found all responses
+1658887832211.9846 hands (log line num 534): just received user input with no up command
+1658887832211.9846 hands (log line num 535): about to write serial message
+1658887832212.985 hands (log line num 536): just flushed serial message
+	 (+ 1.000488 ms!)
+1658887832212.985 hands (log line num 537): about to start listening for 1 responses
+1658887832292.1401 hands (log line num 538): found response
+	 (+ 79.155029 ms!!!!!!!!!!)
+1658887832292.1401 hands (log line num 539): found all responses
+1658887832292.1401 hands (log line num 540): just received user input with no up command
+1658887832292.1401 hands (log line num 541): about to write serial message
+1658887832292.1401 hands (log line num 542): just flushed serial message
+1658887832292.1401 hands (log line num 543): about to start listening for 1 responses
+1658887832371.2002 hands (log line num 544): found response
+	 (+ 79.060059 ms!!!!!!!!!!)
+1658887832372.2002 hands (log line num 545): found all responses
+1658887832372.2002 hands (log line num 546): just received user input with no up command
+1658887832372.2002 hands (log line num 547): about to write serial message
+1658887832372.2002 hands (log line num 548): just flushed serial message
+1658887832372.2002 hands (log line num 549): about to start listening for 1 responses
+1658887832451.2637 hands (log line num 550): found response
+	 (+ 79.063477 ms!!!!!!!!!!)
+1658887832451.2637 hands (log line num 551): found all responses
+1658887832451.2637 hands (log line num 552): just received user input with no up command
+1658887832451.2637 hands (log line num 553): about to write serial message
+1658887832451.2637 hands (log line num 554): just flushed serial message
+1658887832451.2637 hands (log line num 555): about to start listening for 1 responses
+1658887832531.3206 hands (log line num 556): found response
+	 (+ 80.056885 ms!!!!!!!!!!)
+1658887832531.3206 hands (log line num 557): found all responses
+1658887832531.3206 hands (log line num 558): just received user input with no up command
+1658887832531.3206 hands (log line num 559): about to write serial message
+1658887832531.3206 hands (log line num 560): just flushed serial message
+1658887832531.3206 hands (log line num 561): about to start listening for 1 responses
+1658887832610.3203 hands (log line num 562): found response
+	 (+ 78.999756 ms!!!!!!!!!!)
+1658887832610.3203 hands (log line num 563): found all responses
+1658887832610.3203 hands (log line num 564): just received user input with no up command
+1658887832611.321 hands (log line num 565): about to write serial message
+	 (+ 1.000732 ms!)
+1658887832611.321 hands (log line num 566): just flushed serial message
+1658887832611.321 hands (log line num 567): about to start listening for 1 responses
+1658887832690.3843 hands (log line num 568): found response
+	 (+ 79.063232 ms!!!!!!!!!!)
+1658887832690.3843 hands (log line num 569): found all responses
+1658887832690.3843 hands (log line num 570): just received user input with no up command
+1658887832690.3843 hands (log line num 571): about to write serial message
+1658887832690.3843 hands (log line num 572): just flushed serial message
+1658887832690.3843 hands (log line num 573): about to start listening for 1 responses
+1658887832754.4482 hands (log line num 574): found response
+	 (+ 64.063965 ms!!!!!!!!!!)
+1658887832754.4482 hands (log line num 575): found all responses
+1658887832754.4482 hands (log line num 576): just received user input with no up command
+1658887832754.4482 hands (log line num 577): about to write serial message
+1658887832754.4482 hands (log line num 578): just flushed serial message
+1658887832754.4482 hands (log line num 579): about to start listening for 1 responses
+1658887832818.457 hands (log line num 580): found response
+	 (+ 64.008789 ms!!!!!!!!!!)
+1658887832818.457 hands (log line num 581): found all responses
+1658887832818.457 hands (log line num 582): just received user input with no up command
+1658887832818.457 hands (log line num 583): about to write serial message
+1658887832818.457 hands (log line num 584): just flushed serial message
+1658887832818.457 hands (log line num 585): about to start listening for 1 responses
+1658887832881.5107 hands (log line num 586): found response
+	 (+ 63.053711 ms!!!!!!!!!!)
+1658887832881.5107 hands (log line num 587): found all responses
+1658887832881.5107 hands (log line num 588): just received user input with no up command
+1658887832881.5107 hands (log line num 589): about to write serial message
+1658887832881.5107 hands (log line num 590): just flushed serial message
+1658887832881.5107 hands (log line num 591): about to start listening for 1 responses
+1658887832945.5715 hands (log line num 592): found response
+	 (+ 64.060791 ms!!!!!!!!!!)
+1658887832945.5715 hands (log line num 593): found all responses
+1658887832945.5715 hands (log line num 594): just received user input with no up command
+1658887832945.5715 hands (log line num 595): about to write serial message
+1658887832945.5715 hands (log line num 596): just flushed serial message
+1658887832945.5715 hands (log line num 597): about to start listening for 1 responses
+1658887833008.754 hands (log line num 598): found response
+	 (+ 63.182373 ms!!!!!!!!!!)
+1658887833008.754 hands (log line num 599): found all responses
+1658887833009.754 hands (log line num 600): just received user input with no up command
+1658887833009.754 hands (log line num 601): about to write serial message
+1658887833009.754 hands (log line num 602): just flushed serial message
+1658887833009.754 hands (log line num 603): about to start listening for 1 responses
+1658887833073.2842 hands (log line num 604): found response
+	 (+ 63.530273 ms!!!!!!!!!!)
+1658887833073.2842 hands (log line num 605): found all responses
+1658887833073.2842 hands (log line num 606): just received user input with no up command
+1658887833073.2842 hands (log line num 607): about to write serial message
+1658887833073.2842 hands (log line num 608): just flushed serial message
+1658887833073.2842 hands (log line num 609): about to start listening for 1 responses
+1658887833136.8108 hands (log line num 610): found response
+	 (+ 63.526611 ms!!!!!!!!!!)
+1658887833136.8108 hands (log line num 611): found all responses
+1658887833136.8108 hands (log line num 612): just received user input with no up command
+1658887833136.8108 hands (log line num 613): about to write serial message
+1658887833136.8108 hands (log line num 614): just flushed serial message
+1658887833136.8108 hands (log line num 615): about to start listening for 1 responses
+1658887833200.8105 hands (log line num 616): found response
+	 (+ 63.999756 ms!!!!!!!!!!)
+1658887833200.8105 hands (log line num 617): found all responses
+1658887833200.8105 hands (log line num 618): just received user input with no up command
+1658887833200.8105 hands (log line num 619): about to write serial message
+1658887833200.8105 hands (log line num 620): just flushed serial message
+1658887833200.8105 hands (log line num 621): about to start listening for 1 responses
+1658887833263.9138 hands (log line num 622): found response
+	 (+ 63.103271 ms!!!!!!!!!!)
+1658887833263.9138 hands (log line num 623): found all responses
+1658887833263.9138 hands (log line num 624): just received user input with no up command
+1658887833263.9138 hands (log line num 625): about to write serial message
+1658887833264.9146 hands (log line num 626): just flushed serial message
+	 (+ 1.000732 ms!)
+1658887833264.9146 hands (log line num 627): about to start listening for 1 responses
+1658887833327.9233 hands (log line num 628): found response
+	 (+ 63.008789 ms!!!!!!!!!!)
+1658887833327.9233 hands (log line num 629): found all responses
+1658887833327.9233 hands (log line num 630): just received user input with no up command
+1658887833327.9233 hands (log line num 631): about to write serial message
+1658887833327.9233 hands (log line num 632): just flushed serial message
+1658887833327.9233 hands (log line num 633): about to start listening for 1 responses
+1658887833392.0205 hands (log line num 634): found response
+	 (+ 64.097168 ms!!!!!!!!!!)
+1658887833392.0205 hands (log line num 635): found all responses
+1658887833392.0205 hands (log line num 636): just received user input with no up command
+1658887833392.0205 hands (log line num 637): about to write serial message
+1658887833392.0205 hands (log line num 638): just flushed serial message
+1658887833392.0205 hands (log line num 639): about to start listening for 1 responses
+1658887833455.1226 hands (log line num 640): found response
+	 (+ 63.102051 ms!!!!!!!!!!)
+1658887833455.1226 hands (log line num 641): found all responses
+1658887833455.1226 hands (log line num 642): just received user input with no up command
+1658887833455.1226 hands (log line num 643): about to write serial message
+1658887833456.1228 hands (log line num 644): just flushed serial message
+	 (+ 1.000244 ms!)
+1658887833456.1228 hands (log line num 645): about to start listening for 1 responses
+1658887833518.9482 hands (log line num 646): found response
+	 (+ 62.825439 ms!!!!!!!!!!)
+1658887833518.9482 hands (log line num 647): found all responses
+1658887833518.9482 hands (log line num 648): just received user input with no up command
+1658887833518.9482 hands (log line num 649): about to write serial message
+1658887833519.9497 hands (log line num 650): just flushed serial message
+	 (+ 1.001465 ms!)
+1658887833519.9497 hands (log line num 651): about to start listening for 1 responses
+1658887833582.9985 hands (log line num 652): found response
+	 (+ 63.048828 ms!!!!!!!!!!)
+1658887833582.9985 hands (log line num 653): found all responses
+1658887833582.9985 hands (log line num 654): just received user input with no up command
+1658887833582.9985 hands (log line num 655): about to write serial message
+1658887833582.9985 hands (log line num 656): just flushed serial message
+1658887833582.9985 hands (log line num 657): about to start listening for 1 responses
+1658887833647.1575 hands (log line num 658): found response
+	 (+ 64.158936 ms!!!!!!!!!!)
+1658887833647.1575 hands (log line num 659): found all responses
+1658887833647.1575 hands (log line num 660): just received user input with no up command
+1658887833647.1575 hands (log line num 661): about to write serial message
+1658887833647.1575 hands (log line num 662): just flushed serial message
+1658887833647.1575 hands (log line num 663): about to start listening for 1 responses
+1658887833710.1575 hands (log line num 664): found response
+	 (+ 63.0 ms!!!!!!!!!!)
+1658887833710.1575 hands (log line num 665): found all responses
+1658887833710.1575 hands (log line num 666): just received user input with no up command
+1658887833710.1575 hands (log line num 667): about to write serial message
+1658887833711.1577 hands (log line num 668): just flushed serial message
+	 (+ 1.000244 ms!)
+1658887833711.1577 hands (log line num 669): about to start listening for 1 responses
+1658887833774.2168 hands (log line num 670): found response
+	 (+ 63.059082 ms!!!!!!!!!!)
+1658887833774.2168 hands (log line num 671): found all responses
+1658887833774.2168 hands (log line num 672): just received user input with no up command
+1658887833774.2168 hands (log line num 673): about to write serial message
+1658887833774.2168 hands (log line num 674): just flushed serial message
+1658887833774.2168 hands (log line num 675): about to start listening for 1 responses
+1658887833838.2756 hands (log line num 676): found response
+	 (+ 64.058838 ms!!!!!!!!!!)
+1658887833838.2756 hands (log line num 677): found all responses
+1658887833838.2756 hands (log line num 678): just received user input with no up command
+1658887833838.2756 hands (log line num 679): about to write serial message
+1658887833838.2756 hands (log line num 680): just flushed serial message
+1658887833838.2756 hands (log line num 681): about to start listening for 1 responses
+1658887833901.2751 hands (log line num 682): found response
+	 (+ 62.999512 ms!!!!!!!!!!)
+1658887833902.2756 hands (log line num 683): found all responses
+	 (+ 1.000488 ms!)
+1658887833902.2756 hands (log line num 684): just received user input with no up command
+1658887833902.2756 hands (log line num 685): about to write serial message
+1658887833902.2756 hands (log line num 686): just flushed serial message
+1658887833902.2756 hands (log line num 687): about to start listening for 1 responses
+1658887833965.343 hands (log line num 688): found response
+	 (+ 63.067383 ms!!!!!!!!!!)
+1658887833965.343 hands (log line num 689): found all responses
+1658887833965.343 hands (log line num 690): just received user input with no up command
+1658887833965.343 hands (log line num 691): about to write serial message
+1658887833965.343 hands (log line num 692): just flushed serial message
+1658887833965.343 hands (log line num 693): about to start listening for 1 responses
+1658887834029.3508 hands (log line num 694): found response
+	 (+ 64.007812 ms!!!!!!!!!!)
+1658887834029.3508 hands (log line num 695): found all responses
+1658887834029.3508 hands (log line num 696): just received user input with no up command
+1658887834029.3508 hands (log line num 697): about to write serial message
+1658887834029.3508 hands (log line num 698): just flushed serial message
+1658887834029.3508 hands (log line num 699): about to start listening for 1 responses
+1658887834093.4067 hands (log line num 700): found response
+	 (+ 64.055908 ms!!!!!!!!!!)
+1658887834093.4067 hands (log line num 701): found all responses
+1658887834093.4067 hands (log line num 702): just received user input with no up command
+1658887834093.4067 hands (log line num 703): about to write serial message
+1658887834093.4067 hands (log line num 704): just flushed serial message
+1658887834093.4067 hands (log line num 705): about to start listening for 1 responses
+1658887834156.5493 hands (log line num 706): found response
+	 (+ 63.142578 ms!!!!!!!!!!)
+1658887834156.5493 hands (log line num 707): found all responses
+1658887834156.5493 hands (log line num 708): just received user input with no up command
+1658887834156.5493 hands (log line num 709): about to write serial message
+1658887834156.5493 hands (log line num 710): just flushed serial message
+1658887834156.5493 hands (log line num 711): about to start listening for 1 responses
+1658887834220.5586 hands (log line num 712): found response
+	 (+ 64.009277 ms!!!!!!!!!!)
+1658887834220.5586 hands (log line num 713): found all responses
+1658887834220.5586 hands (log line num 714): just received user input with no up command
+1658887834220.5586 hands (log line num 715): about to write serial message
+1658887834220.5586 hands (log line num 716): just flushed serial message
+1658887834220.5586 hands (log line num 717): about to start listening for 1 responses
+1658887834284.6958 hands (log line num 718): found response
+	 (+ 64.137207 ms!!!!!!!!!!)
+1658887834284.6958 hands (log line num 719): found all responses
+1658887834284.6958 hands (log line num 720): just received user input with no up command
+1658887834284.6958 hands (log line num 721): about to write serial message
+1658887834284.6958 hands (log line num 722): just flushed serial message
+1658887834284.6958 hands (log line num 723): about to start listening for 1 responses
+1658887834363.8591 hands (log line num 724): found response
+	 (+ 79.16333 ms!!!!!!!!!!)
+1658887834363.8591 hands (log line num 725): found all responses
+1658887834363.8591 hands (log line num 726): just received user input with no up command
+1658887834363.8591 hands (log line num 727): about to write serial message
+1658887834363.8591 hands (log line num 728): just flushed serial message
+1658887834363.8591 hands (log line num 729): about to start listening for 1 responses

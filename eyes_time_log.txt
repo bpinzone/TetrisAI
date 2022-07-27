@@ -1,0 +1,312 @@
+1658889160448.0728 eyes (log line num 0): just saw the queue shift
+1658889160448.0728 eyes (log line num 1): just flushed to brain
+1658889160944.0854 eyes (log line num 2): just saw the queue shift
+1658889160944.0854 eyes (log line num 3): just flushed to brain
+1658889161071.6167 eyes (log line num 4): just saw the queue shift
+1658889161071.6167 eyes (log line num 5): just flushed to brain
+1658889161503.811 eyes (log line num 6): just saw the queue shift
+1658889161504.811 eyes (log line num 7): just flushed to brain
+1658889161999.9958 eyes (log line num 8): just saw the queue shift
+1658889162001.0078 eyes (log line num 9): just flushed to brain
+1658889162302.9111 eyes (log line num 10): just saw the queue shift
+1658889162303.908 eyes (log line num 11): just flushed to brain
+1658889163391.7524 eyes (log line num 12): just saw the queue shift
+1658889163391.7524 eyes (log line num 13): just flushed to brain
+1658889164431.3997 eyes (log line num 14): just saw the queue shift
+1658889164431.911 eyes (log line num 15): just flushed to brain
+1658889164703.5132 eyes (log line num 16): just saw the queue shift
+1658889164703.5132 eyes (log line num 17): just flushed to brain
+1658889165072.0027 eyes (log line num 18): just saw the queue shift
+1658889165072.0027 eyes (log line num 19): just flushed to brain
+1658889166111.94 eyes (log line num 20): just saw the queue shift
+1658889166111.94 eyes (log line num 21): just flushed to brain
+1658889166544.1072 eyes (log line num 22): just saw the queue shift
+1658889166544.1072 eyes (log line num 23): just flushed to brain
+1658889166767.3608 eyes (log line num 24): just saw the queue shift
+1658889166767.3608 eyes (log line num 25): just flushed to brain
+1658889167856.029 eyes (log line num 26): just saw the queue shift
+1658889167857.0334 eyes (log line num 27): just flushed to brain
+1658889168303.5098 eyes (log line num 28): just saw the queue shift
+1658889168304.508 eyes (log line num 29): just flushed to brain
+1658889169279.9585 eyes (log line num 30): just saw the queue shift
+1658889169279.9585 eyes (log line num 31): just flushed to brain
+1658889169649.8186 eyes (log line num 32): just saw the queue shift
+1658889169650.8188 eyes (log line num 33): just flushed to brain
+1658889170085.5908 eyes (log line num 34): just saw the queue shift
+1658889170086.5894 eyes (log line num 35): just flushed to brain
+1658889171009.1523 eyes (log line num 36): just saw the queue shift
+1658889171010.1501 eyes (log line num 37): just flushed to brain
+1658889171984.3433 eyes (log line num 38): just saw the queue shift
+1658889171985.3462 eyes (log line num 39): just flushed to brain
+1658889173103.3389 eyes (log line num 40): just saw the queue shift
+1658889173104.3389 eyes (log line num 41): just flushed to brain
+1658889173599.7214 eyes (log line num 42): just saw the queue shift
+1658889173600.7224 eyes (log line num 43): just flushed to brain
+1658889173951.4707 eyes (log line num 44): just saw the queue shift
+1658889173951.4707 eyes (log line num 45): just flushed to brain
+1658889174255.8093 eyes (log line num 46): just saw the queue shift
+1658889174256.8035 eyes (log line num 47): just flushed to brain
+1658889174495.1667 eyes (log line num 48): just saw the queue shift
+1658889174496.1667 eyes (log line num 49): just flushed to brain
+1658889174991.6465 eyes (log line num 50): just saw the queue shift
+1658889174992.646 eyes (log line num 51): just flushed to brain
+1658889175365.8257 eyes (log line num 52): just saw the queue shift
+1658889175366.8247 eyes (log line num 53): just flushed to brain
+1658889176399.9985 eyes (log line num 54): just saw the queue shift
+1658889176401.0 eyes (log line num 55): just flushed to brain
+1658889176901.4912 eyes (log line num 56): just saw the queue shift
+1658889176902.491 eyes (log line num 57): just flushed to brain
+1658889177215.452 eyes (log line num 58): just saw the queue shift
+1658889177216.4526 eyes (log line num 59): just flushed to brain
+1658889178383.2756 eyes (log line num 60): just saw the queue shift
+1658889178383.2756 eyes (log line num 61): just flushed to brain
+1658889178815.521 eyes (log line num 62): just saw the queue shift
+1658889178815.521 eyes (log line num 63): just flushed to brain
+1658889179247.621 eyes (log line num 64): just saw the queue shift
+1658889179247.621 eyes (log line num 65): just flushed to brain
+1658889180271.5095 eyes (log line num 66): just saw the queue shift
+1658889180271.5095 eyes (log line num 67): just flushed to brain
+1658889180624.2056 eyes (log line num 68): just saw the queue shift
+1658889180624.2056 eyes (log line num 69): just flushed to brain
+1658889180992.247 eyes (log line num 70): just saw the queue shift
+1658889180992.247 eyes (log line num 71): just flushed to brain
+1658889181296.16 eyes (log line num 72): just saw the queue shift
+1658889181296.16 eyes (log line num 73): just flushed to brain
+1658889181519.2893 eyes (log line num 74): just saw the queue shift
+1658889181520.2922 eyes (log line num 75): just flushed to brain
+1658889181823.4536 eyes (log line num 76): just saw the queue shift
+1658889181823.4536 eyes (log line num 77): just flushed to brain
+1658889182240.1658 eyes (log line num 78): just saw the queue shift
+1658889182241.173 eyes (log line num 79): just flushed to brain
+1658889182479.5515 eyes (log line num 80): just saw the queue shift
+1658889182479.5515 eyes (log line num 81): just flushed to brain
+1658889182831.4734 eyes (log line num 82): just saw the queue shift
+1658889182832.4724 eyes (log line num 83): just flushed to brain
+1658889183199.652 eyes (log line num 84): just saw the queue shift
+1658889183200.6472 eyes (log line num 85): just flushed to brain
+1658889184319.6624 eyes (log line num 86): just saw the queue shift
+1658889184319.6624 eyes (log line num 87): just flushed to brain
+1658889184624.2017 eyes (log line num 88): just saw the queue shift
+1658889184624.2017 eyes (log line num 89): just flushed to brain
+1658889185039.5022 eyes (log line num 90): just saw the queue shift
+1658889185039.5022 eyes (log line num 91): just flushed to brain
+1658889185407.9785 eyes (log line num 92): just saw the queue shift
+1658889185408.9797 eyes (log line num 93): just flushed to brain
+1658889185647.3813 eyes (log line num 94): just saw the queue shift
+1658889185648.3806 eyes (log line num 95): just flushed to brain
+1658889185951.5186 eyes (log line num 96): just saw the queue shift
+1658889185951.5186 eyes (log line num 97): just flushed to brain
+1658889186319.6624 eyes (log line num 98): just saw the queue shift
+1658889186319.6624 eyes (log line num 99): just flushed to brain
+1658889186671.8662 eyes (log line num 100): just saw the queue shift
+1658889186672.867 eyes (log line num 101): just flushed to brain
+1658889187045.7708 eyes (log line num 102): just saw the queue shift
+1658889187045.7708 eyes (log line num 103): just flushed to brain
+1658889187407.5242 eyes (log line num 104): just saw the queue shift
+1658889187408.5242 eyes (log line num 105): just flushed to brain
+1658889187711.729 eyes (log line num 106): just saw the queue shift
+1658889187712.727 eyes (log line num 107): just flushed to brain
+1658889188037.3928 eyes (log line num 108): just saw the queue shift
+1658889188038.389 eyes (log line num 109): just flushed to brain
+1658889189199.3892 eyes (log line num 110): just saw the queue shift
+1658889189199.3892 eyes (log line num 111): just flushed to brain
+1658889189631.1885 eyes (log line num 112): just saw the queue shift
+1658889189631.1885 eyes (log line num 113): just flushed to brain
+1658889190005.545 eyes (log line num 114): just saw the queue shift
+1658889190006.544 eyes (log line num 115): just flushed to brain
+1658889190495.2751 eyes (log line num 116): just saw the queue shift
+1658889190496.2751 eyes (log line num 117): just flushed to brain
+1658889190929.576 eyes (log line num 118): just saw the queue shift
+1658889190930.5762 eyes (log line num 119): just flushed to brain
+1658889191839.8643 eyes (log line num 120): just saw the queue shift
+1658889191839.8643 eyes (log line num 121): just flushed to brain
+1658889192143.8362 eyes (log line num 122): just saw the queue shift
+1658889192143.8362 eyes (log line num 123): just flushed to brain
+1658889192511.7354 eyes (log line num 124): just saw the queue shift
+1658889192511.7354 eyes (log line num 125): just flushed to brain
+1658889192879.602 eyes (log line num 126): just saw the queue shift
+1658889192880.6025 eyes (log line num 127): just flushed to brain
+1658889193983.3025 eyes (log line num 128): just saw the queue shift
+1658889193983.3025 eyes (log line num 129): just flushed to brain
+1658889194239.977 eyes (log line num 130): just saw the queue shift
+1658889194239.977 eyes (log line num 131): just flushed to brain
+1658889194543.1938 eyes (log line num 132): just saw the queue shift
+1658889194543.1938 eyes (log line num 133): just flushed to brain
+1658889194975.4177 eyes (log line num 134): just saw the queue shift
+1658889194976.4167 eyes (log line num 135): just flushed to brain
+1658889195360.154 eyes (log line num 136): just saw the queue shift
+1658889195360.154 eyes (log line num 137): just flushed to brain
+1658889195855.8027 eyes (log line num 138): just saw the queue shift
+1658889195855.8027 eyes (log line num 139): just flushed to brain
+1658889196159.8462 eyes (log line num 140): just saw the queue shift
+1658889196159.8462 eyes (log line num 141): just flushed to brain
+1658889196533.7642 eyes (log line num 142): just saw the queue shift
+1658889196534.7634 eyes (log line num 143): just flushed to brain
+1658889196896.097 eyes (log line num 144): just saw the queue shift
+1658889196897.1018 eyes (log line num 145): just flushed to brain
+1658889197407.4858 eyes (log line num 146): just saw the queue shift
+1658889197408.486 eyes (log line num 147): just flushed to brain
+1658889197717.3958 eyes (log line num 148): just saw the queue shift
+1658889197718.3953 eyes (log line num 149): just flushed to brain
+1658889197967.5698 eyes (log line num 150): just saw the queue shift
+1658889197968.574 eyes (log line num 151): just flushed to brain
+1658889198351.3518 eyes (log line num 152): just saw the queue shift
+1658889198352.3528 eyes (log line num 153): just flushed to brain
+1658889199454.7002 eyes (log line num 154): just saw the queue shift
+1658889199455.71 eyes (log line num 155): just flushed to brain
+1658889199903.3994 eyes (log line num 156): just saw the queue shift
+1658889199904.398 eyes (log line num 157): just flushed to brain
+1658889200335.3928 eyes (log line num 158): just saw the queue shift
+1658889200336.3904 eyes (log line num 159): just flushed to brain
+1658889200575.0422 eyes (log line num 160): just saw the queue shift
+1658889200575.0422 eyes (log line num 161): just flushed to brain
+1658889200943.2627 eyes (log line num 162): just saw the queue shift
+1658889200943.2627 eyes (log line num 163): just flushed to brain
+1658889201311.3984 eyes (log line num 164): just saw the queue shift
+1658889201311.3984 eyes (log line num 165): just flushed to brain
+1658889201680.0237 eyes (log line num 166): just saw the queue shift
+1658889201681.0293 eyes (log line num 167): just flushed to brain
+1658889202111.7837 eyes (log line num 168): just saw the queue shift
+1658889202112.7903 eyes (log line num 169): just flushed to brain
+1658889203215.7715 eyes (log line num 170): just saw the queue shift
+1658889203215.7715 eyes (log line num 171): just flushed to brain
+1658889203583.4868 eyes (log line num 172): just saw the queue shift
+1658889203583.4868 eyes (log line num 173): just flushed to brain
+1658889203839.7173 eyes (log line num 174): just saw the queue shift
+1658889203839.7173 eyes (log line num 175): just flushed to brain
+1658889204207.8074 eyes (log line num 176): just saw the queue shift
+1658889204207.8074 eyes (log line num 177): just flushed to brain
+1658889204623.2573 eyes (log line num 178): just saw the queue shift
+1658889204623.2573 eyes (log line num 179): just flushed to brain
+1658889204927.5679 eyes (log line num 180): just saw the queue shift
+1658889204928.5676 eyes (log line num 181): just flushed to brain
+1658889205311.7605 eyes (log line num 182): just saw the queue shift
+1658889205312.7544 eyes (log line num 183): just flushed to brain
+1658889205615.7607 eyes (log line num 184): just saw the queue shift
+1658889205615.7607 eyes (log line num 185): just flushed to brain
+1658889206047.4182 eyes (log line num 186): just saw the queue shift
+1658889206048.4177 eyes (log line num 187): just flushed to brain
+1658889206351.5562 eyes (log line num 188): just saw the queue shift
+1658889206352.5552 eyes (log line num 189): just flushed to brain
+1658889206591.4875 eyes (log line num 190): just saw the queue shift
+1658889206592.4863 eyes (log line num 191): just flushed to brain
+1658889206960.363 eyes (log line num 192): just saw the queue shift
+1658889206960.363 eyes (log line num 193): just flushed to brain
+1658889208063.7087 eyes (log line num 194): just saw the queue shift
+1658889208064.703 eyes (log line num 195): just flushed to brain
+1658889208431.6797 eyes (log line num 196): just saw the queue shift
+1658889208431.6797 eyes (log line num 197): just flushed to brain
+1658889208687.628 eyes (log line num 198): just saw the queue shift
+1658889208688.6282 eyes (log line num 199): just flushed to brain
+1658889209055.2703 eyes (log line num 200): just saw the queue shift
+1658889209055.2703 eyes (log line num 201): just flushed to brain
+1658889209295.036 eyes (log line num 202): just saw the queue shift
+1658889209295.036 eyes (log line num 203): just flushed to brain
+1658889209727.791 eyes (log line num 204): just saw the queue shift
+1658889209728.7937 eyes (log line num 205): just flushed to brain
+1658889210703.5925 eyes (log line num 206): just saw the queue shift
+1658889210704.5925 eyes (log line num 207): just flushed to brain
+1658889211135.8113 eyes (log line num 208): just saw the queue shift
+1658889211135.8113 eyes (log line num 209): just flushed to brain
+1658889212303.682 eyes (log line num 210): just saw the queue shift
+1658889212303.682 eyes (log line num 211): just flushed to brain
+1658889212544.045 eyes (log line num 212): just saw the queue shift
+1658889212545.0444 eyes (log line num 213): just flushed to brain
+1658889212799.1929 eyes (log line num 214): just saw the queue shift
+1658889212799.1929 eyes (log line num 215): just flushed to brain
+1658889213167.8645 eyes (log line num 216): just saw the queue shift
+1658889213167.8645 eyes (log line num 217): just flushed to brain
+1658889213503.9897 eyes (log line num 218): just saw the queue shift
+1658889213504.9944 eyes (log line num 219): just flushed to brain
+1658889213887.179 eyes (log line num 220): just saw the queue shift
+1658889213888.1785 eyes (log line num 221): just flushed to brain
+1658889214389.3853 eyes (log line num 222): just saw the queue shift
+1658889214390.3826 eyes (log line num 223): just flushed to brain
+1658889214751.5923 eyes (log line num 224): just saw the queue shift
+1658889214752.5159 eyes (log line num 225): just flushed to brain
+1658889215055.725 eyes (log line num 226): just saw the queue shift
+1658889215056.72 eyes (log line num 227): just flushed to brain
+1658889216287.7979 eyes (log line num 228): just saw the queue shift
+1658889216287.7979 eyes (log line num 229): just flushed to brain
+1658889216785.2896 eyes (log line num 230): just saw the queue shift
+1658889216785.2896 eyes (log line num 231): just flushed to brain
+1658889217103.4973 eyes (log line num 232): just saw the queue shift
+1658889217103.4973 eyes (log line num 233): just flushed to brain
+1658889218255.5732 eyes (log line num 234): just saw the queue shift
+1658889218255.5732 eyes (log line num 235): just flushed to brain
+1658889218560.672 eyes (log line num 236): just saw the queue shift
+1658889218560.672 eyes (log line num 237): just flushed to brain
+1658889218799.157 eyes (log line num 238): just saw the queue shift
+1658889218799.157 eyes (log line num 239): just flushed to brain
+1658889219231.7532 eyes (log line num 240): just saw the queue shift
+1658889219231.7532 eyes (log line num 241): just flushed to brain
+1658889219503.7498 eyes (log line num 242): just saw the queue shift
+1658889219503.7498 eyes (log line num 243): just flushed to brain
+1658889219951.9255 eyes (log line num 244): just saw the queue shift
+1658889219951.9255 eyes (log line num 245): just flushed to brain
+1658889220319.3037 eyes (log line num 246): just saw the queue shift
+1658889220320.3035 eyes (log line num 247): just flushed to brain
+1658889221503.6497 eyes (log line num 248): just saw the queue shift
+1658889221504.6382 eyes (log line num 249): just flushed to brain
+1658889221743.7268 eyes (log line num 250): just saw the queue shift
+1658889221743.7268 eyes (log line num 251): just flushed to brain
+1658889222176.239 eyes (log line num 252): just saw the queue shift
+1658889222176.239 eyes (log line num 253): just flushed to brain
+1658889222479.3716 eyes (log line num 254): just saw the queue shift
+1658889222479.3716 eyes (log line num 255): just flushed to brain
+1658889222911.6804 eyes (log line num 256): just saw the queue shift
+1658889222911.6804 eyes (log line num 257): just flushed to brain
+1658889223150.999 eyes (log line num 258): just saw the queue shift
+1658889223150.999 eyes (log line num 259): just flushed to brain
+1658889223647.8442 eyes (log line num 260): just saw the queue shift
+1658889223647.8442 eyes (log line num 261): just flushed to brain
+1658889223951.339 eyes (log line num 262): just saw the queue shift
+1658889223952.3398 eyes (log line num 263): just flushed to brain
+1658889224384.6538 eyes (log line num 264): just saw the queue shift
+1658889224385.6633 eyes (log line num 265): just flushed to brain
+1658889224639.7827 eyes (log line num 266): just saw the queue shift
+1658889224640.7883 eyes (log line num 267): just flushed to brain
+1658889225007.2766 eyes (log line num 268): just saw the queue shift
+1658889225008.2769 eyes (log line num 269): just flushed to brain
+1658889226095.6487 eyes (log line num 270): just saw the queue shift
+1658889226096.6433 eyes (log line num 271): just flushed to brain
+1658889226527.6636 eyes (log line num 272): just saw the queue shift
+1658889226528.658 eyes (log line num 273): just flushed to brain
+1658889226751.303 eyes (log line num 274): just saw the queue shift
+1658889226752.304 eyes (log line num 275): just flushed to brain
+1658889227840.171 eyes (log line num 276): just saw the queue shift
+1658889227840.171 eyes (log line num 277): just flushed to brain
+1658889228208.291 eyes (log line num 278): just saw the queue shift
+1658889228208.291 eyes (log line num 279): just flushed to brain
+1658889228598.081 eyes (log line num 280): just saw the queue shift
+1658889228598.081 eyes (log line num 281): just flushed to brain
+1658889229023.3093 eyes (log line num 282): just saw the queue shift
+1658889229023.3093 eyes (log line num 283): just flushed to brain
+1658889229391.9614 eyes (log line num 284): just saw the queue shift
+1658889229391.9614 eyes (log line num 285): just flushed to brain
+1658889229695.2783 eyes (log line num 286): just saw the queue shift
+1658889229695.2783 eyes (log line num 287): just flushed to brain
+1658889229935.9185 eyes (log line num 288): just saw the queue shift
+1658889229935.9185 eyes (log line num 289): just flushed to brain
+1658889230303.9668 eyes (log line num 290): just saw the queue shift
+1658889230304.9714 eyes (log line num 291): just flushed to brain
+1658889230607.2756 eyes (log line num 292): just saw the queue shift
+1658889230608.2756 eyes (log line num 293): just flushed to brain
+1658889231760.0115 eyes (log line num 294): just saw the queue shift
+1658889231760.0115 eyes (log line num 295): just flushed to brain
+1658889232127.0503 eyes (log line num 296): just saw the queue shift
+1658889232127.0503 eyes (log line num 297): just flushed to brain
+1658889232416.2083 eyes (log line num 298): just saw the queue shift
+1658889232416.2083 eyes (log line num 299): just flushed to brain
+1658889232911.4707 eyes (log line num 300): just saw the queue shift
+1658889232911.4707 eyes (log line num 301): just flushed to brain
+1658889233135.4968 eyes (log line num 302): just saw the queue shift
+1658889233135.4968 eyes (log line num 303): just flushed to brain
+1658889233631.8516 eyes (log line num 304): just saw the queue shift
+1658889233631.8516 eyes (log line num 305): just flushed to brain
+1658889234063.5789 eyes (log line num 306): just saw the queue shift
+1658889234063.5789 eyes (log line num 307): just flushed to brain
+1658889234495.904 eyes (log line num 308): just saw the queue shift
+1658889234496.8997 eyes (log line num 309): just flushed to brain
+1658889234734.9773 eyes (log line num 310): just saw the queue shift
+1658889234735.9805 eyes (log line num 311): just flushed to brain

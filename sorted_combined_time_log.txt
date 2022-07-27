@@ -1,0 +1,1716 @@
+1658889160448.0728 eyes (log line num 0): just saw the queue shift
+1658889160448.0728 eyes (log line num 1): just flushed to brain
+1658889160450.0679 hands (log line num 0): just received user input with no up command
+1658889160450.0679 hands (log line num 1): about to write serial message
+1658889160450.0679 hands (log line num 2): just flushed serial message
+1658889160450.0679 hands (log line num 3): just received user input with no up command
+1658889160450.0679 hands (log line num 4): about to write serial message
+1658889160451.0728 hands (log line num 10): about to write serial message
+1658889160451.0728 hands (log line num 11): just flushed serial message
+1658889160451.0728 hands (log line num 12): just received user input WITH UP COMMAND
+1658889160451.0728 hands (log line num 13): about to write serial message
+1658889160451.0728 hands (log line num 14): just flushed serial message
+1658889160451.0728 hands (log line num 5): just flushed serial message
+1658889160451.0728 hands (log line num 6): just received user input with no up command
+1658889160451.0728 hands (log line num 7): about to write serial message
+1658889160451.0728 hands (log line num 8): just flushed serial message
+1658889160451.0728 hands (log line num 9): just received user input with no up command
+1658889160944.0854 eyes (log line num 2): just saw the queue shift
+1658889160944.0854 eyes (log line num 3): just flushed to brain
+1658889160946.083 hands (log line num 15): just received user input with no up command
+1658889160946.083 hands (log line num 16): about to write serial message
+1658889160946.083 hands (log line num 17): just flushed serial message
+1658889161071.6167 eyes (log line num 4): just saw the queue shift
+1658889161071.6167 eyes (log line num 5): just flushed to brain
+1658889161072.6155 hands (log line num 18): just received user input with no up command
+1658889161072.6155 hands (log line num 19): about to write serial message
+1658889161072.6155 hands (log line num 20): just flushed serial message
+1658889161073.612 hands (log line num 21): just received user input with no up command
+1658889161073.612 hands (log line num 22): about to write serial message
+1658889161073.612 hands (log line num 23): just flushed serial message
+1658889161073.612 hands (log line num 24): just received user input with no up command
+1658889161073.612 hands (log line num 25): about to write serial message
+1658889161073.612 hands (log line num 26): just flushed serial message
+1658889161073.612 hands (log line num 27): just received user input WITH UP COMMAND
+1658889161073.612 hands (log line num 28): about to write serial message
+1658889161073.612 hands (log line num 29): just flushed serial message
+1658889161503.811 eyes (log line num 6): just saw the queue shift
+1658889161504.811 eyes (log line num 7): just flushed to brain
+1658889161505.8079 hands (log line num 30): just received user input with no up command
+1658889161505.8079 hands (log line num 31): about to write serial message
+1658889161505.8079 hands (log line num 32): just flushed serial message
+1658889161505.8079 hands (log line num 33): just received user input with no up command
+1658889161505.8079 hands (log line num 34): about to write serial message
+1658889161506.8137 hands (log line num 35): just flushed serial message
+1658889161506.8137 hands (log line num 36): just received user input with no up command
+1658889161506.8137 hands (log line num 37): about to write serial message
+1658889161506.8137 hands (log line num 38): just flushed serial message
+1658889161506.8137 hands (log line num 39): just received user input with no up command
+1658889161506.8137 hands (log line num 40): about to write serial message
+1658889161506.8137 hands (log line num 41): just flushed serial message
+1658889161507.8118 hands (log line num 42): just received user input WITH UP COMMAND
+1658889161507.8118 hands (log line num 43): about to write serial message
+1658889161507.8118 hands (log line num 44): just flushed serial message
+1658889161999.9958 eyes (log line num 8): just saw the queue shift
+1658889162001.0078 eyes (log line num 9): just flushed to brain
+1658889162002.007 hands (log line num 45): just received user input with no up command
+1658889162002.007 hands (log line num 46): about to write serial message
+1658889162002.007 hands (log line num 47): just flushed serial message
+1658889162003.0022 hands (log line num 48): just received user input WITH UP COMMAND
+1658889162003.0022 hands (log line num 49): about to write serial message
+1658889162003.0022 hands (log line num 50): just flushed serial message
+1658889162302.9111 eyes (log line num 10): just saw the queue shift
+1658889162303.908 eyes (log line num 11): just flushed to brain
+1658889162304.9038 hands (log line num 51): just received user input with no up command
+1658889162304.9038 hands (log line num 52): about to write serial message
+1658889162304.9038 hands (log line num 53): just flushed serial message
+1658889162304.9038 hands (log line num 54): just received user input with no up command
+1658889162304.9038 hands (log line num 55): about to write serial message
+1658889162305.9033 hands (log line num 56): just flushed serial message
+1658889162305.9033 hands (log line num 57): just received user input with no up command
+1658889162305.9033 hands (log line num 58): about to write serial message
+1658889162305.9033 hands (log line num 59): just flushed serial message
+1658889162305.9033 hands (log line num 60): just received user input WITH UP COMMAND
+1658889162305.9033 hands (log line num 61): about to write serial message
+1658889162305.9033 hands (log line num 62): just flushed serial message
+1658889163391.7524 eyes (log line num 12): just saw the queue shift
+1658889163391.7524 eyes (log line num 13): just flushed to brain
+1658889163393.747 hands (log line num 63): just received user input with no up command
+1658889163393.747 hands (log line num 64): about to write serial message
+1658889163393.747 hands (log line num 65): just flushed serial message
+1658889163394.747 hands (log line num 66): just received user input with no up command
+1658889163394.747 hands (log line num 67): about to write serial message
+1658889163394.747 hands (log line num 68): just flushed serial message
+1658889163394.747 hands (log line num 69): just received user input WITH UP COMMAND
+1658889163394.747 hands (log line num 70): about to write serial message
+1658889163394.747 hands (log line num 71): just flushed serial message
+1658889164431.3997 eyes (log line num 14): just saw the queue shift
+1658889164431.911 eyes (log line num 15): just flushed to brain
+1658889164432.9165 hands (log line num 72): just received user input WITH UP COMMAND
+1658889164432.9165 hands (log line num 73): about to write serial message
+1658889164432.9165 hands (log line num 74): just flushed serial message
+1658889164703.5132 eyes (log line num 16): just saw the queue shift
+1658889164703.5132 eyes (log line num 17): just flushed to brain
+1658889164706.5093 hands (log line num 75): just received user input with no up command
+1658889164706.5093 hands (log line num 76): about to write serial message
+1658889164706.5093 hands (log line num 77): just flushed serial message
+1658889164706.5093 hands (log line num 78): just received user input with no up command
+1658889164707.5095 hands (log line num 79): about to write serial message
+1658889164707.5095 hands (log line num 80): just flushed serial message
+1658889164707.5095 hands (log line num 81): just received user input WITH UP COMMAND
+1658889164707.5095 hands (log line num 82): about to write serial message
+1658889164707.5095 hands (log line num 83): just flushed serial message
+1658889165072.0027 eyes (log line num 18): just saw the queue shift
+1658889165072.0027 eyes (log line num 19): just flushed to brain
+1658889165073.999 hands (log line num 84): just received user input with no up command
+1658889165073.999 hands (log line num 85): about to write serial message
+1658889165073.999 hands (log line num 86): just flushed serial message
+1658889165073.999 hands (log line num 87): just received user input with no up command
+1658889165073.999 hands (log line num 88): about to write serial message
+1658889165073.999 hands (log line num 89): just flushed serial message
+1658889165073.999 hands (log line num 90): just received user input WITH UP COMMAND
+1658889165075.003 hands (log line num 91): about to write serial message
+1658889165075.003 hands (log line num 92): just flushed serial message
+1658889166111.94 eyes (log line num 20): just saw the queue shift
+1658889166111.94 eyes (log line num 21): just flushed to brain
+1658889166113.9456 hands (log line num 100): about to write serial message
+1658889166113.9456 hands (log line num 93): just received user input with no up command
+1658889166113.9456 hands (log line num 94): about to write serial message
+1658889166113.9456 hands (log line num 95): just flushed serial message
+1658889166113.9456 hands (log line num 96): just received user input with no up command
+1658889166113.9456 hands (log line num 97): about to write serial message
+1658889166113.9456 hands (log line num 98): just flushed serial message
+1658889166113.9456 hands (log line num 99): just received user input with no up command
+1658889166114.9404 hands (log line num 101): just flushed serial message
+1658889166114.9404 hands (log line num 102): just received user input WITH UP COMMAND
+1658889166114.9404 hands (log line num 103): about to write serial message
+1658889166114.9404 hands (log line num 104): just flushed serial message
+1658889166544.1072 eyes (log line num 22): just saw the queue shift
+1658889166544.1072 eyes (log line num 23): just flushed to brain
+1658889166546.1023 hands (log line num 105): just received user input WITH UP COMMAND
+1658889166546.1023 hands (log line num 106): about to write serial message
+1658889166546.1023 hands (log line num 107): just flushed serial message
+1658889166767.3608 eyes (log line num 24): just saw the queue shift
+1658889166767.3608 eyes (log line num 25): just flushed to brain
+1658889166769.3635 hands (log line num 108): just received user input with no up command
+1658889166769.3635 hands (log line num 109): about to write serial message
+1658889166769.3635 hands (log line num 110): just flushed serial message
+1658889166769.3635 hands (log line num 111): just received user input with no up command
+1658889166769.3635 hands (log line num 112): about to write serial message
+1658889166769.3635 hands (log line num 113): just flushed serial message
+1658889166769.3635 hands (log line num 114): just received user input with no up command
+1658889166769.3635 hands (log line num 115): about to write serial message
+1658889166769.3635 hands (log line num 116): just flushed serial message
+1658889166770.3608 hands (log line num 117): just received user input WITH UP COMMAND
+1658889166770.3608 hands (log line num 118): about to write serial message
+1658889166770.3608 hands (log line num 119): just flushed serial message
+1658889167856.029 eyes (log line num 26): just saw the queue shift
+1658889167857.0334 eyes (log line num 27): just flushed to brain
+1658889167858.0251 hands (log line num 120): just received user input with no up command
+1658889167858.0251 hands (log line num 121): about to write serial message
+1658889167858.0251 hands (log line num 122): just flushed serial message
+1658889167858.0251 hands (log line num 123): just received user input with no up command
+1658889167858.0251 hands (log line num 124): about to write serial message
+1658889167858.0251 hands (log line num 125): just flushed serial message
+1658889167858.0251 hands (log line num 126): just received user input with no up command
+1658889167858.0251 hands (log line num 127): about to write serial message
+1658889167859.0305 hands (log line num 128): just flushed serial message
+1658889167859.0305 hands (log line num 129): just received user input WITH UP COMMAND
+1658889167859.0305 hands (log line num 130): about to write serial message
+1658889167859.0305 hands (log line num 131): just flushed serial message
+1658889168303.5098 eyes (log line num 28): just saw the queue shift
+1658889168304.508 eyes (log line num 29): just flushed to brain
+1658889168304.508 hands (log line num 132): just received user input with no up command
+1658889168305.5044 hands (log line num 133): about to write serial message
+1658889168305.5044 hands (log line num 134): just flushed serial message
+1658889168305.5044 hands (log line num 135): just received user input with no up command
+1658889168305.5044 hands (log line num 136): about to write serial message
+1658889168305.5044 hands (log line num 137): just flushed serial message
+1658889168305.5044 hands (log line num 138): just received user input with no up command
+1658889168305.5044 hands (log line num 139): about to write serial message
+1658889168306.5034 hands (log line num 140): just flushed serial message
+1658889168306.5034 hands (log line num 141): just received user input WITH UP COMMAND
+1658889168306.5034 hands (log line num 142): about to write serial message
+1658889168306.5034 hands (log line num 143): just flushed serial message
+1658889169279.9585 eyes (log line num 30): just saw the queue shift
+1658889169279.9585 eyes (log line num 31): just flushed to brain
+1658889169280.9563 hands (log line num 144): just received user input with no up command
+1658889169280.9563 hands (log line num 145): about to write serial message
+1658889169281.955 hands (log line num 146): just flushed serial message
+1658889169281.955 hands (log line num 147): just received user input with no up command
+1658889169281.955 hands (log line num 148): about to write serial message
+1658889169281.955 hands (log line num 149): just flushed serial message
+1658889169281.955 hands (log line num 150): just received user input WITH UP COMMAND
+1658889169281.955 hands (log line num 151): about to write serial message
+1658889169281.955 hands (log line num 152): just flushed serial message
+1658889169649.8186 eyes (log line num 32): just saw the queue shift
+1658889169650.8188 eyes (log line num 33): just flushed to brain
+1658889169651.8118 hands (log line num 153): just received user input with no up command
+1658889169651.8118 hands (log line num 154): about to write serial message
+1658889169651.8118 hands (log line num 155): just flushed serial message
+1658889169651.8118 hands (log line num 156): just received user input with no up command
+1658889169651.8118 hands (log line num 157): about to write serial message
+1658889169651.8118 hands (log line num 158): just flushed serial message
+1658889169651.8118 hands (log line num 159): just received user input with no up command
+1658889169651.8118 hands (log line num 160): about to write serial message
+1658889169652.8115 hands (log line num 161): just flushed serial message
+1658889169652.8115 hands (log line num 162): just received user input WITH UP COMMAND
+1658889169652.8115 hands (log line num 163): about to write serial message
+1658889169652.8115 hands (log line num 164): just flushed serial message
+1658889170085.5908 eyes (log line num 34): just saw the queue shift
+1658889170086.5894 eyes (log line num 35): just flushed to brain
+1658889170088.5862 hands (log line num 165): just received user input WITH UP COMMAND
+1658889170088.5862 hands (log line num 166): about to write serial message
+1658889170088.5862 hands (log line num 167): just flushed serial message
+1658889171009.1523 eyes (log line num 36): just saw the queue shift
+1658889171010.1501 eyes (log line num 37): just flushed to brain
+1658889171011.1418 hands (log line num 168): just received user input with no up command
+1658889171011.1418 hands (log line num 169): about to write serial message
+1658889171011.1418 hands (log line num 170): just flushed serial message
+1658889171012.1418 hands (log line num 171): just received user input WITH UP COMMAND
+1658889171012.1418 hands (log line num 172): about to write serial message
+1658889171012.1418 hands (log line num 173): just flushed serial message
+1658889171984.3433 eyes (log line num 38): just saw the queue shift
+1658889171985.3462 eyes (log line num 39): just flushed to brain
+1658889171986.3389 hands (log line num 174): just received user input with no up command
+1658889171986.3389 hands (log line num 175): about to write serial message
+1658889171986.3389 hands (log line num 176): just flushed serial message
+1658889171987.3457 hands (log line num 177): just received user input with no up command
+1658889171987.3457 hands (log line num 178): about to write serial message
+1658889171987.3457 hands (log line num 179): just flushed serial message
+1658889171987.3457 hands (log line num 180): just received user input with no up command
+1658889171987.3457 hands (log line num 181): about to write serial message
+1658889171987.3457 hands (log line num 182): just flushed serial message
+1658889171987.3457 hands (log line num 183): just received user input WITH UP COMMAND
+1658889171987.3457 hands (log line num 184): about to write serial message
+1658889171987.3457 hands (log line num 185): just flushed serial message
+1658889173103.3389 eyes (log line num 40): just saw the queue shift
+1658889173104.3389 eyes (log line num 41): just flushed to brain
+1658889173104.3389 hands (log line num 186): just received user input with no up command
+1658889173105.3367 hands (log line num 187): about to write serial message
+1658889173105.3367 hands (log line num 188): just flushed serial message
+1658889173105.3367 hands (log line num 189): just received user input with no up command
+1658889173105.3367 hands (log line num 190): about to write serial message
+1658889173105.3367 hands (log line num 191): just flushed serial message
+1658889173105.3367 hands (log line num 192): just received user input with no up command
+1658889173105.3367 hands (log line num 193): about to write serial message
+1658889173105.3367 hands (log line num 194): just flushed serial message
+1658889173106.335 hands (log line num 195): just received user input with no up command
+1658889173106.335 hands (log line num 196): about to write serial message
+1658889173106.335 hands (log line num 197): just flushed serial message
+1658889173106.335 hands (log line num 198): just received user input WITH UP COMMAND
+1658889173106.335 hands (log line num 199): about to write serial message
+1658889173106.335 hands (log line num 200): just flushed serial message
+1658889173599.7214 eyes (log line num 42): just saw the queue shift
+1658889173600.7224 eyes (log line num 43): just flushed to brain
+1658889173602.7234 hands (log line num 201): just received user input with no up command
+1658889173602.7234 hands (log line num 202): about to write serial message
+1658889173602.7234 hands (log line num 203): just flushed serial message
+1658889173602.7234 hands (log line num 204): just received user input with no up command
+1658889173602.7234 hands (log line num 205): about to write serial message
+1658889173603.7227 hands (log line num 206): just flushed serial message
+1658889173603.7227 hands (log line num 207): just received user input WITH UP COMMAND
+1658889173603.7227 hands (log line num 208): about to write serial message
+1658889173603.7227 hands (log line num 209): just flushed serial message
+1658889173951.4707 eyes (log line num 44): just saw the queue shift
+1658889173951.4707 eyes (log line num 45): just flushed to brain
+1658889173953.4656 hands (log line num 210): just received user input with no up command
+1658889173953.4656 hands (log line num 211): about to write serial message
+1658889173953.4656 hands (log line num 212): just flushed serial message
+1658889173953.4656 hands (log line num 213): just received user input WITH UP COMMAND
+1658889173953.4656 hands (log line num 214): about to write serial message
+1658889173953.4656 hands (log line num 215): just flushed serial message
+1658889174255.8093 eyes (log line num 46): just saw the queue shift
+1658889174256.8035 eyes (log line num 47): just flushed to brain
+1658889174257.8066 hands (log line num 216): just received user input WITH UP COMMAND
+1658889174257.8066 hands (log line num 217): about to write serial message
+1658889174257.8066 hands (log line num 218): just flushed serial message
+1658889174495.1667 eyes (log line num 48): just saw the queue shift
+1658889174496.1667 eyes (log line num 49): just flushed to brain
+1658889174496.1667 hands (log line num 219): just received user input with no up command
+1658889174497.163 hands (log line num 220): about to write serial message
+1658889174497.163 hands (log line num 221): just flushed serial message
+1658889174497.163 hands (log line num 222): just received user input with no up command
+1658889174497.163 hands (log line num 223): about to write serial message
+1658889174497.163 hands (log line num 224): just flushed serial message
+1658889174497.163 hands (log line num 225): just received user input with no up command
+1658889174497.163 hands (log line num 226): about to write serial message
+1658889174497.163 hands (log line num 227): just flushed serial message
+1658889174498.1677 hands (log line num 228): just received user input with no up command
+1658889174498.1677 hands (log line num 229): about to write serial message
+1658889174498.1677 hands (log line num 230): just flushed serial message
+1658889174498.1677 hands (log line num 231): just received user input WITH UP COMMAND
+1658889174498.1677 hands (log line num 232): about to write serial message
+1658889174498.1677 hands (log line num 233): just flushed serial message
+1658889174991.6465 eyes (log line num 50): just saw the queue shift
+1658889174992.646 eyes (log line num 51): just flushed to brain
+1658889174992.646 hands (log line num 234): just received user input with no up command
+1658889174992.646 hands (log line num 235): about to write serial message
+1658889174992.646 hands (log line num 236): just flushed serial message
+1658889174992.646 hands (log line num 237): just received user input with no up command
+1658889174993.6477 hands (log line num 238): about to write serial message
+1658889174993.6477 hands (log line num 239): just flushed serial message
+1658889174993.6477 hands (log line num 240): just received user input WITH UP COMMAND
+1658889174993.6477 hands (log line num 241): about to write serial message
+1658889174993.6477 hands (log line num 242): just flushed serial message
+1658889175365.8257 eyes (log line num 52): just saw the queue shift
+1658889175366.8247 eyes (log line num 53): just flushed to brain
+1658889175366.8247 hands (log line num 243): just received user input with no up command
+1658889175367.8245 hands (log line num 244): about to write serial message
+1658889175367.8245 hands (log line num 245): just flushed serial message
+1658889175367.8245 hands (log line num 246): just received user input with no up command
+1658889175367.8245 hands (log line num 247): about to write serial message
+1658889175367.8245 hands (log line num 248): just flushed serial message
+1658889175367.8245 hands (log line num 249): just received user input WITH UP COMMAND
+1658889175367.8245 hands (log line num 250): about to write serial message
+1658889175367.8245 hands (log line num 251): just flushed serial message
+1658889176399.9985 eyes (log line num 54): just saw the queue shift
+1658889176401.0 eyes (log line num 55): just flushed to brain
+1658889176401.0 hands (log line num 252): just received user input with no up command
+1658889176401.0 hands (log line num 253): about to write serial message
+1658889176401.9927 hands (log line num 254): just flushed serial message
+1658889176401.9927 hands (log line num 255): just received user input with no up command
+1658889176401.9927 hands (log line num 256): about to write serial message
+1658889176401.9927 hands (log line num 257): just flushed serial message
+1658889176401.9927 hands (log line num 258): just received user input with no up command
+1658889176401.9927 hands (log line num 259): about to write serial message
+1658889176402.991 hands (log line num 260): just flushed serial message
+1658889176402.991 hands (log line num 261): just received user input with no up command
+1658889176402.991 hands (log line num 262): about to write serial message
+1658889176402.991 hands (log line num 263): just flushed serial message
+1658889176402.991 hands (log line num 264): just received user input WITH UP COMMAND
+1658889176402.991 hands (log line num 265): about to write serial message
+1658889176402.991 hands (log line num 266): just flushed serial message
+1658889176901.4912 eyes (log line num 56): just saw the queue shift
+1658889176902.491 eyes (log line num 57): just flushed to brain
+1658889176902.491 hands (log line num 267): just received user input with no up command
+1658889176902.491 hands (log line num 268): about to write serial message
+1658889176903.4946 hands (log line num 269): just flushed serial message
+1658889176903.4946 hands (log line num 270): just received user input WITH UP COMMAND
+1658889176903.4946 hands (log line num 271): about to write serial message
+1658889176903.4946 hands (log line num 272): just flushed serial message
+1658889177215.452 eyes (log line num 58): just saw the queue shift
+1658889177216.4526 eyes (log line num 59): just flushed to brain
+1658889177218.4482 hands (log line num 273): just received user input with no up command
+1658889177218.4482 hands (log line num 274): about to write serial message
+1658889177218.4482 hands (log line num 275): just flushed serial message
+1658889177219.4485 hands (log line num 276): just received user input with no up command
+1658889177219.4485 hands (log line num 277): about to write serial message
+1658889177220.4475 hands (log line num 278): just flushed serial message
+1658889177220.4475 hands (log line num 279): just received user input with no up command
+1658889177220.4475 hands (log line num 280): about to write serial message
+1658889177220.4475 hands (log line num 281): just flushed serial message
+1658889177220.4475 hands (log line num 282): just received user input with no up command
+1658889177220.4475 hands (log line num 283): about to write serial message
+1658889177220.4475 hands (log line num 284): just flushed serial message
+1658889177220.4475 hands (log line num 285): just received user input WITH UP COMMAND
+1658889177220.4475 hands (log line num 286): about to write serial message
+1658889177220.4475 hands (log line num 287): just flushed serial message
+1658889178383.2756 eyes (log line num 60): just saw the queue shift
+1658889178383.2756 eyes (log line num 61): just flushed to brain
+1658889178386.2708 hands (log line num 288): just received user input with no up command
+1658889178386.2708 hands (log line num 289): about to write serial message
+1658889178387.2766 hands (log line num 290): just flushed serial message
+1658889178387.2766 hands (log line num 291): just received user input with no up command
+1658889178387.2766 hands (log line num 292): about to write serial message
+1658889178387.2766 hands (log line num 293): just flushed serial message
+1658889178387.2766 hands (log line num 294): just received user input with no up command
+1658889178387.2766 hands (log line num 295): about to write serial message
+1658889178388.2764 hands (log line num 296): just flushed serial message
+1658889178388.2764 hands (log line num 297): just received user input WITH UP COMMAND
+1658889178388.2764 hands (log line num 298): about to write serial message
+1658889178388.2764 hands (log line num 299): just flushed serial message
+1658889178815.521 eyes (log line num 62): just saw the queue shift
+1658889178815.521 eyes (log line num 63): just flushed to brain
+1658889178817.5227 hands (log line num 300): just received user input with no up command
+1658889178817.5227 hands (log line num 301): about to write serial message
+1658889178818.5227 hands (log line num 302): just flushed serial message
+1658889178818.5227 hands (log line num 303): just received user input with no up command
+1658889178818.5227 hands (log line num 304): about to write serial message
+1658889178819.528 hands (log line num 305): just flushed serial message
+1658889178819.528 hands (log line num 306): just received user input with no up command
+1658889178819.528 hands (log line num 307): about to write serial message
+1658889178819.528 hands (log line num 308): just flushed serial message
+1658889178819.528 hands (log line num 309): just received user input WITH UP COMMAND
+1658889178819.528 hands (log line num 310): about to write serial message
+1658889178819.528 hands (log line num 311): just flushed serial message
+1658889179247.621 eyes (log line num 64): just saw the queue shift
+1658889179247.621 eyes (log line num 65): just flushed to brain
+1658889179248.6228 hands (log line num 312): just received user input with no up command
+1658889179248.6228 hands (log line num 313): about to write serial message
+1658889179249.6228 hands (log line num 314): just flushed serial message
+1658889179249.6228 hands (log line num 315): just received user input with no up command
+1658889179249.6228 hands (log line num 316): about to write serial message
+1658889179249.6228 hands (log line num 317): just flushed serial message
+1658889179249.6228 hands (log line num 318): just received user input WITH UP COMMAND
+1658889179249.6228 hands (log line num 319): about to write serial message
+1658889179249.6228 hands (log line num 320): just flushed serial message
+1658889180271.5095 eyes (log line num 66): just saw the queue shift
+1658889180271.5095 eyes (log line num 67): just flushed to brain
+1658889180272.5117 hands (log line num 321): just received user input with no up command
+1658889180272.5117 hands (log line num 322): about to write serial message
+1658889180272.5117 hands (log line num 323): just flushed serial message
+1658889180272.5117 hands (log line num 324): just received user input with no up command
+1658889180273.5044 hands (log line num 325): about to write serial message
+1658889180273.5044 hands (log line num 326): just flushed serial message
+1658889180273.5044 hands (log line num 327): just received user input WITH UP COMMAND
+1658889180273.5044 hands (log line num 328): about to write serial message
+1658889180273.5044 hands (log line num 329): just flushed serial message
+1658889180624.2056 eyes (log line num 68): just saw the queue shift
+1658889180624.2056 eyes (log line num 69): just flushed to brain
+1658889180625.2043 hands (log line num 330): just received user input with no up command
+1658889180626.215 hands (log line num 331): about to write serial message
+1658889180626.215 hands (log line num 332): just flushed serial message
+1658889180626.215 hands (log line num 333): just received user input with no up command
+1658889180626.215 hands (log line num 334): about to write serial message
+1658889180626.215 hands (log line num 335): just flushed serial message
+1658889180626.215 hands (log line num 336): just received user input WITH UP COMMAND
+1658889180626.215 hands (log line num 337): about to write serial message
+1658889180626.215 hands (log line num 338): just flushed serial message
+1658889180992.247 eyes (log line num 70): just saw the queue shift
+1658889180992.247 eyes (log line num 71): just flushed to brain
+1658889180993.2395 hands (log line num 339): just received user input with no up command
+1658889180993.2395 hands (log line num 340): about to write serial message
+1658889180993.2395 hands (log line num 341): just flushed serial message
+1658889180994.2444 hands (log line num 342): just received user input WITH UP COMMAND
+1658889180994.2444 hands (log line num 343): about to write serial message
+1658889180994.2444 hands (log line num 344): just flushed serial message
+1658889181296.16 eyes (log line num 72): just saw the queue shift
+1658889181296.16 eyes (log line num 73): just flushed to brain
+1658889181297.1665 hands (log line num 345): just received user input WITH UP COMMAND
+1658889181297.1665 hands (log line num 346): about to write serial message
+1658889181297.1665 hands (log line num 347): just flushed serial message
+1658889181519.2893 eyes (log line num 74): just saw the queue shift
+1658889181520.2922 eyes (log line num 75): just flushed to brain
+1658889181521.2837 hands (log line num 348): just received user input with no up command
+1658889181521.2837 hands (log line num 349): about to write serial message
+1658889181521.2837 hands (log line num 350): just flushed serial message
+1658889181522.283 hands (log line num 351): just received user input WITH UP COMMAND
+1658889181522.283 hands (log line num 352): about to write serial message
+1658889181522.283 hands (log line num 353): just flushed serial message
+1658889181823.4536 eyes (log line num 76): just saw the queue shift
+1658889181823.4536 eyes (log line num 77): just flushed to brain
+1658889181825.4578 hands (log line num 354): just received user input with no up command
+1658889181825.4578 hands (log line num 355): about to write serial message
+1658889181825.4578 hands (log line num 356): just flushed serial message
+1658889181825.4578 hands (log line num 357): just received user input with no up command
+1658889181825.4578 hands (log line num 358): about to write serial message
+1658889181825.4578 hands (log line num 359): just flushed serial message
+1658889181825.4578 hands (log line num 360): just received user input with no up command
+1658889181825.4578 hands (log line num 361): about to write serial message
+1658889181826.4692 hands (log line num 362): just flushed serial message
+1658889181826.4692 hands (log line num 363): just received user input WITH UP COMMAND
+1658889181826.4692 hands (log line num 364): about to write serial message
+1658889181826.4692 hands (log line num 365): just flushed serial message
+1658889182240.1658 eyes (log line num 78): just saw the queue shift
+1658889182241.173 eyes (log line num 79): just flushed to brain
+1658889182241.173 hands (log line num 366): just received user input WITH UP COMMAND
+1658889182241.173 hands (log line num 367): about to write serial message
+1658889182241.173 hands (log line num 368): just flushed serial message
+1658889182479.5515 eyes (log line num 80): just saw the queue shift
+1658889182479.5515 eyes (log line num 81): just flushed to brain
+1658889182481.548 hands (log line num 369): just received user input with no up command
+1658889182481.548 hands (log line num 370): about to write serial message
+1658889182481.548 hands (log line num 371): just flushed serial message
+1658889182482.549 hands (log line num 372): just received user input with no up command
+1658889182482.549 hands (log line num 373): about to write serial message
+1658889182482.549 hands (log line num 374): just flushed serial message
+1658889182483.5537 hands (log line num 375): just received user input WITH UP COMMAND
+1658889182483.5537 hands (log line num 376): about to write serial message
+1658889182483.5537 hands (log line num 377): just flushed serial message
+1658889182831.4734 eyes (log line num 82): just saw the queue shift
+1658889182832.4724 eyes (log line num 83): just flushed to brain
+1658889182832.4724 hands (log line num 378): just received user input with no up command
+1658889182832.4724 hands (log line num 379): about to write serial message
+1658889182833.473 hands (log line num 380): just flushed serial message
+1658889182833.473 hands (log line num 381): just received user input with no up command
+1658889182833.473 hands (log line num 382): about to write serial message
+1658889182833.473 hands (log line num 383): just flushed serial message
+1658889182833.473 hands (log line num 384): just received user input WITH UP COMMAND
+1658889182833.473 hands (log line num 385): about to write serial message
+1658889182833.473 hands (log line num 386): just flushed serial message
+1658889183199.652 eyes (log line num 84): just saw the queue shift
+1658889183200.6472 eyes (log line num 85): just flushed to brain
+1658889183200.6472 hands (log line num 387): just received user input with no up command
+1658889183200.6472 hands (log line num 388): about to write serial message
+1658889183201.6555 hands (log line num 389): just flushed serial message
+1658889183201.6555 hands (log line num 390): just received user input with no up command
+1658889183201.6555 hands (log line num 391): about to write serial message
+1658889183201.6555 hands (log line num 392): just flushed serial message
+1658889183201.6555 hands (log line num 393): just received user input with no up command
+1658889183201.6555 hands (log line num 394): about to write serial message
+1658889183201.6555 hands (log line num 395): just flushed serial message
+1658889183201.6555 hands (log line num 396): just received user input WITH UP COMMAND
+1658889183201.6555 hands (log line num 397): about to write serial message
+1658889183202.653 hands (log line num 398): just flushed serial message
+1658889184319.6624 eyes (log line num 86): just saw the queue shift
+1658889184319.6624 eyes (log line num 87): just flushed to brain
+1658889184320.667 hands (log line num 399): just received user input with no up command
+1658889184320.667 hands (log line num 400): about to write serial message
+1658889184320.667 hands (log line num 401): just flushed serial message
+1658889184320.667 hands (log line num 402): just received user input WITH UP COMMAND
+1658889184321.6724 hands (log line num 403): about to write serial message
+1658889184321.6724 hands (log line num 404): just flushed serial message
+1658889184624.2017 eyes (log line num 88): just saw the queue shift
+1658889184624.2017 eyes (log line num 89): just flushed to brain
+1658889184626.2034 hands (log line num 405): just received user input with no up command
+1658889184626.2034 hands (log line num 406): about to write serial message
+1658889184626.2034 hands (log line num 407): just flushed serial message
+1658889184626.2034 hands (log line num 408): just received user input with no up command
+1658889184626.2034 hands (log line num 409): about to write serial message
+1658889184626.2034 hands (log line num 410): just flushed serial message
+1658889184626.2034 hands (log line num 411): just received user input with no up command
+1658889184626.2034 hands (log line num 412): about to write serial message
+1658889184626.2034 hands (log line num 413): just flushed serial message
+1658889184627.2024 hands (log line num 414): just received user input WITH UP COMMAND
+1658889184627.2024 hands (log line num 415): about to write serial message
+1658889184627.2024 hands (log line num 416): just flushed serial message
+1658889185039.5022 eyes (log line num 90): just saw the queue shift
+1658889185039.5022 eyes (log line num 91): just flushed to brain
+1658889185041.499 hands (log line num 417): just received user input with no up command
+1658889185041.499 hands (log line num 418): about to write serial message
+1658889185041.499 hands (log line num 419): just flushed serial message
+1658889185041.499 hands (log line num 420): just received user input with no up command
+1658889185041.499 hands (log line num 421): about to write serial message
+1658889185041.499 hands (log line num 422): just flushed serial message
+1658889185041.499 hands (log line num 423): just received user input WITH UP COMMAND
+1658889185041.499 hands (log line num 424): about to write serial message
+1658889185043.012 hands (log line num 425): just flushed serial message
+1658889185407.9785 eyes (log line num 92): just saw the queue shift
+1658889185408.9797 eyes (log line num 93): just flushed to brain
+1658889185409.9812 hands (log line num 426): just received user input WITH UP COMMAND
+1658889185409.9812 hands (log line num 427): about to write serial message
+1658889185409.9812 hands (log line num 428): just flushed serial message
+1658889185647.3813 eyes (log line num 94): just saw the queue shift
+1658889185648.3806 eyes (log line num 95): just flushed to brain
+1658889185649.3752 hands (log line num 429): just received user input with no up command
+1658889185649.3752 hands (log line num 430): about to write serial message
+1658889185649.3752 hands (log line num 431): just flushed serial message
+1658889185650.3752 hands (log line num 432): just received user input WITH UP COMMAND
+1658889185650.3752 hands (log line num 433): about to write serial message
+1658889185650.3752 hands (log line num 434): just flushed serial message
+1658889185951.5186 eyes (log line num 96): just saw the queue shift
+1658889185951.5186 eyes (log line num 97): just flushed to brain
+1658889185952.517 hands (log line num 435): just received user input with no up command
+1658889185952.517 hands (log line num 436): about to write serial message
+1658889185953.5178 hands (log line num 437): just flushed serial message
+1658889185953.5178 hands (log line num 438): just received user input with no up command
+1658889185953.5178 hands (log line num 439): about to write serial message
+1658889185953.5178 hands (log line num 440): just flushed serial message
+1658889185953.5178 hands (log line num 441): just received user input WITH UP COMMAND
+1658889185953.5178 hands (log line num 442): about to write serial message
+1658889185953.5178 hands (log line num 443): just flushed serial message
+1658889186319.6624 eyes (log line num 98): just saw the queue shift
+1658889186319.6624 eyes (log line num 99): just flushed to brain
+1658889186321.659 hands (log line num 444): just received user input with no up command
+1658889186321.659 hands (log line num 445): about to write serial message
+1658889186321.659 hands (log line num 446): just flushed serial message
+1658889186321.659 hands (log line num 447): just received user input with no up command
+1658889186322.6665 hands (log line num 448): about to write serial message
+1658889186322.6665 hands (log line num 449): just flushed serial message
+1658889186322.6665 hands (log line num 450): just received user input WITH UP COMMAND
+1658889186322.6665 hands (log line num 451): about to write serial message
+1658889186322.6665 hands (log line num 452): just flushed serial message
+1658889186671.8662 eyes (log line num 100): just saw the queue shift
+1658889186672.867 eyes (log line num 101): just flushed to brain
+1658889186673.861 hands (log line num 453): just received user input with no up command
+1658889186673.861 hands (log line num 454): about to write serial message
+1658889186673.861 hands (log line num 455): just flushed serial message
+1658889186673.861 hands (log line num 456): just received user input with no up command
+1658889186673.861 hands (log line num 457): about to write serial message
+1658889186674.8604 hands (log line num 458): just flushed serial message
+1658889186674.8604 hands (log line num 459): just received user input WITH UP COMMAND
+1658889186674.8604 hands (log line num 460): about to write serial message
+1658889186674.8604 hands (log line num 461): just flushed serial message
+1658889187045.7708 eyes (log line num 102): just saw the queue shift
+1658889187045.7708 eyes (log line num 103): just flushed to brain
+1658889187047.7651 hands (log line num 462): just received user input with no up command
+1658889187047.7651 hands (log line num 463): about to write serial message
+1658889187047.7651 hands (log line num 464): just flushed serial message
+1658889187048.7642 hands (log line num 465): just received user input with no up command
+1658889187048.7642 hands (log line num 466): about to write serial message
+1658889187048.7642 hands (log line num 467): just flushed serial message
+1658889187048.7642 hands (log line num 468): just received user input WITH UP COMMAND
+1658889187048.7642 hands (log line num 469): about to write serial message
+1658889187048.7642 hands (log line num 470): just flushed serial message
+1658889187407.5242 eyes (log line num 104): just saw the queue shift
+1658889187408.5242 eyes (log line num 105): just flushed to brain
+1658889187409.5205 hands (log line num 471): just received user input with no up command
+1658889187409.5205 hands (log line num 472): about to write serial message
+1658889187409.5205 hands (log line num 473): just flushed serial message
+1658889187409.5205 hands (log line num 474): just received user input WITH UP COMMAND
+1658889187409.5205 hands (log line num 475): about to write serial message
+1658889187409.5205 hands (log line num 476): just flushed serial message
+1658889187711.729 eyes (log line num 106): just saw the queue shift
+1658889187712.727 eyes (log line num 107): just flushed to brain
+1658889187714.7312 hands (log line num 477): just received user input with no up command
+1658889187714.7312 hands (log line num 478): about to write serial message
+1658889187714.7312 hands (log line num 479): just flushed serial message
+1658889187714.7312 hands (log line num 480): just received user input WITH UP COMMAND
+1658889187714.7312 hands (log line num 481): about to write serial message
+1658889187715.7212 hands (log line num 482): just flushed serial message
+1658889188037.3928 eyes (log line num 108): just saw the queue shift
+1658889188038.389 eyes (log line num 109): just flushed to brain
+1658889188039.385 hands (log line num 483): just received user input with no up command
+1658889188039.385 hands (log line num 484): about to write serial message
+1658889188040.3909 hands (log line num 485): just flushed serial message
+1658889188040.3909 hands (log line num 486): just received user input with no up command
+1658889188040.3909 hands (log line num 487): about to write serial message
+1658889188040.3909 hands (log line num 488): just flushed serial message
+1658889188040.3909 hands (log line num 489): just received user input with no up command
+1658889188040.3909 hands (log line num 490): about to write serial message
+1658889188040.3909 hands (log line num 491): just flushed serial message
+1658889188040.3909 hands (log line num 492): just received user input with no up command
+1658889188040.3909 hands (log line num 493): about to write serial message
+1658889188041.3894 hands (log line num 494): just flushed serial message
+1658889188041.3894 hands (log line num 495): just received user input WITH UP COMMAND
+1658889188041.3894 hands (log line num 496): about to write serial message
+1658889188041.3894 hands (log line num 497): just flushed serial message
+1658889189199.3892 eyes (log line num 110): just saw the queue shift
+1658889189199.3892 eyes (log line num 111): just flushed to brain
+1658889189201.3855 hands (log line num 498): just received user input with no up command
+1658889189201.3855 hands (log line num 499): about to write serial message
+1658889189201.3855 hands (log line num 500): just flushed serial message
+1658889189201.3855 hands (log line num 501): just received user input with no up command
+1658889189201.3855 hands (log line num 502): about to write serial message
+1658889189201.3855 hands (log line num 503): just flushed serial message
+1658889189201.3855 hands (log line num 504): just received user input with no up command
+1658889189202.3904 hands (log line num 505): about to write serial message
+1658889189202.3904 hands (log line num 506): just flushed serial message
+1658889189202.3904 hands (log line num 507): just received user input WITH UP COMMAND
+1658889189202.3904 hands (log line num 508): about to write serial message
+1658889189202.3904 hands (log line num 509): just flushed serial message
+1658889189631.1885 eyes (log line num 112): just saw the queue shift
+1658889189631.1885 eyes (log line num 113): just flushed to brain
+1658889189632.1943 hands (log line num 510): just received user input with no up command
+1658889189632.1943 hands (log line num 511): about to write serial message
+1658889189633.1997 hands (log line num 512): just flushed serial message
+1658889189633.1997 hands (log line num 513): just received user input with no up command
+1658889189633.1997 hands (log line num 514): about to write serial message
+1658889189633.1997 hands (log line num 515): just flushed serial message
+1658889189633.1997 hands (log line num 516): just received user input WITH UP COMMAND
+1658889189633.1997 hands (log line num 517): about to write serial message
+1658889189634.193 hands (log line num 518): just flushed serial message
+1658889190005.545 eyes (log line num 114): just saw the queue shift
+1658889190006.544 eyes (log line num 115): just flushed to brain
+1658889190007.5398 hands (log line num 519): just received user input with no up command
+1658889190007.5398 hands (log line num 520): about to write serial message
+1658889190007.5398 hands (log line num 521): just flushed serial message
+1658889190007.5398 hands (log line num 522): just received user input with no up command
+1658889190007.5398 hands (log line num 523): about to write serial message
+1658889190007.5398 hands (log line num 524): just flushed serial message
+1658889190007.5398 hands (log line num 525): just received user input with no up command
+1658889190007.5398 hands (log line num 526): about to write serial message
+1658889190008.544 hands (log line num 527): just flushed serial message
+1658889190008.544 hands (log line num 528): just received user input with no up command
+1658889190008.544 hands (log line num 529): about to write serial message
+1658889190008.544 hands (log line num 530): just flushed serial message
+1658889190008.544 hands (log line num 531): just received user input WITH UP COMMAND
+1658889190008.544 hands (log line num 532): about to write serial message
+1658889190008.544 hands (log line num 533): just flushed serial message
+1658889190495.2751 eyes (log line num 116): just saw the queue shift
+1658889190496.2751 eyes (log line num 117): just flushed to brain
+1658889190496.2751 hands (log line num 534): just received user input with no up command
+1658889190496.2751 hands (log line num 535): about to write serial message
+1658889190496.2751 hands (log line num 536): just flushed serial message
+1658889190497.2715 hands (log line num 537): just received user input with no up command
+1658889190497.2715 hands (log line num 538): about to write serial message
+1658889190497.2715 hands (log line num 539): just flushed serial message
+1658889190497.2715 hands (log line num 540): just received user input with no up command
+1658889190497.2715 hands (log line num 541): about to write serial message
+1658889190497.2715 hands (log line num 542): just flushed serial message
+1658889190497.2715 hands (log line num 543): just received user input WITH UP COMMAND
+1658889190497.2715 hands (log line num 544): about to write serial message
+1658889190498.2712 hands (log line num 545): just flushed serial message
+1658889190929.576 eyes (log line num 118): just saw the queue shift
+1658889190930.5762 eyes (log line num 119): just flushed to brain
+1658889190931.5679 hands (log line num 546): just received user input WITH UP COMMAND
+1658889190931.5679 hands (log line num 547): about to write serial message
+1658889190932.578 hands (log line num 548): just flushed serial message
+1658889191839.8643 eyes (log line num 120): just saw the queue shift
+1658889191839.8643 eyes (log line num 121): just flushed to brain
+1658889191842.8704 hands (log line num 549): just received user input with no up command
+1658889191842.8704 hands (log line num 550): about to write serial message
+1658889191842.8704 hands (log line num 551): just flushed serial message
+1658889191843.861 hands (log line num 552): just received user input WITH UP COMMAND
+1658889191843.861 hands (log line num 553): about to write serial message
+1658889191843.861 hands (log line num 554): just flushed serial message
+1658889192143.8362 eyes (log line num 122): just saw the queue shift
+1658889192143.8362 eyes (log line num 123): just flushed to brain
+1658889192145.8335 hands (log line num 555): just received user input with no up command
+1658889192145.8335 hands (log line num 556): about to write serial message
+1658889192145.8335 hands (log line num 557): just flushed serial message
+1658889192145.8335 hands (log line num 558): just received user input with no up command
+1658889192145.8335 hands (log line num 559): about to write serial message
+1658889192145.8335 hands (log line num 560): just flushed serial message
+1658889192145.8335 hands (log line num 561): just received user input WITH UP COMMAND
+1658889192146.8374 hands (log line num 562): about to write serial message
+1658889192146.8374 hands (log line num 563): just flushed serial message
+1658889192511.7354 eyes (log line num 124): just saw the queue shift
+1658889192511.7354 eyes (log line num 125): just flushed to brain
+1658889192513.7314 hands (log line num 564): just received user input with no up command
+1658889192513.7314 hands (log line num 565): about to write serial message
+1658889192513.7314 hands (log line num 566): just flushed serial message
+1658889192513.7314 hands (log line num 567): just received user input with no up command
+1658889192513.7314 hands (log line num 568): about to write serial message
+1658889192514.7356 hands (log line num 569): just flushed serial message
+1658889192514.7356 hands (log line num 570): just received user input WITH UP COMMAND
+1658889192514.7356 hands (log line num 571): about to write serial message
+1658889192514.7356 hands (log line num 572): just flushed serial message
+1658889192879.602 eyes (log line num 126): just saw the queue shift
+1658889192880.6025 eyes (log line num 127): just flushed to brain
+1658889192881.5964 hands (log line num 573): just received user input with no up command
+1658889192881.5964 hands (log line num 574): about to write serial message
+1658889192881.5964 hands (log line num 575): just flushed serial message
+1658889192881.5964 hands (log line num 576): just received user input with no up command
+1658889192881.5964 hands (log line num 577): about to write serial message
+1658889192881.5964 hands (log line num 578): just flushed serial message
+1658889192881.5964 hands (log line num 579): just received user input with no up command
+1658889192881.5964 hands (log line num 580): about to write serial message
+1658889192881.5964 hands (log line num 581): just flushed serial message
+1658889192882.5957 hands (log line num 582): just received user input WITH UP COMMAND
+1658889192882.5957 hands (log line num 583): about to write serial message
+1658889192882.5957 hands (log line num 584): just flushed serial message
+1658889193983.3025 eyes (log line num 128): just saw the queue shift
+1658889193983.3025 eyes (log line num 129): just flushed to brain
+1658889193985.3025 hands (log line num 585): just received user input WITH UP COMMAND
+1658889193985.3025 hands (log line num 586): about to write serial message
+1658889193985.3025 hands (log line num 587): just flushed serial message
+1658889194239.977 eyes (log line num 130): just saw the queue shift
+1658889194239.977 eyes (log line num 131): just flushed to brain
+1658889194241.974 hands (log line num 588): just received user input with no up command
+1658889194241.974 hands (log line num 589): about to write serial message
+1658889194241.974 hands (log line num 590): just flushed serial message
+1658889194241.974 hands (log line num 591): just received user input WITH UP COMMAND
+1658889194241.974 hands (log line num 592): about to write serial message
+1658889194241.974 hands (log line num 593): just flushed serial message
+1658889194543.1938 eyes (log line num 132): just saw the queue shift
+1658889194543.1938 eyes (log line num 133): just flushed to brain
+1658889194544.1904 hands (log line num 594): just received user input with no up command
+1658889194545.1904 hands (log line num 595): about to write serial message
+1658889194545.1904 hands (log line num 596): just flushed serial message
+1658889194545.1904 hands (log line num 597): just received user input with no up command
+1658889194545.1904 hands (log line num 598): about to write serial message
+1658889194545.1904 hands (log line num 599): just flushed serial message
+1658889194545.1904 hands (log line num 600): just received user input with no up command
+1658889194545.1904 hands (log line num 601): about to write serial message
+1658889194546.19 hands (log line num 602): just flushed serial message
+1658889194546.19 hands (log line num 603): just received user input WITH UP COMMAND
+1658889194546.19 hands (log line num 604): about to write serial message
+1658889194546.19 hands (log line num 605): just flushed serial message
+1658889194975.4177 eyes (log line num 134): just saw the queue shift
+1658889194976.4167 eyes (log line num 135): just flushed to brain
+1658889194976.4167 hands (log line num 606): just received user input with no up command
+1658889194976.4167 hands (log line num 607): about to write serial message
+1658889194977.4248 hands (log line num 608): just flushed serial message
+1658889194977.4248 hands (log line num 609): just received user input with no up command
+1658889194977.4248 hands (log line num 610): about to write serial message
+1658889194977.4248 hands (log line num 611): just flushed serial message
+1658889194977.4248 hands (log line num 612): just received user input WITH UP COMMAND
+1658889194977.4248 hands (log line num 613): about to write serial message
+1658889194977.4248 hands (log line num 614): just flushed serial message
+1658889195360.154 eyes (log line num 136): just saw the queue shift
+1658889195360.154 eyes (log line num 137): just flushed to brain
+1658889195361.15 hands (log line num 615): just received user input with no up command
+1658889195361.15 hands (log line num 616): about to write serial message
+1658889195361.15 hands (log line num 617): just flushed serial message
+1658889195362.159 hands (log line num 618): just received user input with no up command
+1658889195362.159 hands (log line num 619): about to write serial message
+1658889195362.159 hands (log line num 620): just flushed serial message
+1658889195362.159 hands (log line num 621): just received user input with no up command
+1658889195362.159 hands (log line num 622): about to write serial message
+1658889195362.159 hands (log line num 623): just flushed serial message
+1658889195362.159 hands (log line num 624): just received user input with no up command
+1658889195362.159 hands (log line num 625): about to write serial message
+1658889195362.159 hands (log line num 626): just flushed serial message
+1658889195362.159 hands (log line num 627): just received user input WITH UP COMMAND
+1658889195362.159 hands (log line num 628): about to write serial message
+1658889195363.1494 hands (log line num 629): just flushed serial message
+1658889195855.8027 eyes (log line num 138): just saw the queue shift
+1658889195855.8027 eyes (log line num 139): just flushed to brain
+1658889195856.7988 hands (log line num 630): just received user input with no up command
+1658889195856.7988 hands (log line num 631): about to write serial message
+1658889195856.7988 hands (log line num 632): just flushed serial message
+1658889195857.8052 hands (log line num 633): just received user input WITH UP COMMAND
+1658889195857.8052 hands (log line num 634): about to write serial message
+1658889195857.8052 hands (log line num 635): just flushed serial message
+1658889196159.8462 eyes (log line num 140): just saw the queue shift
+1658889196159.8462 eyes (log line num 141): just flushed to brain
+1658889196161.8562 hands (log line num 636): just received user input with no up command
+1658889196161.8562 hands (log line num 637): about to write serial message
+1658889196161.8562 hands (log line num 638): just flushed serial message
+1658889196161.8562 hands (log line num 639): just received user input with no up command
+1658889196161.8562 hands (log line num 640): about to write serial message
+1658889196161.8562 hands (log line num 641): just flushed serial message
+1658889196161.8562 hands (log line num 642): just received user input WITH UP COMMAND
+1658889196162.8477 hands (log line num 643): about to write serial message
+1658889196162.8477 hands (log line num 644): just flushed serial message
+1658889196533.7642 eyes (log line num 142): just saw the queue shift
+1658889196534.7634 eyes (log line num 143): just flushed to brain
+1658889196535.7588 hands (log line num 645): just received user input with no up command
+1658889196535.7588 hands (log line num 646): about to write serial message
+1658889196535.7588 hands (log line num 647): just flushed serial message
+1658889196535.7588 hands (log line num 648): just received user input with no up command
+1658889196535.7588 hands (log line num 649): about to write serial message
+1658889196535.7588 hands (log line num 650): just flushed serial message
+1658889196536.7583 hands (log line num 651): just received user input WITH UP COMMAND
+1658889196536.7583 hands (log line num 652): about to write serial message
+1658889196536.7583 hands (log line num 653): just flushed serial message
+1658889196896.097 eyes (log line num 144): just saw the queue shift
+1658889196897.1018 eyes (log line num 145): just flushed to brain
+1658889196899.0928 hands (log line num 654): just received user input with no up command
+1658889196899.0928 hands (log line num 655): about to write serial message
+1658889196899.0928 hands (log line num 656): just flushed serial message
+1658889196900.094 hands (log line num 657): just received user input with no up command
+1658889196900.094 hands (log line num 658): about to write serial message
+1658889196900.094 hands (log line num 659): just flushed serial message
+1658889196900.094 hands (log line num 660): just received user input with no up command
+1658889196900.094 hands (log line num 661): about to write serial message
+1658889196900.094 hands (log line num 662): just flushed serial message
+1658889196900.094 hands (log line num 663): just received user input with no up command
+1658889196901.0935 hands (log line num 664): about to write serial message
+1658889196901.0935 hands (log line num 665): just flushed serial message
+1658889196901.0935 hands (log line num 666): just received user input WITH UP COMMAND
+1658889196901.0935 hands (log line num 667): about to write serial message
+1658889196901.0935 hands (log line num 668): just flushed serial message
+1658889197407.4858 eyes (log line num 146): just saw the queue shift
+1658889197408.486 eyes (log line num 147): just flushed to brain
+1658889197409.4822 hands (log line num 669): just received user input with no up command
+1658889197409.4822 hands (log line num 670): about to write serial message
+1658889197409.4822 hands (log line num 671): just flushed serial message
+1658889197409.4822 hands (log line num 672): just received user input WITH UP COMMAND
+1658889197409.4822 hands (log line num 673): about to write serial message
+1658889197409.4822 hands (log line num 674): just flushed serial message
+1658889197717.3958 eyes (log line num 148): just saw the queue shift
+1658889197718.3953 eyes (log line num 149): just flushed to brain
+1658889197720.3955 hands (log line num 675): just received user input WITH UP COMMAND
+1658889197720.3955 hands (log line num 676): about to write serial message
+1658889197720.3955 hands (log line num 677): just flushed serial message
+1658889197967.5698 eyes (log line num 150): just saw the queue shift
+1658889197968.574 eyes (log line num 151): just flushed to brain
+1658889197971.566 hands (log line num 678): just received user input with no up command
+1658889197971.566 hands (log line num 679): about to write serial message
+1658889197971.566 hands (log line num 680): just flushed serial message
+1658889197971.566 hands (log line num 681): just received user input with no up command
+1658889197971.566 hands (log line num 682): about to write serial message
+1658889197971.566 hands (log line num 683): just flushed serial message
+1658889197971.566 hands (log line num 684): just received user input WITH UP COMMAND
+1658889197971.566 hands (log line num 685): about to write serial message
+1658889197972.5723 hands (log line num 686): just flushed serial message
+1658889198351.3518 eyes (log line num 152): just saw the queue shift
+1658889198352.3528 eyes (log line num 153): just flushed to brain
+1658889198354.6821 hands (log line num 687): just received user input with no up command
+1658889198354.6821 hands (log line num 688): about to write serial message
+1658889198355.6875 hands (log line num 689): just flushed serial message
+1658889198355.6875 hands (log line num 690): just received user input with no up command
+1658889198355.6875 hands (log line num 691): about to write serial message
+1658889198355.6875 hands (log line num 692): just flushed serial message
+1658889198355.6875 hands (log line num 693): just received user input with no up command
+1658889198355.6875 hands (log line num 694): about to write serial message
+1658889198355.6875 hands (log line num 695): just flushed serial message
+1658889198355.6875 hands (log line num 696): just received user input WITH UP COMMAND
+1658889198355.6875 hands (log line num 697): about to write serial message
+1658889198356.685 hands (log line num 698): just flushed serial message
+1658889199454.7002 eyes (log line num 154): just saw the queue shift
+1658889199455.71 eyes (log line num 155): just flushed to brain
+1658889199457.7078 hands (log line num 699): just received user input with no up command
+1658889199457.7078 hands (log line num 700): about to write serial message
+1658889199457.7078 hands (log line num 701): just flushed serial message
+1658889199457.7078 hands (log line num 702): just received user input with no up command
+1658889199458.7124 hands (log line num 703): about to write serial message
+1658889199458.7124 hands (log line num 704): just flushed serial message
+1658889199458.7124 hands (log line num 705): just received user input with no up command
+1658889199458.7124 hands (log line num 706): about to write serial message
+1658889199458.7124 hands (log line num 707): just flushed serial message
+1658889199458.7124 hands (log line num 708): just received user input WITH UP COMMAND
+1658889199458.7124 hands (log line num 709): about to write serial message
+1658889199458.7124 hands (log line num 710): just flushed serial message
+1658889199903.3994 eyes (log line num 156): just saw the queue shift
+1658889199904.398 eyes (log line num 157): just flushed to brain
+1658889199906.3945 hands (log line num 711): just received user input with no up command
+1658889199907.394 hands (log line num 712): about to write serial message
+1658889199907.394 hands (log line num 713): just flushed serial message
+1658889199908.3948 hands (log line num 714): just received user input with no up command
+1658889199908.3948 hands (log line num 715): about to write serial message
+1658889199908.3948 hands (log line num 716): just flushed serial message
+1658889199908.3948 hands (log line num 717): just received user input with no up command
+1658889199908.3948 hands (log line num 718): about to write serial message
+1658889199908.3948 hands (log line num 719): just flushed serial message
+1658889199909.3984 hands (log line num 720): just received user input WITH UP COMMAND
+1658889199909.3984 hands (log line num 721): about to write serial message
+1658889199909.3984 hands (log line num 722): just flushed serial message
+1658889200335.3928 eyes (log line num 158): just saw the queue shift
+1658889200336.3904 eyes (log line num 159): just flushed to brain
+1658889200336.3904 hands (log line num 723): just received user input WITH UP COMMAND
+1658889200337.3904 hands (log line num 724): about to write serial message
+1658889200337.3904 hands (log line num 725): just flushed serial message
+1658889200575.0422 eyes (log line num 160): just saw the queue shift
+1658889200575.0422 eyes (log line num 161): just flushed to brain
+1658889200577.0405 hands (log line num 726): just received user input with no up command
+1658889200577.0405 hands (log line num 727): about to write serial message
+1658889200577.0405 hands (log line num 728): just flushed serial message
+1658889200577.0405 hands (log line num 729): just received user input with no up command
+1658889200578.0393 hands (log line num 730): about to write serial message
+1658889200578.0393 hands (log line num 731): just flushed serial message
+1658889200578.0393 hands (log line num 732): just received user input WITH UP COMMAND
+1658889200578.0393 hands (log line num 733): about to write serial message
+1658889200578.0393 hands (log line num 734): just flushed serial message
+1658889200943.2627 eyes (log line num 162): just saw the queue shift
+1658889200943.2627 eyes (log line num 163): just flushed to brain
+1658889200945.2622 hands (log line num 735): just received user input with no up command
+1658889200945.2622 hands (log line num 736): about to write serial message
+1658889200945.2622 hands (log line num 737): just flushed serial message
+1658889200945.2622 hands (log line num 738): just received user input with no up command
+1658889200945.2622 hands (log line num 739): about to write serial message
+1658889200945.2622 hands (log line num 740): just flushed serial message
+1658889200945.2622 hands (log line num 741): just received user input WITH UP COMMAND
+1658889200945.2622 hands (log line num 742): about to write serial message
+1658889200946.2642 hands (log line num 743): just flushed serial message
+1658889201311.3984 eyes (log line num 164): just saw the queue shift
+1658889201311.3984 eyes (log line num 165): just flushed to brain
+1658889201312.3972 hands (log line num 744): just received user input with no up command
+1658889201312.3972 hands (log line num 745): about to write serial message
+1658889201313.3982 hands (log line num 746): just flushed serial message
+1658889201313.3982 hands (log line num 747): just received user input with no up command
+1658889201313.3982 hands (log line num 748): about to write serial message
+1658889201313.3982 hands (log line num 749): just flushed serial message
+1658889201313.3982 hands (log line num 750): just received user input WITH UP COMMAND
+1658889201313.3982 hands (log line num 751): about to write serial message
+1658889201313.3982 hands (log line num 752): just flushed serial message
+1658889201680.0237 eyes (log line num 166): just saw the queue shift
+1658889201681.0293 eyes (log line num 167): just flushed to brain
+1658889201682.0176 hands (log line num 753): just received user input with no up command
+1658889201682.0176 hands (log line num 754): about to write serial message
+1658889201682.0176 hands (log line num 755): just flushed serial message
+1658889201682.0176 hands (log line num 756): just received user input with no up command
+1658889201683.0254 hands (log line num 757): about to write serial message
+1658889201683.0254 hands (log line num 758): just flushed serial message
+1658889201683.0254 hands (log line num 759): just received user input with no up command
+1658889201683.0254 hands (log line num 760): about to write serial message
+1658889201683.0254 hands (log line num 761): just flushed serial message
+1658889201683.0254 hands (log line num 762): just received user input WITH UP COMMAND
+1658889201683.0254 hands (log line num 763): about to write serial message
+1658889201683.0254 hands (log line num 764): just flushed serial message
+1658889202111.7837 eyes (log line num 168): just saw the queue shift
+1658889202112.7903 eyes (log line num 169): just flushed to brain
+1658889202113.7788 hands (log line num 765): just received user input with no up command
+1658889202113.7788 hands (log line num 766): about to write serial message
+1658889202113.7788 hands (log line num 767): just flushed serial message
+1658889202113.7788 hands (log line num 768): just received user input with no up command
+1658889202113.7788 hands (log line num 769): about to write serial message
+1658889202113.7788 hands (log line num 770): just flushed serial message
+1658889202113.7788 hands (log line num 771): just received user input with no up command
+1658889202114.7834 hands (log line num 772): about to write serial message
+1658889202114.7834 hands (log line num 773): just flushed serial message
+1658889202114.7834 hands (log line num 774): just received user input WITH UP COMMAND
+1658889202114.7834 hands (log line num 775): about to write serial message
+1658889202114.7834 hands (log line num 776): just flushed serial message
+1658889203215.7715 eyes (log line num 170): just saw the queue shift
+1658889203215.7715 eyes (log line num 171): just flushed to brain
+1658889203217.7678 hands (log line num 777): just received user input with no up command
+1658889203217.7678 hands (log line num 778): about to write serial message
+1658889203217.7678 hands (log line num 779): just flushed serial message
+1658889203217.7678 hands (log line num 780): just received user input with no up command
+1658889203217.7678 hands (log line num 781): about to write serial message
+1658889203218.767 hands (log line num 782): just flushed serial message
+1658889203218.767 hands (log line num 783): just received user input WITH UP COMMAND
+1658889203218.767 hands (log line num 784): about to write serial message
+1658889203218.767 hands (log line num 785): just flushed serial message
+1658889203583.4868 eyes (log line num 172): just saw the queue shift
+1658889203583.4868 eyes (log line num 173): just flushed to brain
+1658889203585.483 hands (log line num 786): just received user input WITH UP COMMAND
+1658889203585.483 hands (log line num 787): about to write serial message
+1658889203585.483 hands (log line num 788): just flushed serial message
+1658889203839.7173 eyes (log line num 174): just saw the queue shift
+1658889203839.7173 eyes (log line num 175): just flushed to brain
+1658889203840.7092 hands (log line num 789): just received user input with no up command
+1658889203840.7092 hands (log line num 790): about to write serial message
+1658889203841.7158 hands (log line num 791): just flushed serial message
+1658889203841.7158 hands (log line num 792): just received user input with no up command
+1658889203841.7158 hands (log line num 793): about to write serial message
+1658889203841.7158 hands (log line num 794): just flushed serial message
+1658889203841.7158 hands (log line num 795): just received user input WITH UP COMMAND
+1658889203841.7158 hands (log line num 796): about to write serial message
+1658889203841.7158 hands (log line num 797): just flushed serial message
+1658889204207.8074 eyes (log line num 176): just saw the queue shift
+1658889204207.8074 eyes (log line num 177): just flushed to brain
+1658889204209.8083 hands (log line num 798): just received user input with no up command
+1658889204209.8083 hands (log line num 799): about to write serial message
+1658889204209.8083 hands (log line num 800): just flushed serial message
+1658889204209.8083 hands (log line num 801): just received user input with no up command
+1658889204209.8083 hands (log line num 802): about to write serial message
+1658889204210.8032 hands (log line num 803): just flushed serial message
+1658889204210.8032 hands (log line num 804): just received user input with no up command
+1658889204210.8032 hands (log line num 805): about to write serial message
+1658889204210.8032 hands (log line num 806): just flushed serial message
+1658889204210.8032 hands (log line num 807): just received user input WITH UP COMMAND
+1658889204210.8032 hands (log line num 808): about to write serial message
+1658889204210.8032 hands (log line num 809): just flushed serial message
+1658889204623.2573 eyes (log line num 178): just saw the queue shift
+1658889204623.2573 eyes (log line num 179): just flushed to brain
+1658889204624.2588 hands (log line num 810): just received user input with no up command
+1658889204624.2588 hands (log line num 811): about to write serial message
+1658889204624.2588 hands (log line num 812): just flushed serial message
+1658889204624.2588 hands (log line num 813): just received user input WITH UP COMMAND
+1658889204624.2588 hands (log line num 814): about to write serial message
+1658889204625.2644 hands (log line num 815): just flushed serial message
+1658889204927.5679 eyes (log line num 180): just saw the queue shift
+1658889204928.5676 eyes (log line num 181): just flushed to brain
+1658889204928.5676 hands (log line num 816): just received user input with no up command
+1658889204928.5676 hands (log line num 817): about to write serial message
+1658889204929.563 hands (log line num 818): just flushed serial message
+1658889204929.563 hands (log line num 819): just received user input with no up command
+1658889204929.563 hands (log line num 820): about to write serial message
+1658889204929.563 hands (log line num 821): just flushed serial message
+1658889204929.563 hands (log line num 822): just received user input WITH UP COMMAND
+1658889204929.563 hands (log line num 823): about to write serial message
+1658889204929.563 hands (log line num 824): just flushed serial message
+1658889205311.7605 eyes (log line num 182): just saw the queue shift
+1658889205312.7544 eyes (log line num 183): just flushed to brain
+1658889205312.7544 hands (log line num 825): just received user input with no up command
+1658889205312.7544 hands (log line num 826): about to write serial message
+1658889205312.7544 hands (log line num 827): just flushed serial message
+1658889205313.763 hands (log line num 828): just received user input WITH UP COMMAND
+1658889205313.763 hands (log line num 829): about to write serial message
+1658889205313.763 hands (log line num 830): just flushed serial message
+1658889205615.7607 eyes (log line num 184): just saw the queue shift
+1658889205615.7607 eyes (log line num 185): just flushed to brain
+1658889205618.765 hands (log line num 831): just received user input with no up command
+1658889205618.765 hands (log line num 832): about to write serial message
+1658889205618.765 hands (log line num 833): just flushed serial message
+1658889205619.7576 hands (log line num 834): just received user input with no up command
+1658889205619.7576 hands (log line num 835): about to write serial message
+1658889205619.7576 hands (log line num 836): just flushed serial message
+1658889205619.7576 hands (log line num 837): just received user input with no up command
+1658889205619.7576 hands (log line num 838): about to write serial message
+1658889205620.7632 hands (log line num 839): just flushed serial message
+1658889205620.7632 hands (log line num 840): just received user input WITH UP COMMAND
+1658889205620.7632 hands (log line num 841): about to write serial message
+1658889205620.7632 hands (log line num 842): just flushed serial message
+1658889206047.4182 eyes (log line num 186): just saw the queue shift
+1658889206048.4177 eyes (log line num 187): just flushed to brain
+1658889206049.4138 hands (log line num 843): just received user input with no up command
+1658889206049.4138 hands (log line num 844): about to write serial message
+1658889206050.4192 hands (log line num 845): just flushed serial message
+1658889206050.4192 hands (log line num 846): just received user input WITH UP COMMAND
+1658889206050.4192 hands (log line num 847): about to write serial message
+1658889206050.4192 hands (log line num 848): just flushed serial message
+1658889206351.5562 eyes (log line num 188): just saw the queue shift
+1658889206352.5552 eyes (log line num 189): just flushed to brain
+1658889206355.5522 hands (log line num 849): just received user input WITH UP COMMAND
+1658889206355.5522 hands (log line num 850): about to write serial message
+1658889206355.5522 hands (log line num 851): just flushed serial message
+1658889206591.4875 eyes (log line num 190): just saw the queue shift
+1658889206592.4863 eyes (log line num 191): just flushed to brain
+1658889206594.4836 hands (log line num 852): just received user input with no up command
+1658889206594.4836 hands (log line num 853): about to write serial message
+1658889206594.4836 hands (log line num 854): just flushed serial message
+1658889206595.485 hands (log line num 855): just received user input with no up command
+1658889206595.485 hands (log line num 856): about to write serial message
+1658889206595.485 hands (log line num 857): just flushed serial message
+1658889206595.485 hands (log line num 858): just received user input WITH UP COMMAND
+1658889206595.485 hands (log line num 859): about to write serial message
+1658889206596.4875 hands (log line num 860): just flushed serial message
+1658889206960.363 eyes (log line num 192): just saw the queue shift
+1658889206960.363 eyes (log line num 193): just flushed to brain
+1658889206961.3596 hands (log line num 861): just received user input with no up command
+1658889206961.3596 hands (log line num 862): about to write serial message
+1658889206961.3596 hands (log line num 863): just flushed serial message
+1658889206962.3682 hands (log line num 864): just received user input with no up command
+1658889206962.3682 hands (log line num 865): about to write serial message
+1658889206962.3682 hands (log line num 866): just flushed serial message
+1658889206962.3682 hands (log line num 867): just received user input with no up command
+1658889206962.3682 hands (log line num 868): about to write serial message
+1658889206962.3682 hands (log line num 869): just flushed serial message
+1658889206962.3682 hands (log line num 870): just received user input WITH UP COMMAND
+1658889206962.3682 hands (log line num 871): about to write serial message
+1658889206963.364 hands (log line num 872): just flushed serial message
+1658889208063.7087 eyes (log line num 194): just saw the queue shift
+1658889208064.703 eyes (log line num 195): just flushed to brain
+1658889208065.7039 hands (log line num 873): just received user input with no up command
+1658889208065.7039 hands (log line num 874): about to write serial message
+1658889208066.713 hands (log line num 875): just flushed serial message
+1658889208066.713 hands (log line num 876): just received user input with no up command
+1658889208066.713 hands (log line num 877): about to write serial message
+1658889208066.713 hands (log line num 878): just flushed serial message
+1658889208066.713 hands (log line num 879): just received user input WITH UP COMMAND
+1658889208066.713 hands (log line num 880): about to write serial message
+1658889208066.713 hands (log line num 881): just flushed serial message
+1658889208431.6797 eyes (log line num 196): just saw the queue shift
+1658889208431.6797 eyes (log line num 197): just flushed to brain
+1658889208434.6826 hands (log line num 882): just received user input WITH UP COMMAND
+1658889208434.6826 hands (log line num 883): about to write serial message
+1658889208434.6826 hands (log line num 884): just flushed serial message
+1658889208687.628 eyes (log line num 198): just saw the queue shift
+1658889208688.6282 eyes (log line num 199): just flushed to brain
+1658889208691.6248 hands (log line num 885): just received user input with no up command
+1658889208691.6248 hands (log line num 886): about to write serial message
+1658889208691.6248 hands (log line num 887): just flushed serial message
+1658889208691.6248 hands (log line num 888): just received user input with no up command
+1658889208691.6248 hands (log line num 889): about to write serial message
+1658889208691.6248 hands (log line num 890): just flushed serial message
+1658889208692.6292 hands (log line num 891): just received user input WITH UP COMMAND
+1658889208692.6292 hands (log line num 892): about to write serial message
+1658889208692.6292 hands (log line num 893): just flushed serial message
+1658889209055.2703 eyes (log line num 200): just saw the queue shift
+1658889209055.2703 eyes (log line num 201): just flushed to brain
+1658889209057.2664 hands (log line num 894): just received user input WITH UP COMMAND
+1658889209057.2664 hands (log line num 895): about to write serial message
+1658889209057.2664 hands (log line num 896): just flushed serial message
+1658889209295.036 eyes (log line num 202): just saw the queue shift
+1658889209295.036 eyes (log line num 203): just flushed to brain
+1658889209297.0327 hands (log line num 897): just received user input with no up command
+1658889209297.0327 hands (log line num 898): about to write serial message
+1658889209297.0327 hands (log line num 899): just flushed serial message
+1658889209297.0327 hands (log line num 900): just received user input with no up command
+1658889209297.0327 hands (log line num 901): about to write serial message
+1658889209297.0327 hands (log line num 902): just flushed serial message
+1658889209298.0403 hands (log line num 903): just received user input with no up command
+1658889209298.0403 hands (log line num 904): about to write serial message
+1658889209298.0403 hands (log line num 905): just flushed serial message
+1658889209298.0403 hands (log line num 906): just received user input WITH UP COMMAND
+1658889209298.0403 hands (log line num 907): about to write serial message
+1658889209298.0403 hands (log line num 908): just flushed serial message
+1658889209727.791 eyes (log line num 204): just saw the queue shift
+1658889209728.7937 eyes (log line num 205): just flushed to brain
+1658889209728.7937 hands (log line num 909): just received user input with no up command
+1658889209729.793 hands (log line num 910): about to write serial message
+1658889209729.793 hands (log line num 911): just flushed serial message
+1658889209729.793 hands (log line num 912): just received user input WITH UP COMMAND
+1658889209729.793 hands (log line num 913): about to write serial message
+1658889209729.793 hands (log line num 914): just flushed serial message
+1658889210703.5925 eyes (log line num 206): just saw the queue shift
+1658889210704.5925 eyes (log line num 207): just flushed to brain
+1658889210704.5925 hands (log line num 915): just received user input with no up command
+1658889210705.589 hands (log line num 916): about to write serial message
+1658889210705.589 hands (log line num 917): just flushed serial message
+1658889210705.589 hands (log line num 918): just received user input with no up command
+1658889210705.589 hands (log line num 919): about to write serial message
+1658889210705.589 hands (log line num 920): just flushed serial message
+1658889210705.589 hands (log line num 921): just received user input with no up command
+1658889210705.589 hands (log line num 922): about to write serial message
+1658889210706.5972 hands (log line num 923): just flushed serial message
+1658889210706.5972 hands (log line num 924): just received user input WITH UP COMMAND
+1658889210706.5972 hands (log line num 925): about to write serial message
+1658889210706.5972 hands (log line num 926): just flushed serial message
+1658889211135.8113 eyes (log line num 208): just saw the queue shift
+1658889211135.8113 eyes (log line num 209): just flushed to brain
+1658889211136.8176 hands (log line num 927): just received user input with no up command
+1658889211136.8176 hands (log line num 928): about to write serial message
+1658889211137.8123 hands (log line num 929): just flushed serial message
+1658889211137.8123 hands (log line num 930): just received user input with no up command
+1658889211137.8123 hands (log line num 931): about to write serial message
+1658889211137.8123 hands (log line num 932): just flushed serial message
+1658889211137.8123 hands (log line num 933): just received user input with no up command
+1658889211137.8123 hands (log line num 934): about to write serial message
+1658889211137.8123 hands (log line num 935): just flushed serial message
+1658889211137.8123 hands (log line num 936): just received user input with no up command
+1658889211137.8123 hands (log line num 937): about to write serial message
+1658889211138.8098 hands (log line num 938): just flushed serial message
+1658889211138.8098 hands (log line num 939): just received user input WITH UP COMMAND
+1658889211138.8098 hands (log line num 940): about to write serial message
+1658889211138.8098 hands (log line num 941): just flushed serial message
+1658889212303.682 eyes (log line num 210): just saw the queue shift
+1658889212303.682 eyes (log line num 211): just flushed to brain
+1658889212304.6768 hands (log line num 942): just received user input WITH UP COMMAND
+1658889212304.6768 hands (log line num 943): about to write serial message
+1658889212305.6873 hands (log line num 944): just flushed serial message
+1658889212544.045 eyes (log line num 212): just saw the queue shift
+1658889212545.0444 eyes (log line num 213): just flushed to brain
+1658889212547.0396 hands (log line num 945): just received user input WITH UP COMMAND
+1658889212547.0396 hands (log line num 946): about to write serial message
+1658889212547.0396 hands (log line num 947): just flushed serial message
+1658889212799.1929 eyes (log line num 214): just saw the queue shift
+1658889212799.1929 eyes (log line num 215): just flushed to brain
+1658889212801.2007 hands (log line num 948): just received user input with no up command
+1658889212802.1897 hands (log line num 949): about to write serial message
+1658889212802.1897 hands (log line num 950): just flushed serial message
+1658889212802.1897 hands (log line num 951): just received user input with no up command
+1658889212802.1897 hands (log line num 952): about to write serial message
+1658889212802.1897 hands (log line num 953): just flushed serial message
+1658889212802.1897 hands (log line num 954): just received user input WITH UP COMMAND
+1658889212802.1897 hands (log line num 955): about to write serial message
+1658889212802.1897 hands (log line num 956): just flushed serial message
+1658889213167.8645 eyes (log line num 216): just saw the queue shift
+1658889213167.8645 eyes (log line num 217): just flushed to brain
+1658889213169.861 hands (log line num 957): just received user input with no up command
+1658889213169.861 hands (log line num 958): about to write serial message
+1658889213169.861 hands (log line num 959): just flushed serial message
+1658889213169.861 hands (log line num 960): just received user input WITH UP COMMAND
+1658889213169.861 hands (log line num 961): about to write serial message
+1658889213170.8672 hands (log line num 962): just flushed serial message
+1658889213503.9897 eyes (log line num 218): just saw the queue shift
+1658889213504.9944 eyes (log line num 219): just flushed to brain
+1658889213505.9863 hands (log line num 963): just received user input with no up command
+1658889213505.9863 hands (log line num 964): about to write serial message
+1658889213505.9863 hands (log line num 965): just flushed serial message
+1658889213506.985 hands (log line num 966): just received user input with no up command
+1658889213506.985 hands (log line num 967): about to write serial message
+1658889213506.985 hands (log line num 968): just flushed serial message
+1658889213506.985 hands (log line num 969): just received user input WITH UP COMMAND
+1658889213506.985 hands (log line num 970): about to write serial message
+1658889213506.985 hands (log line num 971): just flushed serial message
+1658889213887.179 eyes (log line num 220): just saw the queue shift
+1658889213888.1785 eyes (log line num 221): just flushed to brain
+1658889213889.1848 hands (log line num 972): just received user input with no up command
+1658889213889.1848 hands (log line num 973): about to write serial message
+1658889213889.1848 hands (log line num 974): just flushed serial message
+1658889213889.1848 hands (log line num 975): just received user input with no up command
+1658889213889.1848 hands (log line num 976): about to write serial message
+1658889213890.1802 hands (log line num 977): just flushed serial message
+1658889213890.1802 hands (log line num 978): just received user input with no up command
+1658889213890.1802 hands (log line num 979): about to write serial message
+1658889213890.1802 hands (log line num 980): just flushed serial message
+1658889213890.1802 hands (log line num 981): just received user input with no up command
+1658889213890.1802 hands (log line num 982): about to write serial message
+1658889213890.1802 hands (log line num 983): just flushed serial message
+1658889213890.1802 hands (log line num 984): just received user input WITH UP COMMAND
+1658889213890.1802 hands (log line num 985): about to write serial message
+1658889213890.1802 hands (log line num 986): just flushed serial message
+1658889214389.3853 eyes (log line num 222): just saw the queue shift
+1658889214390.3826 eyes (log line num 223): just flushed to brain
+1658889214390.3826 hands (log line num 987): just received user input with no up command
+1658889214390.3826 hands (log line num 988): about to write serial message
+1658889214391.3838 hands (log line num 989): just flushed serial message
+1658889214391.3838 hands (log line num 990): just received user input with no up command
+1658889214391.3838 hands (log line num 991): about to write serial message
+1658889214391.3838 hands (log line num 992): just flushed serial message
+1658889214391.3838 hands (log line num 993): just received user input WITH UP COMMAND
+1658889214391.3838 hands (log line num 994): about to write serial message
+1658889214391.3838 hands (log line num 995): just flushed serial message
+1658889214751.5923 eyes (log line num 224): just saw the queue shift
+1658889214752.5159 eyes (log line num 225): just flushed to brain
+1658889214753.5115 hands (log line num 996): just received user input with no up command
+1658889214753.5115 hands (log line num 997): about to write serial message
+1658889214754.5208 hands (log line num 1000): about to write serial message
+1658889214754.5208 hands (log line num 1001): just flushed serial message
+1658889214754.5208 hands (log line num 998): just flushed serial message
+1658889214754.5208 hands (log line num 999): just received user input WITH UP COMMAND
+1658889215055.725 eyes (log line num 226): just saw the queue shift
+1658889215056.72 eyes (log line num 227): just flushed to brain
+1658889215057.7214 hands (log line num 1002): just received user input with no up command
+1658889215057.7214 hands (log line num 1003): about to write serial message
+1658889215058.7322 hands (log line num 1004): just flushed serial message
+1658889215058.7322 hands (log line num 1005): just received user input with no up command
+1658889215058.7322 hands (log line num 1006): about to write serial message
+1658889215059.7283 hands (log line num 1007): just flushed serial message
+1658889215059.7283 hands (log line num 1008): just received user input with no up command
+1658889215059.7283 hands (log line num 1009): about to write serial message
+1658889215059.7283 hands (log line num 1010): just flushed serial message
+1658889215059.7283 hands (log line num 1011): just received user input with no up command
+1658889215059.7283 hands (log line num 1012): about to write serial message
+1658889215059.7283 hands (log line num 1013): just flushed serial message
+1658889215059.7283 hands (log line num 1014): just received user input with no up command
+1658889215059.7283 hands (log line num 1015): about to write serial message
+1658889215059.7283 hands (log line num 1016): just flushed serial message
+1658889215060.7256 hands (log line num 1017): just received user input WITH UP COMMAND
+1658889215060.7256 hands (log line num 1018): about to write serial message
+1658889215060.7256 hands (log line num 1019): just flushed serial message
+1658889216287.7979 eyes (log line num 228): just saw the queue shift
+1658889216287.7979 eyes (log line num 229): just flushed to brain
+1658889216288.793 hands (log line num 1020): just received user input with no up command
+1658889216289.7937 hands (log line num 1021): about to write serial message
+1658889216289.7937 hands (log line num 1022): just flushed serial message
+1658889216289.7937 hands (log line num 1023): just received user input with no up command
+1658889216289.7937 hands (log line num 1024): about to write serial message
+1658889216289.7937 hands (log line num 1025): just flushed serial message
+1658889216289.7937 hands (log line num 1026): just received user input with no up command
+1658889216289.7937 hands (log line num 1027): about to write serial message
+1658889216290.8008 hands (log line num 1028): just flushed serial message
+1658889216290.8008 hands (log line num 1029): just received user input with no up command
+1658889216290.8008 hands (log line num 1030): about to write serial message
+1658889216290.8008 hands (log line num 1031): just flushed serial message
+1658889216290.8008 hands (log line num 1032): just received user input WITH UP COMMAND
+1658889216290.8008 hands (log line num 1033): about to write serial message
+1658889216290.8008 hands (log line num 1034): just flushed serial message
+1658889216785.2896 eyes (log line num 230): just saw the queue shift
+1658889216785.2896 eyes (log line num 231): just flushed to brain
+1658889216786.2922 hands (log line num 1035): just received user input with no up command
+1658889216786.2922 hands (log line num 1036): about to write serial message
+1658889216786.2922 hands (log line num 1037): just flushed serial message
+1658889216787.2883 hands (log line num 1038): just received user input WITH UP COMMAND
+1658889216787.2883 hands (log line num 1039): about to write serial message
+1658889216787.2883 hands (log line num 1040): just flushed serial message
+1658889217103.4973 eyes (log line num 232): just saw the queue shift
+1658889217103.4973 eyes (log line num 233): just flushed to brain
+1658889217104.497 hands (log line num 1041): just received user input with no up command
+1658889217104.497 hands (log line num 1042): about to write serial message
+1658889217104.497 hands (log line num 1043): just flushed serial message
+1658889217105.4932 hands (log line num 1044): just received user input with no up command
+1658889217105.4932 hands (log line num 1045): about to write serial message
+1658889217105.4932 hands (log line num 1046): just flushed serial message
+1658889217105.4932 hands (log line num 1047): just received user input with no up command
+1658889217105.4932 hands (log line num 1048): about to write serial message
+1658889217105.4932 hands (log line num 1049): just flushed serial message
+1658889217105.4932 hands (log line num 1050): just received user input with no up command
+1658889217105.4932 hands (log line num 1051): about to write serial message
+1658889217106.5007 hands (log line num 1052): just flushed serial message
+1658889217106.5007 hands (log line num 1053): just received user input WITH UP COMMAND
+1658889217106.5007 hands (log line num 1054): about to write serial message
+1658889217106.5007 hands (log line num 1055): just flushed serial message
+1658889218255.5732 eyes (log line num 234): just saw the queue shift
+1658889218255.5732 eyes (log line num 235): just flushed to brain
+1658889218256.5696 hands (log line num 1056): just received user input with no up command
+1658889218256.5696 hands (log line num 1057): about to write serial message
+1658889218257.566 hands (log line num 1058): just flushed serial message
+1658889218257.566 hands (log line num 1059): just received user input WITH UP COMMAND
+1658889218257.566 hands (log line num 1060): about to write serial message
+1658889218257.566 hands (log line num 1061): just flushed serial message
+1658889218560.672 eyes (log line num 236): just saw the queue shift
+1658889218560.672 eyes (log line num 237): just flushed to brain
+1658889218561.6855 hands (log line num 1062): just received user input WITH UP COMMAND
+1658889218561.6855 hands (log line num 1063): about to write serial message
+1658889218561.6855 hands (log line num 1064): just flushed serial message
+1658889218799.157 eyes (log line num 238): just saw the queue shift
+1658889218799.157 eyes (log line num 239): just flushed to brain
+1658889218801.158 hands (log line num 1065): just received user input with no up command
+1658889218801.158 hands (log line num 1066): about to write serial message
+1658889218801.158 hands (log line num 1067): just flushed serial message
+1658889218802.1538 hands (log line num 1068): just received user input with no up command
+1658889218802.1538 hands (log line num 1069): about to write serial message
+1658889218802.1538 hands (log line num 1070): just flushed serial message
+1658889218802.1538 hands (log line num 1071): just received user input with no up command
+1658889218802.1538 hands (log line num 1072): about to write serial message
+1658889218802.1538 hands (log line num 1073): just flushed serial message
+1658889218802.1538 hands (log line num 1074): just received user input WITH UP COMMAND
+1658889218802.1538 hands (log line num 1075): about to write serial message
+1658889218803.1523 hands (log line num 1076): just flushed serial message
+1658889219231.7532 eyes (log line num 240): just saw the queue shift
+1658889219231.7532 eyes (log line num 241): just flushed to brain
+1658889219232.7593 hands (log line num 1077): just received user input WITH UP COMMAND
+1658889219232.7593 hands (log line num 1078): about to write serial message
+1658889219233.756 hands (log line num 1079): just flushed serial message
+1658889219503.7498 eyes (log line num 242): just saw the queue shift
+1658889219503.7498 eyes (log line num 243): just flushed to brain
+1658889219506.746 hands (log line num 1080): just received user input with no up command
+1658889219507.746 hands (log line num 1081): about to write serial message
+1658889219507.746 hands (log line num 1082): just flushed serial message
+1658889219508.746 hands (log line num 1083): just received user input with no up command
+1658889219508.746 hands (log line num 1084): about to write serial message
+1658889219508.746 hands (log line num 1085): just flushed serial message
+1658889219508.746 hands (log line num 1086): just received user input with no up command
+1658889219508.746 hands (log line num 1087): about to write serial message
+1658889219509.7507 hands (log line num 1088): just flushed serial message
+1658889219509.7507 hands (log line num 1089): just received user input WITH UP COMMAND
+1658889219509.7507 hands (log line num 1090): about to write serial message
+1658889219509.7507 hands (log line num 1091): just flushed serial message
+1658889219951.9255 eyes (log line num 244): just saw the queue shift
+1658889219951.9255 eyes (log line num 245): just flushed to brain
+1658889219952.9268 hands (log line num 1092): just received user input with no up command
+1658889219952.9268 hands (log line num 1093): about to write serial message
+1658889219953.9373 hands (log line num 1094): just flushed serial message
+1658889219953.9373 hands (log line num 1095): just received user input with no up command
+1658889219953.9373 hands (log line num 1096): about to write serial message
+1658889219953.9373 hands (log line num 1097): just flushed serial message
+1658889219953.9373 hands (log line num 1098): just received user input WITH UP COMMAND
+1658889219953.9373 hands (log line num 1099): about to write serial message
+1658889219953.9373 hands (log line num 1100): just flushed serial message
+1658889220319.3037 eyes (log line num 246): just saw the queue shift
+1658889220320.3035 eyes (log line num 247): just flushed to brain
+1658889220321.2998 hands (log line num 1101): just received user input with no up command
+1658889220321.2998 hands (log line num 1102): about to write serial message
+1658889220321.2998 hands (log line num 1103): just flushed serial message
+1658889220321.2998 hands (log line num 1104): just received user input with no up command
+1658889220321.2998 hands (log line num 1105): about to write serial message
+1658889220321.2998 hands (log line num 1106): just flushed serial message
+1658889220321.2998 hands (log line num 1107): just received user input with no up command
+1658889220322.3047 hands (log line num 1108): about to write serial message
+1658889220322.3047 hands (log line num 1109): just flushed serial message
+1658889220322.3047 hands (log line num 1110): just received user input with no up command
+1658889220322.3047 hands (log line num 1111): about to write serial message
+1658889220322.3047 hands (log line num 1112): just flushed serial message
+1658889220322.3047 hands (log line num 1113): just received user input WITH UP COMMAND
+1658889220322.3047 hands (log line num 1114): about to write serial message
+1658889220322.3047 hands (log line num 1115): just flushed serial message
+1658889221503.6497 eyes (log line num 248): just saw the queue shift
+1658889221504.6382 eyes (log line num 249): just flushed to brain
+1658889221504.6382 hands (log line num 1116): just received user input WITH UP COMMAND
+1658889221505.6438 hands (log line num 1117): about to write serial message
+1658889221505.6438 hands (log line num 1118): just flushed serial message
+1658889221743.7268 eyes (log line num 250): just saw the queue shift
+1658889221743.7268 eyes (log line num 251): just flushed to brain
+1658889221745.7163 hands (log line num 1119): just received user input with no up command
+1658889221745.7163 hands (log line num 1120): about to write serial message
+1658889221745.7163 hands (log line num 1121): just flushed serial message
+1658889221745.7163 hands (log line num 1122): just received user input with no up command
+1658889221746.722 hands (log line num 1123): about to write serial message
+1658889221746.722 hands (log line num 1124): just flushed serial message
+1658889221746.722 hands (log line num 1125): just received user input with no up command
+1658889221746.722 hands (log line num 1126): about to write serial message
+1658889221746.722 hands (log line num 1127): just flushed serial message
+1658889221746.722 hands (log line num 1128): just received user input WITH UP COMMAND
+1658889221746.722 hands (log line num 1129): about to write serial message
+1658889221747.7178 hands (log line num 1130): just flushed serial message
+1658889222176.239 eyes (log line num 252): just saw the queue shift
+1658889222176.239 eyes (log line num 253): just flushed to brain
+1658889222177.2356 hands (log line num 1131): just received user input with no up command
+1658889222177.2356 hands (log line num 1132): about to write serial message
+1658889222177.2356 hands (log line num 1133): just flushed serial message
+1658889222177.2356 hands (log line num 1134): just received user input WITH UP COMMAND
+1658889222177.2356 hands (log line num 1135): about to write serial message
+1658889222178.247 hands (log line num 1136): just flushed serial message
+1658889222479.3716 eyes (log line num 254): just saw the queue shift
+1658889222479.3716 eyes (log line num 255): just flushed to brain
+1658889222480.3757 hands (log line num 1137): just received user input with no up command
+1658889222480.3757 hands (log line num 1138): about to write serial message
+1658889222481.3691 hands (log line num 1139): just flushed serial message
+1658889222481.3691 hands (log line num 1140): just received user input with no up command
+1658889222481.3691 hands (log line num 1141): about to write serial message
+1658889222481.3691 hands (log line num 1142): just flushed serial message
+1658889222481.3691 hands (log line num 1143): just received user input with no up command
+1658889222481.3691 hands (log line num 1144): about to write serial message
+1658889222481.3691 hands (log line num 1145): just flushed serial message
+1658889222481.3691 hands (log line num 1146): just received user input WITH UP COMMAND
+1658889222482.3677 hands (log line num 1147): about to write serial message
+1658889222482.3677 hands (log line num 1148): just flushed serial message
+1658889222911.6804 eyes (log line num 256): just saw the queue shift
+1658889222911.6804 eyes (log line num 257): just flushed to brain
+1658889222912.675 hands (log line num 1149): just received user input WITH UP COMMAND
+1658889222912.675 hands (log line num 1150): about to write serial message
+1658889222912.675 hands (log line num 1151): just flushed serial message
+1658889223150.999 eyes (log line num 258): just saw the queue shift
+1658889223150.999 eyes (log line num 259): just flushed to brain
+1658889223152.9956 hands (log line num 1152): just received user input with no up command
+1658889223152.9956 hands (log line num 1153): about to write serial message
+1658889223152.9956 hands (log line num 1154): just flushed serial message
+1658889223154.0015 hands (log line num 1155): just received user input with no up command
+1658889223154.0015 hands (log line num 1156): about to write serial message
+1658889223154.0015 hands (log line num 1157): just flushed serial message
+1658889223154.0015 hands (log line num 1158): just received user input with no up command
+1658889223154.0015 hands (log line num 1159): about to write serial message
+1658889223154.0015 hands (log line num 1160): just flushed serial message
+1658889223154.0015 hands (log line num 1161): just received user input with no up command
+1658889223154.0015 hands (log line num 1162): about to write serial message
+1658889223154.0015 hands (log line num 1163): just flushed serial message
+1658889223154.0015 hands (log line num 1164): just received user input WITH UP COMMAND
+1658889223154.9946 hands (log line num 1165): about to write serial message
+1658889223154.9946 hands (log line num 1166): just flushed serial message
+1658889223647.8442 eyes (log line num 260): just saw the queue shift
+1658889223647.8442 eyes (log line num 261): just flushed to brain
+1658889223648.8496 hands (log line num 1167): just received user input with no up command
+1658889223648.8496 hands (log line num 1168): about to write serial message
+1658889223649.8464 hands (log line num 1169): just flushed serial message
+1658889223649.8464 hands (log line num 1170): just received user input WITH UP COMMAND
+1658889223649.8464 hands (log line num 1171): about to write serial message
+1658889223649.8464 hands (log line num 1172): just flushed serial message
+1658889223951.339 eyes (log line num 262): just saw the queue shift
+1658889223952.3398 eyes (log line num 263): just flushed to brain
+1658889223953.3352 hands (log line num 1173): just received user input with no up command
+1658889223953.3352 hands (log line num 1174): about to write serial message
+1658889223953.3352 hands (log line num 1175): just flushed serial message
+1658889223953.3352 hands (log line num 1176): just received user input with no up command
+1658889223953.3352 hands (log line num 1177): about to write serial message
+1658889223954.335 hands (log line num 1178): just flushed serial message
+1658889223954.335 hands (log line num 1179): just received user input with no up command
+1658889223954.335 hands (log line num 1180): about to write serial message
+1658889223954.335 hands (log line num 1181): just flushed serial message
+1658889223954.335 hands (log line num 1182): just received user input WITH UP COMMAND
+1658889223954.335 hands (log line num 1183): about to write serial message
+1658889223954.335 hands (log line num 1184): just flushed serial message
+1658889224384.6538 eyes (log line num 264): just saw the queue shift
+1658889224385.6633 eyes (log line num 265): just flushed to brain
+1658889224386.6624 hands (log line num 1185): just received user input WITH UP COMMAND
+1658889224386.6624 hands (log line num 1186): about to write serial message
+1658889224386.6624 hands (log line num 1187): just flushed serial message
+1658889224639.7827 eyes (log line num 266): just saw the queue shift
+1658889224640.7883 eyes (log line num 267): just flushed to brain
+1658889224642.7764 hands (log line num 1188): just received user input with no up command
+1658889224642.7764 hands (log line num 1189): about to write serial message
+1658889224642.7764 hands (log line num 1190): just flushed serial message
+1658889224642.7764 hands (log line num 1191): just received user input with no up command
+1658889224642.7764 hands (log line num 1192): about to write serial message
+1658889224642.7764 hands (log line num 1193): just flushed serial message
+1658889224642.7764 hands (log line num 1194): just received user input WITH UP COMMAND
+1658889224643.7756 hands (log line num 1195): about to write serial message
+1658889224643.7756 hands (log line num 1196): just flushed serial message
+1658889225007.2766 eyes (log line num 268): just saw the queue shift
+1658889225008.2769 eyes (log line num 269): just flushed to brain
+1658889225009.273 hands (log line num 1197): just received user input with no up command
+1658889225009.273 hands (log line num 1198): about to write serial message
+1658889225009.273 hands (log line num 1199): just flushed serial message
+1658889225009.273 hands (log line num 1200): just received user input with no up command
+1658889225009.273 hands (log line num 1201): about to write serial message
+1658889225009.273 hands (log line num 1202): just flushed serial message
+1658889225009.273 hands (log line num 1203): just received user input with no up command
+1658889225010.2778 hands (log line num 1204): about to write serial message
+1658889225010.2778 hands (log line num 1205): just flushed serial message
+1658889225010.2778 hands (log line num 1206): just received user input WITH UP COMMAND
+1658889225010.2778 hands (log line num 1207): about to write serial message
+1658889225010.2778 hands (log line num 1208): just flushed serial message
+1658889226095.6487 eyes (log line num 270): just saw the queue shift
+1658889226096.6433 eyes (log line num 271): just flushed to brain
+1658889226096.6433 hands (log line num 1209): just received user input with no up command
+1658889226096.6433 hands (log line num 1210): about to write serial message
+1658889226097.645 hands (log line num 1211): just flushed serial message
+1658889226097.645 hands (log line num 1212): just received user input with no up command
+1658889226097.645 hands (log line num 1213): about to write serial message
+1658889226097.645 hands (log line num 1214): just flushed serial message
+1658889226097.645 hands (log line num 1215): just received user input with no up command
+1658889226097.645 hands (log line num 1216): about to write serial message
+1658889226097.645 hands (log line num 1217): just flushed serial message
+1658889226098.6501 hands (log line num 1218): just received user input WITH UP COMMAND
+1658889226098.6501 hands (log line num 1219): about to write serial message
+1658889226098.6501 hands (log line num 1220): just flushed serial message
+1658889226527.6636 eyes (log line num 272): just saw the queue shift
+1658889226528.658 eyes (log line num 273): just flushed to brain
+1658889226528.658 hands (log line num 1221): just received user input WITH UP COMMAND
+1658889226528.658 hands (log line num 1222): about to write serial message
+1658889226528.658 hands (log line num 1223): just flushed serial message
+1658889226751.303 eyes (log line num 274): just saw the queue shift
+1658889226752.304 eyes (log line num 275): just flushed to brain
+1658889226754.307 hands (log line num 1224): just received user input with no up command
+1658889226754.307 hands (log line num 1225): about to write serial message
+1658889226754.307 hands (log line num 1226): just flushed serial message
+1658889226754.307 hands (log line num 1227): just received user input with no up command
+1658889226754.307 hands (log line num 1228): about to write serial message
+1658889226754.307 hands (log line num 1229): just flushed serial message
+1658889226754.307 hands (log line num 1230): just received user input with no up command
+1658889226754.307 hands (log line num 1231): about to write serial message
+1658889226755.304 hands (log line num 1232): just flushed serial message
+1658889226755.304 hands (log line num 1233): just received user input WITH UP COMMAND
+1658889226755.304 hands (log line num 1234): about to write serial message
+1658889226755.304 hands (log line num 1235): just flushed serial message
+1658889227840.171 eyes (log line num 276): just saw the queue shift
+1658889227840.171 eyes (log line num 277): just flushed to brain
+1658889227842.1675 hands (log line num 1236): just received user input with no up command
+1658889227842.1675 hands (log line num 1237): about to write serial message
+1658889227843.1663 hands (log line num 1238): just flushed serial message
+1658889227843.1663 hands (log line num 1239): just received user input with no up command
+1658889227843.1663 hands (log line num 1240): about to write serial message
+1658889227843.1663 hands (log line num 1241): just flushed serial message
+1658889227843.1663 hands (log line num 1242): just received user input WITH UP COMMAND
+1658889227843.1663 hands (log line num 1243): about to write serial message
+1658889227843.1663 hands (log line num 1244): just flushed serial message
+1658889228208.291 eyes (log line num 278): just saw the queue shift
+1658889228208.291 eyes (log line num 279): just flushed to brain
+1658889228210.2886 hands (log line num 1245): just received user input with no up command
+1658889228210.2886 hands (log line num 1246): about to write serial message
+1658889228210.2886 hands (log line num 1247): just flushed serial message
+1658889228210.2886 hands (log line num 1248): just received user input with no up command
+1658889228211.2869 hands (log line num 1249): about to write serial message
+1658889228211.2869 hands (log line num 1250): just flushed serial message
+1658889228211.2869 hands (log line num 1251): just received user input WITH UP COMMAND
+1658889228211.2869 hands (log line num 1252): about to write serial message
+1658889228211.2869 hands (log line num 1253): just flushed serial message
+1658889228598.081 eyes (log line num 280): just saw the queue shift
+1658889228598.081 eyes (log line num 281): just flushed to brain
+1658889228599.0847 hands (log line num 1254): just received user input with no up command
+1658889228599.0847 hands (log line num 1255): about to write serial message
+1658889228600.0825 hands (log line num 1256): just flushed serial message
+1658889228600.0825 hands (log line num 1257): just received user input with no up command
+1658889228600.0825 hands (log line num 1258): about to write serial message
+1658889228600.0825 hands (log line num 1259): just flushed serial message
+1658889228600.0825 hands (log line num 1260): just received user input with no up command
+1658889228600.0825 hands (log line num 1261): about to write serial message
+1658889228600.0825 hands (log line num 1262): just flushed serial message
+1658889228600.0825 hands (log line num 1263): just received user input WITH UP COMMAND
+1658889228600.0825 hands (log line num 1264): about to write serial message
+1658889228601.0847 hands (log line num 1265): just flushed serial message
+1658889229023.3093 eyes (log line num 282): just saw the queue shift
+1658889229023.3093 eyes (log line num 283): just flushed to brain
+1658889229025.3052 hands (log line num 1266): just received user input with no up command
+1658889229025.3052 hands (log line num 1267): about to write serial message
+1658889229025.3052 hands (log line num 1268): just flushed serial message
+1658889229025.3052 hands (log line num 1269): just received user input with no up command
+1658889229025.3052 hands (log line num 1270): about to write serial message
+1658889229025.3052 hands (log line num 1271): just flushed serial message
+1658889229026.3142 hands (log line num 1272): just received user input WITH UP COMMAND
+1658889229026.3142 hands (log line num 1273): about to write serial message
+1658889229026.3142 hands (log line num 1274): just flushed serial message
+1658889229391.9614 eyes (log line num 284): just saw the queue shift
+1658889229391.9614 eyes (log line num 285): just flushed to brain
+1658889229393.9565 hands (log line num 1275): just received user input with no up command
+1658889229393.9565 hands (log line num 1276): about to write serial message
+1658889229393.9565 hands (log line num 1277): just flushed serial message
+1658889229394.961 hands (log line num 1278): just received user input WITH UP COMMAND
+1658889229394.961 hands (log line num 1279): about to write serial message
+1658889229394.961 hands (log line num 1280): just flushed serial message
+1658889229695.2783 eyes (log line num 286): just saw the queue shift
+1658889229695.2783 eyes (log line num 287): just flushed to brain
+1658889229696.2783 hands (log line num 1281): just received user input WITH UP COMMAND
+1658889229697.2798 hands (log line num 1282): about to write serial message
+1658889229697.2798 hands (log line num 1283): just flushed serial message
+1658889229935.9185 eyes (log line num 288): just saw the queue shift
+1658889229935.9185 eyes (log line num 289): just flushed to brain
+1658889229937.914 hands (log line num 1284): just received user input with no up command
+1658889229937.914 hands (log line num 1285): about to write serial message
+1658889229938.9143 hands (log line num 1286): just flushed serial message
+1658889229938.9143 hands (log line num 1287): just received user input with no up command
+1658889229938.9143 hands (log line num 1288): about to write serial message
+1658889229939.9185 hands (log line num 1289): just flushed serial message
+1658889229939.9185 hands (log line num 1290): just received user input WITH UP COMMAND
+1658889229939.9185 hands (log line num 1291): about to write serial message
+1658889229939.9185 hands (log line num 1292): just flushed serial message
+1658889230303.9668 eyes (log line num 290): just saw the queue shift
+1658889230304.9714 eyes (log line num 291): just flushed to brain
+1658889230304.9714 hands (log line num 1293): just received user input with no up command
+1658889230304.9714 hands (log line num 1294): about to write serial message
+1658889230304.9714 hands (log line num 1295): just flushed serial message
+1658889230305.9678 hands (log line num 1296): just received user input WITH UP COMMAND
+1658889230305.9678 hands (log line num 1297): about to write serial message
+1658889230305.9678 hands (log line num 1298): just flushed serial message
+1658889230607.2756 eyes (log line num 292): just saw the queue shift
+1658889230608.2756 eyes (log line num 293): just flushed to brain
+1658889230610.272 hands (log line num 1299): just received user input with no up command
+1658889230610.272 hands (log line num 1300): about to write serial message
+1658889230610.272 hands (log line num 1301): just flushed serial message
+1658889230610.272 hands (log line num 1302): just received user input with no up command
+1658889230610.272 hands (log line num 1303): about to write serial message
+1658889230611.2773 hands (log line num 1304): just flushed serial message
+1658889230611.2773 hands (log line num 1305): just received user input with no up command
+1658889230611.2773 hands (log line num 1306): about to write serial message
+1658889230611.2773 hands (log line num 1307): just flushed serial message
+1658889230611.2773 hands (log line num 1308): just received user input with no up command
+1658889230611.2773 hands (log line num 1309): about to write serial message
+1658889230611.2773 hands (log line num 1310): just flushed serial message
+1658889230611.2773 hands (log line num 1311): just received user input WITH UP COMMAND
+1658889230611.2773 hands (log line num 1312): about to write serial message
+1658889230612.2783 hands (log line num 1313): just flushed serial message
+1658889231760.0115 eyes (log line num 294): just saw the queue shift
+1658889231760.0115 eyes (log line num 295): just flushed to brain
+1658889231763.0166 hands (log line num 1314): just received user input with no up command
+1658889231763.0166 hands (log line num 1315): about to write serial message
+1658889231763.0166 hands (log line num 1316): just flushed serial message
+1658889231765.0137 hands (log line num 1317): just received user input with no up command
+1658889231765.0137 hands (log line num 1318): about to write serial message
+1658889231765.0137 hands (log line num 1319): just flushed serial message
+1658889231765.0137 hands (log line num 1320): just received user input WITH UP COMMAND
+1658889231765.0137 hands (log line num 1321): about to write serial message
+1658889231765.0137 hands (log line num 1322): just flushed serial message
+1658889232127.0503 eyes (log line num 296): just saw the queue shift
+1658889232127.0503 eyes (log line num 297): just flushed to brain
+1658889232128.0461 hands (log line num 1323): just received user input with no up command
+1658889232128.0461 hands (log line num 1324): about to write serial message
+1658889232128.0461 hands (log line num 1325): just flushed serial message
+1658889232129.0547 hands (log line num 1326): just received user input WITH UP COMMAND
+1658889232129.0547 hands (log line num 1327): about to write serial message
+1658889232129.0547 hands (log line num 1328): just flushed serial message
+1658889232416.2083 eyes (log line num 298): just saw the queue shift
+1658889232416.2083 eyes (log line num 299): just flushed to brain
+1658889232418.207 hands (log line num 1329): just received user input with no up command
+1658889232418.207 hands (log line num 1330): about to write serial message
+1658889232418.207 hands (log line num 1331): just flushed serial message
+1658889232418.207 hands (log line num 1332): just received user input with no up command
+1658889232419.211 hands (log line num 1333): about to write serial message
+1658889232419.211 hands (log line num 1334): just flushed serial message
+1658889232419.211 hands (log line num 1335): just received user input with no up command
+1658889232419.211 hands (log line num 1336): about to write serial message
+1658889232419.211 hands (log line num 1337): just flushed serial message
+1658889232419.211 hands (log line num 1338): just received user input with no up command
+1658889232419.211 hands (log line num 1339): about to write serial message
+1658889232419.211 hands (log line num 1340): just flushed serial message
+1658889232419.211 hands (log line num 1341): just received user input WITH UP COMMAND
+1658889232420.2092 hands (log line num 1342): about to write serial message
+1658889232420.2092 hands (log line num 1343): just flushed serial message
+1658889232911.4707 eyes (log line num 300): just saw the queue shift
+1658889232911.4707 eyes (log line num 301): just flushed to brain
+1658889232912.4639 hands (log line num 1344): just received user input WITH UP COMMAND
+1658889232912.4639 hands (log line num 1345): about to write serial message
+1658889232912.4639 hands (log line num 1346): just flushed serial message
+1658889233135.4968 eyes (log line num 302): just saw the queue shift
+1658889233135.4968 eyes (log line num 303): just flushed to brain
+1658889233137.4006 hands (log line num 1347): just received user input with no up command
+1658889233137.4006 hands (log line num 1348): about to write serial message
+1658889233137.4006 hands (log line num 1349): just flushed serial message
+1658889233137.4006 hands (log line num 1350): just received user input with no up command
+1658889233137.4006 hands (log line num 1351): about to write serial message
+1658889233138.4004 hands (log line num 1352): just flushed serial message
+1658889233138.4004 hands (log line num 1353): just received user input with no up command
+1658889233138.4004 hands (log line num 1354): about to write serial message
+1658889233138.4004 hands (log line num 1355): just flushed serial message
+1658889233138.4004 hands (log line num 1356): just received user input with no up command
+1658889233138.4004 hands (log line num 1357): about to write serial message
+1658889233138.4004 hands (log line num 1358): just flushed serial message
+1658889233138.4004 hands (log line num 1359): just received user input WITH UP COMMAND
+1658889233138.4004 hands (log line num 1360): about to write serial message
+1658889233139.3943 hands (log line num 1361): just flushed serial message
+1658889233631.8516 eyes (log line num 304): just saw the queue shift
+1658889233631.8516 eyes (log line num 305): just flushed to brain
+1658889233632.8523 hands (log line num 1362): just received user input with no up command
+1658889233632.8523 hands (log line num 1363): about to write serial message
+1658889233632.8523 hands (log line num 1364): just flushed serial message
+1658889233632.8523 hands (log line num 1365): just received user input with no up command
+1658889233632.8523 hands (log line num 1366): about to write serial message
+1658889233633.8513 hands (log line num 1367): just flushed serial message
+1658889233633.8513 hands (log line num 1368): just received user input with no up command
+1658889233633.8513 hands (log line num 1369): about to write serial message
+1658889233633.8513 hands (log line num 1370): just flushed serial message
+1658889233633.8513 hands (log line num 1371): just received user input WITH UP COMMAND
+1658889233633.8513 hands (log line num 1372): about to write serial message
+1658889233633.8513 hands (log line num 1373): just flushed serial message
+1658889234063.5789 eyes (log line num 306): just saw the queue shift
+1658889234063.5789 eyes (log line num 307): just flushed to brain
+1658889234065.5754 hands (log line num 1374): just received user input with no up command
+1658889234065.5754 hands (log line num 1375): about to write serial message
+1658889234065.5754 hands (log line num 1376): just flushed serial message
+1658889234066.5833 hands (log line num 1377): just received user input with no up command
+1658889234066.5833 hands (log line num 1378): about to write serial message
+1658889234066.5833 hands (log line num 1379): just flushed serial message
+1658889234066.5833 hands (log line num 1380): just received user input with no up command
+1658889234066.5833 hands (log line num 1381): about to write serial message
+1658889234066.5833 hands (log line num 1382): just flushed serial message
+1658889234066.5833 hands (log line num 1383): just received user input WITH UP COMMAND
+1658889234066.5833 hands (log line num 1384): about to write serial message
+1658889234066.5833 hands (log line num 1385): just flushed serial message
+1658889234495.904 eyes (log line num 308): just saw the queue shift
+1658889234496.8997 eyes (log line num 309): just flushed to brain
+1658889234496.8997 hands (log line num 1386): just received user input WITH UP COMMAND
+1658889234497.9011 hands (log line num 1387): about to write serial message
+1658889234497.9011 hands (log line num 1388): just flushed serial message
+1658889234734.9773 eyes (log line num 310): just saw the queue shift
+1658889234735.9805 eyes (log line num 311): just flushed to brain
+1658889234735.9805 hands (log line num 1389): just received user input with no up command
+1658889234736.9739 hands (log line num 1390): about to write serial message
+1658889234736.9739 hands (log line num 1391): just flushed serial message
+1658889234736.9739 hands (log line num 1392): just received user input with no up command
+1658889234736.9739 hands (log line num 1393): about to write serial message
+1658889234736.9739 hands (log line num 1394): just flushed serial message
+1658889234736.9739 hands (log line num 1395): just received user input with no up command
+1658889234736.9739 hands (log line num 1396): about to write serial message
+1658889234736.9739 hands (log line num 1397): just flushed serial message
+1658889234737.9785 hands (log line num 1398): just received user input with no up command
+1658889234737.9785 hands (log line num 1399): about to write serial message
+1658889234737.9785 hands (log line num 1400): just flushed serial message
+1658889234737.9785 hands (log line num 1401): just received user input WITH UP COMMAND
+1658889234737.9785 hands (log line num 1402): about to write serial message
+1658889234737.9785 hands (log line num 1403): just flushed serial message

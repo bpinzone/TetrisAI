@@ -3,6 +3,12 @@ python3 tetris_ai_eyes.py -o | ./main r i 3 6 999999999 12 d | sudo python3 ../s
 windows POWERSHELL command
     CMD /c 'python tetris_ai_eyes.py -o | main.exe r i 3 6 999999999 12 d | python ../switch-controller/bridge.py'
 
+    hands only
+        CMD /c 'python ../switch-controller/bridge.py'
+
+    eyes only
+        CMD /c 'python tetris_ai_eyes.py -o'
+
 https://my.eng.utah.edu/~cs5789/2010/slides/Interruptsx2.pdf
 
 
