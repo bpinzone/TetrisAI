@@ -16,6 +16,7 @@
 #include <utility>
 #include <optional>
 #include <vector>
+#include <sstream>
 
 using std::swap;
 using std::move;
@@ -77,7 +78,40 @@ int main(int argc, char* argv[]) {
 
 void play(const Play_settings& settings){
 
-    Board board;
+    std::ostringstream oss;
+    oss
+        << "board" << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << ".........." << std::endl
+        << "......xx.." << std::endl
+        << "......xxx." << std::endl
+        << "....x.xxx." << std::endl
+        << ".xxxxxxxxx" << std::endl
+        << ".xxxxxxxxx" << std::endl
+        << "xxxxxxx.xx" << std::endl
+        << "xxxxxx.xxx" << std::endl
+        << "xxxxxx.xxx" << std::endl
+        << "xxxx.xxxxx" << std::endl
+        << "xxxxx.xxxx" << std::endl
+        << "in_hold" << std::endl
+        << "y" << std::endl
+        << "just_swapped" << std::endl
+        << "false" << std::endl;
+
+    std::istringstream iss(oss.str());
+    Board board(iss);
+
+    cout << "Initial board:" << std::endl;
+    cout << board << std::endl;
+
     const Block* next_to_present = settings.block_generator->generate();
     Tetris_queue_t queue;
     for(int i = 0; i < settings.queue_size; ++i){
@@ -153,12 +187,12 @@ void play(const Play_settings& settings){
 
     cout << "Comparisons per turn: " << static_cast<double>(gs_num_comparisons) / settings.game_length << endl;
 
-    std::sort(leaf_counts.begin(), leaf_counts.end());
-    cout << "leaf counts: " << endl;
-    for(const auto& count : leaf_counts){
-        float million_count = count / static_cast<float>(1e6);
-        cout << "\t" << million_count << " million leaves" << std::endl;
-    }
+    // std::sort(leaf_counts.begin(), leaf_counts.end());
+    // cout << "leaf counts: " << endl;
+    // for(const auto& count : leaf_counts){
+    //     float million_count = count / static_cast<float>(1e6);
+    //     cout << "\t" << million_count << " million leaves" << std::endl;
+    // }
 }
 
 

@@ -152,7 +152,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     }
 
     // You are in tetris mode if you are here or less in height.
-    static const int c_max_tetris_mode_height = 6;
+    // static const int c_max_tetris_mode_height = 6;
+    static const int c_max_tetris_mode_height = 0;
     static const int c_height_diff_punishment_thresh = 3;
 
     const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
@@ -190,6 +191,10 @@ bool Board::has_greater_utility_than(const Board& other) const {
         return !this_receives_height_punishment;
     }
 
+    if(num_trenches != other.num_trenches){
+        return num_trenches < other.num_trenches;
+    }
+
     if(this_in_tetris_mode){
 
         // Get the tetrises
@@ -213,23 +218,42 @@ bool Board::has_greater_utility_than(const Board& other) const {
         if(sum_of_squared_heights != other.sum_of_squared_heights){
             return sum_of_squared_heights < other.sum_of_squared_heights;
         }
+
+        if (lifetime_stats.max_height_exp_moving_average == other.lifetime_stats.max_height_exp_moving_average && board != other.board){
+            std::cout << "---------------------------------------------------" << std::endl;
+            std::cout << "These 2 boards compared equal: " << std::endl;
+            std::cout << "Board 1:" << std::endl;
+            std::cout << *this << std::endl << std::endl;
+            std::cout << "Board 2:" << std::endl;
+            std::cout << other << std::endl;
+            std::cout << "---------------------------------------------------" << std::endl;
+        }
+
         return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
 
     }
     else{
 
-        if(num_trenches != other.num_trenches){
-            return num_trenches < other.num_trenches;
-        }
-
         if(num_cells_filled != other.num_cells_filled){
             return num_cells_filled < other.num_cells_filled;
         }
 
-        if(sum_of_squared_heights != other.sum_of_squared_heights){
-            return sum_of_squared_heights < other.sum_of_squared_heights;
+        if (lifetime_stats.max_height_exp_moving_average != other.lifetime_stats.max_height_exp_moving_average){
+            return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
+
         }
-        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
+
+        if (sum_of_squared_heights == other.sum_of_squared_heights && board != other.board){
+            std::cout << "---------------------------------------------------" << std::endl;
+            std::cout << "These 2 boards compared equal: " << std::endl;
+            std::cout << "Board 1:" << std::endl;
+            std::cout << *this << std::endl << std::endl;
+            std::cout << "Board 2:" << std::endl;
+            std::cout << other << std::endl;
+            std::cout << "---------------------------------------------------" << std::endl;
+        }
+
+        return sum_of_squared_heights < other.sum_of_squared_heights;
     }
 
 }
@@ -334,6 +358,8 @@ int Board::compute_height(size_t col_x) const {
 
 bool Board::is_promising() const {
 
+    return true;
+
     static constexpr int max_acceptable_holes_above_anc = 0;
     static constexpr int max_acceptable_height_increase = 3;
 
@@ -341,9 +367,9 @@ bool Board::is_promising() const {
 
     bool added_needless_trench = ancestor.good_trench_status && !has_good_trench_status();
 
-    if(highest_height - ancestor.highest_height > max_acceptable_height_increase){
-        return false;
-    }
+    // if(highest_height - ancestor.highest_height > max_acceptable_height_increase){
+    //     return false;
+    // }
     if(added_needless_trench){
         return true;
     }
