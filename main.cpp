@@ -15,6 +15,7 @@
 #include <string>
 #include <utility>
 #include <optional>
+#include <vector>
 
 using std::swap;
 using std::move;
@@ -22,6 +23,7 @@ using std::endl;
 using std::cin;
 using std::cout;
 using std::string;
+using std::vector;
 using std::back_inserter;
 using std::transform;
 using std::optional;
@@ -84,10 +86,13 @@ void play(const Play_settings& settings){
         queue.push_back(settings.block_generator->generate());
     }
 
+    std::vector<size_t> leaf_counts;
+
     int turn = 0;
     while(turn < settings.game_length){
 
         cout << "Comparisons: " << gs_num_comparisons << endl;
+        set_num_leaves(0);
 
         // Status
         if(settings.board_log){
@@ -142,9 +147,18 @@ void play(const Play_settings& settings){
             Output_manager::get_instance().get_board_os() << "\n" << board << endl;
         }
         ++turn;
+        leaf_counts.push_back(get_num_leaves());
+        cout << "This decision had " << get_num_leaves() / static_cast<float>(1e6) << " million leaves" << std::endl;
     }
 
     cout << "Comparisons per turn: " << static_cast<double>(gs_num_comparisons) / settings.game_length << endl;
+
+    std::sort(leaf_counts.begin(), leaf_counts.end());
+    cout << "leaf counts: " << endl;
+    for(const auto& count : leaf_counts){
+        float million_count = count / static_cast<float>(1e6);
+        cout << "\t" << million_count << " million leaves" << std::endl;
+    }
 }
 
 

@@ -1,5 +1,6 @@
 #include "state.h"
 #include "block.h"
+#include "global_stats.h"
 
 #include <iostream>
 
@@ -47,6 +48,9 @@ optional<State> State::generate_next_child() {
     for(optional<Placement> placement = pg(); placement; placement = pg()){
         optional<State> child = generate_child_from_placement(*placement);
         if(child){
+            // if(child->get_is_leaf()){
+            //     incr_num_leaves();
+            // }
             return child;
         }
     }

@@ -9,6 +9,9 @@ windows POWERSHELL command
     eyes only
         CMD /c 'python tetris_ai_eyes.py -o'
 
+    brain only
+        CMD /c 'main.exe w 0 4 6 100 12 e'
+
 https://my.eng.utah.edu/~cs5789/2010/slides/Interruptsx2.pdf
 
 
