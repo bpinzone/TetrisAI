@@ -148,9 +148,9 @@ bool Board::has_greater_utility_than(const Board& other) const {
 
     ++gs_num_comparisons;
 
-    if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
-        return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;
-    }
+    // if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
+    //     return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;
+    // }
 
     // You are in tetris mode if you are here or less in height.
     static const int c_max_tetris_mode_height = 6;
