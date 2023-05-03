@@ -1,3 +1,14 @@
+use:
+    bpinzone_cuda_image=gitlab-master.nvidia.com:5005/bpinzone/dot_files/bpinzone_cuda
+    docker image pull $bpinzone_cuda_image
+    nvidia-docker run \
+        --user $(id -u):$(id -g) \
+        -e NVIDIA_VISIBLE_DEVICES=0 --runtime=nvidia  --cap-add=SYS_ADMIN  --rm -it \
+        -v `pwd`:/TetrisAI/ \
+        -w /TetrisAI \
+        $bpinzone_cuda_image \
+        /bin/bash
+
 refer to Blocks by pointer?
     blocks in gmem? need to bother with constant mem?
 get rid of std::optional

@@ -24,7 +24,8 @@ EXECUTABLE 	= main
 DEBUG       = $(EXECUTABLE)_debug
 
 # designate which compiler to use
-CXX			= g++
+# CXX			= g++
+CXX			= nvcc
 
 # list of test drivers (with main()) for development
 TESTSOURCES = $(wildcard test*.cpp)
@@ -48,7 +49,8 @@ PROJECTFILE = main.cpp
 # Strict
 # CXXFLAGS = -std=c++1z -Wconversion -Wall -Werror -Wextra -pedantic
 # I do what I want.
-CXXFLAGS = -std=c++17 -pthread
+# CXXFLAGS = -std=c++17 -pthread
+CXXFLAGS = -Xcompiler="-pthread -std=c++17"
 
 # make release - will compile "all" with $(CXXFLAGS) and the -O3 flag
 #				 also defines NDEBUG so that asserts will not check
