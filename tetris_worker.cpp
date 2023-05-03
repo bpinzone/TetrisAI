@@ -197,10 +197,10 @@ void Tetris_worker::run(){
 
                 num_considered_with_head_down = 0;
 
-                auto curr_time = std::chrono::high_resolution_clock::now();
-                if(curr_time - Tetris_worker::work_start_time > time_limit){
-                    state_stack.clear();
-                }
+                // auto curr_time = std::chrono::high_resolution_clock::now();
+                // if(curr_time - Tetris_worker::work_start_time > time_limit){
+                //     state_stack.clear();
+                // }
 
                 if(state_stack.size() >= c_offload_threshold){
                     attempt_to_offload_work();

@@ -24,8 +24,8 @@ Created by myself and my magnificent roommate [Steven Schulte!](https://github.c
   
 Watch Jeff play in your terminal:
 * $ make
-* $ ./main w [Random integral seed.] [How many moves to look ahead. Between 1 and 7 inclusive.] 6 [Game length.] [Number of logical cores on computer.]
-* Example: $ ./main w 777 4 6 999999999 4
+* "Usage: <mode: wsmr> <block generation: seed# or i> <lookahead> <queue size> <game length> <num threads> <e to see board log, anything else otherwise>"
+* For example: ./main w 0 7 6 100 20 e
 * Notes:
     * If you want to speed him up or slow him down, change how many moves he looks ahead.
     * "Tetris percent" is the percentage of his block placements that result in a tetris.
