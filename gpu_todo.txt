@@ -1,0 +1,18 @@
+refer to Blocks by pointer?
+    blocks in gmem? need to bother with constant mem?
+get rid of std::optional
+get rid of deque iterators
+get rid of std::vectors
+get rid of std::bitset
+    void Board::clear_row(int deleted_row); is in trouble
+get rid of std::array
+__host__ __device__ __forceinline__ everything
+use device LTO: https://developer.nvidia.com/blog/improving-gpu-app-performance-with-cuda-11-2-device-lto/
+
+
+
+
+
+
+
+
