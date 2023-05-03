@@ -17,7 +17,13 @@ using std::runtime_error;
 Play_settings::Play_settings(int argc, char* argv[]){
 
     if(argc != num_settings + 1){
-        throw runtime_error("Usage: <mode: wsmr> <block generation: seed# or i> <lookahead> <queue size> <game length> <num threads>");
+        std::cout <<
+            "Usage: <mode: wsmr> <block generation: seed# or i> <lookahead> <queue size> <game length> <num threads> <e to see board log, anything else otherwise>"
+            "\n"
+            "For example: ./main w 0 7 6 100 20 e"
+            << endl;;
+
+        exit(1);
     }
 
     mode = *argv[1];

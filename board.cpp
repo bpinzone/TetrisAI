@@ -68,6 +68,7 @@ ostream& operator<<(ostream& os, const Board& s) {
 
     os << "All clears: " << s.lifetime_stats.num_all_clears << "\n";
     os << "Tetrises: " << s.lifetime_stats.num_tetrises << "\n";
+    os << "------------------------------------------------\n";
 
     return os;
 }
