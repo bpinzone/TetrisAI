@@ -37,7 +37,8 @@ Placement get_best_move(
         Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
-        int num_placements_to_look_ahead);
+        int num_placements_to_look_ahead,
+        Board *foreseen_board = nullptr);
 
 int main(int argc, char* argv[]) {
 
@@ -97,10 +98,17 @@ void play(const Play_settings& settings){
                 << "Presented with: " << next_to_present->name << "\n";
         }
 
+        Board foreseen_board;
         Placement next_placement = get_best_move(
             board, *next_to_present,
-            queue, settings.lookahead_placements
+            queue, settings.lookahead_placements, &foreseen_board
         );
+
+        if(settings.board_log){
+            Output_manager::get_instance().get_board_os()
+                << "I foresee this board: \n"
+                << foreseen_board << "\n";
+        }
 
         Board new_board{board};
 
@@ -137,11 +145,22 @@ void play(const Play_settings& settings){
             queue.push_back(settings.block_generator->generate());
         }
 
+
         swap(board, new_board);
         if(settings.board_log){
             Output_manager::get_instance().get_board_os() << "\n" << board << endl;
         }
         ++turn;
+
+        Output_manager::get_instance().get_board_os() <<
+            "---- end turn -------------------------------------\n";
+
+        if(board.just_got_non_tetris_clear){
+            std::cout << "Just got non tetris line clear. enter something" << std::endl;
+            string s;
+            std::cin >> s;
+        }
+
     }
 
     cout << "Comparisons per turn: " << static_cast<double>(gs_num_comparisons) / settings.game_length << endl;
@@ -286,7 +305,8 @@ Placement get_best_move(
         Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
-        int num_placements_to_look_ahead){
+        int num_placements_to_look_ahead,
+        Board *foreseen_board){
 
 
     board.load_ancestral_data_with_current_data();
@@ -305,6 +325,7 @@ Placement get_best_move(
     // cout << "This is the worst board I can imagine!\n";
     // cout << best_state << "\n";
 
+    *foreseen_board = best_state.get_board();
     return best_state.get_placement_taken_from_root();
 }
 

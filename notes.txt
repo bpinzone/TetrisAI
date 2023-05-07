@@ -1,3 +1,8 @@
+tetris percent at 4 deep after 20k turns:
+    On commit 6f6e2ff6d4266daf4364dff6e03b092953c953ed
+        9.27379
+
+
 python3 tetris_ai_eyes.py -o | ./main r i 3 6 999999999 12 d | sudo python3 ../switch-controller/bridge.py
 
 https://my.eng.utah.edu/~cs5789/2010/slides/Interruptsx2.pdf

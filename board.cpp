@@ -14,6 +14,9 @@
 // TODO: Replace with individual using statements
 using namespace std;
 
+constexpr int c_max_tetris_mode_height = 6;
+constexpr int c_height_diff_punishment_thresh = 3;
+
 Board::Board(istream& is){
 
     string label;
@@ -68,7 +71,6 @@ ostream& operator<<(ostream& os, const Board& s) {
 
     os << "All clears: " << s.lifetime_stats.num_all_clears << "\n";
     os << "Tetrises: " << s.lifetime_stats.num_tetrises << "\n";
-    os << "------------------------------------------------\n";
 
     return os;
 }
@@ -76,7 +78,13 @@ ostream& operator<<(ostream& os, const Board& s) {
 // Return true iff this board is still promising.
 bool Board::place_block(const Block& b, Placement p){
 
+    const auto start_holes = get_num_holes();
+
     assert(!p.get_is_hold());
+
+    if(&b == &Block::Cyan){
+        ++lifetime_stats.num_cyans_placed;
+    }
 
     const int left_bottom_row = get_row_after_drop(b, p);
 
@@ -130,6 +138,13 @@ bool Board::place_block(const Block& b, Placement p){
 
     update_lifetime_cache(num_rows_cleared_just_now);
     just_swapped = false;
+
+    const auto end_holes = get_num_holes();
+
+    if(end_holes > start_holes){
+        ++lifetime_stats.num_placements_that_created_holes;
+    }
+
     return true;
 }
 
@@ -148,90 +163,74 @@ bool Board::has_greater_utility_than(const Board& other) const {
 
     ++gs_num_comparisons;
 
-    // if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
-    //     return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;
-    // }
+    #define PREFER_LESS(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return this_member < other_member; \
+        }\
+    } while(false);
 
-    // You are in tetris mode if you are here or less in height.
-    static const int c_max_tetris_mode_height = 6;
-    static const int c_height_diff_punishment_thresh = 3;
+    #define PREFER_MORE(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return this_member > other_member; \
+        }\
+    } while(false);
 
-    const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
-    const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
+    #define PREFER_FALSE(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return !this_member; \
+        }\
+    } while(false);
 
-    // === Fundamental Priorities ===
-    if(has_good_trench_status() != other.has_good_trench_status()){
-        return has_good_trench_status();
+    #define PREFER_TRUE(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return this_member; \
+        }\
+    } while(false);
+
+    PREFER_MORE(lifetime_stats.num_all_clears);
+    PREFER_TRUE(has_good_trench_status());
+    PREFER_LESS(get_num_holes());
+
+    PREFER_TRUE(in_tetris_mode);
+
+    if(in_tetris_mode){
+        assert(other.in_tetris_mode);
+        PREFER_TRUE(at_least_one_side_clear);
+        PREFER_LESS(lifetime_stats.num_non_tetrises);
     }
-    // Holes
-    const int this_holes = get_num_holes();
-    const int other_holes = other.get_num_holes();
-    if(this_holes != other_holes){
-        return this_holes < other_holes;
-    }
 
-    // Prefer to be in Tetris mode.
-    if(this_in_tetris_mode != other_in_tetris_mode){
-        return this_in_tetris_mode;
-    }
+    PREFER_FALSE(receives_height_punishment);
 
-    if(this_in_tetris_mode && other_in_tetris_mode){
-        if(at_least_one_side_clear != other.at_least_one_side_clear){
-            return at_least_one_side_clear;
-        }
-        if(lifetime_stats.num_non_tetrises != other.lifetime_stats.num_non_tetrises){
-            return lifetime_stats.num_non_tetrises < other.lifetime_stats.num_non_tetrises;
-        }
-    }
+    if(in_tetris_mode){
 
-    // Keep relatively even except for the one trench.
-    const bool this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
-    const bool other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
-    if(this_receives_height_punishment != other_receives_height_punishment){
-        return !this_receives_height_punishment;
-    }
+        assert(other.in_tetris_mode);
+        PREFER_MORE(lifetime_stats.num_tetrises);
 
-    if(this_in_tetris_mode){
+        PREFER_TRUE(is_tetrisable);
 
-        // Get the tetrises
-        if(lifetime_stats.num_tetrises != other.lifetime_stats.num_tetrises){
-            return lifetime_stats.num_tetrises > other.lifetime_stats.num_tetrises;
-        }
+        PREFER_MORE(second_lowest_height);
+        PREFER_LESS(sum_of_squared_heights);
 
-        // Become tetrisable
-        if(is_tetrisable != other.is_tetrisable){
-            return is_tetrisable;
-        }
-
-        // Build up
-        // Make the 2nd shortest column as large as possible.
-        // Encourges alg to build a solid mass of blocks, but not clear rows,
-        // in order to get to the point where we can forsee being tetris-able.
-        if(second_lowest_height != other.second_lowest_height){
-            return second_lowest_height > other.second_lowest_height;
-        }
-
-        if(sum_of_squared_heights != other.sum_of_squared_heights){
-            return sum_of_squared_heights < other.sum_of_squared_heights;
-        }
-        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
+        PREFER_LESS(lifetime_stats.max_height_exp_moving_average);
 
     }
     else{
 
-        if(num_trenches != other.num_trenches){
-            return num_trenches < other.num_trenches;
-        }
-
-        if(num_cells_filled != other.num_cells_filled){
-            return num_cells_filled < other.num_cells_filled;
-        }
-
-        if(sum_of_squared_heights != other.sum_of_squared_heights){
-            return sum_of_squared_heights < other.sum_of_squared_heights;
-        }
-        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
+        PREFER_LESS(num_trenches);
+        PREFER_LESS(num_cells_filled);
+        PREFER_LESS(sum_of_squared_heights);
+        PREFER_LESS(lifetime_stats.max_height_exp_moving_average);
     }
+
+    return false; // arbitrary.
 
 }
 
@@ -436,6 +435,7 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
 
         // count and keep track of a trench.
         if(left_height - middle_height >= min_depth_considered_trench
+                // || right_height - middle_height >= min_depth_considered_trench){
                 && right_height - middle_height >= min_depth_considered_trench){
             ++num_trenches;
             some_trench_height = middle_height;
@@ -445,6 +445,8 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
         middle_height = right_height;
         right_height = (col_x == c_cols - 2) ? impossibly_high_wall : height_map[col_x + 2];
     }
+    receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
+    in_tetris_mode = highest_height <= c_max_tetris_mode_height;
 
     is_tetrisable =
         num_trenches == 1
@@ -458,6 +460,8 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
 
 void Board::update_lifetime_cache(int num_rows_cleared_just_now){
 
+    just_got_non_tetris_clear = false;
+
     ++lifetime_stats.num_blocks_placed;
     if(num_rows_cleared_just_now > 0){
         ++lifetime_stats.num_placements_that_cleared_rows;
@@ -466,6 +470,7 @@ void Board::update_lifetime_cache(int num_rows_cleared_just_now){
         }
         else{
             ++lifetime_stats.num_non_tetrises;
+            just_got_non_tetris_clear = true;
         }
     }
     if(is_clear()){

@@ -15,9 +15,12 @@ struct Board_lifetime_stats {
     int num_blocks_placed = 0;
     int num_placements_that_cleared_rows = 0;
     int num_tetrises = 0;
+    int num_cyans_placed = 0;
     int num_non_tetrises = 0;
     int num_all_clears = 0;
     double max_height_exp_moving_average = 0;
+    int num_placements_that_created_holes = 0;
+
 };
 
 struct Ancestor_data {
@@ -64,6 +67,9 @@ public:
     bool is_clear() const;
 
     Board_lifetime_stats get_lifetime_stats() const;
+
+    // telemetry
+    bool just_got_non_tetris_clear = false;
 
 private:
 
@@ -121,6 +127,8 @@ private:
     int second_lowest_height = 0;
     int highest_height = 0;
     int sum_of_squared_heights = 0;
+    bool receives_height_punishment = false;
+    bool in_tetris_mode = true;
     // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
     bool is_tetrisable = false;
 
@@ -130,6 +138,8 @@ private:
 
     // === Ancestral Data. Choose carefully when to manipulate this. ===
     Ancestor_data ancestor_with_smallest_max_height;
+
+
 
 };
 
