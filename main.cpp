@@ -156,9 +156,9 @@ void play(const Play_settings& settings){
             "---- end turn -------------------------------------\n";
 
         if(board.just_got_non_tetris_clear){
-            std::cout << "Just got non tetris line clear. enter something" << std::endl;
-            string s;
-            std::cin >> s;
+            // std::cout << "Just got non tetris line clear. enter something" << std::endl;
+            // string s;
+            // std::cin >> s;
         }
 
     }
