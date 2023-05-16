@@ -195,42 +195,48 @@ bool Board::has_greater_utility_than(const Board& other) const {
         }\
     } while(false);
 
-    PREFER_MORE(lifetime_stats.num_all_clears);
+    // this commit has lower TSOL than main on:
+    /*
+    ./main w 0 4 6 1000 1 e
+        On main
+        Comparisons: 185178753
+        Turn: 999
+        Tetris percent:9.42813 %
+
+    ./main w 0 4 6 500 1 e
+        full
+            Tetris percent:9.49367 %
+
+        trench status and holes
+            Tetris percent:9.49367 %
+
+        up to num non tetrises
+            Tetris percent:9.49367 %
+
+    */
+
+    // === Fundamental Priorities ===
     PREFER_TRUE(has_good_trench_status());
     PREFER_LESS(get_num_holes());
-
     PREFER_TRUE(in_tetris_mode);
-
     if(in_tetris_mode){
-        assert(other.in_tetris_mode);
         PREFER_TRUE(at_least_one_side_clear);
         PREFER_LESS(lifetime_stats.num_non_tetrises);
     }
-
     PREFER_FALSE(receives_height_punishment);
-
     if(in_tetris_mode){
-
-        assert(other.in_tetris_mode);
         PREFER_MORE(lifetime_stats.num_tetrises);
-
         PREFER_TRUE(is_tetrisable);
-
-        PREFER_MORE(second_lowest_height);
-        PREFER_LESS(sum_of_squared_heights);
-
-        PREFER_LESS(lifetime_stats.max_height_exp_moving_average);
-
     }
     else{
-
         PREFER_LESS(num_trenches);
         PREFER_LESS(num_cells_filled);
-        PREFER_LESS(sum_of_squared_heights);
-        PREFER_LESS(lifetime_stats.max_height_exp_moving_average);
     }
 
-    return false; // arbitrary.
+    PREFER_MORE(second_lowest_height);
+    PREFER_LESS(sum_of_squared_heights);
+    PREFER_LESS(lifetime_stats.max_height_exp_moving_average);
+    return false;
 
 }
 
