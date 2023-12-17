@@ -1,0 +1,11 @@
+  +-o AppleUSBXHCI Root Hub Simulation@14000000  <class AppleUSBRootHubDevice, id 0x10000031c, registered, matched, active, busy 0 (3 ms), retain 12>
+    +-o Apple Internal Keyboard / Trackpad@14400000  <class AppleUSBDevice, id 0x100010bc5, registered, matched, active, busy 0 (34 ms), retain 15>
+    +-o BRCM20702 Hub@14300000  <class AppleUSBDevice, id 0x100010c02, registered, matched, active, busy 0 (0 ms), retain 12>
+    | +-o Bluetooth USB Host Controller@14330000  <class AppleUSBDevice, id 0x100010c19, registered, matched, active, busy 0 (0 ms), retain 17>
+    +-o USB3.0 Hub             @14500000  <class AppleUSBDevice, id 0x1000115ec, registered, matched, active, busy 0 (0 ms), retain 12>
+    | +-o USB 10/100/1000 LAN@14540000  <class AppleUSBDevice, id 0x100011617, registered, matched, active, busy 0 (22 ms), retain 13>
+    +-o USB2.0 Hub             @14100000  <class AppleUSBDevice, id 0x100011601, registered, matched, active, busy 0 (0 ms), retain 15>
+      +-o USB Receiver@14130000  <class AppleUSBDevice, id 0x100011639, registered, matched, active, busy 0 (28 ms), retain 15>
+      +-o Moonlander Mark I@14120000  <class AppleUSBDevice, id 0x100011655, registered, matched, active, busy 0 (30 ms), retain 15>
+      +-o Anker USB-C Hub Device @14150000  <class AppleUSBDevice, id 0x1000116c0, registered, matched, active, busy 0 (0 ms), retain 9>
+      +-o TTL232R@14110000  <class AppleUSBDevice, id 0x100011781, registered, matched, active, busy 0 (9 ms), retain 11>

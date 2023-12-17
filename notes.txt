@@ -1,5 +1,11 @@
 python3 tetris_ai_eyes.py -o | ./main r i 3 6 999999999 12 d | sudo python3 ../switch-controller/bridge.py
 
+capture card hopefully same one:
+    https://www.amazon.com/PDAPTMAG-Camcorder-Streaming-Conference-Teaching/dp/B097QX7726
+
+mac opencv webcam
+https://www.youtube.com/watch?v=FygLqV15TxQ
+
 https://my.eng.utah.edu/~cs5789/2010/slides/Interruptsx2.pdf
 
 

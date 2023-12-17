@@ -451,6 +451,7 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
         && second_lowest_height >= some_trench_height + 4;
 
     if(highest_height < ancestor_with_smallest_max_height.highest_height){
+        // NOTE: questionable. Its not just height that we care about. There are other things in here.
         load_ancestral_data_with_current_data();
     }
 }

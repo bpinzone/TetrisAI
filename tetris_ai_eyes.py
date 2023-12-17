@@ -9,7 +9,15 @@ from datetime import datetime
 from pynput.keyboard import Listener, Key
 import queue
 import threading
+import multiprocessing
 import copy
+from matplotlib import pyplot as plt
+import time
+
+# pip3 install opencv-python
+# pip3 install scipy
+# pip3 install pynput
+# pip3 install matplotlib
 
 interrupted = True
 res = (640, 480)
@@ -32,7 +40,7 @@ piece_colors = {
     'c': np.array([255,255,224])
 }
 
-debugging_processing_queue = queue.Queue(maxsize = 1000)
+# debugging_processing_queue = queue.Queue(maxsize = 1000)
 
 def interupt(key):
     global interrupted
@@ -60,7 +68,11 @@ def show_sections(image_mask, rows, cols):
                 ) for pic_row in np.array_split(image_mask, rows, axis=0)]
             )
 
-default_video = 0 # '/dev/video0'
+# windows
+# default_video = 0 # '/dev/video0'
+
+# mac
+default_video = 1 # found experimentally via commented out lines at top of main
 
 threshold_to_not_be_empty = 80
 cutoff_to_not_be_stars = 210
@@ -69,6 +81,7 @@ writer = None
 debug_writer = None
 
 def debug_loop():
+    assert False
     global debug_writer
     global writer
     global upper_left_hold
@@ -143,9 +156,13 @@ def debug_loop():
         scale_factor = 2
         # if args.big_debug_image:
             # debug_image = cv2.resize(debug_image, (debug_image.shape[1] * scale_factor, debug_image.shape[0] * scale_factor))
-        cv2.imshow('debug image', debug_image)
+        # mac: try removing this, doesn't work. Results in assertion failure inside opencv code
+        # cv2.imshow('debug image', debug_image)
 
-        cv2.waitKey(1)
+        plt.imshow(debug_image)
+        plt.show()
+
+        # cv2.waitKey(1)
 
         t_before_writes = time.time()
 
@@ -175,6 +192,24 @@ def debug_loop():
 
 
 def main():
+
+    multiprocessing.set_start_method('spawn')
+    debug_fout = open("eyes_debug.txt", "w")
+    debug_fout.write('debug test\n')
+    debug_fout.flush()
+
+    # this works
+    capture = cv2.VideoCapture(1)
+    ret, frame = capture.read()
+    ret, frame = capture.read()
+    ret, frame = capture.read()
+    ret, nice_frame_bro = capture.read()
+    # print(ret)
+    plt.imshow(frame)
+    # plt.show()
+    # return
+
+
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--video', help='path to video file. Uses webcam otherwise', default=default_video)
     parser.add_argument('-d', '--debug', help='write the debug video', action='store_true')
@@ -186,12 +221,14 @@ def main():
     args = parser.parse_args()
 
 
-    debug_thread = threading.Thread(target=debug_loop)
-    debug_thread.keep_going = True
-    debug_thread.start()
+    # debug_thread = threading.Thread(target=debug_loop)
+    # debug_thread.keep_going = True
+    # debug_thread.start()
 
     # Figure out where we are getting our images from:
-    capture = cv2.VideoCapture(args.video)
+    # capture = cv2.VideoCapture(args.video)
+    # capture = cv2.VideoCapture(1)
+    debug_fout.write(f"video cap {args.video}\n")
     global writer
     global debug_writer
     global res
@@ -207,10 +244,11 @@ def main():
     global num_rows
     global num_cols
     if args.video == default_video:
-        assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
-        assert capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
-        assert capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
-        assert capture.set(cv2.CAP_PROP_FPS, int(fps))
+        pass
+        # assert capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M','J','P','G'));
+        # assert capture.set(cv2.CAP_PROP_FRAME_WIDTH, res[0])
+        # assert capture.set(cv2.CAP_PROP_FRAME_HEIGHT, res[1])
+        # assert capture.set(cv2.CAP_PROP_FPS, int(fps))
 
 
     def get_bw_mask(image, check_if_too_bright=False):
@@ -276,8 +314,11 @@ def main():
                     if len(x) == 0:
                         continue
 
+                    # if True:
                     if x == 'play':
                         # resume play
+                        debug_fout.write("we are playing\n.")
+                        debug_fout.flush()
                         interrupted = False
 
                         dt_string = ""
@@ -311,7 +352,44 @@ def main():
                     # Do a loop of regular tetris play.
                     t_before_read = time.time()
                     ret, frame = capture.read()
+
+                    frame = nice_frame_bro
+
+                    debug_fout.write("we are about to acces the frame\n")
+                    debug_fout.flush()
+                    debug_fout.write(f"{frame}")
+                    debug_fout.flush()
+                    debug_fout.write(f"{frame.shape}")
+                    debug_fout.flush()
+                    debug_fout.write(f"{frame.dtype}")
+                    debug_fout.flush()
+                    # cv2.imshow('bpinzone image', frame)
+
+                    # plt.imshow(frame)
+
+
+                    debug_fout.write("we didn't crash after imshow\n")
+                    debug_fout.flush()
+
+                    plt.show()
+
+                    debug_fout.write("we didn't crash after show\n")
+                    debug_fout.flush()
+
+                    # plt.imshow(frame)
+                    # plt.show()
+                    # cv2.waitKey(10000)
+
+                    debug_fout.write("we didn't crash after waitKey\n")
+                    debug_fout.flush()
+
+
                     t0 = time.time()
+                    debug_fout.write(f"time: {time.time()}, and we just read a frame\n")
+                    debug_fout.flush()
+
+                    # print("ret:", ret)
+                    # print("jeff just read a frame")
 
                     if not ret:
                         print('Out of video. Exiting.')
@@ -403,6 +481,10 @@ def main():
                     queue_shifted = all_locked_in and (observed_queue[0][0] != queue_last_frame[0][0] or observed_queue[1][0] != queue_last_frame[1][0])
 
                     if queue_shifted:
+                        debug_fout.write(f"time: {time.time()}, and THE QUEUE JUST SHIFTED\n")
+                        debug_fout.flush()
+
+                        # print("the queue has shifted")
 
                         if presented is None:
                             presented = queue_last_frame[0][0]
@@ -439,6 +521,8 @@ def main():
                         last_held_block = hold # only update when the queue changes
                         presented = queue[0][0]
                     else:
+                        debug_fout.write(f"time: {time.time()}, and the queue did NOT shift\n")
+                        debug_fout.flush()
                         # Sanity check assert
                         # TODO maybe don't have this risk? just choose one?
                         if queue_last_frame is not None:
@@ -457,7 +541,8 @@ def main():
                     # TODO: put this back.
                     # TODO: put this back.
                     # TODO: put this back.
-                    debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
+
+                    # debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
 
                     # debugging_processing_queue.put((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
 
@@ -466,7 +551,7 @@ def main():
     except KeyboardInterrupt:
 
         capture.release()
-        debug_thread.keep_going = False
+        # debug_thread.keep_going = False
         # Eliminate the possibility of deadlock by adding something to queue after keep going set to false
 
         # debugging_processing_queue.put((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
@@ -475,9 +560,9 @@ def main():
         # TODO: put this back.
         # TODO: put this back.
         # TODO: put this back.
-        debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
+        # debugging_processing_queue.put_nowait((copy.deepcopy(frame), copy.deepcopy(board), copy.deepcopy(queue), copy.deepcopy(hold), copy.deepcopy(board_obscured)))
 
-        debug_thread.join()
+        # debug_thread.join()
 
 
 # coord is an array. [row, col]
@@ -509,7 +594,7 @@ def generate_correct_board(board):
     # 0, 1 is the top left but one cell to the right.
 
     # Things get confirmed BEFORE going into the frontier.
-    confirmed_cells = np.zeros_like(board, dtype=np.bool)
+    confirmed_cells = np.zeros_like(board, dtype=bool)
 
     frontier = [(num_rows - 1, col_x) for col_x in range(0, num_cols) if board[num_rows - 1, col_x]]
     for coord in frontier:

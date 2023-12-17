@@ -24,6 +24,7 @@ EXECUTABLE 	= main
 DEBUG       = $(EXECUTABLE)_debug
 
 # designate which compiler to use
+# didn't we change this to nvcc on windows? lmao
 CXX			= g++
 
 # list of test drivers (with main()) for development
