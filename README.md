@@ -87,12 +87,12 @@ Separating by color proved to be a headache: sure, we could determine RGB thresh
 
 We ended up opting for another approach: we relied instead on the differing shapes of the pieces. Because pieces always appear in the same place, we decided to save an image of each possible piece in every possible space it could appear in (the hold or any of the 6 positions in the queue) and simply compare them to the actual image we were seeing in the video stream. In theory, the section of the image we're seeing live should exactly match one of our reference photos. In practice, it's not that simple (for reasons I'll discuss later), so we used "empty/full" image masks like we used in our analysis of the board (effectively making the image black or white) and then compared what we saw in each image to each possible piece, then chose the best match.
 
-| Observed piece                  | Observed piece (B&W)    |  Proposed match         | Proposed piece (B&W)        | Matching pixels   | Best match? |
-|---------------------------------|-------------------------|-------------------------|-----------------------------|-------------------|-------------|
-| ![Green Piece](public/green-piece-upscaled.png) |   ![Green black and white](public/green-piece-bw.png)          | ![Purple Piece](public/purple-piece-upscaled.png) | ![Purple black and white](public/purple-piece-bw.png) | ![Green/purple matches](public/is-it-purple.png) | No |
-| ![Green Piece](public/green-piece-upscaled.png) |   ![Green black and white](public/green-piece-bw.png)          | ![Orange Piece](public/orange-piece-upscaled.png) | ![Orange black and white](public/orange-piece-bw.png) | ![Green/purple matches](public/is-it-orange.png) | No |
-... (all other pieces) ...
-| ![Green Piece](public/green-piece-upscaled.png) |   ![Green black and white](public/green-piece-bw.png)          | ![Green Piece](public/green-piece-upscaled.png) | ![Green black and white](public/green-piece-bw.png) | ![Green/purple matches](public/is-it-green.png) | Yes |
+| Observed piece                                  | Observed piece (B&W)                                |  Proposed match                                   | Proposed piece (B&W)                                  | Matching pixels                                       | Best match? |
+| ----------------------------------------------- | --------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------- |
+| ![Green Piece](public/green-piece-upscaled.png) | ![Green black and white](public/green-piece-bw.png) | ![Purple Piece](public/purple-piece-upscaled.png) | ![Purple black and white](public/purple-piece-bw.png) | ![Green/purple matches](public/is-it-purple.png)      | No          |
+| ![Green Piece](public/green-piece-upscaled.png) | ![Green black and white](public/green-piece-bw.png) | ![Orange Piece](public/orange-piece-upscaled.png) | ![Orange black and white](public/orange-piece-bw.png) | ![Green/purple matches](public/is-it-orange.png)      | No          |
+|                                                 |                                                     | ...all other pieces...                            |                                                       |                                                       |             |
+| ![Green Piece](public/green-piece-upscaled.png) | ![Green black and white](public/green-piece-bw.png) | ![Green Piece](public/green-piece-upscaled.png)   | ![Green black and white](public/green-piece-bw.png)   | ![Green/purple matches](public/is-it-green.png)       | Yes         |
 
 With these techniques, we were able to read the board, the hold, and the upcoming queue. But there was one more caveat: in addition to knowing what the state of the board was, Jeff's eyes serve as our algorithm's clock. To a human playing the game, it's pretty clear when you're 'allowed' to place your next block, but we needed to know algorithmically. Jeff's eyes would output the next game state only after the previous play had finished and the game was ready to accept our button presses. Fortunately, there was an easy fix: every time the game is ready for the player to make their next move, the queue shifts to present the player with the next piece, so we just needed to output the state every time the queue changed.
 
@@ -110,15 +110,13 @@ Yes, the sparkles can make us read the board incorrectly—but more concerningly
 
 Of course, the sparkles and other effects could still cause problems with reading the board. We tried several methods to mitigate it, but the most successful, by far, wasn't a computer vision technique. In fact, it might be the opposite of a computer vision technique.
 
-<blockquote>
-The student stumbled out of the Maze of Illusions and approached his teacher, defeated.
-
-"Teacher, I have failed. After a hundred attempts, I still have not learned to tell what is real from what is fake."
-
-"Ah, but that is not what you are here to learn," the teacher replied. "You are here to learn to close your eyes."
-
-—Roboticist koan
-</blockquote>
+> The student stumbled out of the Maze of Illusions and approached his teacher, defeated.
+> 
+> "Teacher, I have failed. After a hundred attempts, I still have not learned to tell what is real from what is fake."
+> 
+> "Ah, but that is not what you are here to learn," the teacher replied. "You are here to learn to close your eyes."
+> 
+> —Roboticist koan
 
 We know the move Jeff intends to make, and how the board will look when that piece lands, so we know what the board should look like the next time we get to move. When Jeff is about to clear some lines and cause the sparkles, or when the board is just unusually bright, we figured we were better off using what we think the board will look like next rather than a sparkly mess.
 
@@ -240,6 +238,6 @@ Conclusion, Part 2—also, hire me?
 
 I'm starting to look for work in the Midwest of the USA right now (January 2025—what are the odds that I'd find myself finally making a writeup about an interesting, years-old project at exactly the same time I start looking for work? 😛). If you think I'd be a good fit for an opportunity and you'd like me to know about it, feel free to contact me at TODO.
 
-A final thought about Jeff: you can understand each part of a system individually and still find it stunning when all the parts move in tandem together, and there's still something surreal about watching Jeff slam piece after piece into place even when you understand all the algorithms in motion to let him make those plays. It was a joy to work on him. Jeff was a bright light in my 2020 landscape, a world in which there was everything to watch but nothing to do, and I'm grateful this project for giving us a challenge which granted a new texture to the slurry of days.
+A final thought about Jeff: you can understand each part of a system individually and still find it stunning when all the parts move in tandem together. There's something surreal and beautiful about watching Jeff slam piece after piece into place that somehow both transcends and elevates all the Python dependencies and linker errors, like spending months in a factory before you could witness a plane it built take off for the first time. Jeff was a bright, beautiful light in my 2020 landscape, a world in which there was everything to watch but nothing to do, and I'm grateful to this project for giving us a challenge which granted a new texture to the slurry of days.
 
 ![Screenshot of the "Tetris Maximus" screen. Victory!](public/tetris-maximus.png)
