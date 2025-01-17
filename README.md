@@ -1,7 +1,7 @@
 First place in Tetris 99 using computer vision, classical AI, and a whole lot of free time
 ======
 
-Tetris 99 is a video game for the Nintendo Switch that combines the thrill of battle royale games with the gameplay of, well, Tetris. The rules are similar to traditional Tetris, but in addition to the game speeding up over time, there is an additional challenge: when players perform high-scoring moves, the game sends lines of blocks to opponents' boards, which fill up the bottom of their play area, pushing their blocks upwards and bringing them closer to a game over. The last player remaining, of course, is the victor, and attains the coveted title of Tetris Maximus.
+Tetris 99 is a video game for the Nintendo Switch that combines the thrill of battle royale games with the gameplay of Tetris. The rules are similar to traditional Tetris. The game speeds up over time, but there is another challenge: when players perform high-scoring moves, the game sends lines of junk blocks to opponents' boards, which fill up the bottom of their play area, pushing their blocks upwards and bringing them closer to a game over. The last player remaining, of course, is the victor, and attains the coveted title of Tetris Maximus.
 
 In the time-honored tradition of programmers, while my roommate [Ben](https://github.com/bpinzone) was playing one night, [I](https://github.com/spschul) thought "you know, it wouldn't be too hard to write a bot to play this, without even hacking the Switch. You'd just have to...well...
 
@@ -12,9 +12,11 @@ In the time-honored tradition of programmers, while my roommate [Ben](https://gi
 
 ...none of which sounds that hard, right?"
 
+<as I recall it was more like: one of us said "it wouldn't be that bad to write an ai for this". other said "I'd do it". Other said "I'd do it". Also we never intended to actually have it play for us initially. We just thought it would be cool to see it play in the terminal. But after that we said "lets just quickly see what it would take to have it actually play for us" and it turned out to be quite possible.>
+
 Easy.
 
-Ninety-nine percent of the time, it would've been an idle thought that went nowhere, but this particular idle thought occurred during May 2020. Everything was shut down due to COVID, and Ben and I had both just graduated and were bored out of our minds. So we decided to give it a shot.
+Ninety-nine percent of the time, it would've been an idle thought that went nowhere, but this particular idle thought occurred during May 2020. Everything was shut down due to COVID, and Ben and I had both just graduated and were bored out of our minds. <speak for yourself!> So we decided to give it a shot.
 
 A few months later, we recorded this video of our Tetris-playing algorithm—dubbed "Jeff" in honor of [this video of the 2016 Tetris World Championship](https://www.youtube.com/watch?v=QV_0CcF9-RM)—getting first place (against human players—discussed [later in this writeup](#try-to-avoid-side-projects-where-success-will-make-you-feel-bad)).
 
@@ -120,6 +122,8 @@ Of course, the sparkles and other effects could still cause problems with readin
 
 We know the move Jeff intends to make, and how the board will look when that piece lands, so we know what the board should look like the next time we get to move. When Jeff is about to clear some lines and cause the sparkles, or when the board is just unusually bright, we figured we were better off using what we think the board will look like next rather than a sparkly mess.
 
+<as I recall any time you get a line clear, junk cannot come in. So we are guaranteed to at least know the next state if we get a line clear. In that case the brain just makes what it knows is the next move after the queue shifts. >
+
 There are pitfalls to this "going blind" approach: your previous reading of the game might be wrong, the game can insert lines of blocks sent by your opponents (though it seems to do so only after placements that didn't clear any lines), and you might misplace a block. Still, we found "going blind" in sparkly scenarios to be very useful, and we ended up with a computer vision pipeline that, for our purposes, was good enough.
 
 The Brain
@@ -127,7 +131,7 @@ The Brain
 
 The goal of Jeff's brain is to take a text-based representation of the game state and determine what move should come next. Then it determines which buttons Jeff's hands need to press and passes the list of buttons on to Jeff's hands.
 
-Our plan was simple: write a fast Tetris implementation that would allow us to provide our board state (including the upcoming pieces for our next few moves), then search all possible sequences of moves we could make with depth-first search, find the one that ended up with the best board, and perform the first block placement of that optimal move sequence. There were only two small problems: we didn't know how to define what board state was "best", and even if we did, there were too many possibilities to search through while still running in real time.
+Our plan was simple: write a fast Tetris implementation that would allow us to provide our board state (including the upcoming pieces for our next few moves), then search all possible sequences of moves we could make with depth-first search, find the one that ended up with the best board, and perform the first block placement of that optimal move sequence. There were only two small problems: we didn't know how to define what board state was "best", and even if we did, there were too many possibilities to search through while still running in real time. <this last part is not true? 3 deep is tons of states, is fast enough, and has high enough quality plays...I guess you could mentiont the hole pruning sooner.>
 
 ### What is a 'good' game state?
 
@@ -138,6 +142,8 @@ I should note: neither Ben nor I are very knowledgeable about Tetris. There are 
 We tried many, many iterations of our utility function. Writing the utility function was basically an exercise in [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart%27s_law). Want the tallest column to stay low? Jeff tries to build a flat board where he'll never be able to clear lines. Want the pieces to neatly fit together, not leaving any hard-to-fill gaps? Jeff will refuse to make holes even when he needs to cut his losses and leave some spots unfilled to prevent the board from getting too high.
 
 Our final utility function was ~~overengineered~~ very technical and full details are beyond the scope of this explanation; however, it had a few core priorities: have only one "trench" (a place for a long piece to be inserted), avoid "holes" (gaps in the stack of blocks), and try to stay in "Tetris mode", which is when the highest column on the board is no taller than 6 blocks (otherwise, Jeff enters "survival mode" and tries to clear rows).
+
+< while the final utility function was difficult to come up with, its not that complicated in the end. I made it more readable here: https://github.com/bpinzone/TetrisAI/blob/1b538f3a58230a975dd660724c21ac383fe49d95/board.cpp#L219   the key part is keeping a trench, and if you don't foresee a tetris, building up the second lowest position, and keeping it not too differrent from the highest position.>
 
 ![Tetris 99 screenshot with the empty gaps in the stack of blocks indicated as "holes"](public/holes-example.png)
 
@@ -165,7 +171,7 @@ So it's nice to be able to consider sequences of moves create more holes, like t
 
 #### What about just making the program run more quickly?
 
-We did that as well! We did a lot of profiling (which is not, of course, to say that it's 'done' or that there weren't any major bottlenecks we missed), leading to a lot of optimizations and refactors to speed up our Tetris simulation. We used a fairly simple depth-first search to consider the millions of possible move sequences, and redesigned it whenever we thought we could get a significant performance benefit. We made a work queue and multithreaded it, which made it a few times faster. Ben wanted to GPU-accelerate it, though we both knew it wouldn't really help—Jeff's limitations were elsewhere.
+We did that as well! We did a lot of profiling (which is not, of course, to say that it's 'done' or that there weren't any major bottlenecks we missed), leading to a lot of optimizations and refactors to speed up our Tetris simulation. <I think we at least 4x'd the single thread perf. Not sure. Maybe 6x> We used a fairly simple depth-first search to consider the millions of possible move sequences, and redesigned it whenever we thought we could get a significant performance benefit. We made a work queue and multithreaded it, which made it a few times faster <it has linear speedup wrt the core count as expected>. Ben wants :) to GPU-accelerate it, though we both knew it wouldn't really help—Jeff's limitations were elsewhere.
 
 ### Sending Instructions
 
@@ -183,7 +189,7 @@ The issue was in our utility function. At the time, we had an explicit utility f
 
 If I squint, I can peer into the future and foresee that some people will ask: what about using machine learning—specifically, reinforcement learning—to learn the best move, rather than hand-coding a utility function? Didn't I read [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html)? Aren't I bitter-pilled?
 
-Yeah, it would've been really cool, and it would've avoided basically all the pitfalls of the utility-function-based approach. It would definitely be the right choice if we wanted Jeff to be the best possible Tetris-playing robot. I've done some reinforcement learning, but trying to make a Tetris-playing RL agent would've been the most advanced project I'd done with it, an it would've turned this side project into a much more complex research project—I don't know if we could've produced a good model on a hobbyist's allotment of time and money. Maybe someday.
+Yeah, it would've been really cool, and it would've avoided basically all the pitfalls of the utility-function-based approach. It would definitely be the right choice if we wanted Jeff to be the best possible Tetris-playing robot <thats debatable given the SOL analysis below>. I've done some reinforcement learning, but trying to make a Tetris-playing RL agent would've been the most advanced project I'd done with it, an it would've turned this side project into a much more complex research project—I don't know if we could've produced a good model on a hobbyist's allotment of time and money. Maybe someday.
 
 The Hands
 ------
@@ -203,7 +209,7 @@ In the end, Jeff's hands were fast enough to get him into first place, which let
 Conclusion, Part 1
 ------
 
-The video of Jeff getting first place showcases Jeff at his best. As mentioned, he'd usually lose in the later stages of the game.
+The video of Jeff getting first place showcases Jeff at his best. As mentioned, he'd usually lose in the later stages of the game. <he consistently gets at least 15th place>
 
 I'm reasonably confident that, with effort, Jeff could become nigh-unbeatable. As time passed it became more and more unlikely that we we'd come back to Jeff and start making major improvements. Besides, we had a lot of fun writing Jeff, but I don't want to take away well-deserved victories from human Tetris 99 players. So, at this point, Ben and I are happy to call Jeff a successful side project.
 
@@ -211,21 +217,23 @@ A few miscellaneous takeaways:
 
 ### Pair programming is unexpectedly interesting
 
-We pair-programmed almost the entirety of the C++ Tetris simulation and move selector, usually on Ben's computer, and it was surprising just how productive that arrangement felt. Most of our time was spent hunting down and catching bugs, and it was much, much easier to catch errors early if one person didn't even have to type and could instead devote their brainpower to asking themselves "is this going to work?" Also, we benefitted immensely from being able to discuss program design as we were writing the program. I'm sure it would depend on the person—Ben was an excellent co-programmer—but regret that I haven't had many other chances to pair program since this project.
+We pair-programmed almost the entirety of the C++ Tetris simulation and move selector, usually on Ben's computer, and it was surprising just how productive that arrangement felt. Most of our time was spent hunting down and catching bugs, and it was much, much easier to catch errors early if one person didn't even have to type and could instead devote their brainpower to asking themselves "is this going to work?" Also, we benefitted immensely from being able to discuss program design as we were writing the program. I'm sure it would depend on the person—Ben was an excellent co-programmer—but <I> regret that I haven't had many other chances to pair program since this project.
 
 ### Define a "light speed", if possible
 
-One of the things that Ben brought up while doing the project, that I probably never would've thought about, was that we should define what Nvidia calls "light speed" for Jeff's skill at Tetris—a theoretical 'best' that it is impossible to exceed, so that you can tell how much it's possible for your program to improve. In our case, Ben wanted to define what Jeff would ideally do. After researching how Tetris 99 decides how many lines you'll send your opponents, we determined that Jeff should just try to get as many Tetrises (4-line clears) as possible. We reasoned that because each piece is made of 4 little blocks and a Tetris clears 40 blocks, then the maximum possible rate of Tetris per block placements is 10%.
+One of the things that Ben brought up while doing the project, that I probably never would've thought about, was that we should define what Nvidia calls "speed of light" for Jeff's skill at Tetris—a theoretical 'best' that it is impossible to exceed, so that you can tell how much it's possible for your program to improve. In our case, Ben wanted to define what Jeff would ideally do. After researching how Tetris 99 decides how many lines you'll send your opponents, we determined that Jeff should just try to get as many Tetrises (4-line clears) as possible. We reasoned that because each piece is made of 4 little blocks and a Tetris clears 40 blocks, then the maximum possible rate of Tetris per block placements is 10%.
+
+<of course I didn't know SOL analysis at the time, but this was my thought process: at one point, jeff started to get REALLY good. And I wanted a concrete numerical way to measure quality. So I came up with that upper bound and found we were shockingly close.>
 
 I don't think I would've thought of the 'Tetris percent' metric on my own, but it helped us a lot when comparing utility functions, and it also helped us realize when our utility function was getting Tetrises 9.9% of the time and we couldn't get it much better.
 
 ### Always Write a Visualization Program
 
-I eventually added a visualization script to Jeff's eyes that would show what Jeff's eyes thought the board state was, which was an incredible decision and I should've done it much earlier. Visualization programs usually feel like they're going to be really annoying to write, and then you write them and realize you've been basically just guessing how your program worked this whole time. I'll always put them off because I'm "almost done", but usually the best way to tell whether you're almost done is to by checking your visualization program to see how well your program is doing.
+I eventually added a visualization script to Jeff's eyes that would show what Jeff's eyes thought the board state was, which was an incredible decision and I should've done it much earlier. Visualization programs usually feel like they're going to be really annoying to write, and then you write them and realize you've been basically just guessing how your program worked this whole time. I'll always put them off because I'm "almost done", <LOL, so true> but usually the best way to tell whether you're almost done is to by checking your visualization program to see how well your program is doing.
 
 ### Faulty Optimums Still Kinda Look Optimal
 
-Any algorithm that performs some kind of optimization, from gradient descent to A*, suffers the same difficulty while being debugged: the fact that my puny human eyes are too weak to fathom the vast depths of the possibility space to see which brilliant maneuvers went overlooked. The algorithm produces an output, and I give it a squint and an "LGTM". If there was a slight inaccuracy the utility function, how would I know?
+Any algorithm that performs some kind of optimization, from gradient descent to A*, suffers the same difficulty while being debugged: the fact that my puny human eyes are too weak to fathom the vast depths of the possibility space to see which brilliant maneuvers went overlooked. The algorithm produces an output, and I give it a squint and a "LGTM". If there was a slight inaccuracy the utility function, how would I know?
 
 I'm not sure if there are good ways around this. Rigorous testing, maybe, but it's hard to improve your algorithm by observation once it's not making obvious mistakes. This is, perhaps, one of the promises of using reinforcement learning without human play training: if your algorithm is able to achieve human-level performance, it's probably correct enough to continue well into superhuman performance.
 
@@ -241,3 +249,10 @@ I'm starting to look for work in the Midwest of the USA right now (January 2025�
 A final thought about Jeff: you can understand each part of a system individually and still find it stunning when all the parts move in tandem together. There's something surreal and beautiful about watching Jeff slam piece after piece into place that somehow both transcends and elevates all the Python dependencies and linker errors, like spending months in a factory before you could witness a plane it built take off for the first time. Jeff was a bright, beautiful light in my 2020 landscape, a world in which there was everything to watch but nothing to do, and I'm grateful to this project for giving us a challenge which granted a new texture to the slurry of days.
 
 ![Screenshot of the "Tetris Maximus" screen. Victory!](public/tetris-maximus.png)
+
+<
+Overall I like it. tells the story well. However I would make a one paragraph summary in case people don't have time to read this. For example my hiring manager has basically told me that a resume has 5 seconds to catch his attention.
+
+I would include some key metrics. Always gets top 15. Gets 95% of all possible tetrises. Also emphasize sooner that the bottleneck in the current state of affairs is the hands by an order of magnitude. As I recall in the classic setup, eyes finish instantly, brain takes 3ms, hands take at least 120ms. I have some logs in some other branch...
+
+>
