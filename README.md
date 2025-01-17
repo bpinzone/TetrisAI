@@ -20,10 +20,7 @@ A few months later, we recorded this video of our Tetris-playing algorithm—dub
 
 (Feel free to skip around. As the video nears its conclusion, you can see Jeff really struggling to get pieces in place.)
 
-<video controls>
-  <source src="public/first-place.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/C_EJBx7pkUg?si=coADMpMLIeZyWl3X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 So...how does it work?
 
@@ -78,6 +75,10 @@ false
 ```
 
 When we started, we (mostly I) were beset by a youthful folly: I wanted the algorithm to work without needing any wired connection. Specifically, I wanted the algorithm to run on a laptop that was sitting in front of a TV, reading the game state from the webcam and controlling the game via Bluetooth, because I thought that would be cool. But the webcam's image wasn't great, and we kept having to mess with the lighting in the room, and before every test I had to carefully click the corners on the "hold" area, the board area, and the queue area to specify where the algorithm should look. It was a huge hassle. As is too common in life, everything I was doing would become much simpler if I simply compromised on my principles—alas, in this case, I gave in and we bought an HDMI splitter and a capture card to read the video stream from the Switch directly into my laptop.
+
+We got pretty far, though, and many of our vision-algorithm decisions that might seem overengineered have their roots in the fact that we wanted it to work with a webcam. We recorded this video (unfortunately you can't see our setup, but the laptop is sitting on the chair that's in frame to watch the TV).
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4Jm-x91pVQY?si=WluzwDUUAQ8vbcyO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 The direct video stream was much simpler. The 20x10 Tetris grid appears in the same place onscreen every time, so we manually specified the section of the image where it appears, split it into a 20x10 grid, and classified each square image independently. A square is full (there's a piece there) if over 50% of the pixels in it are "bright", and a pixel is "bright" if the grayscale value (0-255) was above 80 (the blue pieces can be fairly dark).
 
@@ -195,6 +196,10 @@ For a while, we tried to communicate with the Switch via Bluetooth using [this w
 I don't have much to say about Jeff's hands, but it's not because they were easy or they worked well—far from it. Jeff's hands were the weak link in the chain. We sent the button commands to be sent over serial to an Arduino microcontroller, and then that microcontroller pretended to be a controller that the Switch could read inputs from. This was the most frustrating part of the project, as we had very little control or understanding of how the Switch read the USB signals and how the game turned button presses into in-game actions. We were largely out of our depth here as we found ourselves writing programs to set the controller state to, for example, "A is not pressed", "A is pressed", "A is not pressed", "A is pressed" and most of efforts were focused on finding a sweet spot for the duration of each controller state where Jeff could act quickly without button presses being omitted.
 
 The solution we ended up with was much slower than we think it could've been. We did some profiling of the whole system and Jeff's hands seemed to be the bottleneck, but we never could figure out why we couldn't go as fast as we wanted, why Jeff wasn't responding as quickly as we'd hoped.
+
+If you want to see the issue with Jeff not being quite fast enough, skip to the end of this video:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/1CJJXmJmbAA?si=RjUwyff0hyBZwDw5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 There are probably ways to buffer inputs by pressing buttons shortly before the queue shifts. There are probably things about the USB communication process that we never understood that limited Jeff. There were countless things we wanted to investigate and to improve. Jeff was good, but most games would eventually get too fast and he wouldn't be able to keep up. Our victory video was one of the few where he succeeded, and you can see how much he's struggling towards the end.
 
