@@ -1,35 +1,28 @@
 First place in Tetris 99 using computer vision, classical AI, and a whole lot of free time
 ======
 
-Tetris 99 is a video game for the Nintendo Switch that combines the thrill of battle royale games with the gameplay of, well, Tetris. The rules are similar to traditional Tetris, but in addition to the game speeding up over time, there is an additional challenge: when players perform high-scoring moves, the game sends lines of blocks to opponents' boards, which fill up the bottom of their play area, pushing their blocks upwards and bringing them closer to a game over. The last player remaining, of course, is the victor, and attains the coveted title of Tetris Maximus.
+tl;dr
+------
 
-In the time-honored tradition of programmers, while my roommate [Ben](https://github.com/bpinzone) was playing one night, [I](https://github.com/spschul) thought "you know, it wouldn't be too hard to write a bot to play this, without even hacking the Switch. You'd just have to...well...
+We created a Tetris-playing algorithm to play the online game Tetris 99 for the Nintendo Switch. The algorithm used computer vision to determine the state of the board, a depth-first search algorithm with a hand-crafted utility function to find a good next block placement, and sent the series of button presses required to perform that placement via a microcontroller that communicated with the Switch via USB. Our algorithm was able to consistently get in the top 15 players and occasionally get first place.
 
-1. Somehow see the screen and interpret the board state
-2. Write a fast Tetris simulation
-3. Use depth-first search to choose a good place to put the next block
-4. Convert that placement into a sequence of button presses, and somehow communicate that to the Switch
+Introduction
+------
 
-...none of which sounds that hard, right?"
+Tetris 99 is a video game for the Nintendo Switch that combines the thrill of battle royale games with the gameplay of, well, Tetris. The rules are similar to traditional Tetris, but there's an additional challenge: when players perform high-scoring moves, the game sends lines of 'garbage' blocks to opponents' boards, which fill up the bottom of their play area, pushing their blocks upwards and bringing them closer to a game over. The last player remaining, of course, is the victor, and attains the coveted title of Tetris Maximus.
 
-Easy.
-
-Ninety-nine percent of the time, it would've been an idle thought that went nowhere, but this particular idle thought occurred during May 2020. Everything was shut down due to COVID, and Ben and I had both just graduated and were bored out of our minds. So we decided to give it a shot.
-
-A few months later, we recorded this video of our Tetris-playing algorithm—dubbed "Jeff" in honor of [this video of the 2016 Tetris World Championship](https://www.youtube.com/watch?v=QV_0CcF9-RM)—getting first place (against human players—discussed [later in this writeup](#try-to-avoid-side-projects-where-success-will-make-you-feel-bad)).
+In the time-honored tradition of programmers, one night my roommate [Ben](https://github.com/bpinzone) was playing and we started talking about how it wouldn't be that hard to write a Tetris-playing algorithm. We started with modest ambitions: we wanted to implement Tetris gameplay in a terminal and write an algorithm to play autonomously. We ended up going much further: we added a vision pipeline to observe the state of the Tetris 99 board and added support for communicating with the Switch via USB, so that our Tetris-playing algorithm—dubbed "Jeff" in honor of [this video of the 2016 Tetris World Championship](https://www.youtube.com/watch?v=QV_0CcF9-RM)—could play the game autonomously. At his best, Jeff was able to achieve first place as documented in the video below:
 
 (Feel free to skip around. As the video nears its conclusion, you can see Jeff really struggling to get pieces in place.)
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/C_EJBx7pkUg?si=coADMpMLIeZyWl3X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-So...how does it work?
 
 Overview
 ------
 
 Jeff has three components: his eyes (to see the game state from the screen), his brain (to pick the next move), and his hands (to input the move into the Switch).
 
-Feel free to check out [the implementation](https://github.com/bpinzone/TetrisAI), but be aware that the README is outdated.
+Feel free to check out [the implementation](https://github.com/bpinzone/TetrisAI), but know that the README is very outdated and we have changed the way Jeff works since writing it.
 
 The Eyes
 ------
@@ -74,9 +67,9 @@ board_obscured
 false
 ```
 
-When we started, we (mostly I) were beset by a youthful folly: I wanted the algorithm to work without needing any wired connection. Specifically, I wanted the algorithm to run on a laptop that was sitting in front of a TV, reading the game state from the webcam and controlling the game via Bluetooth, because I thought that would be cool. But the webcam's image wasn't great, and we kept having to mess with the lighting in the room, and before every test I had to carefully click the corners on the "hold" area, the board area, and the queue area to specify where the algorithm should look. It was a huge hassle. As is too common in life, everything I was doing would become much simpler if I simply compromised on my principles—alas, in this case, I gave in and we bought an HDMI splitter and a capture card to read the video stream from the Switch directly into my laptop.
+When we started, we (mostly I) were beset by a youthful folly: I wanted the algorithm to work without needing any wired connection. Specifically, I wanted the algorithm to run on a laptop that was sitting in front of a TV, reading the game state from the webcam and controlling the game via Bluetooth, because I thought that would be cool. But the webcam's image wasn't great, and we kept having to mess with the lighting in the room, and before every test I had to carefully click the corners on the "hold" area, the board area, and the queue area to specify where the algorithm should look. As is too common in life, everything I was doing would become much simpler if I simply compromised on my principles—alas, in this case, I gave in and we bought an HDMI splitter and a capture card to read the video stream from the Switch directly into my laptop.
 
-We got pretty far, though, and many of our vision-algorithm decisions that might seem overengineered have their roots in the fact that we wanted it to work with a webcam. We recorded this video (unfortunately you can't see our setup, but the laptop is sitting on the chair that's in frame to watch the TV).
+We got pretty far, though, and many of our vision-algorithm decisions that might seem overengineered have their roots in the fact that we wanted it to work with a webcam. We recorded this video (unfortunately you can't see our setup, but the laptop is sitting on the chair that's in frame to watch the TV) with the webcam version:
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4Jm-x91pVQY?si=WluzwDUUAQ8vbcyO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -121,14 +114,14 @@ Of course, the sparkles and other effects could still cause problems with readin
 
 We know the move Jeff intends to make, and how the board will look when that piece lands, so we know what the board should look like the next time we get to move. When Jeff is about to clear some lines and cause the sparkles, or when the board is just unusually bright, we figured we were better off using what we think the board will look like next rather than a sparkly mess.
 
-There are pitfalls to this "going blind" approach: your previous reading of the game might be wrong, the game can insert lines of blocks sent by your opponents (though it seems to do so only after placements that didn't clear any lines), and you might misplace a block. Still, we found "going blind" in sparkly scenarios to be very useful, and we ended up with a computer vision pipeline that, for our purposes, was good enough.
+There are pitfalls to this "going blind" approach: your previous reading of the game might be wrong, the game can insert lines of blocks sent by your opponents (though it won't do so if your move clears a line), and you might misplace a block. Still, we found "going blind" in sparkly scenarios to be very useful, and we ended up with a computer vision pipeline that, for our purposes, was good enough.
 
 The Brain
 -------
 
 The goal of Jeff's brain is to take a text-based representation of the game state and determine what move should come next. Then it determines which buttons Jeff's hands need to press and passes the list of buttons on to Jeff's hands.
 
-Our plan was simple: write a fast Tetris implementation that would allow us to provide our board state (including the upcoming pieces for our next few moves), then search all possible sequences of moves we could make with depth-first search, find the one that ended up with the best board, and perform the first block placement of that optimal move sequence. There were only two small problems: we didn't know how to define what board state was "best", and even if we did, there were too many possibilities to search through while still running in real time.
+Our plan was simple: write a fast Tetris implementation that would allow us to provide our board state (including the upcoming pieces for our next few moves), then search all possible sequences of moves we could make with depth-first search, find the one that ended up with the best board, and perform the first block placement of that optimal move sequence. There were only two small problems: we didn't know how to define what board state was "best", and searching all possible sequences of block placements threatened to be too slow to run at real time if we wanted to consider more than 2 or 3 block placements in advance.
 
 ### What is a 'good' game state?
 
@@ -138,13 +131,13 @@ I should note: neither Ben nor I are very knowledgeable about Tetris. There are 
 
 We tried many, many iterations of our utility function. Writing the utility function was basically an exercise in [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart%27s_law). Want the tallest column to stay low? Jeff tries to build a flat board where he'll never be able to clear lines. Want the pieces to neatly fit together, not leaving any hard-to-fill gaps? Jeff will refuse to make holes even when he needs to cut his losses and leave some spots unfilled to prevent the board from getting too high.
 
-Our final utility function was ~~overengineered~~ very technical and full details are beyond the scope of this explanation; however, it had a few core priorities: have only one "trench" (a place for a long piece to be inserted), avoid "holes" (gaps in the stack of blocks), and try to stay in "Tetris mode", which is when the highest column on the board is no taller than 6 blocks (otherwise, Jeff enters "survival mode" and tries to clear rows).
+For full details of our utility function, see the code, but in short: we prioritized keeping one 'trench' (a place for a long piece to be inserted), avoiding "holes" (gaps in the stack of blocks), and keeping the second-lowest column height high (the lowest column height would be the bottom of the trench, so maximizing the second-lowest column height meant that the structure would stay relatively flat).
 
 ![Tetris 99 screenshot with the empty gaps in the stack of blocks indicated as "holes"](public/holes-example.png)
 
 ### What game states should you not explore?
 
-Ideally, we'd consider every possible sequence of actions, but if you want to search several block placements into the future—we liked to consider what the game state would be in 4 or 5 placements—it takes too long to consider every possibility while running in real time. Ideally, we'd notice "hopeless cases"—where the board is in such a definitively bad state that it's not worth checking whether a good state can come out of it—and prune them from the search tree early.
+Ideally, we'd consider every possible sequence of actions, but if you want to search several block placements into the future—we liked to consider what the game state would be in 4 or 5 placements, although 3 would likely be good enough as well—it takes too long to consider every possibility while running in real time. We'd like to notice "hopeless cases"—where the board is in such a definitively bad state that it's not worth checking whether a good state can come out of it—and prune them from the search tree early.
 
 However, just like utility, it can be hard to definitively say what kind of state is "hopeless", and you don't want to stop looking if there was a brilliant play you could've made. To understand the delicate balance you have to maintain while determining which states are deemed "not promising", consider this: for a long time, we pruned boards that added over 2 new holes to the game state. Holes, after all, are difficult for Jeff to get rid of (our setup isn't nearly sophisticated enough to let us slide pieces laterally into specific locations).
 
@@ -162,11 +155,11 @@ But limiting ourselves to 2 new holes would've meant that Jeff would never have 
 
 ![and finally gets himself to a much better board state with a clever line clear.](public/jeff-big-brain-pt-5.png)
 
-So it's nice to be able to consider sequences of moves create more holes, like the 3 holes created in this play. However, pruning states with lots of holes saves us a ton of time when searching. We ended up with a weird compromise where we discouraged adding new holes above the existing max height of the board, but did not penalize adding new holes at or below the current max height.
+So it's nice to be able to consider sequences of moves that create more holes, like the 3 holes created in this play. However, pruning states with lots of holes saves us a ton of time when searching. We ended up with a weird compromise where we discouraged adding new holes above the existing max height of the board, but did not penalize adding new holes at or below the current max height.
 
 #### What about just making the program run more quickly?
 
-We did that as well! We did a lot of profiling (which is not, of course, to say that it's 'done' or that there weren't any major bottlenecks we missed), leading to a lot of optimizations and refactors to speed up our Tetris simulation. We used a fairly simple depth-first search to consider the millions of possible move sequences, and redesigned it whenever we thought we could get a significant performance benefit. We made a work queue and multithreaded it, which made it a few times faster. Ben wanted to GPU-accelerate it, though we both knew it wouldn't really help—Jeff's limitations were elsewhere.
+We did that as well! We did a lot of profiling (which is not, of course, to say that it's 'done' or that there weren't any major bottlenecks we missed), leading to a lot of optimizations and refactors to speed up our Tetris simulation. We used a fairly simple depth-first search to consider the millions of possible move sequences, and redesigned it whenever we thought we could get a significant performance benefit. We made a work queue and multithreaded it, which helped performance significantly, especially when running on Ben's desktop (which had cores to spare). Ben wants to GPU-accelerate it, though we both know it wouldn't really help—Jeff's greatest limitation by far is the slowness of his 'hands' sending button presses, not his brain.
 
 ### Sending Instructions
 
@@ -184,16 +177,16 @@ The issue was in our utility function. At the time, we had an explicit utility f
 
 If I squint, I can peer into the future and foresee that some people will ask: what about using machine learning—specifically, reinforcement learning—to learn the best move, rather than hand-coding a utility function? Didn't I read [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html)? Aren't I bitter-pilled?
 
-Yeah, it would've been really cool, and it would've avoided basically all the pitfalls of the utility-function-based approach. It would definitely be the right choice if we wanted Jeff to be the best possible Tetris-playing robot. I've done some reinforcement learning, but trying to make a Tetris-playing RL agent would've been the most advanced project I'd done with it, an it would've turned this side project into a much more complex research project—I don't know if we could've produced a good model on a hobbyist's allotment of time and money. Maybe someday.
+Yeah, it would've been really cool, and it would've avoided basically all the pitfalls of the utility-function-based approach. It would be the right choice if we wanted Jeff to be the best possible Tetris-playing robot. I've done some reinforcement learning, but trying to make a Tetris-playing RL agent would've been the most advanced project I'd done with it, and it would've turned this side project into a much more complex research project—I don't know if we could've produced a good model on a hobbyist's allotment of time and money.
 
 The Hands
 ------
 
 The goal of Jeff's hands is to take a text list of button presses and convert them into USB signals to send to the Switch as our microcontroller pretends to be a USB controller.
 
-For a while, we tried to communicate with the Switch via Bluetooth using [this wonderful repo](https://github.com/mart1nro/joycontrol), but for some reason, we just had too many issues getting Bluetooth to work easily and consistently. After a long time, we instead decided to connect via USB and control the Switch using [this other wonderful repo](https://github.com/Phroon/switch-controller). As described in that repo's README, you use a USB-to-serial converter and a microcontroller (we used an Arduino TODO) to send commands from a Python program running on your computer to the microcontroller to the Switch.
+For a while, we tried to communicate with the Switch via Bluetooth using [this wonderful repo](https://github.com/mart1nro/joycontrol), but for some reason, we just had too many issues getting Bluetooth to work easily and consistently. After a long time, we instead decided to connect via USB and control the Switch using [this other wonderful repo](https://github.com/Phroon/switch-controller). As described in that repo's README, you use a USB-to-serial converter and a microcontroller (we used an Arduino) to send commands from a Python program running on your computer to the microcontroller to the Switch.
 
-I don't have much to say about Jeff's hands, but it's not because they were easy or they worked well—far from it. Jeff's hands were the weak link in the chain. We sent the button commands to be sent over serial to an Arduino microcontroller, and then that microcontroller pretended to be a controller that the Switch could read inputs from. This was the most frustrating part of the project, as we had very little control or understanding of how the Switch read the USB signals and how the game turned button presses into in-game actions. We were largely out of our depth here as we found ourselves writing programs to set the controller state to, for example, "A is not pressed", "A is pressed", "A is not pressed", "A is pressed" and most of efforts were focused on finding a sweet spot for the duration of each controller state where Jeff could act quickly without button presses being omitted.
+I don't have much to say about Jeff's hands, but it's not because they were easy or they worked well—far from it. Jeff's hands were the weak link in the chain. We sent the button commands to be pressed over serial to an Arduino microcontroller, and then that microcontroller pretended to be a controller from which the Switch could read inputs. This was the most frustrating part of the project, as we had very little control or understanding of how the Switch read the USB signals and how the game turned button presses into in-game actions. We were largely out of our depth here as we found ourselves writing programs to set the controller state to, for example, "A is not pressed", "A is pressed", "A is not pressed", "A is pressed" and most of efforts were focused on finding a sweet spot for the duration of each controller state where Jeff could act quickly without button presses being omitted.
 
 The solution we ended up with was much slower than we think it could've been. We did some profiling of the whole system and Jeff's hands seemed to be the bottleneck, but we never could figure out why we couldn't go as fast as we wanted, why Jeff wasn't responding as quickly as we'd hoped.
 
@@ -208,7 +201,7 @@ In the end, Jeff's hands were fast enough to get him into first place, which let
 Conclusion, Part 1
 ------
 
-The video of Jeff getting first place showcases Jeff at his best. As mentioned, he'd usually lose in the later stages of the game.
+The video of Jeff getting first place showcases Jeff at his best. As mentioned, he'd usually lose in the later stages of the game, when only 10 or 15 players remained.
 
 I'm reasonably confident that, with effort, Jeff could become nigh-unbeatable. As time passed it became more and more unlikely that we we'd come back to Jeff and start making major improvements. Besides, we had a lot of fun writing Jeff, but I don't want to take away well-deserved victories from human Tetris 99 players. So, at this point, Ben and I are happy to call Jeff a successful side project.
 
@@ -216,13 +209,13 @@ A few miscellaneous takeaways:
 
 ### Pair programming is unexpectedly interesting
 
-We pair-programmed almost the entirety of the C++ Tetris simulation and move selector, usually on Ben's computer, and it was surprising just how productive that arrangement felt. Most of our time was spent hunting down and catching bugs, and it was much, much easier to catch errors early if one person didn't even have to type and could instead devote their brainpower to asking themselves "is this going to work?" Also, we benefitted immensely from being able to discuss program design as we were writing the program. I'm sure it would depend on the person—Ben was an excellent co-programmer—but regret that I haven't had many other chances to pair program since this project.
+We pair-programmed almost the entirety of the C++ Tetris simulation and move selector, usually on Ben's computer, and it was surprising just how productive that arrangement felt. Most of our time was spent hunting down and catching bugs, and it was much, much easier to catch errors early if one person didn't have to worry about typing and could instead devote their brainpower to asking themselves "is this going to work?" Also, we benefitted immensely from being able to discuss program design as we were writing the program. I'm sure it would depend on the person—Ben was an excellent co-programmer—but I regret that I haven't had many other chances to pair program since this project.
 
 ### Define a "light speed", if possible
 
-One of the things that Ben brought up while doing the project, that I probably never would've thought about, was that we should define what Nvidia calls "light speed" for Jeff's skill at Tetris—a theoretical 'best' that it is impossible to exceed, so that you can tell how much it's possible for your program to improve. In our case, Ben wanted to define what Jeff would ideally do. After researching how Tetris 99 decides how many lines you'll send your opponents, we determined that Jeff should just try to get as many Tetrises (4-line clears) as possible. We reasoned that because each piece is made of 4 little blocks and a Tetris clears 40 blocks, then the maximum possible rate of Tetris per block placements is 10%.
+One of the things that Ben brought up while doing the project, that I probably never would've thought about, was that we should define what a theoretical 'best' that it is impossible to exceed for Jeff's Tetris skill, so that you can tell how much it's possible for your program to improve (similar to a profiling strategy that Nvidia calls "speed of light analysis"). After researching how Tetris 99 decides how many lines you'll send your opponents, we determined that Jeff should just try to get as many Tetrises (4-line clears) as possible. We reasoned that because each piece is made of 4 little blocks and a Tetris clears 40 blocks, then the maximum possible rate of Tetris per block placements is 10%.
 
-I don't think I would've thought of the 'Tetris percent' metric on my own, but it helped us a lot when comparing utility functions, and it also helped us realize when our utility function was getting Tetrises 9.9% of the time and we couldn't get it much better.
+I think our final Tetris percent was around 9.5% or higher, so it couldn't get much better. Analyzing tetris percents helped us a lot when comparing utility functions, and helped us to realize when it was time to stop optimizing the utility function and work on other parts of the system.
 
 ### Always Write a Visualization Program
 
@@ -241,7 +234,7 @@ This project was always about having fun and seeing if we could get Jeff to work
 Conclusion, Part 2—also, hire me?
 ------
 
-I'm starting to look for work in the Midwest of the USA right now (January 2025—what are the odds that I'd find myself finally making a writeup about an interesting, years-old project at exactly the same time I start looking for work? 😛). If you think I'd be a good fit for an opportunity and you'd like me to know about it, feel free to contact me at TODO.
+I'm starting to look for work in the Midwest of the USA right now (January 2025—what are the odds that I'd find myself finally making a writeup about an interesting, years-old project at exactly the same time I start looking for work? 😛). If you think I'd be a good fit for an opportunity and you'd like me to know about it, feel free to contact me—my e-mail address is in [my Github profile](https://github.com/spschul), though you have to be signed into GitHub to see it.
 
 A final thought about Jeff: you can understand each part of a system individually and still find it stunning when all the parts move in tandem together. There's something surreal and beautiful about watching Jeff slam piece after piece into place that somehow both transcends and elevates all the Python dependencies and linker errors, like spending months in a factory before you could witness a plane it built take off for the first time. Jeff was a bright, beautiful light in my 2020 landscape, a world in which there was everything to watch but nothing to do, and I'm grateful to this project for giving us a challenge which granted a new texture to the slurry of days.
 
