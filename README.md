@@ -4,12 +4,12 @@ First place in Tetris 99 using computer vision, classical AI, and a whole lot of
 tl;dr
 ------
 
-We created a Tetris-playing algorithm to play the online game Tetris 99 for the Nintendo Switch. The algorithm used computer vision to determine the state of the board, a depth-first search algorithm with a hand-crafted utility function to find a good next block placement, and sent the series of button presses required to perform that placement via a microcontroller that communicated with the Switch via USB. Our algorithm was able to consistently get in the top 15 players and occasionally get first place.
+We created a program to play Tetris 99, an online multiplayer game for the Nintendo Switch. The algorithm used computer vision to determine the state of the board, a depth-first search algorithm with a hand-crafted utility function to find a good next block placement, and sent the series of button presses required to perform that placement via a microcontroller that communicated with the Switch via USB. Our algorithm was able to consistently get in the top 15 players and occasionally get first place.
 
 Introduction
 ------
 
-Tetris 99 is a video game for the Nintendo Switch that combines the thrill of battle royale games with the gameplay of, well, Tetris. The rules are similar to traditional Tetris, but there's an additional challenge: when players perform high-scoring moves, the game sends lines of 'garbage' blocks to opponents' boards, which fill up the bottom of their play area, pushing their blocks upwards and bringing them closer to a game over. The last player remaining, of course, is the victor, and attains the coveted title of Tetris Maximus.
+Tetris 99 is a video game for the Nintendo Switch that combines the thrill of battle royale games with the gameplay of Tetris. The rules are similar to traditional Tetris, but there's an additional challenge: when players perform high-scoring moves, the game sends lines of 'garbage' blocks to opponents' boards, which fill up the bottom of their play area, pushing their blocks upwards and bringing them closer to a game over. The last player remaining is the victor, and attains the coveted title of Tetris Maximus.
 
 In the time-honored tradition of programmers, one night my roommate [Ben](https://github.com/bpinzone) was playing and we started talking about how it wouldn't be that hard to write a Tetris-playing algorithm. We started with modest ambitions: we wanted to implement Tetris gameplay in a terminal and write an algorithm to play autonomously. We ended up going much further: we added a vision pipeline to observe the state of the Tetris 99 board and added support for communicating with the Switch via USB, so that our Tetris-playing algorithm—dubbed "Jeff" in honor of [this video of the 2016 Tetris World Championship](https://www.youtube.com/watch?v=QV_0CcF9-RM)—could play the game autonomously. At his best, Jeff was able to achieve first place as documented in the video below:
 
@@ -81,7 +81,7 @@ Separating by color proved to be a headache: sure, we could determine RGB thresh
 
 We ended up opting for another approach: we relied instead on the differing shapes of the pieces. Because pieces always appear in the same place, we decided to save an image of each possible piece in every possible space it could appear in (the hold or any of the 6 positions in the queue) and simply compare them to the actual image we were seeing in the video stream. In theory, the section of the image we're seeing live should exactly match one of our reference photos. In practice, it's not that simple (for reasons I'll discuss later), so we used "empty/full" image masks like we used in our analysis of the board (effectively making the image black or white) and then compared what we saw in each image to each possible piece, then chose the best match.
 
-| Observed piece                                  | Observed piece (B&W)                                |  Proposed match                                   | Proposed piece (B&W)                                  | Matching pixels                                       | Best match? |
+| Observed piece                                  | Observed piece (B&W)                                |  Proposed piece                                   | Proposed piece (B&W)                                  | Matching pixels                                       | Best match? |
 | ----------------------------------------------- | --------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------- |
 | ![Green Piece](public/green-piece-upscaled.png) | ![Green black and white](public/green-piece-bw.png) | ![Purple Piece](public/purple-piece-upscaled.png) | ![Purple black and white](public/purple-piece-bw.png) | ![Green/purple matches](public/is-it-purple.png)      | No          |
 | ![Green Piece](public/green-piece-upscaled.png) | ![Green black and white](public/green-piece-bw.png) | ![Orange Piece](public/orange-piece-upscaled.png) | ![Orange black and white](public/orange-piece-bw.png) | ![Green/purple matches](public/is-it-orange.png)      | No          |
@@ -102,7 +102,10 @@ Jeff gets a lot of Tetrises, and when he does, it can look like this.
 
 Yes, the sparkles can make us read the board incorrectly—but more concerningly, when the queue shifts, we assume the game is ready for us to make our next block placement. So if the queue *appears* to change, we might provide an incorrect new board and mess up the timing on our gameplay. We needed to get clever about requiring the observed queue to be stable, so we required that queue to be "locked in"—which we defined as 95% of the (pure black-and-white) observed image matching the (pure B&W) template image. With that logic in place, our algorithm was very consistent about only updating when the queue shifted.
 
-Of course, the sparkles and other effects could still cause problems with reading the board. We tried several methods to mitigate it, but the most successful, by far, wasn't a computer vision technique. In fact, it might be the opposite of a computer vision technique.
+mention graph search for vision correction? https://github.com/bpinzone/TetrisAI/blob/master/tetris_ai_eyes.py#L523
+    do we still use this?
+
+Of course, the sparkles and other effects could still cause problems with reading the board. We tried several methods to mitigate false positives from sparkles: for example, because our gameplay very rarely caused "floating" tiles (tiles that aren't connected via other tiles to the bottom of the board) we used a simple breadth-first search algorithm to disregard all floating tiles, which are likely noise. But our most successful technique, by far, wasn't a computer vision technique. In fact, it might be the opposite of a computer vision technique.
 
 > The student stumbled out of the Maze of Illusions and approached his teacher, defeated.
 > 
@@ -131,15 +134,15 @@ I should note: neither Ben nor I are very knowledgeable about Tetris. There are 
 
 We tried many, many iterations of our utility function. Writing the utility function was basically an exercise in [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart%27s_law). Want the tallest column to stay low? Jeff tries to build a flat board where he'll never be able to clear lines. Want the pieces to neatly fit together, not leaving any hard-to-fill gaps? Jeff will refuse to make holes even when he needs to cut his losses and leave some spots unfilled to prevent the board from getting too high.
 
-For full details of our utility function, see the code, but in short: we prioritized keeping one 'trench' (a place for a long piece to be inserted), avoiding "holes" (gaps in the stack of blocks), and keeping the second-lowest column height high (the lowest column height would be the bottom of the trench, so maximizing the second-lowest column height meant that the structure would stay relatively flat).
+For full details of our utility function, see the code, but in short: we prioritized keeping one 'trench' (a place for a long piece to be inserted) on the far left or right hand side of the board, avoiding "holes" (gaps in the stack of blocks), and keeping the second-lowest and the highest columns close in height. When we had a comfortably low board, we encouraged Jeff to get Tetrises (four-line clears) when possible, and otherwise prepare to get Tetrises by building up tall, dense boards with a trench. If the columns were getting dangerously high, we focused on getting the board safely low again.
 
 ![Tetris 99 screenshot with the empty gaps in the stack of blocks indicated as "holes"](public/holes-example.png)
 
 ### What game states should you not explore?
 
-Ideally, we'd consider every possible sequence of actions, but if you want to search several block placements into the future—we liked to consider what the game state would be in 4 or 5 placements, although 3 would likely be good enough as well—it takes too long to consider every possibility while running in real time. We'd like to notice "hopeless cases"—where the board is in such a definitively bad state that it's not worth checking whether a good state can come out of it—and prune them from the search tree early.
+Ideally, we'd consider every possible sequence of actions, but if you want to search several block placements into the future—we liked to consider what the game state would be in 4 or 5 placements, although 3 is good enough as well—it takes too long to consider every possibility while running in real time. We'd like to notice "hopeless cases"—where the board is in such a definitively bad state that it's not worth checking whether a good state can come out of it—and prune them from the search tree early.
 
-However, just like utility, it can be hard to definitively say what kind of state is "hopeless", and you don't want to stop looking if there was a brilliant play you could've made. To understand the delicate balance you have to maintain while determining which states are deemed "not promising", consider this: for a long time, we pruned boards that added over 2 new holes to the game state. Holes, after all, are difficult for Jeff to get rid of (our setup isn't nearly sophisticated enough to let us slide pieces laterally into specific locations).
+However, it's hard to say what kind of state is "hopeless", and you risk missing brilliant placements if you disregard unusual-but-ultimately-rewarding possibilities. For example: for a long time, we pruned boards that added over 2 new holes to the game state. Holes, after all, are difficult for Jeff to get rid of (our setup isn't nearly sophisticated enough to let us slide pieces laterally into specific locations).
 
 But limiting ourselves to 2 new holes would've meant that Jeff would never have considered this move sequence:
 
@@ -159,7 +162,7 @@ So it's nice to be able to consider sequences of moves that create more holes, l
 
 #### What about just making the program run more quickly?
 
-We did that as well! We did a lot of profiling (which is not, of course, to say that it's 'done' or that there weren't any major bottlenecks we missed), leading to a lot of optimizations and refactors to speed up our Tetris simulation. We used a fairly simple depth-first search to consider the millions of possible move sequences, and redesigned it whenever we thought we could get a significant performance benefit. We made a work queue and multithreaded it, which helped performance significantly, especially when running on Ben's desktop (which had cores to spare). Ben wants to GPU-accelerate it, though we both know it wouldn't really help—Jeff's greatest limitation by far is the slowness of his 'hands' sending button presses, not his brain.
+We did that as well! We did a lot of profiling (which is not, of course, to say that it's 'done' or that there weren't any major bottlenecks we missed), leading to a lot of optimizations and refactors to speed up our Tetris simulation. We used a fairly simple depth-first search to consider the millions of possible move sequences, and redesigned it whenever we thought we could get a significant performance benefit. We made a work queue and multithreaded the search, which helped performance significantly, especially when running on Ben's desktop (which had cores to spare). Ben wants to GPU-accelerate Jeff's brain for kicks, though it wouldn't really help—Jeff's greatest limitation by far is the slowness of his 'hands' sending button presses, not his brain.
 
 ### Sending Instructions
 
@@ -196,7 +199,7 @@ If you want to see the issue with Jeff not being quite fast enough, skip to the 
 
 There are probably ways to buffer inputs by pressing buttons shortly before the queue shifts. There are probably things about the USB communication process that we never understood that limited Jeff. There were countless things we wanted to investigate and to improve. Jeff was good, but most games would eventually get too fast and he wouldn't be able to keep up. Our victory video was one of the few where he succeeded, and you can see how much he's struggling towards the end.
 
-In the end, Jeff's hands were fast enough to get him into first place, which let him have his moment of glory as the Tetris Maximus—but like a true Roman conqueror, they weren't fast enough to keep him there.
+In the end, Jeff's hands were fast enough to get him into first place on three occasions, which let him have a few moments of glory as the Tetris Maximus—but like a true Roman conqueror, they weren't fast enough to keep him there.
 
 Conclusion, Part 1
 ------
@@ -209,13 +212,15 @@ A few miscellaneous takeaways:
 
 ### Pair programming is unexpectedly interesting
 
-We pair-programmed almost the entirety of the C++ Tetris simulation and move selector, usually on Ben's computer, and it was surprising just how productive that arrangement felt. Most of our time was spent hunting down and catching bugs, and it was much, much easier to catch errors early if one person didn't have to worry about typing and could instead devote their brainpower to asking themselves "is this going to work?" Also, we benefitted immensely from being able to discuss program design as we were writing the program. I'm sure it would depend on the person—Ben was an excellent co-programmer—but I regret that I haven't had many other chances to pair program since this project.
+We pair-programmed almost the entirety of the C++ Tetris simulation and move selector, usually on Ben's computer, and it was surprising just how productive that arrangement felt. Most of our time was spent hunting down and catching bugs, and it was much, much easier to catch errors early if one person didn't have to worry about typing and could instead devote their brainpower to asking themselves "is this going to work?" Also, we benefitted immensely from being able to discuss program design as we were writing the program. I'm sure it would depend on the person—Ben was an excellent co-programmer—but I regret that I haven't had many other opportunities to pair program since this project.
 
 ### Define a "light speed", if possible
 
-One of the things that Ben brought up while doing the project, that I probably never would've thought about, was that we should define what a theoretical 'best' that it is impossible to exceed for Jeff's Tetris skill, so that you can tell how much it's possible for your program to improve (similar to a profiling strategy that Nvidia calls "speed of light analysis"). After researching how Tetris 99 decides how many lines you'll send your opponents, we determined that Jeff should just try to get as many Tetrises (4-line clears) as possible. We reasoned that because each piece is made of 4 little blocks and a Tetris clears 40 blocks, then the maximum possible rate of Tetris per block placements is 10%.
+One of the insights that Ben brought up while doing the project, that I probably never would've thought about, was that we should define a metric to compare Jeff's "tetris skill" to a "perfectly skilled" tetris player. That metric helps us understand how much Jeff can possibly be improved. (This strategy is similar to a profiling strategy that Nvidia calls "speed of light analysis"). After researching how Tetris 99 decides how many lines you'll send your opponents, we determined that Jeff should try to get as many Tetrises (4-line clears) as possible. We reasoned that because each piece is made of 4 tiles and a Tetris clears 40 tiles, that a "perfectly skilled" Tetris player could score 1 Tetris every 10 moves. Therefore, at most 10% of moves could result in Tetrises.
 
-I think our final Tetris percent was around 9.5% or higher, so it couldn't get much better. Analyzing tetris percents helped us a lot when comparing utility functions, and helped us to realize when it was time to stop optimizing the utility function and work on other parts of the system.
+Jeff's 'Tetris percent'—the percentages of moves he made that resulted in Tetrises—became our way of comparing different configurations and utility functions. We'd just run Jeff on simulated games of Tetris for a while and see what his Tetris percentages were, which helped us know which changes were improvements and when we were reaching the point of diminishing returns.
+
+When looking only 3 moves ahead, Jeff achieves a Tetris percent of 8.9%. When looking 6 moves ahead, he improves to 9.7%—nearly perfect!
 
 ### Always Write a Visualization Program
 
@@ -234,7 +239,7 @@ This project was always about having fun and seeing if we could get Jeff to work
 Conclusion, Part 2—also, hire me?
 ------
 
-I'm starting to look for work in the Midwest of the USA right now (January 2025—what are the odds that I'd find myself finally making a writeup about an interesting, years-old project at exactly the same time I start looking for work? 😛). If you think I'd be a good fit for an opportunity and you'd like me to know about it, feel free to contact me—my e-mail address is in [my Github profile](https://github.com/spschul), though you have to be signed into GitHub to see it.
+I'm looking for work in the Midwest of the USA right now (January 2025—what are the odds that I'd find myself finally making a writeup about an interesting, years-old project at exactly the same time I start looking for work? 😛). If you think I'd be a good fit for an opportunity and you'd like me to know about it, feel free to contact me—my e-mail address is in [my Github profile](https://github.com/spschul), though you have to be signed into GitHub to see it.
 
 A final thought about Jeff: you can understand each part of a system individually and still find it stunning when all the parts move in tandem together. There's something surreal and beautiful about watching Jeff slam piece after piece into place that somehow both transcends and elevates all the Python dependencies and linker errors, like spending months in a factory before you could witness a plane it built take off for the first time. Jeff was a bright, beautiful light in my 2020 landscape, a world in which there was everything to watch but nothing to do, and I'm grateful to this project for giving us a challenge which granted a new texture to the slurry of days.
 
