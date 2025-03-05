@@ -102,10 +102,7 @@ Jeff gets a lot of Tetrises, and when he does, it can look like this.
 
 Yes, the sparkles can make us read the board incorrectly—but more concerningly, when the queue shifts, we assume the game is ready for us to make our next block placement. So if the queue *appears* to change, we might provide an incorrect new board and mess up the timing on our gameplay. We needed to get clever about requiring the observed queue to be stable, so we required that queue to be "locked in"—which we defined as 95% of the (pure black-and-white) observed image matching the (pure B&W) template image. With that logic in place, our algorithm was very consistent about only updating when the queue shifted.
 
-mention graph search for vision correction? https://github.com/bpinzone/TetrisAI/blob/master/tetris_ai_eyes.py#L523
-    do we still use this?
-
-Of course, the sparkles and other effects could still cause problems with reading the board. We tried several methods to mitigate it, but the most successful, by far, wasn't a computer vision technique. In fact, it might be the opposite of a computer vision technique.
+Of course, the sparkles and other effects could still cause problems with reading the board. We tried several methods to mitigate false positives from sparkles: for example, because our gameplay very rarely caused "floating" tiles (tiles that aren't connected via other tiles to the bottom of the board) we used a simple breadth-first search algorithm to disregard all floating tiles, which are likely noise. But our most successful technique, by far, wasn't a computer vision technique. In fact, it might be the opposite of a computer vision technique.
 
 > The student stumbled out of the Maze of Illusions and approached his teacher, defeated.
 > 
@@ -201,7 +198,7 @@ There are probably ways to buffer inputs by pressing buttons shortly before the 
 
 In the end, Jeff's hands were fast enough to get him into first place, which let him have his moment of glory as the Tetris Maximus—but like a true Roman conqueror, they weren't fast enough to keep him there.
 
-Conclusion, Part 1
+Conclusion
 ------
 
 The video of Jeff getting first place showcases Jeff at his best. As mentioned, he'd usually lose in the later stages of the game, when only 10 or 15 players remained.
@@ -234,10 +231,7 @@ I'm not sure if there are good ways around this. Rigorous testing, maybe, but it
 
 This project was always about having fun and seeing if we could get Jeff to work at all—I don't want to ruin the fun and competition of Tetris 99 for its players. Maybe it's for the best, then, that he only won a handful of times, and that we're not pushing his abilities further—I don't want to be the cause for comments like [this](https://www.reddit.com/r/Tetris99/comments/13wqfpx/bot_farming_in_tetris99/).
 
-Conclusion, Part 2—also, hire me?
-------
-
-I'm looking for work in the Midwest of the USA right now (January 2025—what are the odds that I'd find myself finally making a writeup about an interesting, years-old project at exactly the same time I start looking for work? 😛). If you think I'd be a good fit for an opportunity and you'd like me to know about it, feel free to contact me—my e-mail address is in [my Github profile](https://github.com/spschul), though you have to be signed into GitHub to see it.
+### Parting Thought
 
 A final thought about Jeff: you can understand each part of a system individually and still find it stunning when all the parts move in tandem together. There's something surreal and beautiful about watching Jeff slam piece after piece into place that somehow both transcends and elevates all the Python dependencies and linker errors, like spending months in a factory before you could witness a plane it built take off for the first time. Jeff was a bright, beautiful light in my 2020 landscape, a world in which there was everything to watch but nothing to do, and I'm grateful to this project for giving us a challenge which granted a new texture to the slurry of days.
 
