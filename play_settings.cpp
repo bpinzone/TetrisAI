@@ -50,7 +50,7 @@ Play_settings::Play_settings(int argc, char* argv[]){
 }
 
 void Play_settings::wait_for_controller_connection_if_necessary(){
-    if(is_watching() || mode == 's'){
+    if(is_watching() || mode == 's' || mode == 't'){
         return;
     }
     if(mode != 'm' && mode != 'r'){

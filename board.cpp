@@ -15,7 +15,7 @@
 // TODO: Replace with individual using statements
 using namespace std;
 
-Board::Board(istream& is){
+Board::Board(istream& is) {
 
     string label;
     is >> label;
@@ -24,7 +24,10 @@ Board::Board(istream& is){
         for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
             char cell;
             is >> cell;
-            at(static_cast<size_t>(row_x), col_x) = (cell == 'x');
+            Color unknown_color = Color::Blue;
+            grid.set_at(static_cast<size_t>(row_x), col_x,
+                (cell == 'x'),
+                unknown_color);
         }
     }
 
@@ -48,7 +51,7 @@ Board::Board(istream& is){
         height_map[col_x] = height;
         perfect_num_cells_filled += height;
     }
-    num_cells_filled = board.count();
+    num_cells_filled = grid.count();
 
     update_secondary_cache(0);
     load_ancestral_data_with_current_data();
@@ -58,7 +61,10 @@ Board::Board(istream& is){
 ostream& operator<<(ostream& os, const Board& s) {
 
     os << "Holding: ";
-    os << (s.current_hold ? s.current_hold->name : "none") << "\n";
+    os << (s.current_hold ?
+            Block::name_to_full_name(s.current_hold->name)
+            : "none");
+    os << "\n";
 
     for(long row = BoardSize::c_rows - 1; row >= 0; --row){
         for(long col = 0; col < BoardSize::c_cols; ++col){
@@ -106,7 +112,11 @@ bool Board::place_block(const Block& b, Placement p){
         perfect_num_cells_filled += abs_end_fill_row;
 
         for(int row = abs_start_fill_row; row < abs_end_fill_row; ++row){
-            at(row, col) = true;
+            grid.set_at(static_cast<size_t>(row),
+                static_cast<size_t>(col),
+                true,
+                b.color
+            );
         }
     }
 
@@ -273,31 +283,15 @@ Board_lifetime_stats Board::get_lifetime_stats() const {
 
 void Board::clear_row(int deleted_row) {
 
-    Grid_t board_shifted_down = board << BoardSize::c_cols;
-
-    Grid_t below_del_row_mask;
-    below_del_row_mask.set();
-    below_del_row_mask <<= (BoardSize::c_cols * (BoardSize::c_rows - deleted_row));
-
-    Grid_t above_including_del_row_mask{~below_del_row_mask};
-
     for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
         int reduction = get_height_map_reduction(deleted_row, col_x);
         height_map[col_x] -= reduction;
         perfect_num_cells_filled -= reduction;
     }
 
-    board =
-        (board & below_del_row_mask) |
-        (board_shifted_down & above_including_del_row_mask);
+    grid.clear_row(deleted_row);
 
     num_cells_filled -= BoardSize::c_cols;
-}
-
-Board::Grid_t::reference Board::at(size_t row, size_t col){
-
-    size_t idx = BoardSize::c_size - 1 - ((row * BoardSize::c_cols) + col);
-    return board[idx];
 }
 
 void Board::load_ancestral_data_with_current_data() {
@@ -309,8 +303,7 @@ void Board::load_ancestral_data_with_current_data() {
 
 
 bool Board::at(size_t row, size_t col) const {
-    size_t idx = BoardSize::c_size - 1 - ((row * BoardSize::c_cols) + col);
-    return board[idx];
+    return grid.at(row, col);
 }
 
 bool Board::is_row_full(int row) const {

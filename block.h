@@ -7,6 +7,16 @@
 #include <cassert>
 #include <random>
 
+enum class Color {
+    Blue,
+    Purple,
+    Red,
+    Cyan,
+    Yellow,
+    Orange,
+    Green
+};
+
 // For every shape block, and for every rotation, one of these exists to descripe the shape of the block in that orientation.
 struct CH_maps {
     std::vector<int> contour;
@@ -47,7 +57,8 @@ private:
 // Exactly one instance for every type of block (tetrimino)
 struct Block {
 
-    std::string name;
+    char name;
+    Color color;
 
     // maps[rotation idx] = maps for that rotation
     // size = number of possible rotations.
@@ -68,6 +79,11 @@ struct Block {
     static const Block* char_to_block_ptr(char c);
     static const char block_ptr_to_char(const Block* block);
 
+    static const Color char_to_color(char c);
+    static const char color_to_char(Color color);
+
+    static std::string name_to_full_name(char c);
+
     int get_max_valid_placement_col(int rot_x) const;
 
     Block& operator=(const Block& other) = delete;
@@ -77,7 +93,7 @@ struct Block {
     Block(Block&& other) = delete;
 
 private:
-    Block(const std::string& _name, const std::vector<CH_maps>& _maps);
+    Block(char _name, const std::vector<CH_maps>& _maps);
 };
 
 class Block_generator{

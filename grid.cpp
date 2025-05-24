@@ -1,0 +1,41 @@
+#include "grid.h"
+
+#include <iostream>
+#include <stdexcept>
+
+#include "color_grid.h"
+
+Grid::Grid(bool has_colors){
+    if(has_colors){
+        color_grid = ColorGrid();
+    }
+}
+
+void Grid::clear_row(size_t row){
+    bit_grid.clear_row(row);
+    if(color_grid){
+        color_grid->clear_row(row);
+    }
+}
+
+void Grid::set_at(size_t row, size_t col, bool filled, Color color){
+
+    bit_grid.set_at(row, col, filled);
+
+    if(color_grid){
+        ColorCell cell;
+        cell.state.is_filled = filled;
+        cell.color = color;
+        color_grid->set_at(row, col, cell);
+    }
+
+}
+
+bool Grid::at(size_t row, size_t col) const {
+    return bit_grid.get_at(row, col);
+}
+
+size_t Grid::count() const{
+    return bit_grid.count();
+}
+

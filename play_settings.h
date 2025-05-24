@@ -11,6 +11,7 @@ struct Play_settings {
     s: 99 skip
     m: 99 from menu
     r: 99 from restart
+    t: tournament mode
     */
     char mode;
 

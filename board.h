@@ -9,6 +9,7 @@
 #include <iosfwd>
 
 #include "board_size.h"
+#include "grid.h"
 
 struct Block;
 struct Placement;
@@ -64,15 +65,10 @@ public:
 
 private:
 
-    using Grid_t = std::bitset<BoardSize::c_size>;
-
     // FUNCTIONS
     // Modifying
 
     void clear_row(int row);
-
-    // (0, 0) is bottom left;  (1, 0) is 2nd row, 1st column;  (0, 1) is 1st row, 2nd column.
-    Grid_t::reference at(size_t row, size_t col);
 
     // Non-modifying
     // (0, 0) is bottom left;  (1, 0) is 2nd row, 1st column;  (0, 1) is 1st row, 2nd column.
@@ -95,7 +91,7 @@ private:
 
     // MEMBERS
     // === Fundamental ===
-    Grid_t board;
+    Grid grid;
 
     const Block* current_hold = nullptr;
     bool just_swapped = false;

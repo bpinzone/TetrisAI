@@ -31,6 +31,7 @@ using Seed_t = Random_block_generator::Seed_t;
 
 void play(const Play_settings& settings);
 void play_99(const Play_settings& settings);
+void play_tournament(const Play_settings& settings);
 Post_play_report play_99_move(Game_state& original_state, const Play_settings& settings);
 
 Placement get_best_move(
@@ -64,6 +65,9 @@ int main(int argc, char* argv[]) {
     if(ps.is_watching()){
         play(ps);
     }
+    else if(ps.mode == 't'){
+        play_tournament(ps);
+    }
     else{
         play_99(ps);
     }
@@ -71,6 +75,13 @@ int main(int argc, char* argv[]) {
     // Not bothering with unique_ptr
     delete ps.block_generator;
     return 0;
+}
+
+void play_tournament(const Play_settings& settings){
+
+
+
+
 }
 
 void play(const Play_settings& settings){
@@ -94,7 +105,7 @@ void play(const Play_settings& settings){
             Output_manager::get_instance().get_board_os()
                 << "Turn: " << turn << "\n"
                 << "Tetris percent:" << board.get_tetris_percent() << " %" << "\n"
-                << "Presented with: " << next_to_present->name << "\n";
+                << "Presented with: " << Block::name_to_full_name(next_to_present->name) << "\n";
         }
 
         Placement next_placement = get_best_move(
