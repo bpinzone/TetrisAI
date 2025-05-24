@@ -1,4 +1,5 @@
 #include "board.h"
+#include "board_size.h"
 
 #include "block.h"
 #include "utility.h"
@@ -19,8 +20,8 @@ Board::Board(istream& is){
     string label;
     is >> label;
     assert(label == "board");
-    for(int row_x = static_cast<int>(c_rows - 1); row_x >= 0; --row_x){
-        for(size_t col_x = 0; col_x < c_cols; ++col_x){
+    for(int row_x = static_cast<int>(BoardSize::c_rows - 1); row_x >= 0; --row_x){
+        for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
             char cell;
             is >> cell;
             at(static_cast<size_t>(row_x), col_x) = (cell == 'x');
@@ -42,7 +43,7 @@ Board::Board(istream& is){
     just_swapped = (just_swapped_str == "true");
 
     // Update things that cache does not do.
-    for(size_t col_x = 0; col_x < c_cols; ++col_x){
+    for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
         int height = compute_height(col_x);
         height_map[col_x] = height;
         perfect_num_cells_filled += height;
@@ -59,8 +60,8 @@ ostream& operator<<(ostream& os, const Board& s) {
     os << "Holding: ";
     os << (s.current_hold ? s.current_hold->name : "none") << "\n";
 
-    for(long row = Board::c_rows - 1; row >= 0; --row){
-        for(long col = 0; col < Board::c_cols; ++col){
+    for(long row = BoardSize::c_rows - 1; row >= 0; --row){
+        for(long col = 0; col < BoardSize::c_cols; ++col){
             os << (s.at(row, col) ? "X" : ".");
         }
         os << "\n";
@@ -83,7 +84,7 @@ bool Board::place_block(const Block& b, Placement p){
     const CH_maps& ch_map = b.maps[p.get_rotation()];
     const int contour_size = ch_map.contour.size();
 
-    int min_row_x_affected = c_rows - 1;
+    int min_row_x_affected = BoardSize::c_rows - 1;
     int max_row_x_affected = 0;
 
     for(int contour_x = 0; contour_x < contour_size; ++contour_x){
@@ -94,7 +95,7 @@ bool Board::place_block(const Block& b, Placement p){
         min_row_x_affected = min(min_row_x_affected, abs_start_fill_row);
         max_row_x_affected = max(max_row_x_affected, abs_end_fill_row - 1);
 
-        if(max_row_x_affected >= c_rows){
+        if(max_row_x_affected >= BoardSize::c_rows){
             // NOTE: If we're here, this state is never touched again.
             // Because its game over.
             return false;
@@ -272,15 +273,15 @@ Board_lifetime_stats Board::get_lifetime_stats() const {
 
 void Board::clear_row(int deleted_row) {
 
-    Grid_t board_shifted_down = board << c_cols;
+    Grid_t board_shifted_down = board << BoardSize::c_cols;
 
     Grid_t below_del_row_mask;
     below_del_row_mask.set();
-    below_del_row_mask <<= (c_cols * (c_rows - deleted_row));
+    below_del_row_mask <<= (BoardSize::c_cols * (BoardSize::c_rows - deleted_row));
 
     Grid_t above_including_del_row_mask{~below_del_row_mask};
 
-    for(int col_x = 0; col_x < c_cols; ++col_x){
+    for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
         int reduction = get_height_map_reduction(deleted_row, col_x);
         height_map[col_x] -= reduction;
         perfect_num_cells_filled -= reduction;
@@ -290,12 +291,12 @@ void Board::clear_row(int deleted_row) {
         (board & below_del_row_mask) |
         (board_shifted_down & above_including_del_row_mask);
 
-    num_cells_filled -= c_cols;
+    num_cells_filled -= BoardSize::c_cols;
 }
 
 Board::Grid_t::reference Board::at(size_t row, size_t col){
 
-    size_t idx = c_size - 1 - ((row * c_cols) + col);
+    size_t idx = BoardSize::c_size - 1 - ((row * BoardSize::c_cols) + col);
     return board[idx];
 }
 
@@ -308,13 +309,13 @@ void Board::load_ancestral_data_with_current_data() {
 
 
 bool Board::at(size_t row, size_t col) const {
-    size_t idx = c_size - 1 - ((row * c_cols) + col);
+    size_t idx = BoardSize::c_size - 1 - ((row * BoardSize::c_cols) + col);
     return board[idx];
 }
 
 bool Board::is_row_full(int row) const {
 
-    for(int col = 0; col < c_cols; ++col){
+    for(int col = 0; col < BoardSize::c_cols; ++col){
         if(!at(row, col)){
             return false;
         }
@@ -325,7 +326,7 @@ bool Board::is_row_full(int row) const {
 // Compute height based on "board" only.
 int Board::compute_height(size_t col_x) const {
     int height = 0;
-    for(size_t row_x = 0; row_x < c_rows; ++row_x){
+    for(size_t row_x = 0; row_x < BoardSize::c_rows; ++row_x){
         if(at(row_x, col_x)){
             height = row_x + 1;
         }
@@ -366,7 +367,7 @@ bool Board::has_good_trench_status() const {
 int Board::num_holes_above_height(int height) const {
 
     int found = 0;
-    for(int col_x = 0; col_x < c_cols; ++col_x){
+    for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
         // Would still be correct if it was height_map[col_x] - 1,
         for(int row_x = height; row_x <= height_map[col_x] - 2; ++row_x){
             if(!at(row_x, col_x)){
@@ -411,13 +412,13 @@ int Board::get_height_map_reduction(int deleted_row, int query_col) const {
 
 void Board::update_secondary_cache(int num_rows_cleared_just_now) {
 
-    static constexpr int impossibly_high_wall = c_rows + 5;
+    static constexpr int impossibly_high_wall = BoardSize::c_rows + 5;
     static constexpr int min_depth_considered_trench = 3;
 
     num_trenches = 0;
-    at_least_one_side_clear = (height_map[0] == 0) || (height_map[c_cols - 1] == 0);
-    lowest_height = c_rows;
-    second_lowest_height = c_rows;
+    at_least_one_side_clear = (height_map[0] == 0) || (height_map[BoardSize::c_cols - 1] == 0);
+    lowest_height = BoardSize::c_rows;
+    second_lowest_height = BoardSize::c_rows;
     highest_height = 0;
     sum_of_squared_heights = 0;
 
@@ -427,7 +428,7 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
 
     int some_trench_height = 0;
 
-    for(int col_x = 0; col_x < c_cols; ++col_x){
+    for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
 
         sum_of_squared_heights += middle_height * middle_height;
         second_lowest_height = middle_height <= lowest_height ? lowest_height : min(second_lowest_height, middle_height);
@@ -443,7 +444,7 @@ void Board::update_secondary_cache(int num_rows_cleared_just_now) {
 
         left_height = middle_height;
         middle_height = right_height;
-        right_height = (col_x == c_cols - 2) ? impossibly_high_wall : height_map[col_x + 2];
+        right_height = (col_x == BoardSize::c_cols - 2) ? impossibly_high_wall : height_map[col_x + 2];
     }
 
     is_tetrisable =

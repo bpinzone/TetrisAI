@@ -8,6 +8,8 @@
 
 #include <iosfwd>
 
+#include "board_size.h"
+
 struct Block;
 struct Placement;
 
@@ -33,11 +35,6 @@ public:
     Board(){ }
 
     Board(std::istream& is);
-
-    // STATIC MEMBERS
-    static constexpr size_t c_cols = 10;
-    static constexpr size_t c_rows = 20;
-    static constexpr size_t c_size = c_cols * c_rows;
 
     friend std::ostream& operator<<(std::ostream& os, const Board& s);
 
@@ -67,7 +64,7 @@ public:
 
 private:
 
-    using Grid_t = std::bitset<c_size>;
+    using Grid_t = std::bitset<BoardSize::c_size>;
 
     // FUNCTIONS
     // Modifying
@@ -104,7 +101,7 @@ private:
     bool just_swapped = false;
 
     // === Primary Cache. Should be updated in place_block() and clear_row() ===
-    std::array<int, c_cols> height_map = {0};
+    std::array<int, BoardSize::c_cols> height_map = {0};
     int num_cells_filled = 0;
     // If there are 0 holes, num_cells_filled will be equal to this.
     int perfect_num_cells_filled = 0;

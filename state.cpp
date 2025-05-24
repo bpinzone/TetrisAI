@@ -1,6 +1,7 @@
 #include "state.h"
 #include "block.h"
 
+#include "board_size.h"
 #include <iostream>
 
 using std::optional;
@@ -121,7 +122,7 @@ optional<Placement> State::Placement_generator::operator()(){
     }
 
     for(; rot_x < presented->maps.size(); ++rot_x){
-        const int max_valid_col = Board::c_cols - presented->maps[rot_x].contour.size();
+        const int max_valid_col = BoardSize::c_cols - presented->maps[rot_x].contour.size();
         // Only time rot_x is incremented is when this is false.
         while(col <= max_valid_col){
             // Increment col every time. Do so before control leaves.
