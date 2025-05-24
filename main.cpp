@@ -296,7 +296,7 @@ Placement get_best_move(
     State root_state = State::generate_root_state(
         board, presented, queue, num_placements_to_look_ahead);
 
-    Tetris_worker::distribute_new_work_and_wait_till_all_free(move(root_state));
+    Tetris_worker::distribute_new_work_and_wait_till_all_free(std::move(root_state));
 
     State& best_state = Tetris_worker::get_best_reachable_state();
 

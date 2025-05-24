@@ -30,12 +30,12 @@ Tetris_worker::Tetris_worker(){
 void Tetris_worker::restart_with_stack(vector<State>&& _state_stack){
     assert(!_state_stack.empty());
     best_state = {};
-    lock_set_signal_stack(move(_state_stack));
+    lock_set_signal_stack(std::move(_state_stack));
 }
 
 void Tetris_worker::lock_set_signal_stack(vector<State>&& _state_stack){
     unique_lock<mutex> ss_ulock(ss_mutex);
-    state_stack = move(_state_stack);
+    state_stack = std::move(_state_stack);
     ss_ulock.unlock();
     ss_empty.notify_all();
 }
@@ -88,7 +88,7 @@ void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_stat
     vector<State> first_gen;
     for(auto op_child = root_state.generate_next_child();
             op_child; op_child = root_state.generate_next_child()){
-        first_gen.push_back(move(*op_child));
+        first_gen.push_back(std::move(*op_child));
     }
 
     // Compute how many states each worker receives
@@ -100,18 +100,18 @@ void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_stat
     // Hand out work.
     vector<State> work_chunk;
     for(auto& state : first_gen){
-        work_chunk.push_back(move(state));
+        work_chunk.push_back(std::move(state));
         // Give out chunk
         if(work_chunk.size() == states_per_worker){
             // Still holding fw lock
-            free_workers.back()->restart_with_stack(move(work_chunk));
+            free_workers.back()->restart_with_stack(std::move(work_chunk));
             free_workers.pop_back();
             // On a moved-from object, only guaranteed safe operations are assignment and destruction.
             work_chunk = decltype(work_chunk){};
         }
     }
     if(!work_chunk.empty()){
-        free_workers.back()->restart_with_stack(move(work_chunk));
+        free_workers.back()->restart_with_stack(std::move(work_chunk));
         free_workers.pop_back();
     }
 
@@ -177,17 +177,17 @@ void Tetris_worker::run(){
             // We have work to do.
 
             // Do our work.
-            State considered_state = move(state_stack.back());
+            State considered_state = std::move(state_stack.back());
             state_stack.pop_back();
             if(considered_state.get_is_leaf()){
                 if(!best_state || considered_state.get_board().has_greater_utility_than(best_state->get_board())){
-                    best_state = move(considered_state);
+                    best_state = std::move(considered_state);
                 }
             }
             else{
                 for(auto op_child = considered_state.generate_next_child();
                         op_child; op_child = considered_state.generate_next_child()){
-                    state_stack.push_back(move(*op_child));
+                    state_stack.push_back(std::move(*op_child));
                 }
             }
 
@@ -235,13 +235,13 @@ void Tetris_worker::attempt_to_offload_work(){
     bool to_me = true;
     for(auto& state : state_stack){
         if(to_me){
-            my_new_state_stack.push_back(move(state));
+            my_new_state_stack.push_back(std::move(state));
         }
         else{
-            fw_new_state_stack.push_back(move(state));
+            fw_new_state_stack.push_back(std::move(state));
         }
         to_me = !to_me;
     }
-    state_stack = move(my_new_state_stack);
-    free_worker->lock_set_signal_stack(move(fw_new_state_stack));
+    state_stack = std::move(my_new_state_stack);
+    free_worker->lock_set_signal_stack(std::move(fw_new_state_stack));
 }
