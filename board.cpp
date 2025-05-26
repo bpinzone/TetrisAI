@@ -261,6 +261,13 @@ bool Board::is_holding_some_block() const {
     return current_hold;
 }
 
+const Block * Board::get_hold() const {
+    if(current_hold){
+        return current_hold;
+    }
+    return nullptr;
+}
+
 int Board::get_num_blocks_placed() const {
     return lifetime_stats.num_blocks_placed;
 }

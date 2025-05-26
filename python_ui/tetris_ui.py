@@ -55,13 +55,22 @@ def get_color(color: Color) -> tuple[int, int, int]:
 
 k_rect_thickness = 2
 
-color_grid = None
+class UI_state:
+    def __init__(self):
+        self.queue_str = None
+        self.color_grid = None
+        self.hold_str = None
+        self.presented_str = None
+
+ui_state = None
 
 def main():
     global screen
-    clock = pygame.time.Clock()
     current_w = WINDOW_WIDTH
     current_h = WINDOW_HEIGHT
+
+    global ui_state
+    ui_state = UI_state()
     
     while True:
         for event in pygame.event.get():
@@ -73,13 +82,45 @@ def main():
                 current_w, current_h = event.size
                 screen = pygame.display.set_mode((current_w, current_h), pygame.RESIZABLE)
         
-        global color_grid
-
-        header = sys.stdin.readline().strip()
-        if header == "done":
+        line = sys.stdin.readline().strip()
+        if line == "done":
             break   
-        if header == "main_board:":
-            color_grid = ColorGrid(sys.stdin)
+
+        else:
+            # header
+            frame_header = line
+            if frame_header != "ui_frame:":
+                raise ValueError(f"Expected ui_frame: but got {frame_header}")
+            
+            # queue
+            queue_header = sys.stdin.readline().strip()
+            if queue_header != "queue:":
+                raise ValueError(f"Expected queue: but got {queue_header}")
+            ui_state.queue_str = sys.stdin.readline().strip()
+            if len(ui_state.queue_str) != 6:
+                raise ValueError(f"Expected 6 tetrimino names in queue, but got {len(ui_state.queue_str)}")
+            
+            # hold
+            hold_header = sys.stdin.readline().strip()
+            if hold_header != "hold:":
+                raise ValueError(f"Expected hold: but got {hold_header}")
+            ui_state.hold_str = sys.stdin.readline().strip()
+            if len(ui_state.hold_str) != 1:
+                raise ValueError(f"Expected 1 tetrimino name in hold, but got {len(ui_state.hold_str)}")
+
+            # presented
+            presented_header = sys.stdin.readline().strip()
+            if presented_header != "presented:":
+                raise ValueError(f"Expected presented: but got {presented_header}")
+            ui_state.presented_str = sys.stdin.readline().strip()
+            if len(ui_state.presented_str) != 1:
+                raise ValueError(f"Expected 1 tetrimino name in presented, but got {len(ui_state.presented_str)}")
+
+            # main_board
+            main_board_header = sys.stdin.readline().strip()
+            if main_board_header != "main_board:":
+                raise ValueError(f"Expected main_board: but got {main_board_header}")
+            ui_state.color_grid = ColorGrid(sys.stdin)
         
         draw_screen(screen, Rectangle(left=0, top=0, width=current_w, height=current_h))
 
@@ -131,11 +172,7 @@ def draw_ui(surface: pygame.Surface, screen_section: Rectangle):
     draw_child(draw_board, Rectangle(left=7, top=9, width=10, height=20))
     draw_child(draw_junk_place_control, Rectangle(left=7, top=30, width=10, height=1))
     draw_child(draw_stats, Rectangle(left=18, top=1, width=12, height=6))
-    draw_child(draw_queue_border, Rectangle(left=18, top=9, width=6, height=20))
-
-    for i in range(6):
-        draw_child(draw_queue_item, Rectangle(left=19, top=(10 + i * 3), width=4, height=2))
-
+    draw_child(draw_queue, Rectangle(left=18, top=9, width=6, height=20))
     draw_child(draw_best_board, Rectangle(left=25, top=8, width=5, height=10))
     draw_child(draw_worst_board, Rectangle(left=25, top=19, width=5, height=10))
 
@@ -143,6 +180,9 @@ def draw_ui(surface: pygame.Surface, screen_section: Rectangle):
 
 def draw_hold(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, BLUE)
+
+    if ui_state.hold_str != "n":
+        draw_tetrimino(surface, screen_section, ui_state.hold_str)
 
 def draw_junk_queue(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, RED)
@@ -156,17 +196,26 @@ def draw_team_name(surface: pygame.Surface, screen_section: Rectangle):
 def draw_presented(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, YELLOW)
 
+    ui_units_width = 10
+    ui_units_height = 4
+
+    presented_pos = Rectangle(left=1, top=1, width=4, height=2)
+    presented_subsection = get_subsection_for_child(screen_section, presented_pos, ui_units_width, ui_units_height)
+    draw_tetrimino(surface, presented_subsection, ui_state.presented_str)
+
 def draw_board(surface: pygame.Surface, screen_section: Rectangle):
 
+    num_rows = ui_state.color_grid.rows
+    num_cols = ui_state.color_grid.cols
 
-    for row in range(color_grid.rows):
-        for col in range(color_grid.cols):
-            cell = color_grid.grid[row][col]
-            pygame_rect = Rectangle(col, (color_grid.rows - 1) - row, 1, 1)
-            cell_subsection = get_subsection_for_child(screen_section, pygame_rect, color_grid.cols, color_grid.rows)
+    for row in range(num_rows):
+        for col in range(num_cols):
+            cell = ui_state.color_grid.grid[row][col]
+            pygame_rect = Rectangle(col, (num_rows - 1) - row, 1, 1)
+            cell_subsection = get_subsection_for_child(screen_section, pygame_rect, num_cols, num_rows)
 
             if cell.shade.is_filled:
-                draw_tetrimino(surface, cell_subsection, get_color(cell.color))
+                draw_tetrimino_cell(surface, cell_subsection, get_color(cell.color))
             # else:
             #     draw_rectangle_outline(surface, cell_subsection.as_shrunk_square(0.95), GRAY, 1)
 
@@ -180,11 +229,18 @@ def draw_junk_place_control(surface: pygame.Surface, screen_section: Rectangle):
 def draw_stats(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, RED)
 
-def draw_queue_border(surface: pygame.Surface, screen_section: Rectangle):
+def draw_queue(surface: pygame.Surface, screen_section: Rectangle):
+
     draw_rectangle_outline(surface, screen_section, PINK)
 
-def draw_queue_item(surface: pygame.Surface, screen_section: Rectangle):
-    draw_rectangle_outline(surface, screen_section, BLUE)
+    ui_units_width = 6
+    ui_units_height = 20
+
+    for i in range(6):
+        slot_rect = Rectangle(left=1, top=1 + i * 3, width=4, height=2)
+        slot_subsection = get_subsection_for_child(screen_section, slot_rect, ui_units_width, ui_units_height)
+        draw_tetrimino(surface, slot_subsection, ui_state.queue_str[i])
+
 
 def draw_best_board(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, GREEN)
@@ -201,7 +257,7 @@ def draw_rectangle(surface, rect: Rectangle, color : tuple[int, int, int]):
     py_rect = pygame.Rect(rect.left, rect.top, rect.width, rect.height)
     pygame.draw.rect(surface, color, py_rect)
 
-def draw_tetrimino(surface, rect: Rectangle, color : tuple[int, int, int]):
+def draw_tetrimino_cell(surface, rect: Rectangle, color : tuple[int, int, int]):
 
     outer_rect = rect
     inner_rect = rect.as_shrunk_square(0.9)
@@ -212,6 +268,50 @@ def draw_tetrimino(surface, rect: Rectangle, color : tuple[int, int, int]):
 
     draw_rectangle(surface, outer_rect, outer_color)
     draw_rectangle(surface, inner_rect, inner_color)
+
+def draw_tetrimino(surface, rect: Rectangle, name: str):
+
+    ui_units_width = 4
+    ui_units_height = 2
+
+    if name == "b":
+        top="1000"
+        bot="1110"
+    if name == "p":
+        top="0100"
+        bot="1110"
+    if name == "r":
+        top="1100"
+        bot="0110"
+    if name == "c":
+        top="0000"
+        bot="1111"
+    if name == "y":
+        top="0110"
+        bot="0110"
+    if name == "o":
+        top="0010"
+        bot="1110"
+    if name == "g":
+        top="0110"
+        bot="1100"
+    
+    color_enum = Color.from_char(name)
+    color_val = get_color(color_enum)
+    
+    # render top
+    for i in range(ui_units_width):
+        if top[i] == "1":
+            square_subsection = get_subsection_for_child(rect, Rectangle(left=i, top=0, width=1, height=1), ui_units_width, ui_units_height)
+            draw_tetrimino_cell(surface, square_subsection, color_val)
+
+    # render bottom.
+    for i in range(ui_units_width):
+        if bot[i] == "1":
+            square_subsection = get_subsection_for_child(rect, Rectangle(left=i, top=1, width=1, height=1), ui_units_width, ui_units_height)
+            draw_tetrimino_cell(surface, square_subsection, color_val)
+
+
 if __name__ == "__main__":
     print("Starting Tetris UI")
     main() 

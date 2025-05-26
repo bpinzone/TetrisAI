@@ -79,6 +79,9 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
+/*
+./main t 0 3 6 1000000 20 e | ./python_ui/tetris_ui.py
+*/
 void play_tournament(const Play_settings& settings){
 
     bool has_colors = true;
@@ -131,11 +134,11 @@ void play_tournament(const Play_settings& settings){
 
         swap(board, new_board);
 
-        UI_frame ui_frame{board.get_grid()};
+        UI_frame ui_frame{board.get_grid(), &queue, board.get_hold(), next_to_present};
         ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
 
         ++turn;
-        std::this_thread::sleep_for(std::chrono::milliseconds(25));
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
     Output_manager::get_instance().get_ui_os() <<  "done" << endl;

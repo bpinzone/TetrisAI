@@ -56,6 +56,7 @@ public:
     int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
     bool is_holding_some_block() const;
+    const Block * get_hold() const;
 
     int get_num_blocks_placed() const;
     double get_tetris_percent() const;
