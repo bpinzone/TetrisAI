@@ -8,14 +8,17 @@ using std::endl;
 using std::cout;
 
 void Output_manager::set_streams(char mode){
+    this->mode = mode;
+
     static bool set = false;
     if(!set){
         set = true;
     }
     else{
         // Should really be an assertion.
-        throw runtime_error{"Cannot set streams more than once!"};
+        throw std::logic_error{"Cannot set streams more than once!"};
     }
+
     if(mode == 'w'){
         command_os = new ofstream("commands.log");
         board_os = &cout;
@@ -23,6 +26,9 @@ void Output_manager::set_streams(char mode){
         ofstream fout{"board.log"};
         fout << endl;
         fout.close();
+    }
+    else if(mode == 't'){
+        ui_os = &cout;
     }
     else{
         command_os = &cout;
@@ -32,6 +38,23 @@ void Output_manager::set_streams(char mode){
         fout << endl;
         fout.close();
     }
+}
+
+std::ostream& Output_manager::get_command_os() const {
+    if(mode == 't'){
+        throw std::logic_error{"Cannot get command_os in tournament mode!"};
+    }
+    return *command_os;
+}
+
+std::ostream& Output_manager::get_board_os() const {
+    if(mode == 't'){
+        throw std::logic_error{"Cannot get board_os in tournament mode!"};
+    }
+    return *board_os;
+}
+std::ostream& Output_manager::get_ui_os() const {
+    return *ui_os;
 }
 
 Output_manager::~Output_manager(){
@@ -44,5 +67,10 @@ Output_manager::~Output_manager(){
         fout->close();
         delete fout;
         board_os = nullptr;
+    }
+    if(std::ofstream* fout = dynamic_cast<ofstream*>(ui_os)){
+        fout->close();
+        delete fout;
+        ui_os = nullptr;
     }
 }

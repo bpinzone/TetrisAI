@@ -281,6 +281,10 @@ Board_lifetime_stats Board::get_lifetime_stats() const {
     return lifetime_stats;
 }
 
+const Grid *Board::get_grid() const {
+    return &grid;
+}
+
 void Board::clear_row(int deleted_row) {
 
     for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){

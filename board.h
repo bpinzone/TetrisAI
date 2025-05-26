@@ -34,6 +34,7 @@ class Board {
 public:
 
     Board(){ }
+    Board(bool has_colors) : grid(has_colors) { }
 
     Board(std::istream& is);
 
@@ -62,6 +63,8 @@ public:
     bool is_clear() const;
 
     Board_lifetime_stats get_lifetime_stats() const;
+
+    const Grid *get_grid() const;
 
 private:
 

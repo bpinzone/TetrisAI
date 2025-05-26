@@ -7,12 +7,14 @@
 #include "play_settings.h"
 #include "global_stats.h"
 #include "post_play.h"
+#include "ui_frame.h"
 
 #include <iostream>
 #include <cassert>
 #include <iterator>
 #include <algorithm>
 #include <string>
+#include <thread>
 #include <utility>
 #include <optional>
 
@@ -79,9 +81,64 @@ int main(int argc, char* argv[]) {
 
 void play_tournament(const Play_settings& settings){
 
+    bool has_colors = true;
+    Board board(has_colors);
+    const Block* next_to_present = settings.block_generator->generate();
+    Tetris_queue_t queue;
+    for(int i = 0; i < settings.queue_size; ++i){
+        // Not going to write a wrapper just for this.
+        // generate_n takes functor by value. Can't use bc we use inheritance. Use ref()?
+        queue.push_back(settings.block_generator->generate());
+    }
 
+    int turn = 0;
+    while(turn < settings.game_length){
 
+        Placement next_placement = get_best_move(
+            board, *next_to_present,
+            queue, settings.lookahead_placements
+        );
 
+        Board new_board{board};
+
+        // HOLD
+        if(next_placement.get_is_hold()){
+
+            const Block* old_hold = new_board.swap_block(*next_to_present);
+            if(!old_hold){
+                next_to_present = queue.front();
+                queue.pop_front();
+                queue.push_back(settings.block_generator->generate());
+            }
+            else{
+                next_to_present = old_hold;
+            }
+        }
+        // PLACE
+        else{
+            bool is_promising = new_board.place_block(*next_to_present, next_placement);
+
+            if(!is_promising){
+                if(settings.board_log){
+                    Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
+                }
+                return;
+            }
+            next_to_present = queue.front();
+            queue.pop_front();
+            queue.push_back(settings.block_generator->generate());
+        }
+
+        swap(board, new_board);
+
+        UI_frame ui_frame{board.get_grid()};
+        ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
+
+        ++turn;
+        std::this_thread::sleep_for(std::chrono::milliseconds(25));
+    }
+
+    Output_manager::get_instance().get_ui_os() <<  "done" << endl;
 }
 
 void play(const Play_settings& settings){

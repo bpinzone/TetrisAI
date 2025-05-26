@@ -39,3 +39,10 @@ size_t Grid::count() const{
     return bit_grid.count();
 }
 
+
+void Grid::output_color_grid_to_stream(std::ostream& os) const {
+    if(!color_grid){
+        throw std::logic_error{"Cannot output color grid to stream because it is not enabled!"};
+    }
+    color_grid->output_to_stream(os);
+}

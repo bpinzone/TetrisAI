@@ -3,14 +3,18 @@
 
 import pygame
 import sys
+from enum import Enum, auto
+from dataclasses import dataclass
+from geometry import Rectangle
+from color_grid import ColorGrid, Color
 
 # Initialize Pygame
 pygame.init()
 
 # Get the screen info
 screen_info = pygame.display.Info()
-WINDOW_WIDTH = screen_info.current_w
-WINDOW_HEIGHT = screen_info.current_h
+WINDOW_WIDTH = screen_info.current_w / 2
+WINDOW_HEIGHT = screen_info.current_h / 2
 
 # Set up the display with resizable flag
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
@@ -19,54 +23,42 @@ pygame.display.set_caption("Tetris AI Tournament")
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-RED = (255, 0, 0)
+
 BLUE = (0, 0, 255)
-GREEN = (0, 255, 0)
-YELLOW = (255, 255, 0)
-PINK = (255, 192, 203)
 PURPLE = (128, 0, 128)
+RED = (255, 0, 0)
+CYAN = (0, 255, 255)
+YELLOW = (255, 255, 0)
 ORANGE = (255, 165, 0)
+GREEN = (0, 255, 0)
+
+PINK = (255, 192, 203)
 BROWN = (165, 42, 42)
 GRAY = (128, 128, 128)
 
 
+def get_color(color: Color) -> tuple[int, int, int]:
+    if color == Color.BLUE:
+        return BLUE
+    if color == Color.PURPLE:
+        return PURPLE
+    if color == Color.RED:
+        return RED
+    if color == Color.CYAN:
+        return CYAN
+    if color == Color.YELLOW:
+        return YELLOW
+    if color == Color.ORANGE:
+        return ORANGE
+    if color == Color.GREEN:
+        return GREEN
+
 k_rect_thickness = 2
 
-class Point:
-    def __init__(self, x: int, y: int):
-        self.x = x
-        self.y = y
-
-
-class Rectangle:
-    """Top left is 0, 0"""
-    def __init__(self, left: int, top: int, width: int, height: int):
-        self.left = left
-        self.top = top
-        self.width = width
-        self.height = height
-
-    def get_left_half(self):
-        return Rectangle(self.left, self.top, self.width / 2, self.height)
-
-    def get_right_half(self):
-        return Rectangle(self.left + self.width / 2, self.top, self.width / 2, self.height)
-
-    def get_center(self):
-        return Point(self.left + self.width / 2, self.top + self.height / 2)
-
-    def as_square(self):
-        size = min(self.width, self.height)
-        center = self.get_center()
-        return Rectangle(center.x - size / 2, center.y - size / 2, size, size)
-
-    def as_shrunk_square(self, size_keep_percent: float):
-        square = self.as_square()
-        shrunk_square_size = square.width * size_keep_percent
-        center = square.get_center()
-        return Rectangle(center.x - shrunk_square_size / 2, center.y - shrunk_square_size / 2, shrunk_square_size, shrunk_square_size)
+color_grid = None
 
 def main():
+    global screen
     clock = pygame.time.Clock()
     current_w = WINDOW_WIDTH
     current_h = WINDOW_HEIGHT
@@ -81,13 +73,19 @@ def main():
                 current_w, current_h = event.size
                 screen = pygame.display.set_mode((current_w, current_h), pygame.RESIZABLE)
         
+        global color_grid
+
+        header = sys.stdin.readline().strip()
+        if header == "done":
+            break   
+        if header == "main_board:":
+            color_grid = ColorGrid(sys.stdin)
+        
         draw_screen(screen, Rectangle(left=0, top=0, width=current_w, height=current_h))
 
         # Update the display
         pygame.display.flip()
         
-        # Cap the frame rate
-        clock.tick(60)
 
 def get_subsection_for_child(parent_screen_section: Rectangle, child_intraParentPosition: Rectangle, parent_units_width: int, parent_units_height: int):
     """ The parent renders itself inside parent_screen_section.
@@ -95,8 +93,8 @@ def get_subsection_for_child(parent_screen_section: Rectangle, child_intraParent
     child_intraParentPosition specifies the child's position and size in the parent's coordinate system.
     parent_units_width and parent_units_height specify how many units the parent is divided into."""
 
-    pixels_per_parent_unit_width = parent_screen_section.width / parent_units_width
-    pixels_per_parent_unit_height = parent_screen_section.height / parent_units_height
+    pixels_per_parent_unit_width = parent_screen_section.width // parent_units_width
+    pixels_per_parent_unit_height = parent_screen_section.height // parent_units_height
 
     child_screen_rect_left = parent_screen_section.left + child_intraParentPosition.left * pixels_per_parent_unit_width
     child_screen_rect_top = parent_screen_section.top + child_intraParentPosition.top * pixels_per_parent_unit_height
@@ -159,7 +157,22 @@ def draw_presented(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, YELLOW)
 
 def draw_board(surface: pygame.Surface, screen_section: Rectangle):
+
+
+    for row in range(color_grid.rows):
+        for col in range(color_grid.cols):
+            cell = color_grid.grid[row][col]
+            pygame_rect = Rectangle(col, (color_grid.rows - 1) - row, 1, 1)
+            cell_subsection = get_subsection_for_child(screen_section, pygame_rect, color_grid.cols, color_grid.rows)
+
+            if cell.shade.is_filled:
+                draw_tetrimino(surface, cell_subsection, get_color(cell.color))
+            # else:
+            #     draw_rectangle_outline(surface, cell_subsection.as_shrunk_square(0.95), GRAY, 1)
+
     draw_rectangle_outline(surface, screen_section, WHITE)
+
+
 
 def draw_junk_place_control(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, ORANGE)
@@ -180,12 +193,25 @@ def draw_worst_board(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, RED)
 
 
-def draw_rectangle_outline(surface, rect: Rectangle, color : tuple[int, int, int]):
+def draw_rectangle_outline(surface, rect: Rectangle, color : tuple[int, int, int], thickness=k_rect_thickness):
     py_rect = pygame.Rect(rect.left, rect.top, rect.width, rect.height)
-    pygame.draw.rect(surface, color, py_rect, k_rect_thickness)
+    pygame.draw.rect(surface, color, py_rect, thickness)
 
+def draw_rectangle(surface, rect: Rectangle, color : tuple[int, int, int]):
+    py_rect = pygame.Rect(rect.left, rect.top, rect.width, rect.height)
+    pygame.draw.rect(surface, color, py_rect)
 
+def draw_tetrimino(surface, rect: Rectangle, color : tuple[int, int, int]):
 
+    outer_rect = rect
+    inner_rect = rect.as_shrunk_square(0.9)
 
+    dimming = 0.7
+    outer_color = (color[0] * dimming, color[1] * dimming, color[2] * dimming)
+    inner_color = color
+
+    draw_rectangle(surface, outer_rect, outer_color)
+    draw_rectangle(surface, inner_rect, inner_color)
 if __name__ == "__main__":
+    print("Starting Tetris UI")
     main() 

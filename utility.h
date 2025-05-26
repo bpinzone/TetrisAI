@@ -17,13 +17,13 @@ public:
     // Call exactly once.
     void set_streams(char mode);
 
-    std::ostream& get_command_os() const {
-        return *command_os;
-    }
+    // not available in tournament mode.
+    std::ostream& get_command_os() const;
 
-    std::ostream& get_board_os() const {
-        return *board_os;
-    }
+    // not available in tournament mode.
+    std::ostream& get_board_os() const;
+
+    std::ostream& get_ui_os() const;
 
     Output_manager(const Output_manager& other) = delete;
     Output_manager(Output_manager&& other) = delete;
@@ -32,12 +32,15 @@ public:
     Output_manager& operator=(Output_manager&& other) = delete;
 
     ~Output_manager();
+
 private:
 
     Output_manager(){}
 
+    char mode;
     std::ostream* command_os = nullptr;
     std::ostream* board_os = nullptr;
+    std::ostream* ui_os = nullptr;
 };
 
 #endif

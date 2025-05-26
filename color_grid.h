@@ -16,11 +16,14 @@ struct ColorCellShade {
         is_ghost = false;
         is_about_to_be_cleared = false;
     }
+
+    void output_to_stream(std::ostream& os) const;
 };
 
 struct ColorCell {
     Color color;
-    ColorCellShade state;
+    ColorCellShade state; // todo: rename to shade.
+    void output_to_stream(std::ostream& os) const;
 };
 
 
@@ -29,6 +32,7 @@ public:
 
     void set_at(size_t row, size_t col, ColorCell cell);
     void clear_row(size_t deleted_row);
+    void output_to_stream(std::ostream& os) const;
 
 private:
 

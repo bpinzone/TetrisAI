@@ -18,6 +18,8 @@ public:
     bool at(size_t row, size_t col) const;
     size_t count() const;
 
+    void output_color_grid_to_stream(std::ostream& os) const;
+
 
 private:
 
