@@ -7,6 +7,7 @@ from enum import Enum, auto
 from dataclasses import dataclass
 from geometry import Rectangle
 from color_grid import ColorGrid, Color
+from collections.abc import Callable
 
 # Initialize Pygame
 pygame.init()
@@ -62,7 +63,75 @@ class UI_state:
         self.hold_str = None
         self.presented_str = None
 
-ui_state = None
+class Button:
+    def __init__(self, text: str, text_color: tuple[int, int, int], button_color: tuple[int, int, int], on_click: Callable[[], None]):
+
+        self.screen_section : Rectangle = None
+
+        self.text : str = text
+        self.text_color : tuple[int, int, int] = text_color
+
+        self.button_color : tuple[int, int, int] = button_color
+
+        self.on_click : Callable[[], None] = on_click
+    
+    def set_screen_section(self, screen_section: Rectangle):
+        self.screen_section = screen_section
+    
+    def draw(self, surface: pygame.Surface):
+
+        # background
+        draw_tetrimino_cell(surface, self.screen_section, self.button_color)
+
+        # text
+        draw_text(surface, self.screen_section, self.text, self.text_color)
+    
+    def possibly_handle_event(self, event: pygame.event.Event):
+        assert event.type == pygame.MOUSEBUTTONDOWN
+        if event.button == 1:  # Left click
+
+            mouse_pos = pygame.mouse.get_pos()
+
+            py_rect = self.screen_section.as_pygame_rect()
+            if py_rect.collidepoint(mouse_pos):
+                self.on_click()
+
+class JunkControl:
+    def __init__(self):
+        self.send_count = 1
+        self.plus_button = Button(text="+", text_color=WHITE, button_color=RED, on_click=self.increase_send_count)
+        self.minus_button = Button(text="-", text_color=WHITE, button_color=BLUE, on_click=self.decrease_send_count)
+    
+    def increase_send_count(self):
+        self.send_count += 1
+        if self.send_count > 19:
+            self.send_count = 19
+    
+    def decrease_send_count(self):
+        self.send_count -= 1
+        if self.send_count < 1:
+            self.send_count = 1
+    
+    def draw(self, surface: pygame.Surface, screen_section: Rectangle):
+
+        ui_units_width = 3
+        ui_units_height = 1
+
+        minus_subsection = get_subsection_for_child(screen_section, Rectangle(left=0, top=0, width=1, height=1), ui_units_width, ui_units_height)
+        plus_subsection = get_subsection_for_child(screen_section, Rectangle(left=2, top=0, width=1, height=1), ui_units_width, ui_units_height)
+
+        send_count_subsection = get_subsection_for_child(screen_section, Rectangle(left=1, top=0, width=1, height=1), ui_units_width, ui_units_height)
+
+        self.minus_button.set_screen_section(minus_subsection)
+        self.plus_button.set_screen_section(plus_subsection)
+
+        self.minus_button.draw(surface)
+        self.plus_button.draw(surface)
+        draw_text(surface, send_count_subsection, str(self.send_count), WHITE)
+    
+
+ui_state = UI_state()
+junk_control = JunkControl()
 
 def main():
     global screen
@@ -70,7 +139,8 @@ def main():
     current_h = WINDOW_HEIGHT
 
     global ui_state
-    ui_state = UI_state()
+
+    buttons = [junk_control.plus_button, junk_control.minus_button]
     
     while True:
         for event in pygame.event.get():
@@ -81,6 +151,9 @@ def main():
                 # Handle window resize
                 current_w, current_h = event.size
                 screen = pygame.display.set_mode((current_w, current_h), pygame.RESIZABLE)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                for button in buttons:
+                    button.possibly_handle_event(event)
         
         line = sys.stdin.readline().strip()
         if line == "done":
@@ -148,7 +221,7 @@ def get_subsection_for_child(parent_screen_section: Rectangle, child_intraParent
 def draw_screen(surface: pygame.Surface, screen_section: Rectangle):
     surface.fill(BLACK)
     draw_half(surface, screen_section.get_left_half())
-    draw_half(surface, screen_section.get_right_half())
+    # draw_half(surface, screen_section.get_right_half())
 
 def draw_half(surface: pygame.Surface, screen_section: Rectangle):
     within_margin = screen_section.as_shrunk_square(0.9)
@@ -188,7 +261,8 @@ def draw_junk_queue(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, RED)
 
 def draw_junk_count_control(surface: pygame.Surface, screen_section: Rectangle):
-    draw_rectangle_outline(surface, screen_section, ORANGE)
+    global junk_control
+    junk_control.draw(surface, screen_section)
 
 def draw_team_name(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, BROWN)
@@ -311,6 +385,13 @@ def draw_tetrimino(surface, rect: Rectangle, name: str):
             square_subsection = get_subsection_for_child(rect, Rectangle(left=i, top=1, width=1, height=1), ui_units_width, ui_units_height)
             draw_tetrimino_cell(surface, square_subsection, color_val)
 
+# So far only tried with a single character
+def draw_text(surface: pygame.Surface, screen_section: Rectangle, text: str, text_color: tuple[int, int, int]):
+    py_screen_section = pygame.Rect(screen_section.left, screen_section.top, screen_section.width, screen_section.height)
+    font = pygame.font.SysFont('arial', int(screen_section.height))
+    text_surface = font.render(text, True, text_color)
+    text_rect = text_surface.get_rect(center=py_screen_section.center)
+    surface.blit(text_surface, text_rect)
 
 if __name__ == "__main__":
     print("Starting Tetris UI")

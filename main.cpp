@@ -138,7 +138,7 @@ void play_tournament(const Play_settings& settings){
         ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
 
         ++turn;
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
     Output_manager::get_instance().get_ui_os() <<  "done" << endl;

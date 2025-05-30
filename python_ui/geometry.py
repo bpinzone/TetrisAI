@@ -1,3 +1,4 @@
+import pygame
 class Point:
     def __init__(self, x: int, y: int):
         self.x = x
@@ -31,3 +32,9 @@ class Rectangle:
         shrunk_square_size = square.width * size_keep_percent
         center = square.get_center()
         return Rectangle(center.x - shrunk_square_size / 2, center.y - shrunk_square_size / 2, shrunk_square_size, shrunk_square_size)
+    
+    def print(self):
+        print(f"Rectangle(left={self.left}, top={self.top}, width={self.width}, height={self.height})")
+    
+    def as_pygame_rect(self):
+        return pygame.Rect(self.left, self.top, self.width, self.height)
