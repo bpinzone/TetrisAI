@@ -1,6 +1,9 @@
 #! /usr/bin/python3
 # EVERYTHING is Top Left = 0, 0
 
+import os
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
+
 import pygame
 import sys
 from enum import Enum, auto
@@ -96,11 +99,15 @@ class Button:
             if py_rect.collidepoint(mouse_pos):
                 self.on_click()
 
-class JunkControl:
+class ManualJunkControl:
     def __init__(self):
         self.send_count = 1
         self.plus_button = Button(text="+", text_color=WHITE, button_color=RED, on_click=self.increase_send_count)
         self.minus_button = Button(text="-", text_color=WHITE, button_color=BLUE, on_click=self.decrease_send_count)
+
+        self.num_places = 10
+        self.place_buttons = [Button(text="^", text_color=WHITE, button_color=ORANGE, on_click=lambda position=position: self.send_junk(position))
+            for position in range(self.num_places)]
     
     def increase_send_count(self):
         self.send_count += 1
@@ -112,15 +119,24 @@ class JunkControl:
         if self.send_count < 1:
             self.send_count = 1
     
+    def send_junk(self, position: int):
+        print(f"Junk | Pos {position} | Count {self.send_count}")
+    
     def draw(self, surface: pygame.Surface, screen_section: Rectangle):
 
-        ui_units_width = 3
+        ui_units_width = 10 + 1 + 3 # place, ui padding, count control buttons.
         ui_units_height = 1
 
-        minus_subsection = get_subsection_for_child(screen_section, Rectangle(left=0, top=0, width=1, height=1), ui_units_width, ui_units_height)
-        plus_subsection = get_subsection_for_child(screen_section, Rectangle(left=2, top=0, width=1, height=1), ui_units_width, ui_units_height)
+        for i in range(self.num_places):
+            place_subsection = get_subsection_for_child(screen_section, Rectangle(left=i, top=0, width=1, height=1), ui_units_width, ui_units_height)
+            self.place_buttons[i].set_screen_section(place_subsection)
+            self.place_buttons[i].draw(surface)
 
-        send_count_subsection = get_subsection_for_child(screen_section, Rectangle(left=1, top=0, width=1, height=1), ui_units_width, ui_units_height)
+        minus_subsection = get_subsection_for_child(screen_section, Rectangle(left=11, top=0, width=1, height=1), ui_units_width, ui_units_height)
+
+        send_count_subsection = get_subsection_for_child(screen_section, Rectangle(left=12, top=0, width=1, height=1), ui_units_width, ui_units_height)
+
+        plus_subsection = get_subsection_for_child(screen_section, Rectangle(left=13, top=0, width=1, height=1), ui_units_width, ui_units_height)
 
         self.minus_button.set_screen_section(minus_subsection)
         self.plus_button.set_screen_section(plus_subsection)
@@ -128,10 +144,10 @@ class JunkControl:
         self.minus_button.draw(surface)
         self.plus_button.draw(surface)
         draw_text(surface, send_count_subsection, str(self.send_count), WHITE)
-    
+
 
 ui_state = UI_state()
-junk_control = JunkControl()
+junk_control = ManualJunkControl()
 
 def main():
     global screen
@@ -140,7 +156,8 @@ def main():
 
     global ui_state
 
-    buttons = [junk_control.plus_button, junk_control.minus_button]
+    # todo: do this automatically with static capabilities or something.
+    buttons = [junk_control.plus_button, junk_control.minus_button] + junk_control.place_buttons
     
     while True:
         for event in pygame.event.get():
@@ -199,6 +216,10 @@ def main():
 
         # Update the display
         pygame.display.flip()
+
+        print("ui_complete")
+        sys.stdout.flush()
+        
         
 
 def get_subsection_for_child(parent_screen_section: Rectangle, child_intraParentPosition: Rectangle, parent_units_width: int, parent_units_height: int):
@@ -239,11 +260,12 @@ def draw_ui(surface: pygame.Surface, screen_section: Rectangle):
 
     draw_child(draw_hold, Rectangle(left=2, top=6, width=4, height=2))
     draw_child(draw_junk_queue, Rectangle(left=3, top=9, width=1, height=20))
-    draw_child(draw_junk_count_control, Rectangle(left=18, top=30, width=3, height=1))
+    # draw_child(draw_junk_count_control, Rectangle(left=18, top=30, width=3, height=1))
     draw_child(draw_team_name, Rectangle(left=7, top=1, width=10, height=2))
     draw_child(draw_presented, Rectangle(left=7, top=4, width=10, height=4))
     draw_child(draw_board, Rectangle(left=7, top=9, width=10, height=20))
-    draw_child(draw_junk_place_control, Rectangle(left=7, top=30, width=10, height=1))
+    # draw_child(draw_junk_place_control, Rectangle(left=7, top=30, width=10, height=1))
+    draw_child(draw_manual_junk_control, Rectangle(left=7, top=30, width=14, height=1))
     draw_child(draw_stats, Rectangle(left=18, top=1, width=12, height=6))
     draw_child(draw_queue, Rectangle(left=18, top=9, width=6, height=20))
     draw_child(draw_best_board, Rectangle(left=25, top=8, width=5, height=10))
@@ -260,7 +282,11 @@ def draw_hold(surface: pygame.Surface, screen_section: Rectangle):
 def draw_junk_queue(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, RED)
 
-def draw_junk_count_control(surface: pygame.Surface, screen_section: Rectangle):
+# def draw_junk_count_control(surface: pygame.Surface, screen_section: Rectangle):
+#     global junk_control
+#     junk_control.draw(surface, screen_section)
+
+def draw_manual_junk_control(surface: pygame.Surface, screen_section: Rectangle):
     global junk_control
     junk_control.draw(surface, screen_section)
 
@@ -297,8 +323,8 @@ def draw_board(surface: pygame.Surface, screen_section: Rectangle):
 
 
 
-def draw_junk_place_control(surface: pygame.Surface, screen_section: Rectangle):
-    draw_rectangle_outline(surface, screen_section, ORANGE)
+# def draw_junk_place_control(surface: pygame.Surface, screen_section: Rectangle):
+#     draw_rectangle_outline(surface, screen_section, ORANGE)
 
 def draw_stats(surface: pygame.Surface, screen_section: Rectangle):
     draw_rectangle_outline(surface, screen_section, RED)
@@ -394,5 +420,5 @@ def draw_text(surface: pygame.Surface, screen_section: Rectangle, text: str, tex
     surface.blit(text_surface, text_rect)
 
 if __name__ == "__main__":
-    print("Starting Tetris UI")
+    # print("Starting Tetris UI")
     main() 

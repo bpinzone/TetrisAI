@@ -13,10 +13,12 @@
 #include <cassert>
 #include <iterator>
 #include <algorithm>
+#include <stdexcept>
 #include <string>
 #include <thread>
 #include <utility>
 #include <optional>
+#include <chrono>
 
 using std::swap;
 using std::move;
@@ -30,6 +32,7 @@ using std::optional;
 
 using Tetris_queue_t = State::Tetris_queue_t;
 using Seed_t = Random_block_generator::Seed_t;
+using Time_point_t = std::chrono::time_point<std::chrono::system_clock>;
 
 void play(const Play_settings& settings);
 void play_99(const Play_settings& settings);
@@ -41,6 +44,8 @@ Placement get_best_move(
         const Block& presented,
         const Tetris_queue_t& queue,
         int num_placements_to_look_ahead);
+
+double time_points_to_ms(Time_point_t start, Time_point_t end);
 
 int main(int argc, char* argv[]) {
 
@@ -135,10 +140,22 @@ void play_tournament(const Play_settings& settings){
         swap(board, new_board);
 
         UI_frame ui_frame{board.get_grid(), &queue, board.get_hold(), next_to_present};
+
+        Time_point_t ui_start_time = std::chrono::system_clock::now();
         ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
 
+        string ui_status;
+        cin >> ui_status;
+        if(ui_status != "ui_complete"){
+            throw std::logic_error("Expected ui_complete, got " + ui_status);
+        }
+
+        Time_point_t ui_end_time = std::chrono::system_clock::now();
+        const double ui_time_ms = time_points_to_ms(ui_start_time, ui_end_time);
+        Output_manager::get_instance().get_log_os() << "UI time: " << ui_time_ms << " ms." << endl;
+
         ++turn;
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
     Output_manager::get_instance().get_ui_os() <<  "done" << endl;
@@ -379,3 +396,7 @@ Placement get_best_move(
     return best_state.get_placement_taken_from_root();
 }
 
+
+double time_points_to_ms(Time_point_t start, Time_point_t end){
+    return std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+}

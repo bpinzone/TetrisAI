@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+# ./connect_binaries.py ./main ./python_ui/tetris_ui.py --args1 t 0 4 6 10000 20 e
+
 import subprocess
 import threading
 import sys

@@ -25,6 +25,8 @@ public:
 
     std::ostream& get_ui_os() const;
 
+    std::ostream& get_log_os() const;
+
     Output_manager(const Output_manager& other) = delete;
     Output_manager(Output_manager&& other) = delete;
 
@@ -41,6 +43,7 @@ private:
     std::ostream* command_os = nullptr;
     std::ostream* board_os = nullptr;
     std::ostream* ui_os = nullptr;
+    std::ostream* log_os = nullptr;
 };
 
 #endif
