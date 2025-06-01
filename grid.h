@@ -15,10 +15,14 @@ public:
     void clear_row(size_t row);
     void set_at(size_t row, size_t col, bool filled, Color color);
 
+    // returns true iff the game is over.
+    bool add_junk(int pos, int count);
+
     bool at(size_t row, size_t col) const;
     size_t count() const;
 
     void output_color_grid_to_stream(std::ostream& os) const;
+    bool is_column_clear(size_t col) const;
 
 
 private:

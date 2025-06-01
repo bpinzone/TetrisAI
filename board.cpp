@@ -53,7 +53,7 @@ Board::Board(istream& is) {
     }
     num_cells_filled = grid.count();
 
-    update_secondary_cache(0);
+    update_secondary_cache();
     load_ancestral_data_with_current_data();
 
 }
@@ -133,11 +133,13 @@ bool Board::place_block(const Block& b, Placement p){
     }
 
     // must be called before is_promising.
-    update_secondary_cache(num_rows_cleared_just_now);
+    update_secondary_cache();
 
-    if(!is_promising()){
-        return false;
-    }
+    // TODO: remove this? questionable.... this was a pruning hack probably.
+    // TODO: removing this for now. Might play a different game...
+    // if(!is_promising()){
+    //     return false;
+    // }
 
     update_lifetime_cache(num_rows_cleared_just_now);
     just_swapped = false;
@@ -312,6 +314,36 @@ void Board::load_ancestral_data_with_current_data() {
     ancestor_with_smallest_max_height.good_trench_status = has_good_trench_status();
 }
 
+bool Board::add_junk(int pos, int count){
+
+    const bool is_game_over = grid.add_junk(pos, count);
+
+    const bool position_column_is_clear = grid.is_column_clear(pos);
+    // height map update.
+    for(int col = 0; col < BoardSize::c_cols; ++col){
+        if(col != pos){
+            height_map[col] += count;
+        }
+        else {
+            if(!position_column_is_clear){
+                height_map[col] += count;
+            }
+        }
+    }
+    num_cells_filled += count * (BoardSize::c_cols - 1);
+
+    if(position_column_is_clear){
+        perfect_num_cells_filled += count * (BoardSize::c_rows - 1);
+    }
+    else {
+        perfect_num_cells_filled += count * BoardSize::c_rows;
+    }
+
+    update_secondary_cache();
+
+    return is_game_over;
+}
+
 
 bool Board::at(size_t row, size_t col) const {
     return grid.at(row, col);
@@ -414,7 +446,7 @@ int Board::get_height_map_reduction(int deleted_row, int query_col) const {
     return reductions;
 }
 
-void Board::update_secondary_cache(int num_rows_cleared_just_now) {
+void Board::update_secondary_cache() {
 
     static constexpr int impossibly_high_wall = BoardSize::c_rows + 5;
     static constexpr int min_depth_considered_trench = 3;

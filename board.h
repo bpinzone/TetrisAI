@@ -48,6 +48,9 @@ public:
     void set_lifetime_stats(const Board_lifetime_stats& new_board_lifetime_stats);
     void load_ancestral_data_with_current_data();
 
+    // returns true iff the game is over.
+    bool add_junk(int pos, int count);
+
 
     // Non-modifying
 
@@ -90,7 +93,7 @@ private:
     int get_height_map_reduction(int deleted_row, int query_col) const;
 
     // Fundamental and Primary cache data must be up to date before calling update second/life cache.
-    void update_secondary_cache(int num_rows_cleared_just_now);
+    void update_secondary_cache();
     void update_lifetime_cache(int num_rows_cleared_just_now);
 
     // MEMBERS

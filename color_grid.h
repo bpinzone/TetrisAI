@@ -32,6 +32,10 @@ public:
 
     void set_at(size_t row, size_t col, ColorCell cell);
     void clear_row(size_t deleted_row);
+
+    // rely on bit grid to tell you if the game is over.
+    void add_junk(int pos, int count);
+
     void output_to_stream(std::ostream& os) const;
 
 private:

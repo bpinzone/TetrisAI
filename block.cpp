@@ -67,6 +67,7 @@ const Color Block::char_to_color(char c){
         case 'y': return Color::Yellow;
         case 'o': return Color::Orange;
         case 'g': return Color::Green;
+        case 'j': return Color::Junk;
         default: throw std::logic_error{"char_to_color: color char invalid!"};
     }
 }
@@ -80,6 +81,7 @@ const char Block::color_to_char(Color color){
         case Color::Yellow: return 'y';
         case Color::Orange: return 'o';
         case Color::Green: return 'g';
+        case Color::Junk: return 'j';
         default: throw std::logic_error{"color_to_char: Color enum value invalid!"};
     }
 }

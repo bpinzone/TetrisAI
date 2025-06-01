@@ -146,8 +146,32 @@ void play_tournament(const Play_settings& settings){
 
         string ui_status;
         cin >> ui_status;
-        if(ui_status != "ui_complete"){
-            throw std::logic_error("Expected ui_complete, got " + ui_status);
+
+        int junk_pos = 0;
+        int junk_count = 0;
+        if(ui_status == "Junk"){
+            read_string_or_throw(cin, "|");
+            read_string_or_throw(cin, "Pos");
+            cin >> junk_pos;
+            read_string_or_throw(cin, "|");
+            read_string_or_throw(cin, "Count");
+            cin >> junk_count;
+
+            Output_manager::get_instance().get_log_os() << "Junk: " << "position: " << junk_pos << " count: " << junk_count << endl;
+            const bool game_over = board.add_junk(junk_pos, junk_count);
+            if(game_over){
+                if(settings.board_log){
+                    Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
+                }
+                return;
+            }
+
+            cin >> ui_status;
+        }
+        else {
+            if(ui_status != "ui_complete"){
+                throw std::logic_error("Expected ui_complete, got " + ui_status);
+            }
         }
 
         Time_point_t ui_end_time = std::chrono::system_clock::now();

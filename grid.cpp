@@ -31,6 +31,15 @@ void Grid::set_at(size_t row, size_t col, bool filled, Color color){
 
 }
 
+bool Grid::add_junk(int pos, int count){
+    const bool game_over = bit_grid.add_junk(pos, count);
+
+    if(color_grid){
+        color_grid->add_junk(pos, count);
+    }
+    return game_over;
+}
+
 bool Grid::at(size_t row, size_t col) const {
     return bit_grid.get_at(row, col);
 }
@@ -45,4 +54,8 @@ void Grid::output_color_grid_to_stream(std::ostream& os) const {
         throw std::logic_error{"Cannot output color grid to stream because it is not enabled!"};
     }
     color_grid->output_to_stream(os);
+}
+
+bool Grid::is_column_clear(size_t col) const {
+    return bit_grid.is_column_clear(col);
 }

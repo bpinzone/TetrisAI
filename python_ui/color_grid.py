@@ -10,6 +10,7 @@ class Color(Enum):
     YELLOW = auto()
     ORANGE = auto()
     GREEN = auto()
+    JUNK = auto()
 
     @staticmethod
     def from_char(c: str) -> 'Color':
@@ -20,7 +21,8 @@ class Color(Enum):
             'c': Color.CYAN,
             'y': Color.YELLOW,
             'o': Color.ORANGE,
-            'g': Color.GREEN
+            'g': Color.GREEN,
+            'j': Color.JUNK,
         }
         return color_map[c]
 

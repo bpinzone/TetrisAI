@@ -1,6 +1,7 @@
 #include "color_grid.h"
 #include <iostream>
 #include "block.h"
+#include "board_size.h"
 
 void ColorCellShade::output_to_stream(std::ostream& os) const {
     os << "(";
@@ -33,6 +34,37 @@ void ColorGrid::clear_row(size_t deleted_row){
         else{
             for(size_t col = 0; col < BoardSize::c_cols; ++col){
                 board[overwrite_row][col] = ColorCell{};
+            }
+        }
+    }
+}
+
+void ColorGrid::add_junk(int pos, int count){
+
+    const auto empty_cell = ColorCell{};
+
+    auto junk_cell = ColorCell{};
+    junk_cell.color = Color::Junk;
+    junk_cell.state.is_filled = true;
+    junk_cell.state.is_ghost = false;
+    junk_cell.state.is_about_to_be_cleared = false;
+
+    for(int overwrite_row = BoardSize::c_rows - 1; overwrite_row >= 0; --overwrite_row){
+        const int source_row = overwrite_row - count;
+        if(source_row < 0){
+            // writing junk
+            for(int col = 0; col < BoardSize::c_cols; ++col){
+                if(col != pos){
+                    board[overwrite_row][col] = junk_cell;
+                }
+                else {
+                    board[overwrite_row][col] = empty_cell;
+                }
+            }
+        }
+        else {
+            for(int col = 0; col < BoardSize::c_cols; ++col){
+                board[overwrite_row][col] = board[source_row][col];
             }
         }
     }

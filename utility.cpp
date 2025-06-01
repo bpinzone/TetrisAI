@@ -7,6 +7,15 @@ using std::ofstream;
 using std::endl;
 using std::cout;
 
+// Reads a string from the stream, and throws an exception if the string is not what is expected.
+void read_string_or_throw(std::istream& is, const std::string& expected){
+    std::string actual;
+    is >> actual;
+    if(actual != expected){
+        throw std::runtime_error{"Expected " + expected + ", got " + actual};
+    }
+}
+
 void Output_manager::set_streams(char mode){
     this->mode = mode;
 

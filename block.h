@@ -14,7 +14,8 @@ enum class Color {
     Cyan,
     Yellow,
     Orange,
-    Green
+    Green,
+    Junk
 };
 
 // For every shape block, and for every rotation, one of these exists to descripe the shape of the block in that orientation.

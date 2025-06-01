@@ -56,6 +56,8 @@ def get_color(color: Color) -> tuple[int, int, int]:
         return ORANGE
     if color == Color.GREEN:
         return GREEN
+    if color == Color.JUNK:
+        return GRAY
 
 k_rect_thickness = 2
 

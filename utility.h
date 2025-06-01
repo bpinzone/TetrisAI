@@ -4,6 +4,9 @@
 #include <iostream>
 #include <fstream>
 
+// Reads a string from the stream, and throws an exception if the string is not what is expected.
+void read_string_or_throw(std::istream& is, const std::string& expected);
+
 // Coordinate where commands and board info a streamed to.
 class Output_manager {
 
