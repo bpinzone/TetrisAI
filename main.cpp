@@ -162,6 +162,9 @@ void play_tournament(const Play_settings& settings){
 
         int junk_pos = 0;
         int junk_count = 0;
+        if(ui_status == "QUIT"){
+            return;
+        }
         if(ui_status == "Junk"){
             read_string_or_throw(cin, "|");
             read_string_or_throw(cin, "Pos");

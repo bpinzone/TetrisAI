@@ -1,4 +1,3 @@
-// next: output best and worst and display in python ui. tetris worker tracking logic should be done.
 #include "tetris_worker.h"
 
 #include <utility>
