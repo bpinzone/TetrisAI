@@ -1,3 +1,4 @@
+// next: output best and worst and display in python ui. tetris worker tracking logic should be done.
 #include "tetris_worker.h"
 
 #include <utility>
@@ -30,6 +31,7 @@ Tetris_worker::Tetris_worker(){
 void Tetris_worker::restart_with_stack(vector<State>&& _state_stack){
     assert(!_state_stack.empty());
     best_state = {};
+    worst_state = {};
     lock_set_signal_stack(std::move(_state_stack));
 }
 
@@ -64,11 +66,12 @@ void Tetris_worker::assert_all_free(){
 void Tetris_worker::print_workers_states(){
 
     assert_all_free();
+    throw std::logic_error("Not implemented");
 
-    for(auto& free_worker : free_workers){
-        cout << "Here is a state a worker found:" << endl;
-        cout << *free_worker->best_state << endl;
-    }
+    // for(auto& free_worker : free_workers){
+        // cout << "Here is a state a worker found:" << endl;
+        // cout << *free_worker->best_state << endl;
+    // }
 }
 
 void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_state){
@@ -82,6 +85,7 @@ void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_stat
         unique_lock<mutex> fw_ulock(fw->ss_mutex);
         assert(fw->state_stack.empty());
         fw->best_state = {};
+        fw->worst_state = {};
     }
 
     // Make first generation.
@@ -122,7 +126,7 @@ void Tetris_worker::distribute_new_work_and_wait_till_all_free(State&& root_stat
 
 }
 
-State& Tetris_worker::get_best_reachable_state(){
+State Tetris_worker::get_and_consume_best_reachable_state(){
     assert_all_free();
     Tetris_worker* best_worker = *max_element(free_workers.begin(), free_workers.end(),
         [](const auto& fw1, const auto& fw2){
@@ -139,8 +143,36 @@ State& Tetris_worker::get_best_reachable_state(){
                 fw1->best_state->get_board()
             );
     });
-    assert(best_worker->best_state);
-    return *best_worker->best_state;
+
+    std::optional<State> &worker_best_state = best_worker->best_state;
+
+    State best_state_ret = std::move(*worker_best_state);
+    worker_best_state = {};
+    return best_state_ret;
+}
+
+State Tetris_worker::get_and_consume_worst_reachable_state(){
+    assert_all_free();
+    Tetris_worker* worst_worker = *min_element(free_workers.begin(), free_workers.end(),
+        [](const auto& fw1, const auto& fw2){
+            // Necessary because now a worker may not have any results to contribute.
+            bool fw1_empty = !fw1->worst_state.has_value();
+            bool fw2_empty = !fw2->worst_state.has_value();
+            if(fw1_empty != fw2_empty){
+                return fw1_empty;
+            }
+            if(fw1_empty && fw2_empty){
+                return false; // arbitrary.
+            }
+            return fw1->worst_state->get_board().has_greater_utility_than(
+                fw2->worst_state->get_board()
+            );
+    });
+    std::optional<State> &worker_worst_state = worst_worker->worst_state;
+
+    State worst_state_ret = std::move(*worker_worst_state);
+    worker_worst_state = {};
+    return worst_state_ret;
 }
 
 void Tetris_worker::run(){
@@ -180,8 +212,34 @@ void Tetris_worker::run(){
             State considered_state = std::move(state_stack.back());
             state_stack.pop_back();
             if(considered_state.get_is_leaf()){
-                if(!best_state || considered_state.get_board().has_greater_utility_than(best_state->get_board())){
+
+                // Track the best and worst states.
+
+                if(!best_state && !worst_state){
+                    // we have nothing so far. Count anything as the best, and nothing as the worst.
+                    // assertion below relies on this logic.
                     best_state = std::move(considered_state);
+                }
+                else if(best_state && worst_state){
+                    const auto& best_board = best_state->get_board();
+                    const auto& worst_board = worst_state->get_board();
+                    const auto& considered_board = considered_state.get_board();
+                    if(considered_board.has_greater_utility_than(best_board)){
+                        std::swap(considered_state, *best_state);
+                    }
+                    else if(worst_board.has_greater_utility_than(considered_board)){
+                        std::swap(*worst_state, considered_state);
+                    }
+                }
+                else{
+                    assert(best_state && !worst_state);
+                    worst_state = std::move(considered_state);
+
+                    const auto& best_board = best_state->get_board();
+                    const auto& worst_board = worst_state->get_board();
+                    if(worst_board.has_greater_utility_than(best_board)){
+                        std::swap(best_state, worst_state);
+                    }
                 }
             }
             else{

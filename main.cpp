@@ -43,7 +43,9 @@ Placement get_best_move(
         Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
-        int num_placements_to_look_ahead);
+        int num_placements_to_look_ahead,
+        Board *best_envisioned_board = nullptr,
+        Board *worst_envisioned_board = nullptr);
 
 double time_points_to_ms(Time_point_t start, Time_point_t end);
 
@@ -102,9 +104,14 @@ void play_tournament(const Play_settings& settings){
     int turn = 0;
     while(turn < settings.game_length){
 
+        Board best_envisioned_board;
+        Board worst_envisioned_board;
+
         Placement next_placement = get_best_move(
             board, *next_to_present,
-            queue, settings.lookahead_placements
+            queue, settings.lookahead_placements,
+            &best_envisioned_board,
+            &worst_envisioned_board
         );
 
         Board new_board{board};
@@ -139,7 +146,13 @@ void play_tournament(const Play_settings& settings){
 
         swap(board, new_board);
 
-        UI_frame ui_frame{board.get_grid(), &queue, board.get_hold(), next_to_present};
+        UI_frame ui_frame{
+            board.get_grid(),
+            best_envisioned_board.get_grid(),
+            worst_envisioned_board.get_grid(),
+            &queue,
+            board.get_hold(),
+            next_to_present};
 
         Time_point_t ui_start_time = std::chrono::system_clock::now();
         ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
@@ -398,7 +411,9 @@ Placement get_best_move(
         Board& board,
         const Block& presented,
         const Tetris_queue_t& queue,
-        int num_placements_to_look_ahead){
+        int num_placements_to_look_ahead,
+        Board *best_envisioned_board,
+        Board *worst_envisioned_board){
 
 
     board.load_ancestral_data_with_current_data();
@@ -410,12 +425,17 @@ Placement get_best_move(
 
     Tetris_worker::distribute_new_work_and_wait_till_all_free(std::move(root_state));
 
-    State& best_state = Tetris_worker::get_best_reachable_state();
+    State best_state = Tetris_worker::get_and_consume_best_reachable_state();
+    State worst_state = Tetris_worker::get_and_consume_worst_reachable_state();
+
+    if(best_envisioned_board){
+        *best_envisioned_board = best_state.get_board();
+    }
+    if(worst_envisioned_board){
+        *worst_envisioned_board = worst_state.get_board();
+    }
 
     // Tetris_worker::print_workers_states();
-
-    // cout << "This is the worst board I can imagine!\n";
-    // cout << best_state << "\n";
 
     return best_state.get_placement_taken_from_root();
 }

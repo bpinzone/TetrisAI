@@ -31,7 +31,8 @@ public:
     static void distribute_new_work_and_wait_till_all_free(State&& root_state);
 
     // Requires: Workers are free and they just finished doing work.
-    static State& get_best_reachable_state();
+    static State get_and_consume_best_reachable_state();
+    static State get_and_consume_worst_reachable_state();
 
 private:
 
@@ -51,7 +52,11 @@ private:
     inline static std::chrono::time_point<std::chrono::high_resolution_clock> work_start_time;
 
     // Construction Order matters.
+
+    // These 2 are consumed when someone calls get_best|worst_reachable_state.
     std::optional<State> best_state;
+    std::optional<State> worst_state;
+
     std::vector<State> state_stack;
 
     std::thread t;

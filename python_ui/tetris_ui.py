@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 # EVERYTHING is Top Left = 0, 0
 
+# dream and nightmare board display is pretty much done. A bit buggy, sometimes blocks are one cell too high.
+
 import os
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 
@@ -67,6 +69,8 @@ class UI_state:
         self.color_grid = None
         self.hold_str = None
         self.presented_str = None
+        self.best_envisioned_board = None
+        self.worst_envisioned_board = None
 
 class Button:
     def __init__(self, text: str, text_color: tuple[int, int, int], button_color: tuple[int, int, int], on_click: Callable[[], None]):
@@ -179,40 +183,45 @@ def main():
             break   
 
         else:
+
+            def read_expected_header(expected_header: str):
+                line = sys.stdin.readline().strip()
+                if line != expected_header:
+                    raise ValueError(f"Expected {expected_header} but got {line}")
+
             # header
-            frame_header = line
-            if frame_header != "ui_frame:":
-                raise ValueError(f"Expected ui_frame: but got {frame_header}")
+            if line != "ui_frame:":
+                raise ValueError(f"Expected ui_frame: but got {line}")
             
             # queue
-            queue_header = sys.stdin.readline().strip()
-            if queue_header != "queue:":
-                raise ValueError(f"Expected queue: but got {queue_header}")
+            read_expected_header("queue:")
             ui_state.queue_str = sys.stdin.readline().strip()
             if len(ui_state.queue_str) != 6:
                 raise ValueError(f"Expected 6 tetrimino names in queue, but got {len(ui_state.queue_str)}")
             
             # hold
-            hold_header = sys.stdin.readline().strip()
-            if hold_header != "hold:":
-                raise ValueError(f"Expected hold: but got {hold_header}")
+            read_expected_header("hold:")
             ui_state.hold_str = sys.stdin.readline().strip()
             if len(ui_state.hold_str) != 1:
                 raise ValueError(f"Expected 1 tetrimino name in hold, but got {len(ui_state.hold_str)}")
 
             # presented
-            presented_header = sys.stdin.readline().strip()
-            if presented_header != "presented:":
-                raise ValueError(f"Expected presented: but got {presented_header}")
+            read_expected_header("presented:")
             ui_state.presented_str = sys.stdin.readline().strip()
             if len(ui_state.presented_str) != 1:
                 raise ValueError(f"Expected 1 tetrimino name in presented, but got {len(ui_state.presented_str)}")
 
             # main_board
-            main_board_header = sys.stdin.readline().strip()
-            if main_board_header != "main_board:":
-                raise ValueError(f"Expected main_board: but got {main_board_header}")
+            read_expected_header("main_board:")
             ui_state.color_grid = ColorGrid(sys.stdin)
+
+            # best_envisioned_board
+            read_expected_header("best_envisioned_board:")
+            ui_state.best_envisioned_board = ColorGrid(sys.stdin)
+
+            # worst_envisioned_board
+            read_expected_header("worst_envisioned_board:")
+            ui_state.worst_envisioned_board = ColorGrid(sys.stdin)
         
         draw_screen(screen, Rectangle(left=0, top=0, width=current_w, height=current_h))
 
@@ -307,12 +316,17 @@ def draw_presented(surface: pygame.Surface, screen_section: Rectangle):
 
 def draw_board(surface: pygame.Surface, screen_section: Rectangle):
 
-    num_rows = ui_state.color_grid.rows
-    num_cols = ui_state.color_grid.cols
+    draw_some_board(surface, screen_section, ui_state.color_grid)
+    draw_rectangle_outline(surface, screen_section, WHITE)
+
+def draw_some_board(surface: pygame.Surface, screen_section: Rectangle, some_color_grid: ColorGrid):
+
+    num_rows = some_color_grid.rows
+    num_cols = some_color_grid.cols
 
     for row in range(num_rows):
         for col in range(num_cols):
-            cell = ui_state.color_grid.grid[row][col]
+            cell = some_color_grid.grid[row][col]
             pygame_rect = Rectangle(col, (num_rows - 1) - row, 1, 1)
             cell_subsection = get_subsection_for_child(screen_section, pygame_rect, num_cols, num_rows)
 
@@ -320,9 +334,6 @@ def draw_board(surface: pygame.Surface, screen_section: Rectangle):
                 draw_tetrimino_cell(surface, cell_subsection, get_color(cell.color))
             # else:
             #     draw_rectangle_outline(surface, cell_subsection.as_shrunk_square(0.95), GRAY, 1)
-
-    draw_rectangle_outline(surface, screen_section, WHITE)
-
 
 
 # def draw_junk_place_control(surface: pygame.Surface, screen_section: Rectangle):
@@ -345,9 +356,13 @@ def draw_queue(surface: pygame.Surface, screen_section: Rectangle):
 
 
 def draw_best_board(surface: pygame.Surface, screen_section: Rectangle):
+
+    draw_some_board(surface, screen_section, ui_state.best_envisioned_board)
     draw_rectangle_outline(surface, screen_section, GREEN)
 
 def draw_worst_board(surface: pygame.Surface, screen_section: Rectangle):
+
+    draw_some_board(surface, screen_section, ui_state.worst_envisioned_board)
     draw_rectangle_outline(surface, screen_section, RED)
 
 

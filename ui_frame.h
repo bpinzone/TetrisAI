@@ -16,6 +16,8 @@ public:
 
     UI_frame(
         const Grid *main_board_in,
+        const Grid *best_envisioned_board_in,
+        const Grid *worst_envisioned_board_in,
         const Tetris_queue_t *queue_in,
         const Block *hold_in,
         const Block *presented_in);
@@ -25,6 +27,8 @@ public:
 private:
 
     const Grid *main_board;
+    const Grid *best_envisioned_board;
+    const Grid *worst_envisioned_board;
     const State::Tetris_queue_t *queue;
     const Block *hold;
     const Block *presented;
