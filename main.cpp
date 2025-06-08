@@ -154,48 +154,56 @@ void play_tournament(const Play_settings& settings){
             board.get_hold(),
             next_to_present};
 
-        Time_point_t ui_start_time = std::chrono::system_clock::now();
-        ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
+        constexpr bool wait_for_ui = true;
 
-        string ui_status;
-        cin >> ui_status;
+        if (wait_for_ui) {
 
-        int junk_pos = 0;
-        int junk_count = 0;
-        if(ui_status == "QUIT"){
-            return;
-        }
-        if(ui_status == "Junk"){
-            read_string_or_throw(cin, "|");
-            read_string_or_throw(cin, "Pos");
-            cin >> junk_pos;
-            read_string_or_throw(cin, "|");
-            read_string_or_throw(cin, "Count");
-            cin >> junk_count;
+            Time_point_t ui_start_time = std::chrono::system_clock::now();
+            ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
 
-            Output_manager::get_instance().get_log_os() << "Junk: " << "position: " << junk_pos << " count: " << junk_count << endl;
-            const bool game_over = board.add_junk(junk_pos, junk_count);
-            if(game_over){
-                if(settings.board_log){
-                    Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
-                }
+            string ui_status;
+            cin >> ui_status;
+
+            int junk_pos = 0;
+            int junk_count = 0;
+            if(ui_status == "QUIT"){
                 return;
             }
+            if(ui_status == "Junk"){
+                read_string_or_throw(cin, "|");
+                read_string_or_throw(cin, "Pos");
+                cin >> junk_pos;
+                read_string_or_throw(cin, "|");
+                read_string_or_throw(cin, "Count");
+                cin >> junk_count;
 
-            cin >> ui_status;
-        }
-        else {
-            if(ui_status != "ui_complete"){
-                throw std::logic_error("Expected ui_complete, got " + ui_status);
+                Output_manager::get_instance().get_log_os() << "Junk: " << "position: " << junk_pos << " count: " << junk_count << endl;
+                const bool game_over = board.add_junk(junk_pos, junk_count);
+                if(game_over){
+                    if(settings.board_log){
+                        Output_manager::get_instance().get_board_os() << "Game over :(" << endl;
+                    }
+                    return;
+                }
+
+                cin >> ui_status;
             }
-        }
+            else {
+                if(ui_status != "ui_complete"){
+                    throw std::logic_error("Expected ui_complete, got " + ui_status);
+                }
+            }
 
-        Time_point_t ui_end_time = std::chrono::system_clock::now();
-        const double ui_time_ms = time_points_to_ms(ui_start_time, ui_end_time);
-        Output_manager::get_instance().get_log_os() << "UI time: " << ui_time_ms << " ms." << endl;
+            Time_point_t ui_end_time = std::chrono::system_clock::now();
+            const double ui_time_ms = time_points_to_ms(ui_start_time, ui_end_time);
+            Output_manager::get_instance().get_log_os() << "UI time: " << ui_time_ms << " ms." << endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
+        else{
+            ui_frame.output_to_stream(Output_manager::get_instance().get_ui_os());
+        }
 
         ++turn;
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
     Output_manager::get_instance().get_ui_os() <<  "done" << endl;

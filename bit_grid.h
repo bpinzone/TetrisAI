@@ -51,6 +51,7 @@ private:
     static size_t flat_idx(size_t row, size_t col);
     static InternalGrid_t shift_board_down(const InternalGrid_t& board, size_t num_rows);
     static InternalGrid_t shift_board_up(const InternalGrid_t& board, size_t num_rows);
+    static InternalGrid_t isolate_rows(const InternalGrid_t& board, size_t row_begin, size_t row_end);
 
 };
 

@@ -51,11 +51,8 @@ bool BitGrid::get_at(size_t row, size_t col) const{
 
 bool BitGrid::is_row_range_all_equal_to(size_t row_begin, size_t row_end, bool value) const {
 
-    const InternalGrid_t interested_starts_at_bottom = BitGrid::shift_board_down(board, row_begin);
     const size_t num_interested_rows = row_end - row_begin;
-    const size_t num_uninterested_rows = BoardSize::c_rows - num_interested_rows;
-    const InternalGrid_t interested_ends_at_top = BitGrid::shift_board_up(interested_starts_at_bottom, num_uninterested_rows);
-    const InternalGrid_t &interested_only = interested_ends_at_top;
+    const InternalGrid_t &interested_only = BitGrid::isolate_rows(board, row_begin, row_end);
 
     if(value){
         return interested_only.count() == num_interested_rows * BoardSize::c_cols;
@@ -95,4 +92,12 @@ BitGrid::InternalGrid_t BitGrid::shift_board_down(const InternalGrid_t& board, s
 }
 BitGrid::InternalGrid_t BitGrid::shift_board_up(const InternalGrid_t& board, size_t num_rows){
     return board >> (num_rows * BoardSize::c_cols);
+}
+BitGrid::InternalGrid_t BitGrid::isolate_rows(const InternalGrid_t& board, size_t row_begin, size_t row_end){
+    const InternalGrid_t interested_starts_at_bottom = BitGrid::shift_board_down(board, row_begin);
+    const size_t num_interested_rows = row_end - row_begin;
+    const size_t num_uninterested_rows = BoardSize::c_rows - num_interested_rows;
+    const InternalGrid_t interested_ends_at_top = BitGrid::shift_board_up(interested_starts_at_bottom, num_uninterested_rows);
+    const InternalGrid_t &interested_only = interested_ends_at_top;
+    return interested_only;
 }

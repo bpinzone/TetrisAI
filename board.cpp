@@ -351,6 +351,7 @@ bool Board::at(size_t row, size_t col) const {
 
 bool Board::is_row_full(int row) const {
 
+
     for(int col = 0; col < BoardSize::c_cols; ++col){
         if(!at(row, col)){
             return false;

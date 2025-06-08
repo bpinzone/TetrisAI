@@ -30,3 +30,11 @@ Watch Jeff play in your terminal:
     * If you want to speed him up or slow him down, change how many moves he looks ahead.
     * "Tetris percent" is the percentage of his block placements that result in a tetris.
         * The best theoretically possible tetris percent is 10%.
+
+xctrace record --output . --template "Time Profiler" --time-limit 5s --launch -- \
+    ./main t 0 4 6 100000000 1 e
+    new impl
+        ./main t 0 4 6 100 20 e  93.49s user 2.82s system 891% cpu 10.803 total
+    old impl
+        ./main t 0 4 6 100 20 e  80.96s user 3.22s system 847% cpu 9.932 total
+
