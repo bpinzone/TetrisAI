@@ -10,6 +10,9 @@
 
 #include "board_size.h"
 #include "grid.h"
+#include "board_comp.h"
+#include "board_foundation.h"
+#include "board_deriv.h"
 
 struct Block;
 struct Placement;
@@ -33,8 +36,8 @@ class Board {
 
 public:
 
-    Board(){ }
-    Board(bool has_colors) : grid(has_colors) { }
+    Board() : foundation(false) { }
+    Board(bool has_colors) : foundation(has_colors) { }
 
     Board(std::istream& is);
 
@@ -96,33 +99,10 @@ private:
     void update_secondary_cache();
     void update_lifetime_cache(int num_rows_cleared_just_now);
 
-    // MEMBERS
-    // === Fundamental ===
-    Grid grid;
 
-    const Block* current_hold = nullptr;
-    bool just_swapped = false;
+    Board_foundation foundation;
+    Board_deriv deriv;
 
-    // === Primary Cache. Should be updated in place_block() and clear_row() ===
-    std::array<int, BoardSize::c_cols> height_map = {0};
-    int num_cells_filled = 0;
-    // If there are 0 holes, num_cells_filled will be equal to this.
-    int perfect_num_cells_filled = 0;
-
-    // === Secondary Cache. Relies on info in Primary Cache being up to date to compute these.
-    /*
-    // Cached second. Should be updated in update_secondary_cache().
-    Update cache is responsible for the following.
-    None of these are ever read by place_block() or clear_row()
-    */
-    int num_trenches = 0;
-    bool at_least_one_side_clear = true;
-    int lowest_height = 0;
-    int second_lowest_height = 0;
-    int highest_height = 0;
-    int sum_of_squared_heights = 0;
-    // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
-    bool is_tetrisable = false;
 
     // === Lifetime Cache ===
     // Stats that you could not infer just from viewing the board.

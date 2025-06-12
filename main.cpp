@@ -88,6 +88,11 @@ int main(int argc, char* argv[]) {
 
 /*
 ./main t 0 3 6 1000000 20 e | ./python_ui/tetris_ui.py
+
+
+next:
+    get 2 boards going.
+    Be able to put 2 different utility functions in...
 */
 void play_tournament(const Play_settings& settings){
 
@@ -209,6 +214,9 @@ void play_tournament(const Play_settings& settings){
     Output_manager::get_instance().get_ui_os() <<  "done" << endl;
 }
 
+/*
+./main w 0 3 6 1000000 20 e 
+*/
 void play(const Play_settings& settings){
 
     Board board;

@@ -15,7 +15,7 @@
 // TODO: Replace with individual using statements
 using namespace std;
 
-Board::Board(istream& is) {
+Board::Board(istream& is) :foundation(false) {
 
     string label;
     is >> label;
@@ -25,7 +25,7 @@ Board::Board(istream& is) {
             char cell;
             is >> cell;
             Color unknown_color = Color::Blue;
-            grid.set_at(static_cast<size_t>(row_x), col_x,
+            foundation.grid.set_at(static_cast<size_t>(row_x), col_x,
                 (cell == 'x'),
                 unknown_color);
         }
@@ -36,22 +36,22 @@ Board::Board(istream& is) {
     char hold;
     is >> hold;
     if(hold != '.'){
-        current_hold = Block::char_to_block_ptr(hold);
+        foundation.current_hold = Block::char_to_block_ptr(hold);
     }
 
     is >> label;
     assert(label == "just_swapped");
     string just_swapped_str;
     is >> just_swapped_str;
-    just_swapped = (just_swapped_str == "true");
+    foundation.just_swapped = (just_swapped_str == "true");
 
     // Update things that cache does not do.
     for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
         int height = compute_height(col_x);
-        height_map[col_x] = height;
-        perfect_num_cells_filled += height;
+        foundation.height_map[col_x] = height;
+        foundation.perfect_num_cells_filled += height;
     }
-    num_cells_filled = grid.count();
+    foundation.num_cells_filled = foundation.grid.count();
 
     update_secondary_cache();
     load_ancestral_data_with_current_data();
@@ -61,8 +61,8 @@ Board::Board(istream& is) {
 ostream& operator<<(ostream& os, const Board& s) {
 
     os << "Holding: ";
-    os << (s.current_hold ?
-            Block::name_to_full_name(s.current_hold->name)
+    os << (s.foundation.current_hold ?
+            Block::name_to_full_name(s.foundation.current_hold->name)
             : "none");
     os << "\n";
 
@@ -107,12 +107,12 @@ bool Board::place_block(const Block& b, Placement p){
             return false;
         }
 
-        perfect_num_cells_filled -= height_map[col];
-        height_map[col] = abs_end_fill_row;
-        perfect_num_cells_filled += abs_end_fill_row;
+        foundation.perfect_num_cells_filled -= foundation.height_map[col];
+        foundation.height_map[col] = abs_end_fill_row;
+        foundation.perfect_num_cells_filled += abs_end_fill_row;
 
         for(int row = abs_start_fill_row; row < abs_end_fill_row; ++row){
-            grid.set_at(static_cast<size_t>(row),
+            foundation.grid.set_at(static_cast<size_t>(row),
                 static_cast<size_t>(col),
                 true,
                 b.color
@@ -121,7 +121,7 @@ bool Board::place_block(const Block& b, Placement p){
     }
 
     static const int c_cells_per_block = 4;
-    num_cells_filled += c_cells_per_block;
+    foundation.num_cells_filled += c_cells_per_block;
 
     // Check for cleared rows
     int num_rows_cleared_just_now = 0;
@@ -142,14 +142,14 @@ bool Board::place_block(const Block& b, Placement p){
     // }
 
     update_lifetime_cache(num_rows_cleared_just_now);
-    just_swapped = false;
+    foundation.just_swapped = false;
     return true;
 }
 
 const Block* Board::swap_block(const Block& b){
-    const Block* old_hold = current_hold;
-    current_hold = &b;
-    just_swapped = true;
+    const Block* old_hold = foundation.current_hold;
+    foundation.current_hold = &b;
+    foundation.just_swapped = true;
     return old_hold;
 }
 
@@ -169,8 +169,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     static const int c_max_tetris_mode_height = 6;
     static const int c_height_diff_punishment_thresh = 3;
 
-    const bool this_in_tetris_mode = highest_height <= c_max_tetris_mode_height;
-    const bool other_in_tetris_mode = other.highest_height <= c_max_tetris_mode_height;
+    const bool this_in_tetris_mode = deriv.highest_height <= c_max_tetris_mode_height;
+    const bool other_in_tetris_mode = other.deriv.highest_height <= c_max_tetris_mode_height;
 
     // === Fundamental Priorities ===
     if(has_good_trench_status() != other.has_good_trench_status()){
@@ -189,8 +189,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     }
 
     if(this_in_tetris_mode && other_in_tetris_mode){
-        if(at_least_one_side_clear != other.at_least_one_side_clear){
-            return at_least_one_side_clear;
+        if(deriv.at_least_one_side_clear != other.deriv.at_least_one_side_clear){
+            return deriv.at_least_one_side_clear;
         }
         if(lifetime_stats.num_non_tetrises != other.lifetime_stats.num_non_tetrises){
             return lifetime_stats.num_non_tetrises < other.lifetime_stats.num_non_tetrises;
@@ -198,8 +198,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     }
 
     // Keep relatively even except for the one trench.
-    const bool this_receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
-    const bool other_receives_height_punishment = other.highest_height - other.second_lowest_height >= c_height_diff_punishment_thresh;
+    const bool this_receives_height_punishment = deriv.highest_height - deriv.second_lowest_height >= c_height_diff_punishment_thresh;
+    const bool other_receives_height_punishment = other.deriv.highest_height - other.deriv.second_lowest_height >= c_height_diff_punishment_thresh;
     if(this_receives_height_punishment != other_receives_height_punishment){
         return !this_receives_height_punishment;
     }
@@ -212,36 +212,36 @@ bool Board::has_greater_utility_than(const Board& other) const {
         }
 
         // Become tetrisable
-        if(is_tetrisable != other.is_tetrisable){
-            return is_tetrisable;
+        if(deriv.is_tetrisable != other.deriv.is_tetrisable){
+            return deriv.is_tetrisable;
         }
 
         // Build up
         // Make the 2nd shortest column as large as possible.
         // Encourges alg to build a solid mass of blocks, but not clear rows,
         // in order to get to the point where we can forsee being tetris-able.
-        if(second_lowest_height != other.second_lowest_height){
-            return second_lowest_height > other.second_lowest_height;
+        if(deriv.second_lowest_height != other.deriv.second_lowest_height){
+            return deriv.second_lowest_height > other.deriv.second_lowest_height;
         }
 
-        if(sum_of_squared_heights != other.sum_of_squared_heights){
-            return sum_of_squared_heights < other.sum_of_squared_heights;
+        if(deriv.sum_of_squared_heights != other.deriv.sum_of_squared_heights){
+            return deriv.sum_of_squared_heights < other.deriv.sum_of_squared_heights;
         }
         return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
 
     }
     else{
 
-        if(num_trenches != other.num_trenches){
-            return num_trenches < other.num_trenches;
+        if(deriv.num_trenches != other.deriv.num_trenches){
+            return deriv.num_trenches < other.deriv.num_trenches;
         }
 
-        if(num_cells_filled != other.num_cells_filled){
-            return num_cells_filled < other.num_cells_filled;
+        if(foundation.num_cells_filled != other.foundation.num_cells_filled){
+            return foundation.num_cells_filled < other.foundation.num_cells_filled;
         }
 
-        if(sum_of_squared_heights != other.sum_of_squared_heights){
-            return sum_of_squared_heights < other.sum_of_squared_heights;
+        if(deriv.sum_of_squared_heights != other.deriv.sum_of_squared_heights){
+            return deriv.sum_of_squared_heights < other.deriv.sum_of_squared_heights;
         }
         return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
     }
@@ -249,23 +249,23 @@ bool Board::has_greater_utility_than(const Board& other) const {
 }
 
 int Board::get_num_holes() const {
-    return perfect_num_cells_filled - num_cells_filled;
+    return foundation.perfect_num_cells_filled - foundation.num_cells_filled;
 }
 
 bool Board::can_swap_block(const Block& b) const {
-    if(&b == current_hold){
+    if(&b == foundation.current_hold){
         return false;
     }
-    return !just_swapped;
+    return !foundation.just_swapped;
 }
 
 bool Board::is_holding_some_block() const {
-    return current_hold;
+    return foundation.current_hold;
 }
 
 const Block * Board::get_hold() const {
-    if(current_hold){
-        return current_hold;
+    if(foundation.current_hold){
+        return foundation.current_hold;
     }
     return nullptr;
 }
@@ -283,7 +283,7 @@ bool Board::has_more_cleared_rows_than(const Board& other) const {
 }
 
 bool Board::is_clear() const {
-    return num_cells_filled == 0;
+    return foundation.num_cells_filled == 0;
 }
 
 Board_lifetime_stats Board::get_lifetime_stats() const {
@@ -291,52 +291,52 @@ Board_lifetime_stats Board::get_lifetime_stats() const {
 }
 
 const Grid *Board::get_grid() const {
-    return &grid;
+    return &foundation.grid;
 }
 
 void Board::clear_row(int deleted_row) {
 
     for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
         int reduction = get_height_map_reduction(deleted_row, col_x);
-        height_map[col_x] -= reduction;
-        perfect_num_cells_filled -= reduction;
+        foundation.height_map[col_x] -= reduction;
+        foundation.perfect_num_cells_filled -= reduction;
     }
 
-    grid.clear_row(deleted_row);
+    foundation.grid.clear_row(deleted_row);
 
-    num_cells_filled -= BoardSize::c_cols;
+    foundation.num_cells_filled -= BoardSize::c_cols;
 }
 
 void Board::load_ancestral_data_with_current_data() {
 
-    ancestor_with_smallest_max_height.highest_height = highest_height;
-    ancestor_with_smallest_max_height.second_lowest_height = second_lowest_height;
+    ancestor_with_smallest_max_height.highest_height = deriv.highest_height;
+    ancestor_with_smallest_max_height.second_lowest_height = deriv.second_lowest_height;
     ancestor_with_smallest_max_height.good_trench_status = has_good_trench_status();
 }
 
 bool Board::add_junk(int pos, int count){
 
-    const bool is_game_over = grid.add_junk(pos, count);
+    const bool is_game_over = foundation.grid.add_junk(pos, count);
 
-    const bool position_column_is_clear = grid.is_column_clear(pos);
+    const bool position_column_is_clear = foundation.grid.is_column_clear(pos);
     // height map update.
     for(int col = 0; col < BoardSize::c_cols; ++col){
         if(col != pos){
-            height_map[col] += count;
+            foundation.height_map[col] += count;
         }
         else {
             if(!position_column_is_clear){
-                height_map[col] += count;
+                foundation.height_map[col] += count;
             }
         }
     }
-    num_cells_filled += count * (BoardSize::c_cols - 1);
+    foundation.num_cells_filled += count * (BoardSize::c_cols - 1);
 
     if(position_column_is_clear){
-        perfect_num_cells_filled += count * (BoardSize::c_rows - 1);
+        foundation.perfect_num_cells_filled += count * (BoardSize::c_rows - 1);
     }
     else {
-        perfect_num_cells_filled += count * BoardSize::c_rows;
+        foundation.perfect_num_cells_filled += count * BoardSize::c_rows;
     }
 
     update_secondary_cache();
@@ -346,7 +346,7 @@ bool Board::add_junk(int pos, int count){
 
 
 bool Board::at(size_t row, size_t col) const {
-    return grid.at(row, col);
+    return foundation.grid.at(row, col);
 }
 
 bool Board::is_row_full(int row) const {
@@ -380,7 +380,7 @@ bool Board::is_promising() const {
 
     bool added_needless_trench = ancestor.good_trench_status && !has_good_trench_status();
 
-    if(highest_height - ancestor.highest_height > max_acceptable_height_increase){
+    if(deriv.highest_height - ancestor.highest_height > max_acceptable_height_increase){
         return false;
     }
     if(added_needless_trench){
@@ -398,7 +398,7 @@ bool Board::is_promising() const {
 }
 
 bool Board::has_good_trench_status() const {
-    return num_trenches <= 1;
+    return deriv.num_trenches <= 1;
 }
 
 int Board::num_holes_above_height(int height) const {
@@ -406,7 +406,7 @@ int Board::num_holes_above_height(int height) const {
     int found = 0;
     for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
         // Would still be correct if it was height_map[col_x] - 1,
-        for(int row_x = height; row_x <= height_map[col_x] - 2; ++row_x){
+        for(int row_x = height; row_x <= foundation.height_map[col_x] - 2; ++row_x){
             if(!at(row_x, col_x)){
                 ++found;
             }
@@ -420,12 +420,12 @@ int Board::get_row_after_drop(const Block& b, Placement p) const {
     const auto& contour = b.maps[p.get_rotation()].contour;
     int num_cols_to_inspect = contour.size();
 
-    int max_row = height_map[p.get_column()];
+    int max_row = foundation.height_map[p.get_column()];
     assert(contour.front() == 0);
 
     for(int col_x = 1; col_x < num_cols_to_inspect; ++col_x){
         int board_col = p.get_column() + col_x;
-        int row = height_map[board_col] - contour[col_x];
+        int row = foundation.height_map[board_col] - contour[col_x];
         max_row = max(max_row, row);
     }
     return max_row;
@@ -437,7 +437,7 @@ int Board::get_height_map_reduction(int deleted_row, int query_col) const {
 
     int reductions = 1;
     // The deleted row IS NOT THE SURFACE at this column.
-    bool is_surface = deleted_row == height_map[query_col] - 1;
+    bool is_surface = deleted_row == foundation.height_map[query_col] - 1;
     if(is_surface){
         for(int row_x = deleted_row - 1;
                 row_x >= 0 && !at(row_x, query_col); --row_x){
@@ -448,48 +448,8 @@ int Board::get_height_map_reduction(int deleted_row, int query_col) const {
 }
 
 void Board::update_secondary_cache() {
-
-    static constexpr int impossibly_high_wall = BoardSize::c_rows + 5;
-    static constexpr int min_depth_considered_trench = 3;
-
-    num_trenches = 0;
-    at_least_one_side_clear = (height_map[0] == 0) || (height_map[BoardSize::c_cols - 1] == 0);
-    lowest_height = BoardSize::c_rows;
-    second_lowest_height = BoardSize::c_rows;
-    highest_height = 0;
-    sum_of_squared_heights = 0;
-
-    int left_height = impossibly_high_wall;
-    int middle_height = height_map[0];
-    int right_height = height_map[1];
-
-    int some_trench_height = 0;
-
-    for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
-
-        sum_of_squared_heights += middle_height * middle_height;
-        second_lowest_height = middle_height <= lowest_height ? lowest_height : min(second_lowest_height, middle_height);
-        lowest_height = min(lowest_height, middle_height);
-        highest_height = max(highest_height, middle_height);
-
-        // count and keep track of a trench.
-        if(left_height - middle_height >= min_depth_considered_trench
-                && right_height - middle_height >= min_depth_considered_trench){
-            ++num_trenches;
-            some_trench_height = middle_height;
-        }
-
-        left_height = middle_height;
-        middle_height = right_height;
-        right_height = (col_x == BoardSize::c_cols - 2) ? impossibly_high_wall : height_map[col_x + 2];
-    }
-
-    is_tetrisable =
-        num_trenches == 1
-        && lowest_height == some_trench_height
-        && second_lowest_height >= some_trench_height + 4;
-
-    if(highest_height < ancestor_with_smallest_max_height.highest_height){
+    deriv.update(foundation);
+    if(deriv.highest_height < ancestor_with_smallest_max_height.highest_height){
         load_ancestral_data_with_current_data();
     }
 }
@@ -510,7 +470,7 @@ void Board::update_lifetime_cache(int num_rows_cleared_just_now){
         ++lifetime_stats.num_all_clears;
     }
     lifetime_stats.max_height_exp_moving_average =
-        (0.5 * highest_height) +
+        (0.5 * deriv.highest_height) +
         (0.5 * lifetime_stats.max_height_exp_moving_average);
 
 }
