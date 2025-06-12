@@ -78,22 +78,12 @@ private:
     // FUNCTIONS
     // Modifying
 
-    void clear_row(int row);
-
     // Non-modifying
     // (0, 0) is bottom left;  (1, 0) is 2nd row, 1st column;  (0, 1) is 1st row, 2nd column.
     bool at(size_t row, size_t col) const;
-    bool is_row_full(int row) const;
-    int compute_height(size_t col_x) const;
     bool is_promising() const;
     bool has_good_trench_status() const;
     int num_holes_above_height(int height) const;
-
-    // Given a block and placement, drop the block:
-    // return the row idx of the left-bottom most cell of the block.
-    int get_row_after_drop(const Block& b, Placement p) const;
-
-    int get_height_map_reduction(int deleted_row, int query_col) const;
 
     // Fundamental and Primary cache data must be up to date before calling update second/life cache.
     void update_secondary_cache();

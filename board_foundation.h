@@ -7,11 +7,18 @@
 #include "block.h"
 #include "board_size.h"
 
+// todo: make as much private as possible.
 struct Board_foundation {
 
+    // modifying
     Board_foundation(bool has_colors);
-
     void reset();
+    void clear_row(int deleted_row);
+
+    // constant
+    int compute_height(size_t col_x) const; // todo: don't expose this.
+    bool is_row_full(int row) const;
+    int get_row_after_drop(const Block& b, Placement p) const; // todo: make this private???
 
     // truly fundamental.
     Grid grid;
@@ -24,6 +31,10 @@ struct Board_foundation {
     int num_cells_filled;
     // If there are 0 holes, num_cells_filled will be equal to this.
     int perfect_num_cells_filled;
+
+private:
+    int get_height_map_reduction(int deleted_row, int query_col) const;
+
 };
 
 

@@ -47,7 +47,7 @@ Board::Board(istream& is) :foundation(false) {
 
     // Update things that cache does not do.
     for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
-        int height = compute_height(col_x);
+        int height = foundation.compute_height(col_x);
         foundation.height_map[col_x] = height;
         foundation.perfect_num_cells_filled += height;
     }
@@ -85,7 +85,7 @@ bool Board::place_block(const Block& b, Placement p){
 
     assert(!p.get_is_hold());
 
-    const int left_bottom_row = get_row_after_drop(b, p);
+    const int left_bottom_row = foundation.get_row_after_drop(b, p);
 
     const CH_maps& ch_map = b.maps[p.get_rotation()];
     const int contour_size = ch_map.contour.size();
@@ -126,9 +126,9 @@ bool Board::place_block(const Block& b, Placement p){
     // Check for cleared rows
     int num_rows_cleared_just_now = 0;
     for(int row = max_row_x_affected; row >= min_row_x_affected; --row){
-        if(is_row_full(row)){
+        if(foundation.is_row_full(row)){
             ++num_rows_cleared_just_now;
-            clear_row(row);
+            foundation.clear_row(row);
         }
     }
 
@@ -294,19 +294,6 @@ const Grid *Board::get_grid() const {
     return &foundation.grid;
 }
 
-void Board::clear_row(int deleted_row) {
-
-    for(int col_x = 0; col_x < BoardSize::c_cols; ++col_x){
-        int reduction = get_height_map_reduction(deleted_row, col_x);
-        foundation.height_map[col_x] -= reduction;
-        foundation.perfect_num_cells_filled -= reduction;
-    }
-
-    foundation.grid.clear_row(deleted_row);
-
-    foundation.num_cells_filled -= BoardSize::c_cols;
-}
-
 void Board::load_ancestral_data_with_current_data() {
 
     ancestor_with_smallest_max_height.highest_height = deriv.highest_height;
@@ -349,27 +336,7 @@ bool Board::at(size_t row, size_t col) const {
     return foundation.grid.at(row, col);
 }
 
-bool Board::is_row_full(int row) const {
 
-
-    for(int col = 0; col < BoardSize::c_cols; ++col){
-        if(!at(row, col)){
-            return false;
-        }
-    }
-    return true;
-}
-
-// Compute height based on "board" only.
-int Board::compute_height(size_t col_x) const {
-    int height = 0;
-    for(size_t row_x = 0; row_x < BoardSize::c_rows; ++row_x){
-        if(at(row_x, col_x)){
-            height = row_x + 1;
-        }
-    }
-    return height;
-}
 
 bool Board::is_promising() const {
 
@@ -415,37 +382,6 @@ int Board::num_holes_above_height(int height) const {
     return found;
 }
 
-int Board::get_row_after_drop(const Block& b, Placement p) const {
-
-    const auto& contour = b.maps[p.get_rotation()].contour;
-    int num_cols_to_inspect = contour.size();
-
-    int max_row = foundation.height_map[p.get_column()];
-    assert(contour.front() == 0);
-
-    for(int col_x = 1; col_x < num_cols_to_inspect; ++col_x){
-        int board_col = p.get_column() + col_x;
-        int row = foundation.height_map[board_col] - contour[col_x];
-        max_row = max(max_row, row);
-    }
-    return max_row;
-}
-
-// Given a row is being deleted, how many to subtract from the height map
-// of query col. (Maybe holes will become exposed.)
-int Board::get_height_map_reduction(int deleted_row, int query_col) const {
-
-    int reductions = 1;
-    // The deleted row IS NOT THE SURFACE at this column.
-    bool is_surface = deleted_row == foundation.height_map[query_col] - 1;
-    if(is_surface){
-        for(int row_x = deleted_row - 1;
-                row_x >= 0 && !at(row_x, query_col); --row_x){
-            ++reductions;
-        }
-    }
-    return reductions;
-}
 
 void Board::update_secondary_cache() {
     deriv.update(foundation);
