@@ -6,19 +6,20 @@
 #include "grid.h"
 #include "block.h"
 #include "board_size.h"
+#include <iosfwd>
 
 // todo: make as much private as possible.
 struct Board_foundation {
 
     // modifying
     Board_foundation(bool has_colors);
+    Board_foundation(bool has_colors, std::istream& is);
     void reset();
     void clear_row(int deleted_row);
     // returns true iff board is still promising (is game over)
     bool place_block_no_clearing(const Block& b, Placement p, int *min_row_x_affected, int *max_row_x_affected);
 
     // constant
-    int compute_height(size_t col_x) const; // todo: don't expose this.
     bool is_row_full(int row) const;
 
     // truly fundamental.
@@ -36,6 +37,7 @@ struct Board_foundation {
 private:
     int get_height_map_reduction(int deleted_row, int query_col) const;
     int get_row_after_drop(const Block& b, Placement p) const;
+    int compute_height(size_t col_x) const;
 
 };
 

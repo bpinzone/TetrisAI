@@ -1,7 +1,50 @@
 #include "board_foundation.h"
+#include <iostream>
+
+using std::string;
 
 Board_foundation::Board_foundation(bool has_colors) : grid(has_colors) {
     reset();
+}
+
+Board_foundation::Board_foundation(bool has_colors, std::istream& is)
+    : Board_foundation(has_colors) {
+
+    string label;
+    is >> label;
+    assert(label == "board");
+    for(int row_x = static_cast<int>(BoardSize::c_rows - 1); row_x >= 0; --row_x){
+        for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
+            char cell;
+            is >> cell;
+            Color unknown_color = Color::Blue;
+            grid.set_at(static_cast<size_t>(row_x), col_x,
+                (cell == 'x'),
+                unknown_color);
+        }
+    }
+
+    is >> label;
+    assert(label == "in_hold");
+    char hold;
+    is >> hold;
+    if(hold != '.'){
+        current_hold = Block::char_to_block_ptr(hold);
+    }
+
+    is >> label;
+    assert(label == "just_swapped");
+    string just_swapped_str;
+    is >> just_swapped_str;
+    just_swapped = (just_swapped_str == "true");
+
+    // Update things that cache does not do.
+    for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
+        int height = compute_height(col_x);
+        height_map[col_x] = height;
+        perfect_num_cells_filled += height;
+    }
+    num_cells_filled = grid.count();
 }
 
 void Board_foundation::reset() {
@@ -50,7 +93,9 @@ bool Board_foundation::place_block_no_clearing(const Block& b, Placement p,
         if(*max_row_x_affected >= BoardSize::c_rows){
             // NOTE: If we're here, this state is never touched again.
             // Because its game over.
-            // TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
+            // critical TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
+            // critical TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
+            // critical TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
             return false;
         }
 

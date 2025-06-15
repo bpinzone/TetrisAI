@@ -15,47 +15,10 @@
 // TODO: Replace with individual using statements
 using namespace std;
 
-Board::Board(istream& is) :foundation(false) {
-
-    string label;
-    is >> label;
-    assert(label == "board");
-    for(int row_x = static_cast<int>(BoardSize::c_rows - 1); row_x >= 0; --row_x){
-        for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
-            char cell;
-            is >> cell;
-            Color unknown_color = Color::Blue;
-            foundation.grid.set_at(static_cast<size_t>(row_x), col_x,
-                (cell == 'x'),
-                unknown_color);
-        }
-    }
-
-    is >> label;
-    assert(label == "in_hold");
-    char hold;
-    is >> hold;
-    if(hold != '.'){
-        foundation.current_hold = Block::char_to_block_ptr(hold);
-    }
-
-    is >> label;
-    assert(label == "just_swapped");
-    string just_swapped_str;
-    is >> just_swapped_str;
-    foundation.just_swapped = (just_swapped_str == "true");
-
-    // Update things that cache does not do.
-    for(size_t col_x = 0; col_x < BoardSize::c_cols; ++col_x){
-        int height = foundation.compute_height(col_x);
-        foundation.height_map[col_x] = height;
-        foundation.perfect_num_cells_filled += height;
-    }
-    foundation.num_cells_filled = foundation.grid.count();
+Board::Board(istream& is) :foundation(false, is) {
 
     update_secondary_cache();
     load_ancestral_data_with_current_data();
-
 }
 
 ostream& operator<<(ostream& os, const Board& s) {
