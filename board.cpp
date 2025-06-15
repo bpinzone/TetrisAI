@@ -23,18 +23,7 @@ Board::Board(istream& is) :foundation(false, is) {
 
 ostream& operator<<(ostream& os, const Board& s) {
 
-    os << "Holding: ";
-    os << (s.foundation.current_hold ?
-            Block::name_to_full_name(s.foundation.current_hold->name)
-            : "none");
-    os << "\n";
-
-    for(long row = BoardSize::c_rows - 1; row >= 0; --row){
-        for(long col = 0; col < BoardSize::c_cols; ++col){
-            os << (s.at(row, col) ? "X" : ".");
-        }
-        os << "\n";
-    }
+    os << s.foundation;
 
     os << "All clears: " << s.lifetime_stats.num_all_clears << "\n";
     os << "Tetrises: " << s.lifetime_stats.num_tetrises << "\n";

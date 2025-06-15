@@ -47,6 +47,23 @@ Board_foundation::Board_foundation(bool has_colors, std::istream& is)
     num_cells_filled = grid.count();
 }
 
+std::ostream& operator<<(std::ostream& os, const Board_foundation& foundation){
+
+    os << "Holding: ";
+    os << (foundation.current_hold ?
+            Block::name_to_full_name(foundation.current_hold->name)
+            : "none");
+    os << "\n";
+
+    for(long row = BoardSize::c_rows - 1; row >= 0; --row){
+        for(long col = 0; col < BoardSize::c_cols; ++col){
+            os << (foundation.grid.at(row, col) ? "X" : ".");
+        }
+        os << "\n";
+    }
+
+}
+
 void Board_foundation::reset() {
     current_hold = nullptr;
     just_swapped = false;

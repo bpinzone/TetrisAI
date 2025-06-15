@@ -14,6 +14,9 @@ struct Board_foundation {
     // modifying
     Board_foundation(bool has_colors);
     Board_foundation(bool has_colors, std::istream& is);
+
+    friend std::ostream& operator<<(std::ostream& os, const Board_foundation& foundation);
+
     void reset();
     void clear_row(int deleted_row);
     // returns true iff board is still promising (is game over)
