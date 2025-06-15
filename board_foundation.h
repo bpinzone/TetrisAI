@@ -19,8 +19,10 @@ struct Board_foundation {
 
     void reset();
     void clear_row(int deleted_row);
-    // returns true iff board is still promising (is game over)
+    // returns true iff game over
     bool place_block_no_clearing(const Block& b, Placement p, int *min_row_x_affected, int *max_row_x_affected);
+    // checks if any rows are full and clears them. returns number of rows cleared.
+    int check_and_clear_rows(int min_row_x_affected, int max_row_x_affected);
 
     // constant
     bool is_row_full(int row) const;

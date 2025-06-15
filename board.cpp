@@ -33,26 +33,24 @@ ostream& operator<<(ostream& os, const Board& s) {
 }
 
 // Return true iff this board is still promising.
+// todo: revamp what this function means. clearly distinguish between game over and not promising.
+// todo: revamp what this function means. clearly distinguish between game over and not promising.
+// todo: revamp what this function means. clearly distinguish between game over and not promising.
 bool Board::place_block(const Block& b, Placement p){
 
     assert(!p.get_is_hold());
 
     int min_row_x_affected;
     int max_row_x_affected;
-    const bool is_promising = foundation.place_block_no_clearing(b, p,
+    const bool game_over = foundation.place_block_no_clearing(b, p,
         &min_row_x_affected, &max_row_x_affected);
-    if(!is_promising){
+    if(game_over){
         return false;
     }
 
     // Check for cleared rows
-    int num_rows_cleared_just_now = 0;
-    for(int row = max_row_x_affected; row >= min_row_x_affected; --row){
-        if(foundation.is_row_full(row)){
-            ++num_rows_cleared_just_now;
-            foundation.clear_row(row);
-        }
-    }
+    const int num_rows_cleared_just_now = foundation.check_and_clear_rows(
+        min_row_x_affected, max_row_x_affected);
 
     // must be called before is_promising.
     update_secondary_cache();

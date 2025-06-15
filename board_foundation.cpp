@@ -62,6 +62,7 @@ std::ostream& operator<<(std::ostream& os, const Board_foundation& foundation){
         os << "\n";
     }
 
+    return os;
 }
 
 void Board_foundation::reset() {
@@ -113,7 +114,7 @@ bool Board_foundation::place_block_no_clearing(const Block& b, Placement p,
             // critical TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
             // critical TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
             // critical TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
-            return false;
+            return true;
         }
 
         perfect_num_cells_filled -= height_map[col];
@@ -132,7 +133,20 @@ bool Board_foundation::place_block_no_clearing(const Block& b, Placement p,
     static const int c_cells_per_block = 4;
     num_cells_filled += c_cells_per_block;
 
-    return true;
+    return false;
+}
+
+
+int Board_foundation::check_and_clear_rows(int min_row_x_affected, int max_row_x_affected){
+
+    int num_rows_cleared_just_now = 0;
+    for(int row = max_row_x_affected; row >= min_row_x_affected; --row){
+        if(is_row_full(row)){
+            ++num_rows_cleared_just_now;
+            clear_row(row);
+        }
+    }
+    return num_rows_cleared_just_now;
 }
 
 // Given a row is being deleted, how many to subtract from the height map
