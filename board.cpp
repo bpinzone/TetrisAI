@@ -85,43 +85,13 @@ bool Board::place_block(const Block& b, Placement p){
 
     assert(!p.get_is_hold());
 
-    const int left_bottom_row = foundation.get_row_after_drop(b, p);
-
-    const CH_maps& ch_map = b.maps[p.get_rotation()];
-    const int contour_size = ch_map.contour.size();
-
-    int min_row_x_affected = BoardSize::c_rows - 1;
-    int max_row_x_affected = 0;
-
-    for(int contour_x = 0; contour_x < contour_size; ++contour_x){
-        const int col = p.get_column() + contour_x;
-        const int abs_start_fill_row = left_bottom_row + ch_map.contour[contour_x];
-        const int abs_end_fill_row = abs_start_fill_row + ch_map.height[contour_x];
-
-        min_row_x_affected = min(min_row_x_affected, abs_start_fill_row);
-        max_row_x_affected = max(max_row_x_affected, abs_end_fill_row - 1);
-
-        if(max_row_x_affected >= BoardSize::c_rows){
-            // NOTE: If we're here, this state is never touched again.
-            // Because its game over.
-            return false;
-        }
-
-        foundation.perfect_num_cells_filled -= foundation.height_map[col];
-        foundation.height_map[col] = abs_end_fill_row;
-        foundation.perfect_num_cells_filled += abs_end_fill_row;
-
-        for(int row = abs_start_fill_row; row < abs_end_fill_row; ++row){
-            foundation.grid.set_at(static_cast<size_t>(row),
-                static_cast<size_t>(col),
-                true,
-                b.color
-            );
-        }
+    int min_row_x_affected;
+    int max_row_x_affected;
+    const bool is_promising = foundation.place_block_no_clearing(b, p,
+        &min_row_x_affected, &max_row_x_affected);
+    if(!is_promising){
+        return false;
     }
-
-    static const int c_cells_per_block = 4;
-    foundation.num_cells_filled += c_cells_per_block;
 
     // Check for cleared rows
     int num_rows_cleared_just_now = 0;

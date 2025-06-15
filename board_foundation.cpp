@@ -28,6 +28,51 @@ void Board_foundation::clear_row(int deleted_row){
 
 }
 
+bool Board_foundation::place_block_no_clearing(const Block& b, Placement p,
+        int *min_row_x_affected, int *max_row_x_affected)
+{
+    const int left_bottom_row = get_row_after_drop(b, p);
+
+    const CH_maps& ch_map = b.maps[p.get_rotation()];
+    const int contour_size = ch_map.contour.size();
+
+    *min_row_x_affected = BoardSize::c_rows - 1;
+    *max_row_x_affected = 0;
+
+    for(int contour_x = 0; contour_x < contour_size; ++contour_x){
+        const int col = p.get_column() + contour_x;
+        const int abs_start_fill_row = left_bottom_row + ch_map.contour[contour_x];
+        const int abs_end_fill_row = abs_start_fill_row + ch_map.height[contour_x];
+
+        *min_row_x_affected = std::min(*min_row_x_affected, abs_start_fill_row);
+        *max_row_x_affected = std::max(*max_row_x_affected, abs_end_fill_row - 1);
+
+        if(*max_row_x_affected >= BoardSize::c_rows){
+            // NOTE: If we're here, this state is never touched again.
+            // Because its game over.
+            // TODO: how have we not caught this? don't we need to check if this placement allows us to clear a row and hence survive?
+            return false;
+        }
+
+        perfect_num_cells_filled -= height_map[col];
+        height_map[col] = abs_end_fill_row;
+        perfect_num_cells_filled += abs_end_fill_row;
+
+        for(int row = abs_start_fill_row; row < abs_end_fill_row; ++row){
+            grid.set_at(static_cast<size_t>(row),
+                static_cast<size_t>(col),
+                true,
+                b.color
+            );
+        }
+    }
+
+    static const int c_cells_per_block = 4;
+    num_cells_filled += c_cells_per_block;
+
+    return true;
+}
+
 // Given a row is being deleted, how many to subtract from the height map
 // of query col. (Maybe holes will become exposed.)
 int Board_foundation::get_height_map_reduction(int deleted_row, int query_col) const {

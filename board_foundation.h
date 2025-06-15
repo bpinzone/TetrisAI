@@ -14,11 +14,12 @@ struct Board_foundation {
     Board_foundation(bool has_colors);
     void reset();
     void clear_row(int deleted_row);
+    // returns true iff board is still promising (is game over)
+    bool place_block_no_clearing(const Block& b, Placement p, int *min_row_x_affected, int *max_row_x_affected);
 
     // constant
     int compute_height(size_t col_x) const; // todo: don't expose this.
     bool is_row_full(int row) const;
-    int get_row_after_drop(const Block& b, Placement p) const; // todo: make this private???
 
     // truly fundamental.
     Grid grid;
@@ -34,6 +35,7 @@ struct Board_foundation {
 
 private:
     int get_height_map_reduction(int deleted_row, int query_col) const;
+    int get_row_after_drop(const Block& b, Placement p) const;
 
 };
 

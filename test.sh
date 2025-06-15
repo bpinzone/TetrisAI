@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x
+
+./main w 0 3 6 1000 1 e  | tee test1_computed.txt
+./main w 0 4 6 100 1 e  | tee test2_computed.txt
+
+diff test1_expected.txt test1_computed.txt
+diff test2_expected.txt test2_computed.txt
