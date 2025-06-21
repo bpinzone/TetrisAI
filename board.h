@@ -60,13 +60,11 @@ public:
     // Returns true iff this has strictly higher utility than other.
     bool has_greater_utility_than(const Board& other) const;
     bool can_swap_block(const Block& b) const;
-    bool is_holding_some_block() const;
     const Block * get_hold() const;
 
     int get_num_blocks_placed() const;
     double get_tetris_percent() const;
-    bool has_more_cleared_rows_than(const Board& other) const;
-    bool is_clear() const;
+    bool is_clear() const; // only referenced internally.
 
     Board_lifetime_stats get_lifetime_stats() const;
 

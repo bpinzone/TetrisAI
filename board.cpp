@@ -159,10 +159,6 @@ bool Board::can_swap_block(const Block& b) const {
     return !foundation.just_swapped;
 }
 
-bool Board::is_holding_some_block() const {
-    return foundation.current_hold;
-}
-
 const Block * Board::get_hold() const {
     if(foundation.current_hold){
         return foundation.current_hold;
@@ -176,10 +172,6 @@ int Board::get_num_blocks_placed() const {
 
 double Board::get_tetris_percent() const {
     return static_cast<double>(lifetime_stats.num_tetrises) / lifetime_stats.num_blocks_placed * 100;
-}
-
-bool Board::has_more_cleared_rows_than(const Board& other) const {
-    return lifetime_stats.num_placements_that_cleared_rows > other.lifetime_stats.num_placements_that_cleared_rows;
 }
 
 bool Board::is_clear() const {
