@@ -12,6 +12,9 @@ None of these are ever read by place_block() or clear_row()
 */
 struct Board_deriv {
 
+    const inline static int c_max_tetris_mode_height = 6;
+    const inline static int c_height_diff_punishment_thresh = 3;
+
     Board_deriv();
     void reset();
     void update(const Board_foundation& foundation);
@@ -28,6 +31,10 @@ struct Board_deriv {
 
     bool is_clear;
     bool has_good_trench_status;
+    int num_holes;
+
+    bool in_tetris_mode;
+    bool receives_height_punishment;
 };
 
 #endif

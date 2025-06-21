@@ -59,7 +59,6 @@ public:
 
     // Returns true iff this has strictly higher utility than other.
     bool has_greater_utility_than(const Board& other) const;
-    int get_num_holes() const;
     bool can_swap_block(const Block& b) const;
     bool is_holding_some_block() const;
     const Block * get_hold() const;

@@ -79,97 +79,77 @@ void Board::set_lifetime_stats(const Board_lifetime_stats& new_lifetime_stats){
 
 bool Board::has_greater_utility_than(const Board& other) const {
 
+    #define PREFER_LESS(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return this_member < other_member; \
+        }\
+    } while(false);
+
+    #define PREFER_MORE(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return this_member > other_member; \
+        }\
+    } while(false);
+
+    #define PREFER_FALSE(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return !this_member; \
+        }\
+    } while(false);
+
+    #define PREFER_TRUE(member) do { \
+        const auto &this_member = this->member; \
+        const auto &other_member = other.member; \
+        if(this_member != other_member){ \
+            return this_member; \
+        }\
+    } while(false);
+
     ++gs_num_comparisons;
 
-    // if(lifetime_stats.num_all_clears != other.lifetime_stats.num_all_clears){
-    //     return lifetime_stats.num_all_clears > other.lifetime_stats.num_all_clears;
-    // }
-
-    // You are in tetris mode if you are here or less in height.
-    static const int c_max_tetris_mode_height = 6;
-    static const int c_height_diff_punishment_thresh = 3;
-
-    const bool this_in_tetris_mode = deriv.highest_height <= c_max_tetris_mode_height;
-    const bool other_in_tetris_mode = other.deriv.highest_height <= c_max_tetris_mode_height;
+    // PREFER_MORE(lifetime_stats.num_all_clears);
 
     // === Fundamental Priorities ===
-    if(deriv.has_good_trench_status != other.deriv.has_good_trench_status){
-        return deriv.has_good_trench_status;
-    }
-    // Holes
-    const int this_holes = get_num_holes();
-    const int other_holes = other.get_num_holes();
-    if(this_holes != other_holes){
-        return this_holes < other_holes;
-    }
+    PREFER_TRUE(deriv.has_good_trench_status);
+    PREFER_LESS(deriv.num_holes);
+    PREFER_TRUE(deriv.in_tetris_mode);
 
-    // Prefer to be in Tetris mode.
-    if(this_in_tetris_mode != other_in_tetris_mode){
-        return this_in_tetris_mode;
-    }
 
-    if(this_in_tetris_mode && other_in_tetris_mode){
-        if(deriv.at_least_one_side_clear != other.deriv.at_least_one_side_clear){
-            return deriv.at_least_one_side_clear;
-        }
-        if(lifetime_stats.num_non_tetrises != other.lifetime_stats.num_non_tetrises){
-            return lifetime_stats.num_non_tetrises < other.lifetime_stats.num_non_tetrises;
-        }
+    if(deriv.in_tetris_mode && other.deriv.in_tetris_mode){
+        PREFER_TRUE(deriv.at_least_one_side_clear);
+        PREFER_LESS(lifetime_stats.num_non_tetrises);
     }
 
     // Keep relatively even except for the one trench.
-    const bool this_receives_height_punishment = deriv.highest_height - deriv.second_lowest_height >= c_height_diff_punishment_thresh;
-    const bool other_receives_height_punishment = other.deriv.highest_height - other.deriv.second_lowest_height >= c_height_diff_punishment_thresh;
-    if(this_receives_height_punishment != other_receives_height_punishment){
-        return !this_receives_height_punishment;
-    }
+    PREFER_FALSE(deriv.receives_height_punishment);
 
-    if(this_in_tetris_mode){
+    if(deriv.in_tetris_mode){
 
-        // Get the tetrises
-        if(lifetime_stats.num_tetrises != other.lifetime_stats.num_tetrises){
-            return lifetime_stats.num_tetrises > other.lifetime_stats.num_tetrises;
-        }
-
-        // Become tetrisable
-        if(deriv.is_tetrisable != other.deriv.is_tetrisable){
-            return deriv.is_tetrisable;
-        }
-
+        PREFER_MORE(lifetime_stats.num_tetrises);
+        PREFER_TRUE(deriv.is_tetrisable);
         // Build up
         // Make the 2nd shortest column as large as possible.
         // Encourges alg to build a solid mass of blocks, but not clear rows,
         // in order to get to the point where we can forsee being tetris-able.
-        if(deriv.second_lowest_height != other.deriv.second_lowest_height){
-            return deriv.second_lowest_height > other.deriv.second_lowest_height;
-        }
-
-        if(deriv.sum_of_squared_heights != other.deriv.sum_of_squared_heights){
-            return deriv.sum_of_squared_heights < other.deriv.sum_of_squared_heights;
-        }
-        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
-
+        PREFER_MORE(deriv.second_lowest_height);
+        PREFER_LESS(deriv.sum_of_squared_heights);
+        PREFER_LESS(lifetime_stats.max_height_exp_moving_average);
+        return false;
     }
     else{
-
-        if(deriv.num_trenches != other.deriv.num_trenches){
-            return deriv.num_trenches < other.deriv.num_trenches;
-        }
-
-        if(foundation.num_cells_filled != other.foundation.num_cells_filled){
-            return foundation.num_cells_filled < other.foundation.num_cells_filled;
-        }
-
-        if(deriv.sum_of_squared_heights != other.deriv.sum_of_squared_heights){
-            return deriv.sum_of_squared_heights < other.deriv.sum_of_squared_heights;
-        }
-        return lifetime_stats.max_height_exp_moving_average < other.lifetime_stats.max_height_exp_moving_average;
+        PREFER_LESS(deriv.num_trenches);
+        PREFER_LESS(foundation.num_cells_filled);
+        PREFER_LESS(deriv.sum_of_squared_heights);
+        PREFER_LESS(lifetime_stats.max_height_exp_moving_average);
+        return false;
     }
 
-}
-
-int Board::get_num_holes() const {
-    return foundation.perfect_num_cells_filled - foundation.num_cells_filled;
 }
 
 bool Board::can_swap_block(const Block& b) const {

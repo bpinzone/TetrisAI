@@ -15,6 +15,9 @@ void Board_deriv::reset(){
     is_tetrisable = false;
     is_clear = true;
     has_good_trench_status = true;
+    num_holes = 0;
+    in_tetris_mode = true;
+    receives_height_punishment = false;
 }
 
 void Board_deriv::update(const Board_foundation& foundation){
@@ -60,4 +63,9 @@ void Board_deriv::update(const Board_foundation& foundation){
     
     is_clear = foundation.num_cells_filled == 0;
     has_good_trench_status = num_trenches <= 1;
+
+    num_holes = foundation.perfect_num_cells_filled - foundation.num_cells_filled;
+
+    in_tetris_mode = highest_height <= c_max_tetris_mode_height;
+    receives_height_punishment = highest_height - second_lowest_height >= c_height_diff_punishment_thresh;
 }
