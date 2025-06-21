@@ -93,8 +93,8 @@ bool Board::has_greater_utility_than(const Board& other) const {
     const bool other_in_tetris_mode = other.deriv.highest_height <= c_max_tetris_mode_height;
 
     // === Fundamental Priorities ===
-    if(has_good_trench_status() != other.has_good_trench_status()){
-        return has_good_trench_status();
+    if(deriv.has_good_trench_status != other.deriv.has_good_trench_status){
+        return deriv.has_good_trench_status;
     }
     // Holes
     const int this_holes = get_num_holes();
@@ -203,7 +203,7 @@ bool Board::has_more_cleared_rows_than(const Board& other) const {
 }
 
 bool Board::is_clear() const {
-    return foundation.num_cells_filled == 0;
+    return deriv.is_clear;
 }
 
 Board_lifetime_stats Board::get_lifetime_stats() const {
@@ -218,36 +218,15 @@ void Board::load_ancestral_data_with_current_data() {
 
     ancestor_with_smallest_max_height.highest_height = deriv.highest_height;
     ancestor_with_smallest_max_height.second_lowest_height = deriv.second_lowest_height;
-    ancestor_with_smallest_max_height.good_trench_status = has_good_trench_status();
+    ancestor_with_smallest_max_height.good_trench_status = deriv.has_good_trench_status;
 }
 
 bool Board::add_junk(int pos, int count){
 
-    const bool is_game_over = foundation.grid.add_junk(pos, count);
-
-    const bool position_column_is_clear = foundation.grid.is_column_clear(pos);
-    // height map update.
-    for(int col = 0; col < BoardSize::c_cols; ++col){
-        if(col != pos){
-            foundation.height_map[col] += count;
-        }
-        else {
-            if(!position_column_is_clear){
-                foundation.height_map[col] += count;
-            }
-        }
+    const bool is_game_over = foundation.add_junk(pos, count);
+    if(!is_game_over){
+        update_secondary_cache();
     }
-    foundation.num_cells_filled += count * (BoardSize::c_cols - 1);
-
-    if(position_column_is_clear){
-        foundation.perfect_num_cells_filled += count * (BoardSize::c_rows - 1);
-    }
-    else {
-        foundation.perfect_num_cells_filled += count * BoardSize::c_rows;
-    }
-
-    update_secondary_cache();
-
     return is_game_over;
 }
 
@@ -265,7 +244,7 @@ bool Board::is_promising() const {
 
     const Ancestor_data& ancestor = ancestor_with_smallest_max_height;
 
-    bool added_needless_trench = ancestor.good_trench_status && !has_good_trench_status();
+    bool added_needless_trench = ancestor.good_trench_status && !deriv.has_good_trench_status;
 
     if(deriv.highest_height - ancestor.highest_height > max_acceptable_height_increase){
         return false;
@@ -282,10 +261,6 @@ bool Board::is_promising() const {
 
     return true;
 
-}
-
-bool Board::has_good_trench_status() const {
-    return deriv.num_trenches <= 1;
 }
 
 int Board::num_holes_above_height(int height) const {

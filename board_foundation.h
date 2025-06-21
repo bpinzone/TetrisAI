@@ -23,6 +23,8 @@ struct Board_foundation {
     bool place_block_no_clearing(const Block& b, Placement p, int *min_row_x_affected, int *max_row_x_affected);
     // checks if any rows are full and clears them. returns number of rows cleared.
     int check_and_clear_rows(int min_row_x_affected, int max_row_x_affected);
+    // returns true iff game over
+    bool add_junk(int pos, int count);
 
     // constant
     bool is_row_full(int row) const;

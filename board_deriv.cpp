@@ -13,6 +13,8 @@ void Board_deriv::reset(){
     highest_height = 0;
     sum_of_squared_heights = 0;
     is_tetrisable = false;
+    is_clear = true;
+    has_good_trench_status = true;
 }
 
 void Board_deriv::update(const Board_foundation& foundation){
@@ -55,4 +57,7 @@ void Board_deriv::update(const Board_foundation& foundation){
         num_trenches == 1
         && lowest_height == some_trench_height
         && second_lowest_height >= some_trench_height + 4;
+    
+    is_clear = foundation.num_cells_filled == 0;
+    has_good_trench_status = num_trenches <= 1;
 }

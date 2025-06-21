@@ -82,7 +82,6 @@ private:
     // (0, 0) is bottom left;  (1, 0) is 2nd row, 1st column;  (0, 1) is 1st row, 2nd column.
     bool at(size_t row, size_t col) const;
     bool is_promising() const;
-    bool has_good_trench_status() const;
     int num_holes_above_height(int height) const;
 
     // Fundamental and Primary cache data must be up to date before calling update second/life cache.

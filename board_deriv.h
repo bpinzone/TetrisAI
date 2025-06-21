@@ -25,6 +25,9 @@ struct Board_deriv {
 
     // Assuming no holes, is true iff a cyan could be placed for a tetris right now.
     bool is_tetrisable;
+
+    bool is_clear;
+    bool has_good_trench_status;
 };
 
 #endif

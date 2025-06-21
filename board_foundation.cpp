@@ -149,6 +149,35 @@ int Board_foundation::check_and_clear_rows(int min_row_x_affected, int max_row_x
     return num_rows_cleared_just_now;
 }
 
+bool Board_foundation::add_junk(int pos, int count){
+
+    const bool is_game_over = grid.add_junk(pos, count);
+
+    const bool position_column_is_clear = grid.is_column_clear(pos);
+    // height map update.
+    for(int col = 0; col < BoardSize::c_cols; ++col){
+        if(col != pos){
+            height_map[col] += count;
+        }
+        else {
+            if(!position_column_is_clear){
+                height_map[col] += count;
+            }
+        }
+    }
+    num_cells_filled += count * (BoardSize::c_cols - 1);
+
+    if(position_column_is_clear){
+        perfect_num_cells_filled += count * (BoardSize::c_rows - 1);
+    }
+    else {
+        perfect_num_cells_filled += count * BoardSize::c_rows;
+    }
+
+    return is_game_over;
+
+}
+
 // Given a row is being deleted, how many to subtract from the height map
 // of query col. (Maybe holes will become exposed.)
 int Board_foundation::get_height_map_reduction(int deleted_row, int query_col) const {
