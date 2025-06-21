@@ -24,9 +24,7 @@ Board::Board(istream& is) :foundation(false, is) {
 ostream& operator<<(ostream& os, const Board& s) {
 
     os << s.foundation;
-
-    os << "All clears: " << s.lifetime_stats.num_all_clears << "\n";
-    os << "Tetrises: " << s.lifetime_stats.num_tetrises << "\n";
+    os << s.lifetime_stats;
     os << "------------------------------------------------\n";
 
     return os;
@@ -61,7 +59,7 @@ bool Board::place_block(const Block& b, Placement p){
     //     return false;
     // }
 
-    update_lifetime_cache(num_rows_cleared_just_now);
+    lifetime_stats.update(foundation, deriv, num_rows_cleared_just_now);
     foundation.just_swapped = false;
     return true;
 }
@@ -257,23 +255,3 @@ void Board::update_secondary_cache() {
     }
 }
 
-void Board::update_lifetime_cache(int num_rows_cleared_just_now){
-
-    ++lifetime_stats.num_blocks_placed;
-    if(num_rows_cleared_just_now > 0){
-        ++lifetime_stats.num_placements_that_cleared_rows;
-        if(num_rows_cleared_just_now == 4){
-            ++lifetime_stats.num_tetrises;
-        }
-        else{
-            ++lifetime_stats.num_non_tetrises;
-        }
-    }
-    if(is_clear()){
-        ++lifetime_stats.num_all_clears;
-    }
-    lifetime_stats.max_height_exp_moving_average =
-        (0.5 * deriv.highest_height) +
-        (0.5 * lifetime_stats.max_height_exp_moving_average);
-
-}

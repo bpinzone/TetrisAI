@@ -13,18 +13,11 @@
 #include "board_comp.h"
 #include "board_foundation.h"
 #include "board_deriv.h"
+#include "board_lifetime_stats.h"
 
 struct Block;
 struct Placement;
 
-struct Board_lifetime_stats {
-    int num_blocks_placed = 0;
-    int num_placements_that_cleared_rows = 0;
-    int num_tetrises = 0;
-    int num_non_tetrises = 0;
-    int num_all_clears = 0;
-    double max_height_exp_moving_average = 0;
-};
 
 struct Ancestor_data {
     int highest_height = 0;
@@ -83,7 +76,6 @@ private:
 
     // Fundamental and Primary cache data must be up to date before calling update second/life cache.
     void update_secondary_cache();
-    void update_lifetime_cache(int num_rows_cleared_just_now);
 
 
     Board_foundation foundation;
